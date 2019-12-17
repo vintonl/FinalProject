@@ -53,14 +53,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(150) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `address_id` INT NOT NULL,
-  `created_at` DATE NOT NULL,
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `admin` TINYINT NOT NULL DEFAULT 0,
-  `shopper_id` INT NOT NULL,
-  `lender_id` INT NOT NULL,
-  `image_url` TEXT NULL DEFAULT NULL,
-  `about` TEXT NULL DEFAULT NULL,
+  `address_id` INT NULL,
+  `created_at` DATE NULL,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `admin` TINYINT NULL DEFAULT 0,
+  `shopper_id` INT NULL,
+  `lender_id` INT NULL,
+  `image_url` TEXT NULL,
+  `about` TEXT NULL,
   `username` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_shopper1_idx` (`shopper_id` ASC),
@@ -252,3 +252,13 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'gear'@'localhost';
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `address_id`, `created_at`, `updated_at`, `admin`, `shopper_id`, `lender_id`, `image_url`, `about`, `username`) VALUES (1, 'gear', 'silo', 'gearsilo@aol.com', 'gear', 1, NULL, NULL, NULL, 1, 1, NULL, NULL, 'gear');
+
+COMMIT;
+
