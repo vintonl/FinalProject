@@ -18,49 +18,63 @@ public class Address {
 	@Column(name = "postal_code")
 	private Integer postalCode;
 	private String country;
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getAddress2() {
 		return address2;
 	}
+
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public Integer getPostalCode() {
 		return postalCode;
 	}
+
 	public void setPostalCode(Integer postalCode) {
 		this.postalCode = postalCode;
 	}
+
 	public String getCountry() {
 		return country;
 	}
+
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,6 +88,7 @@ public class Address {
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -117,6 +132,7 @@ public class Address {
 			return false;
 		return true;
 	}
+
 	public Address(int id, String address, String address2, String city, String state, Integer postalCode,
 			String country) {
 		super();
@@ -128,9 +144,11 @@ public class Address {
 		this.postalCode = postalCode;
 		this.country = country;
 	}
+
 	public Address() {
 		super();
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -152,5 +170,4 @@ public class Address {
 		return builder.toString();
 	}
 
-	
 }

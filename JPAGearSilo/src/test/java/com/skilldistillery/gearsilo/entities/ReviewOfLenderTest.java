@@ -1,7 +1,6 @@
 package com.skilldistillery.gearsilo.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,11 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
-
+class ReviewOfLenderTest {
 	private static EntityManagerFactory emf;
-	private EntityManager em;
-	private Category cat;
+	private static EntityManager em;
+	private ReviewOfLender reviewLender;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,20 +31,31 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		cat = em.find(Category.class, 1);
+		reviewLender = em.find(ReviewOfLender.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		cat = null;
 		em.close();
+		reviewLender = null;
 	}
 
-//	@Test
-//	void test_Category_entity__mappings() {
-//		assertNotNull(cat);
-//		assertEquals("gearsilo@gmail.com", cat.getName());
-//
-//	}
+	@Test
+	@DisplayName("Address entity mapping to address")
+	void test() {
+		assertEquals(1, reviewLender.getId());
+	}
+
+	@Test
+	@DisplayName("Address entity mapping to address2")
+	void test1() {
+		assertEquals(2, reviewLender.getRating());
+	}
+
+	@Test
+	@DisplayName("Address entity mapping to city")
+	void test2() {
+		assertEquals("Perfect", reviewLender.getReview());
+	}
 
 }
