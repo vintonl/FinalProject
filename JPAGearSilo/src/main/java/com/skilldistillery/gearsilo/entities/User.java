@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -39,8 +41,9 @@ public class User {
 
 	private String about;
 
-	@Column(name = "address_id")
-	private String AddressId;
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
 
 	private String phone;
 
@@ -50,7 +53,7 @@ public class User {
 	}
 
 	public User(int id, String firstName, String lastName, String email, String password, Date createdAt,
-			Date updatedAt, String role, String imageUrl, String about, String addressId, String phone) {
+			Date updatedAt, String role, String imageUrl, String about, Address address, String phone) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -62,19 +65,11 @@ public class User {
 		this.role = role;
 		this.imageUrl = imageUrl;
 		this.about = about;
-		AddressId = addressId;
+		this.address = address;
 		this.phone = phone;
 	}
 
 	// G E T T E R S __A N D __ S E T T E R S
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -148,12 +143,12 @@ public class User {
 		this.about = about;
 	}
 
-	public String getAddressId() {
-		return AddressId;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setAddressId(String addressId) {
-		AddressId = addressId;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public String getPhone() {
@@ -164,12 +159,20 @@ public class User {
 		this.phone = phone;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((AddressId == null) ? 0 : AddressId.hashCode());
 		result = prime * result + ((about == null) ? 0 : about.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
@@ -192,15 +195,15 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (AddressId == null) {
-			if (other.AddressId != null)
-				return false;
-		} else if (!AddressId.equals(other.AddressId))
-			return false;
 		if (about == null) {
 			if (other.about != null)
 				return false;
 		} else if (!about.equals(other.about))
+			return false;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
 			return false;
 		if (createdAt == null) {
 			if (other.createdAt != null)
@@ -256,7 +259,7 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", password=" + password + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", role=" + role
-				+ ", imageUrl=" + imageUrl + ", about=" + about + ", AddressId=" + AddressId + ", phone=" + phone + "]";
+				+ ", imageUrl=" + imageUrl + ", about=" + about + ", address=" + address + ", phone=" + phone + "]";
 	}
 
 }
