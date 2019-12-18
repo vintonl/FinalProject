@@ -97,14 +97,12 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `gear_id` INT NOT NULL,
   `completed` TINYINT NOT NULL DEFAULT 0,
   `shopper_user_id` INT NOT NULL,
-  `lender_user_id` INT NOT NULL,
   `created_at` DATE NOT NULL,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `approved` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_reservation_gear1_idx` (`gear_id` ASC),
   INDEX `fk_reservation_user1_idx` (`shopper_user_id` ASC),
-  INDEX `fk_reservation_user2_idx` (`lender_user_id` ASC),
   CONSTRAINT `fk_reservation_gear1`
     FOREIGN KEY (`gear_id`)
     REFERENCES `gear` (`id`)
@@ -112,11 +110,6 @@ CREATE TABLE IF NOT EXISTS `reservation` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_reservation_user1`
     FOREIGN KEY (`shopper_user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_reservation_user2`
-    FOREIGN KEY (`lender_user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -250,11 +243,31 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `address`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (1, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (1, 'gear', 'silo', 'gearsilo@aol.com', 'gear', '2019-12-17', '2019-12-17', '1', 'sdafasd', 'afdsadf', DEFAULT, DEFAULT);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (1, 'gear', 'silo', 'gearsilo@gmail.com', 'gear', '2019-12-17', '2019-12-17', '1', 'sdafasd', 'afdsadf', 1, '(555)555-5555');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `gear`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`) VALUES (1, 'Surf Board', 'New', 50, NULL, NULL, DEFAULT, 1, 1);
 
 COMMIT;
 
