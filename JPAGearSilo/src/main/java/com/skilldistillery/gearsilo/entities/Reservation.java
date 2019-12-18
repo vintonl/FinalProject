@@ -26,6 +26,10 @@ public class Reservation {
 	@Column(name = "close_date")
 	private Date closeDate;
 
+//	@ManyToOne
+//	@JoinColumn(name = "user_id")
+//	private User shopperId;
+
 	@ManyToOne
 	@JoinColumn(name = "gear_id")
 	private Gear gearId;
@@ -34,7 +38,7 @@ public class Reservation {
 
 	@ManyToOne
 	@JoinColumn(name = "shopper_user_id")
-	private User shopperId;
+	private User userShopper;
 
 	@Column(name = "created_at")
 	@CreationTimestamp
@@ -46,22 +50,22 @@ public class Reservation {
 
 	private boolean approved;
 
-	public Reservation() {
-		super();
-	}
-
-	public Reservation(int id, Date openDate, Date closeDate, Gear gearId, boolean completed, User shopperId,
-			Date createdAt, Date updatedAt, boolean approved) {
+	public Reservation(int id, Date openDate, Date closeDate, Gear gearId, boolean completed, User user, Date createdAt,
+			Date updatedAt, boolean approved) {
 		super();
 		this.id = id;
 		this.openDate = openDate;
 		this.closeDate = closeDate;
 		this.gearId = gearId;
 		this.completed = completed;
-		this.shopperId = shopperId;
+		this.userShopper = user;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.approved = approved;
+	}
+
+	public Reservation() {
+		super();
 	}
 
 	public int getId() {
@@ -104,16 +108,16 @@ public class Reservation {
 		this.completed = completed;
 	}
 
-	public User getShopperId() {
-		return shopperId;
-	}
-
-	public void setShopperId(User shopperId) {
-		this.shopperId = shopperId;
-	}
-
 	public Date getCreatedAt() {
 		return createdAt;
+	}
+
+	public User getUserShopper() {
+		return userShopper;
+	}
+
+	public void setUserShopper(User userShopper) {
+		this.userShopper = userShopper;
 	}
 
 	public void setCreatedAt(Date createdAt) {
@@ -147,8 +151,8 @@ public class Reservation {
 		result = prime * result + ((gearId == null) ? 0 : gearId.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((openDate == null) ? 0 : openDate.hashCode());
-		result = prime * result + ((shopperId == null) ? 0 : shopperId.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		result = prime * result + ((userShopper == null) ? 0 : userShopper.hashCode());
 		return result;
 	}
 
@@ -187,17 +191,24 @@ public class Reservation {
 				return false;
 		} else if (!openDate.equals(other.openDate))
 			return false;
-		if (shopperId == null) {
-			if (other.shopperId != null)
-				return false;
-		} else if (!shopperId.equals(other.shopperId))
-			return false;
 		if (updatedAt == null) {
 			if (other.updatedAt != null)
 				return false;
 		} else if (!updatedAt.equals(other.updatedAt))
 			return false;
+		if (userShopper == null) {
+			if (other.userShopper != null)
+				return false;
+		} else if (!userShopper.equals(other.userShopper))
+			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", openDate=" + openDate + ", closeDate=" + closeDate + ", gearId=" + gearId
+				+ ", completed=" + completed + ", userShopper=" + userShopper + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", approved=" + approved + "]";
 	}
 
 }

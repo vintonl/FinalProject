@@ -1,6 +1,7 @@
 package com.skilldistillery.gearsilo.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -36,6 +38,12 @@ public class User {
 
 	private String role;
 
+	@OneToMany(mappedBy = "user")
+	private List<Gear> gearList;
+
+	@OneToMany(mappedBy = "userShopper")
+	private List<Reservation> reservations;
+
 	@Column(name = "image_url")
 	private String imageUrl;
 
@@ -53,7 +61,8 @@ public class User {
 	}
 
 	public User(int id, String firstName, String lastName, String email, String password, Date createdAt,
-			Date updatedAt, String role, String imageUrl, String about, Address address, String phone) {
+			Date updatedAt, String role, List<Gear> gearList, List<Reservation> reservations, String imageUrl,
+			String about, Address address, String phone) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -63,6 +72,8 @@ public class User {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.role = role;
+		this.gearList = gearList;
+		this.reservations = reservations;
 		this.imageUrl = imageUrl;
 		this.about = about;
 		this.address = address;
@@ -70,6 +81,22 @@ public class User {
 	}
 
 	// G E T T E R S __A N D __ S E T T E R S
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	public List<Gear> getGearList() {
+		return gearList;
+	}
+
+	public void setGearList(List<Gear> gearList) {
+		this.gearList = gearList;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -176,11 +203,13 @@ public class User {
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((gearList == null) ? 0 : gearList.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((reservations == null) ? 0 : reservations.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		return result;
@@ -220,6 +249,11 @@ public class User {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
+		if (gearList == null) {
+			if (other.gearList != null)
+				return false;
+		} else if (!gearList.equals(other.gearList))
+			return false;
 		if (id != other.id)
 			return false;
 		if (imageUrl == null) {
@@ -241,6 +275,11 @@ public class User {
 			if (other.phone != null)
 				return false;
 		} else if (!phone.equals(other.phone))
+			return false;
+		if (reservations == null) {
+			if (other.reservations != null)
+				return false;
+		} else if (!reservations.equals(other.reservations))
 			return false;
 		if (role == null) {
 			if (other.role != null)

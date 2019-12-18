@@ -35,7 +35,6 @@ class CategoryTest {
 		em = emf.createEntityManager();
 		category = em.find(Category.class, 1);
 	}
-	
 
 	@AfterEach
 	void tearDown() throws Exception {
@@ -47,22 +46,14 @@ class CategoryTest {
 	void test_User_entity__mappings() {
 		assertNotNull(category);
 		assertEquals(1, category.getId());
-		assertEquals("Mountain biking", category.getName());		
+		assertEquals("Mountain biking", category.getName());
 	}
+
 	@Test
 	@DisplayName("category to gears")
 	void test_User_entity__mappings_to_gears() {
 		assertNotNull(category);
-		assertEquals(1, category.getGearList().size());		
+		assertEquals(1, category.getGearList().size());
 	}
-	
-//	@Test
-//	@DisplayName("testing user-address relationship mappings")
-//	void test2() {
-//		// SELECT adr.street FROM address adr JOIN user usr ON usr.address_id = adr.id
-//		// WHERE usr.id = 1;
-//		assertEquals("silo", user.getLastName());
-//	}
-
 
 }
