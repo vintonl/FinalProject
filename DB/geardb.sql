@@ -271,6 +271,11 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `creat
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (4, 'Peyton', 'Manning', 'peytonmanning@gmail.com', 'peyton', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/78VZc9g.jpg', 'Considered to be one of the greatest quarterbacks of all time.', 4, '(222)222-2222');
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (5, 'Shaun ', 'White', 'shaunwhite@gmail.com', 'shaunwhite', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/FAGZlWy.jpg', 'Professional snowboarder, skateboarder and musician. He is a three-time Olympic gold medalist', 5, '(111)111-1111');
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (6, 'Larry', 'Larry', 'larry@larry.com', 'larry', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/oHjEQpe.png', 'Outdoorsman with tons of sporting equipment.', 6, '(555)555-4444');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (7, 'Vinton', 'Lee', 'vintonlee@gear.com ', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 1, '(555)555-5555');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (8, 'Jerry', 'Rogers', 'jerryrogers@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 1, '(555)555-5555');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (9, 'Colt', 'Looper', 'coltlooper@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 1, '(555)555-5555');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (10, 'Adam', 'Onwan', 'adamonwan@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 1, '(555)555-5555');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (11, 'Brian', 'Streetman', 'brianstreetman@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 1, '(555)555-5555');
 
 COMMIT;
 
@@ -283,6 +288,7 @@ USE `geardb`;
 INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (1, 'Mountain Bike', 'New', 50, 'Blackm 12 gear', 'https://i.imgur.com/vPbnSXC.jpg', 1, 1, 1, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (2, 'Hover Board', 'New', 9000, 'Pink, red, and green board. One foot strap.', 'https://i.imgur.com/CMqrSSq.jpg', 1, 1, 2, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (3, 'Surf Board', 'Solid', 100, 'Medium size board', 'https://i.imgur.com/43Dmmgz.jpg', 1, 1, 3, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (4, 'Snow Shoes', 'New', 30, 'Mens, Mountain terrain, Aluminum-frame', 'https://i.imgur.com/3wwDK0L.jpg', 1, 1, 6, NULL, NULL);
 
 COMMIT;
 
