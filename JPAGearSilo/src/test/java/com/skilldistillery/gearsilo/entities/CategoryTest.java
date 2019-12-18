@@ -18,7 +18,7 @@ class CategoryTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private Category category;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,23 +33,27 @@ class CategoryTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		category = em.find(Category.class, 1);
 	}
 	
 
 	@AfterEach
 	void tearDown() throws Exception {
-		user = null;
+		category = null;
 		em.close();
 	}
 
 	@Test
 	void test_User_entity__mappings() {
-		assertNotNull(user);
-		assertEquals("gearsilo@gmail.com", user.getEmail());
-		assertEquals("silo", user.getLastName());
-		
-		
+		assertNotNull(category);
+		assertEquals(1, category.getId());
+		assertEquals("Mountain biking", category.getName());		
+	}
+	@Test
+	@DisplayName("category to gears")
+	void test_User_entity__mappings_to_gears() {
+		assertNotNull(category);
+		assertEquals(1, category.getGearList().size());		
 	}
 	
 //	@Test
