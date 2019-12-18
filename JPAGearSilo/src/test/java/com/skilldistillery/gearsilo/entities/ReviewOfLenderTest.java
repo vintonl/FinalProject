@@ -40,27 +40,27 @@ class ReviewOfLenderTest {
 		reviewLender = null;
 	}
 
-//	@Test
-//	@DisplayName("ReviewOfLender entity mapping to Id")
-//	void test() {
-//		assertEquals(1, reviewLender.getId());
-//	}
-//
-//	@Test
-//	@DisplayName("ReviewOfLender entity mapping to Rating")
-//	void test1() {
-//		assertEquals(5, reviewLender.getRating());
-//	}
-//
+	@Test
+	@DisplayName("ReviewOfLender entity mapping to Id")
+	void test() {
+		assertEquals(1, reviewLender.getId());
+	}
+
+	@Test
+	@DisplayName("ReviewOfLender entity mapping to Rating")
+	void test1() {
+		assertEquals(5, reviewLender.getRating());
+	}
+
 	@Test
 	@DisplayName("ReviewOfLender entity mapping to Review")
 	void test2() {
 		assertEquals("Lender was timely and had great tips!", reviewLender.getReview());
 	}
-//	@Test
-//	@DisplayName("ReviewOfLender to Reservation")
-//	void test3() {
-//		assertEquals("2019-12-19 00:00:00.0", reviewLender.getReservation().getOpenDate().toString());
-//	}
+	@Test
+	@DisplayName("ReviewOfLender to Reservation")
+	void test3() {
+		assertEquals("2019-12-19 00:00:00.0", reviewLender.getReservation().getOpenDate().toString());
+	}
 
 }
