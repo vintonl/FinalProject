@@ -17,33 +17,43 @@ public class ReviewOfLender {
 	private int id;
 	private Integer rating;
 	private String review;
+
 	@OneToOne
 	@JoinColumn(name = "gear_id")
 	private Reservation reservation;
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public Integer getRating() {
 		return rating;
 	}
+
 	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
+
 	public String getReview() {
 		return review;
 	}
+
 	public void setReview(String review) {
 		this.review = review;
 	}
+
 	public Reservation getReservation() {
 		return reservation;
 	}
+
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -54,6 +64,7 @@ public class ReviewOfLender {
 		result = prime * result + ((review == null) ? 0 : review.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -82,6 +93,7 @@ public class ReviewOfLender {
 			return false;
 		return true;
 	}
+
 	public ReviewOfLender(int id, Integer rating, String review, Reservation reservation) {
 		super();
 		this.id = id;
@@ -89,9 +101,11 @@ public class ReviewOfLender {
 		this.review = review;
 		this.reservation = reservation;
 	}
+
 	public ReviewOfLender() {
 		super();
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -104,6 +118,5 @@ public class ReviewOfLender {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 }

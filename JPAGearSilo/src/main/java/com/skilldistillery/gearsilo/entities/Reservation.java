@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Reservation {
 
@@ -27,10 +29,7 @@ public class Reservation {
 	@Column(name = "close_date")
 	private Date closeDate;
 
-//	@ManyToOne
-//	@JoinColumn(name = "user_id")
-//	private User shopperId;
-
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "gear_id")
 	private Gear gearId;
@@ -38,8 +37,12 @@ public class Reservation {
 	@OneToOne(mappedBy = "reservation")
 	private ReviewOfLender lenderReview;
 
+	@OneToOne(mappedBy = "reservation")
+	private ReviewOfGear gearReview;
+
 	private boolean completed;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "shopper_user_id")
 	private User userShopper;
@@ -67,6 +70,14 @@ public class Reservation {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.approved = approved;
+	}
+
+	public ReviewOfGear getGearReview() {
+		return gearReview;
+	}
+
+	public void setGearReview(ReviewOfGear gearReview) {
+		this.gearReview = gearReview;
 	}
 
 	public Reservation() {
@@ -162,6 +173,7 @@ public class Reservation {
 		result = prime * result + (completed ? 1231 : 1237);
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + ((gearId == null) ? 0 : gearId.hashCode());
+		result = prime * result + ((gearReview == null) ? 0 : gearReview.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lenderReview == null) ? 0 : lenderReview.hashCode());
 		result = prime * result + ((openDate == null) ? 0 : openDate.hashCode());
@@ -198,6 +210,11 @@ public class Reservation {
 				return false;
 		} else if (!gearId.equals(other.gearId))
 			return false;
+		if (gearReview == null) {
+			if (other.gearReview != null)
+				return false;
+		} else if (!gearReview.equals(other.gearReview))
+			return false;
 		if (id != other.id)
 			return false;
 		if (lenderReview == null) {
@@ -226,8 +243,9 @@ public class Reservation {
 	@Override
 	public String toString() {
 		return "Reservation [id=" + id + ", openDate=" + openDate + ", closeDate=" + closeDate + ", gearId=" + gearId
-				+ ", completed=" + completed + ", userShopper=" + userShopper + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + ", approved=" + approved + "]";
+				+ ", lenderReview=" + lenderReview + ", gearReview=" + gearReview + ", completed=" + completed
+				+ ", userShopper=" + userShopper + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", approved=" + approved + "]";
 	}
 
 }

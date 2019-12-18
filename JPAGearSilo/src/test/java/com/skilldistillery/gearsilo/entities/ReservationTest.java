@@ -61,6 +61,8 @@ class ReservationTest {
 		assertEquals(1, resv.getId());
 		assertEquals(false, resv.isCompleted());
 		assertEquals(true, resv.isApproved());
+		assertEquals(4, resv.getGearReview().getRating());
+		assertEquals(5, resv.getLenderReview().getRating());
 	}
 
 }
