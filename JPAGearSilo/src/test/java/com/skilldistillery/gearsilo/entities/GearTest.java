@@ -46,11 +46,11 @@ class GearTest {
 	void test_Post_entity__mappings() {
 		assertNotNull(gear);
 		assertEquals(1, gear.getId());
-		assertEquals("Surf Board", gear.getName());
+		assertEquals("Mountain Bike", gear.getName());
 		assertEquals("New", gear.getCondition());
 		assertEquals(50.0, gear.getPrice());
-		assertNull(gear.getDescription());
-		assertNull(gear.getImageUrl());
+		assertEquals("Blackm 12 gear", gear.getDescription());
+		assertEquals("https://i.imgur.com/vPbnSXC.jpg",gear.getImageUrl());
 		assertTrue(gear.getAvailable());
 		assertTrue(gear.getActive());
 	}

@@ -2,7 +2,6 @@ package com.skilldistillery.gearsilo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,11 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class ReservationMessageTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private ReservationMessage res;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -34,30 +33,24 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		res = em.find(ReservationMessage.class, 1);
 	}
+	
 
 	@AfterEach
 	void tearDown() throws Exception {
-		user = null;
+		res = null;
 		em.close();
 	}
 
-	@Test
-	@DisplayName("test primary fields")
-	void test_Post_entity__mappings() {
-		assertNotNull(user);
-		assertEquals(1, user.getId());
-		assertEquals("gear", user.getFirstName());
-		assertEquals("silo", user.getLastName());
-		assertEquals("gearsilo@gmail.com", user.getEmail());
-		assertEquals("gear", user.getPassword());
-		assertTrue(user.getCreatedAt().toString().contains("2019-12-17"));
-		assertTrue(user.getUpdatedAt().toString().contains("2019-12-17"));
-		assertEquals("admin", user.getRole());
-		assertEquals("sdafasd", user.getImageUrl());
-		assertEquals("afdsadf", user.getAbout());
-		assertEquals("(555)555-5555", user.getPhone());
-	}
+//	@Test
+//	void test_Reservation_Message_entity__mappings() {
+//		assertNotNull(res);
+//		assertEquals("gearsilo@gmail.com", res.getMessage());
+//		
+//		
+//	}
+
+
 
 }

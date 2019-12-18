@@ -41,21 +41,21 @@ class ReviewOfLenderTest {
 	}
 
 	@Test
-	@DisplayName("Address entity mapping to address")
+	@DisplayName("ReviewOfLender entity mapping to Id")
 	void test() {
 		assertEquals(1, reviewLender.getId());
 	}
 
 	@Test
-	@DisplayName("Address entity mapping to address2")
+	@DisplayName("ReviewOfLender entity mapping to Rating")
 	void test1() {
-		assertEquals(2, reviewLender.getRating());
+		assertEquals(5, reviewLender.getRating());
 	}
 
 	@Test
-	@DisplayName("Address entity mapping to city")
+	@DisplayName("ReviewOfLender entity mapping to Review")
 	void test2() {
-		assertEquals("Perfect", reviewLender.getReview());
+		assertEquals("Lender was timely and had great tips!", reviewLender.getReview());
 	}
 
 }

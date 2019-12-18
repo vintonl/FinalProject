@@ -17,10 +17,12 @@ public class Gear {
 //	| condition   | varchar(100) | YES  |     | NULL    |                |
 //	| price       | double       | YES  |     | NULL    |                |
 //	| description | text         | YES  |     | NULL    |                |
-//	| image_url   | text         | YES  |     | NULL    |                |
+//	| image_url1  | text         | YES  |     | NULL    |                |
 //	| available   | tinyint(4)   | NO   |     | 1       |                |
 //	| active      | tinyint(4)   | NO   |     | 1       |                |
 //	| user_id     | int(11)      | NO   | MUL | NULL    |                |
+//	| image_url2  | text         | YES  |     | NULL    |                |
+//	| image_url3  | text         | YES  |     | NULL    |                |
 //	+-------------+--------------+------+-----+---------+----------------+
 
 	@Id
@@ -32,6 +34,10 @@ public class Gear {
 	private String description;
 	@Column(name = "image_url")
 	private String imageUrl;
+	@Column(name = "image_url2")
+	private String imageUrl2;
+	@Column(name = "image_url3")
+	private String imageUrl3;
 	private Boolean available;
 	private Boolean active;
 
@@ -87,6 +93,22 @@ public class Gear {
 		this.imageUrl = imageUrl;
 	}
 
+	public String getImageUrl2() {
+		return imageUrl2;
+	}
+
+	public void setImageUrl2(String imageUrl2) {
+		this.imageUrl2 = imageUrl2;
+	}
+
+	public String getImageUrl3() {
+		return imageUrl3;
+	}
+
+	public void setImageUrl3(String imageUrl3) {
+		this.imageUrl3 = imageUrl3;
+	}
+
 	public Boolean getAvailable() {
 		return available;
 	}
@@ -101,12 +123,6 @@ public class Gear {
 
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-
-	@Override
-	public String toString() {
-		return "Gear [id=" + id + ", name=" + name + ", condition=" + condition + ", price=" + price + ", description="
-				+ description + ", imageUrl=" + imageUrl + ", available=" + available + ", active=" + active + "]";
 	}
 
 	@Override
@@ -129,6 +145,13 @@ public class Gear {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Gear [id=" + id + ", name=" + name + ", condition=" + condition + ", price=" + price + ", description="
+				+ description + ", imageUrl=" + imageUrl + ", imageUrl2=" + imageUrl2 + ", imageUrl3=" + imageUrl3
+				+ ", available=" + available + ", active=" + active + "]";
 	}
 
 }
