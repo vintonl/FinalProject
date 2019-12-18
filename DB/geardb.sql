@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` VARCHAR(45) NOT NULL DEFAULT 0,
   `image_url` TEXT NULL,
   `about` TEXT NULL,
-  `address_id` INT NOT NULL,
+  `address_id` INT NULL,
   `phone` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_address1_idx` (`address_id` ASC),
@@ -94,12 +94,12 @@ DROP TABLE IF EXISTS `reservation` ;
 
 CREATE TABLE IF NOT EXISTS `reservation` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `open_date` DATE NULL,
-  `close_date` DATE NULL,
+  `open_date` DATETIME NULL,
+  `close_date` DATETIME NULL,
   `gear_id` INT NOT NULL,
   `completed` TINYINT NOT NULL DEFAULT 0,
   `shopper_user_id` INT NOT NULL,
-  `created_at` DATE NOT NULL,
+  `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `approved` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
@@ -125,8 +125,8 @@ DROP TABLE IF EXISTS `review_of_lender` ;
 
 CREATE TABLE IF NOT EXISTS `review_of_lender` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `rating` INT NULL,
-  `review` VARCHAR(300) NULL,
+  `rating` INT NULL DEFAULT 5,
+  `review` VARCHAR(500) NULL DEFAULT NULL,
   `gear_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_gear_id_idx` (`gear_id` ASC),
@@ -145,8 +145,8 @@ DROP TABLE IF EXISTS `review_of_shopper` ;
 
 CREATE TABLE IF NOT EXISTS `review_of_shopper` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `rating` INT NULL,
-  `review` VARCHAR(300) NULL,
+  `rating` INT NULL DEFAULT 5,
+  `review` VARCHAR(500) NULL DEFAULT NULL,
   `shopper_user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_shopper_user_id_idx` (`shopper_user_id` ASC),
@@ -165,12 +165,12 @@ DROP TABLE IF EXISTS `review_of_gear` ;
 
 CREATE TABLE IF NOT EXISTS `review_of_gear` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `rating` INT NULL,
-  `review` VARCHAR(300) NULL,
+  `rating` INT NULL DEFAULT 5,
+  `review` VARCHAR(500) NULL DEFAULT NULL,
   `gear_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_gear_id_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_gear_id`
+  CONSTRAINT `fk_gear_id_in_review_of_gear`
     FOREIGN KEY (`gear_id`)
     REFERENCES `reservation` (`gear_id`)
     ON DELETE NO ACTION
@@ -255,6 +255,7 @@ INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_cod
 INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (3, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
 INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (4, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
 INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (5, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (6, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
 
 COMMIT;
 
@@ -291,9 +292,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (1, '2019-18-19', '2019-19-19', 1, 0, 6, '2019-18-19', '2019-18-19', 1);
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-18-19', '2019-19-19', 3, 0, 6, '2019-18-19', '2019-18-19', 1);
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-18-19', '2019-12-19', 2, 0, 5, '2019-18-19', '2019-18-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (1, '2019-12-19', '2019-12-19', 1, 0, 6, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-12-19', '2019-12-19', 3, 0, 6, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-12-19', '2019-12-19', 2, 0, 5, '2019-12-19', '2019-12-19', 1);
 
 COMMIT;
 
@@ -351,9 +352,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (1, 'Great looking Bike! Excited to ride it!', '2019-18-19', 1, 6);
-INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (2, 'I\'ve been looking for one of these forever!  Stoked to ride a real hoverboard!', '2019-18-19', 3, 6);
-INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (3, 'Awesome looking board Kelly! ', '2019-18-19', 2, 5);
+INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (1, 'Great looking Bike! Excited to ride it!', '2019-12-18', 1, 6);
+INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (2, 'I\'ve been looking for one of these forever!  Stoked to ride a real hoverboard!', '2019-12-18', 3, 6);
+INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (3, 'Awesome looking board Kelly! ', '2019-12-18', 2, 5);
 
 COMMIT;
 
