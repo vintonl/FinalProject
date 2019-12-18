@@ -54,5 +54,12 @@ class GearTest {
 		assertTrue(gear.getAvailable());
 		assertTrue(gear.getActive());
 	}
+	@Test
+	@DisplayName("test gear to category")
+	void test_Post_entity__mappings_gear_to_category() {
+		assertNotNull(gear);
+		assertEquals(1, gear.getCategories().size());	
+		assertEquals("Mountain biking", gear.getCategories().get(0).getName());	
+	}
 
 }
