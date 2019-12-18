@@ -16,28 +16,18 @@ CREATE SCHEMA IF NOT EXISTS `geardb` DEFAULT CHARACTER SET utf8 ;
 USE `geardb` ;
 
 -- -----------------------------------------------------
--- Table `shopper`
+-- Table `address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `shopper` ;
+DROP TABLE IF EXISTS `address` ;
 
-CREATE TABLE IF NOT EXISTS `shopper` (
+CREATE TABLE IF NOT EXISTS `address` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `active` TINYINT NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `lender`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `lender` ;
-
-CREATE TABLE IF NOT EXISTS `lender` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `active` TINYINT NOT NULL DEFAULT 1,
-  `gear` VARCHAR(45) NULL,
+  `address` VARCHAR(100) NULL,
+  `address2` VARCHAR(100) NULL,
+  `city` VARCHAR(100) NULL,
+  `state` VARCHAR(45) NULL,
+  `postal_code` INT NULL,
+  `country` VARCHAR(100) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -53,65 +43,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(150) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `address_id` INT NULL,
   `created_at` DATE NULL,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `admin` TINYINT NULL DEFAULT 0,
-  `shopper_id` INT NULL,
-  `lender_id` INT NULL,
+  `role` VARCHAR(45) NOT NULL DEFAULT 0,
   `image_url` TEXT NULL,
   `about` TEXT NULL,
-  `username` VARCHAR(100) NOT NULL,
+  `address_id` INT NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_user_shopper1_idx` (`shopper_id` ASC),
-  INDEX `fk_user_lender1_idx` (`lender_id` ASC),
-  CONSTRAINT `fk_user_shopper1`
-    FOREIGN KEY (`shopper_id`)
-    REFERENCES `shopper` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_lender1`
-    FOREIGN KEY (`lender_id`)
-    REFERENCES `lender` (`id`)
+  INDEX `fk_user_address1_idx` (`address_id` ASC),
+  CONSTRAINT `fk_user_address1`
+    FOREIGN KEY (`address_id`)
+    REFERENCES `address` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `address` ;
-
-CREATE TABLE IF NOT EXISTS `address` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `address` VARCHAR(100) NULL,
-  `address2` VARCHAR(100) NULL,
-  `city` VARCHAR(100) NULL,
-  `state` VARCHAR(45) NULL,
-  `postal_code` INT NULL,
-  `country` VARCHAR(100) NULL,
-  `phone` VARCHAR(45) NULL,
-  `user_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_address_user_idx` (`user_id` ASC),
-  CONSTRAINT `fk_address_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `category` ;
-
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -123,26 +68,18 @@ DROP TABLE IF EXISTS `gear` ;
 CREATE TABLE IF NOT EXISTS `gear` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
-  `type` VARCHAR(100) NULL,
   `condition` VARCHAR(100) NULL,
   `price` DOUBLE NULL,
   `description` TEXT NULL,
   `image_url` TEXT NULL DEFAULT NULL,
-  `lender_id` INT NOT NULL,
   `available` TINYINT NOT NULL DEFAULT 1,
   `active` TINYINT NOT NULL DEFAULT 1,
-  `category_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `category_id`),
-  INDEX `fk_gear_lender1_idx` (`lender_id` ASC),
-  INDEX `fk_gear_category1_idx` (`category_id` ASC),
-  CONSTRAINT `fk_gear_lender1`
-    FOREIGN KEY (`lender_id`)
-    REFERENCES `lender` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gear_category1`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `category` (`id`)
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_gear_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_gear_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -157,27 +94,30 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `open_date` DATE NULL,
   `close_date` DATE NULL,
-  `shopper_id` INT NOT NULL,
-  `lender_id` INT NOT NULL,
   `gear_id` INT NOT NULL,
   `completed` TINYINT NOT NULL DEFAULT 0,
+  `shopper_user_id` INT NOT NULL,
+  `lender_user_id` INT NOT NULL,
+  `created_at` DATE NOT NULL,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `approved` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_reservation_shopper1_idx` (`shopper_id` ASC),
-  INDEX `fk_reservation_lender1_idx` (`lender_id` ASC),
   INDEX `fk_reservation_gear1_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_reservation_shopper1`
-    FOREIGN KEY (`shopper_id`)
-    REFERENCES `shopper` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_reservation_lender1`
-    FOREIGN KEY (`lender_id`)
-    REFERENCES `lender` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_reservation_user1_idx` (`shopper_user_id` ASC),
+  INDEX `fk_reservation_user2_idx` (`lender_user_id` ASC),
   CONSTRAINT `fk_reservation_gear1`
     FOREIGN KEY (`gear_id`)
     REFERENCES `gear` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_reservation_user1`
+    FOREIGN KEY (`shopper_user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_reservation_user2`
+    FOREIGN KEY (`lender_user_id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -242,6 +182,62 @@ CREATE TABLE IF NOT EXISTS `review_of_gear` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `category` ;
+
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `reservation_message`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reservation_message` ;
+
+CREATE TABLE IF NOT EXISTS `reservation_message` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `message` TEXT NULL,
+  `message_date` DATETIME NULL,
+  `reservation_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_reservation_message_reservation1_idx` (`reservation_id` ASC),
+  CONSTRAINT `fk_reservation_message_reservation1`
+    FOREIGN KEY (`reservation_id`)
+    REFERENCES `reservation` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gear_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `gear_category` ;
+
+CREATE TABLE IF NOT EXISTS `gear_category` (
+  `category_id` INT NOT NULL,
+  `gear_id` INT NOT NULL,
+  PRIMARY KEY (`category_id`, `gear_id`),
+  INDEX `fk_category_has_gear_gear1_idx` (`gear_id` ASC),
+  INDEX `fk_category_has_gear_category1_idx` (`category_id` ASC),
+  CONSTRAINT `fk_category_has_gear_category1`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_category_has_gear_gear1`
+    FOREIGN KEY (`gear_id`)
+    REFERENCES `gear` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 DROP USER IF EXISTS gear@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -258,7 +254,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `address_id`, `created_at`, `updated_at`, `admin`, `shopper_id`, `lender_id`, `image_url`, `about`, `username`) VALUES (1, 'gear', 'silo', 'gearsilo@aol.com', 'gear', 1, NULL, NULL, NULL, 1, 1, NULL, NULL, 'gear');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (1, 'gear', 'silo', 'gearsilo@aol.com', 'gear', '2019-12-17', '2019-12-17', '1', 'sdafasd', 'afdsadf', DEFAULT, DEFAULT);
 
 COMMIT;
 
