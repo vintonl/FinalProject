@@ -18,4 +18,24 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<Reservation> findAll() {
 		return resRepo.findAll();
 	}
+
+	@Override
+	public Reservation findReservationById(int id) {
+		return null;
+	}
+
+	@Override
+	public Reservation createReseration(Reservation reservation) {
+		return null;
+	}
+
+	@Override
+	public Reservation updateReservation(Reservation reservation, int id) {
+		return null;
+	}
+
+	@Override
+	public boolean deleteReservation(int id) {
+		return false;
+	}
 }

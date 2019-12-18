@@ -26,9 +26,15 @@ public class ReservationController {
 	
 	@GetMapping("reservations")
 	@ResponseBody
-	private List<Reservation> index(HttpServletRequest req, HttpServletResponse res) {
+	public List<Reservation> index() {
 		return resSvc.findAll();
 		
+	}
+	
+	@GetMapping("reservations/{id}")
+	@ResponseBody
+	public Reservation findReservationById(int id) {
+		return null;
 	}
 	
 }
