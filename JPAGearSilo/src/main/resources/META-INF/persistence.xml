@@ -12,6 +12,14 @@
 
 		<!-- Class Definitions -->
 		<class>com.skilldistillery.gearsilo.entities.User</class>
+		<class>com.skilldistillery.gearsilo.entities.Address</class>
+		<class>com.skilldistillery.gearsilo.entities.Gear</class>
+		<class>com.skilldistillery.gearsilo.entities.Category</class>
+		<class>com.skilldistillery.gearsilo.entities.Reservation</class>
+		<class>com.skilldistillery.gearsilo.entities.ReservationMessage</class>
+		<class>com.skilldistillery.gearsilo.entities.ReviewOfLender</class>
+		<class>com.skilldistillery.gearsilo.entities.ReviewOfShopper</class>
+		<class>com.skilldistillery.gearsilo.entities.ReviewOfGear</class>
 
 
 
