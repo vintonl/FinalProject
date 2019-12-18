@@ -49,7 +49,7 @@ class GearTest {
 		assertEquals("Mountain Bike", gear.getName());
 		assertEquals("New", gear.getCondition());
 		assertEquals(50.0, gear.getPrice());
-		assertEquals("Blackm, 10 gear", gear.getDescription());
+		assertEquals("Black,10 gear", gear.getDescription());
 		assertEquals("https://i.imgur.com/vPbnSXC.jpg",gear.getImageUrl());
 		assertTrue(gear.getAvailable());
 		assertTrue(gear.getActive());
