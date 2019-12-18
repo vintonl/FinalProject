@@ -46,7 +46,7 @@ class CategoryTest {
 	void test_User_entity__mappings() {
 		assertNotNull(category);
 		assertEquals(1, category.getId());
-		assertEquals("Mountain biking", category.getName());
+		assertEquals("Mountain Biking", category.getName());
 	}
 
 	@Test
