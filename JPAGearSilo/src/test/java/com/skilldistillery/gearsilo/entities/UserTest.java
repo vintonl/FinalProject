@@ -58,6 +58,16 @@ class UserTest {
 		assertEquals("sdafasd", user.getImageUrl());
 		assertEquals("afdsadf", user.getAbout());
 		assertEquals("(555)555-5555", user.getPhone());
+
+	}
+
+	@Test
+	@DisplayName("testing user-address relationship mappings")
+	void test2() {
+		// SELECT adr.posal_code FROM address adr JOIN user usr ON usr.address_id = adr.id
+		// WHERE usr.id = 1;
+		assertNotNull(user);
+		assertEquals(80111, user.getAddress().getPostalCode());
 	}
 
 }
