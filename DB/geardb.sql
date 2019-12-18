@@ -71,10 +71,12 @@ CREATE TABLE IF NOT EXISTS `gear` (
   `condition` VARCHAR(100) NULL,
   `price` DOUBLE NULL,
   `description` TEXT NULL,
-  `image_url` TEXT NULL DEFAULT NULL,
+  `image_url1` TEXT NULL DEFAULT NULL,
   `available` TINYINT NOT NULL DEFAULT 1,
   `active` TINYINT NOT NULL DEFAULT 1,
   `user_id` INT NOT NULL,
+  `image_url2` TEXT NULL DEFAULT NULL,
+  `image_url3` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_gear_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_gear_user1`
@@ -125,12 +127,12 @@ CREATE TABLE IF NOT EXISTS `review_of_lender` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL,
   `review` VARCHAR(300) NULL,
-  `reservation_id` INT NOT NULL,
+  `gear_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_review_of_lender_reservation1_idx` (`reservation_id` ASC),
-  CONSTRAINT `fk_review_of_lender_reservation1`
-    FOREIGN KEY (`reservation_id`)
-    REFERENCES `reservation` (`id`)
+  INDEX `fk_gear_id_idx` (`gear_id` ASC),
+  CONSTRAINT `fk_gear_id`
+    FOREIGN KEY (`gear_id`)
+    REFERENCES `reservation` (`gear_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -145,12 +147,12 @@ CREATE TABLE IF NOT EXISTS `review_of_shopper` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL,
   `review` VARCHAR(300) NULL,
-  `reservation_id` INT NOT NULL,
+  `shopper_user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_review_of_shopper_reservation1_idx` (`reservation_id` ASC),
-  CONSTRAINT `fk_review_of_shopper_reservation1`
-    FOREIGN KEY (`reservation_id`)
-    REFERENCES `reservation` (`id`)
+  INDEX `fk_shopper_user_id_idx` (`shopper_user_id` ASC),
+  CONSTRAINT `fk_shopper_user_id`
+    FOREIGN KEY (`shopper_user_id`)
+    REFERENCES `reservation` (`shopper_user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -165,12 +167,12 @@ CREATE TABLE IF NOT EXISTS `review_of_gear` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL,
   `review` VARCHAR(300) NULL,
-  `reservation_id` INT NOT NULL,
+  `gear_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_review_of_gear_reservation1_idx` (`reservation_id` ASC),
-  CONSTRAINT `fk_review_of_gear_reservation1`
-    FOREIGN KEY (`reservation_id`)
-    REFERENCES `reservation` (`id`)
+  INDEX `fk_gear_id_idx` (`gear_id` ASC),
+  CONSTRAINT `fk_gear_id`
+    FOREIGN KEY (`gear_id`)
+    REFERENCES `reservation` (`gear_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -198,6 +200,7 @@ CREATE TABLE IF NOT EXISTS `reservation_message` (
   `message` TEXT NULL,
   `message_date` DATETIME NULL,
   `reservation_id` INT NOT NULL,
+  `shopper_user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_reservation_message_reservation1_idx` (`reservation_id` ASC),
   CONSTRAINT `fk_reservation_message_reservation1`
@@ -257,7 +260,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (1, 'gear', 'silo', 'gearsilo@gmail.com', 'gear', '2019-12-17', '2019-12-17', '1', 'sdafasd', 'afdsadf', 1, '(555)555-5555');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (1, 'gear', 'silo', 'gearsilo@gmail.com', 'gear', '2019-12-17', '2019-12-17', 'admin', 'sdafasd', 'afdsadf', 1, '(555)555-5555');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (2, 'Marty', 'McFly', 'martymcfly@gmail.com', '88mph', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/PVxBA1f.jpg', 'Loves skateboarding and playing guitar. Don\'t call me chicken!', 2, '(444)444-4444');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (3, 'Kelly ', 'Slater', 'kellyslater@gmail.com', 'surfsup', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/y6f4lgf.jpg', 'American professional surfer widely considered the greatest surfer of all time.', 3, '(333)333-3333');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (4, 'Peyton', 'Manning', 'peytonmanning@gmail.com', 'peyton', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/78VZc9g.jpg', 'Considered to be one of the greatest quarterbacks of all time.', 4, '(222)222-2222');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (5, 'Shaun ', 'White', 'shaunwhite@gmail.com', 'shaunwhite', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/FAGZlWy.jpg', 'Professional snowboarder, skateboarder and musician. He is a three-time Olympic gold medalist', 5, '(111)111-1111');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (6, 'Larry', 'Larry', 'larry@larry.com', 'larry', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/oHjEQpe.png', 'Outdoorsman with tons of sporting equipment.', 6, '(555');
 
 COMMIT;
 
@@ -267,7 +275,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`) VALUES (1, 'Surf Board', 'New', 50, NULL, NULL, DEFAULT, 1, 1);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url1`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (1, 'Surf Board', 'New', 50, NULL, NULL, DEFAULT, 1, 1, NULL, NULL);
 
 COMMIT;
 
