@@ -6,6 +6,14 @@ import com.skilldistillery.gearsilo.entities.Reservation;
 
 public interface ReservationService {
 
-	List<Reservation> findAll();
+	public List<Reservation> findAll();
+
+	public Reservation findReservationById(int id);
+	
+	public Reservation createReseration(Reservation reservation);
+	
+	public Reservation updateReservation(Reservation reservation, int id);
+	
+	public boolean deleteReservation(int id);
 
 }
