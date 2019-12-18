@@ -14,11 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class ReservationMessageTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Category cat;
+	private ReservationMessage res;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,20 +33,24 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		cat = em.find(Category.class, 1);
+		res = em.find(ReservationMessage.class, 1);
 	}
+	
 
 	@AfterEach
 	void tearDown() throws Exception {
-		cat = null;
+		res = null;
 		em.close();
 	}
 
-	@Test
-	void test_Category_entity__mappings() {
-		assertNotNull(cat);
-		assertEquals("gearsilo@gmail.com", cat.getName());
+//	@Test
+//	void test_Reservation_Message_entity__mappings() {
+//		assertNotNull(res);
+//		assertEquals("gearsilo@gmail.com", res.getMessage());
+//		
+//		
+//	}
 
-	}
+
 
 }
