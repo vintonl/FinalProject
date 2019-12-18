@@ -1,6 +1,6 @@
 package com.skilldistillery.gearsilo.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,10 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class AddressTest {
+class ReviewOfLenderTest {
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
-	private Address address;
+	private ReviewOfLender reviewLender;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,49 +31,31 @@ class AddressTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		address = em.find(Address.class, 1);
+		reviewLender = em.find(ReviewOfLender.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		address = null;
+		reviewLender = null;
 	}
 
 	@Test
 	@DisplayName("Address entity mapping to address")
 	void test() {
-		assertEquals("7400 E Orchard Rd #1450n", address.getAddress());
+		assertEquals(1, reviewLender.getId());
 	}
 
 	@Test
 	@DisplayName("Address entity mapping to address2")
 	void test1() {
-		assertEquals(null, address.getAddress2());
+		assertEquals(2, reviewLender.getRating());
 	}
 
 	@Test
 	@DisplayName("Address entity mapping to city")
 	void test2() {
-		assertEquals("Greenwood Village", address.getCity());
-	}
-
-	@Test
-	@DisplayName("Address entity mapping to state")
-	void test3() {
-		assertEquals("Colorado", address.getState());
-	}
-
-	@Test
-	@DisplayName("Address entity mapping to postal code")
-	void test4() {
-		assertEquals(80111, address.getPostalCode());
-	}
-
-	@Test
-	@DisplayName("Address entity mapping to country")
-	void test5() {
-		assertEquals("USA", address.getCountry());
+		assertEquals("Perfect", reviewLender.getReview());
 	}
 
 }
