@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,6 +35,9 @@ public class Reservation {
 	@JoinColumn(name = "gear_id")
 	private Gear gearId;
 
+	@OneToOne(mappedBy = "reservation")
+	private ReviewOfLender lenderReview;
+
 	private boolean completed;
 
 	@ManyToOne
@@ -50,15 +54,16 @@ public class Reservation {
 
 	private boolean approved;
 
-	public Reservation(int id, Date openDate, Date closeDate, Gear gearId, boolean completed, User user, Date createdAt,
-			Date updatedAt, boolean approved) {
+	public Reservation(int id, Date openDate, Date closeDate, Gear gearId, ReviewOfLender lenderReview,
+			boolean completed, User userShopper, Date createdAt, Date updatedAt, boolean approved) {
 		super();
 		this.id = id;
 		this.openDate = openDate;
 		this.closeDate = closeDate;
 		this.gearId = gearId;
+		this.lenderReview = lenderReview;
 		this.completed = completed;
-		this.userShopper = user;
+		this.userShopper = userShopper;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.approved = approved;
@@ -74,6 +79,14 @@ public class Reservation {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ReviewOfLender getLenderReview() {
+		return lenderReview;
+	}
+
+	public void setLenderReview(ReviewOfLender lenderReview) {
+		this.lenderReview = lenderReview;
 	}
 
 	public Date getOpenDate() {
@@ -150,6 +163,7 @@ public class Reservation {
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + ((gearId == null) ? 0 : gearId.hashCode());
 		result = prime * result + id;
+		result = prime * result + ((lenderReview == null) ? 0 : lenderReview.hashCode());
 		result = prime * result + ((openDate == null) ? 0 : openDate.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		result = prime * result + ((userShopper == null) ? 0 : userShopper.hashCode());
@@ -185,6 +199,11 @@ public class Reservation {
 		} else if (!gearId.equals(other.gearId))
 			return false;
 		if (id != other.id)
+			return false;
+		if (lenderReview == null) {
+			if (other.lenderReview != null)
+				return false;
+		} else if (!lenderReview.equals(other.lenderReview))
 			return false;
 		if (openDate == null) {
 			if (other.openDate != null)
