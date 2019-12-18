@@ -38,28 +38,6 @@ public class Gear {
 	private String imageUrl2;
 	@Column(name = "image_url3")
 	private String imageUrl3;
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Gear other = (Gear) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
 	private Boolean available;
 	private Boolean active;
 
@@ -145,6 +123,28 @@ public class Gear {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Gear other = (Gear) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	@Override
