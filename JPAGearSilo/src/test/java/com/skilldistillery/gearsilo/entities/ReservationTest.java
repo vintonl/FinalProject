@@ -1,6 +1,7 @@
 package com.skilldistillery.gearsilo.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,11 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class GearTest {
+class ReservationTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Gear gear;
+	private Reservation resv;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -26,40 +27,40 @@ class GearTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		emf.close();
+		emf = null;
 	}
 
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		gear = em.find(Gear.class, 1);
+		resv = em.find(Reservation.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		gear = null;
-		em.close();
+		resv = null;
+		em = null;
 	}
 
 	@Test
-	@DisplayName("test primary fields")
-	void test_Post_entity__mappings() {
-		assertNotNull(gear);
-		assertEquals(1, gear.getId());
-		assertEquals("Mountain Bike", gear.getName());
-		assertEquals("New", gear.getCondition());
-		assertEquals(50.0, gear.getPrice());
-		assertEquals("Blackm 12 gear", gear.getDescription());
-		assertEquals("https://i.imgur.com/vPbnSXC.jpg",gear.getImageUrl());
-		assertTrue(gear.getAvailable());
-		assertTrue(gear.getActive());
+	void test() {
+//		fail("Not yet implemented");
+		assertNotNull(resv);
 	}
+
 	@Test
-	@DisplayName("test gear to category")
-	void test_Post_entity__mappings_gear_to_category() {
-		assertNotNull(gear);
-		assertEquals(1, gear.getCategories().size());	
-		assertEquals("Mountain biking", gear.getCategories().get(0).getName());	
+	@DisplayName("Mappings Test")
+	void test2() {
+		assertEquals("Mountain Bike", resv.getGearId().getName());
+		assertEquals("Larry", resv.getShopperId().getFirstName());
+
+	}
+
+	@Test
+	void test3() {
+		assertEquals(1, resv.getId());
+		assertEquals(false, resv.isCompleted());
+		assertEquals(true, resv.isApproved());
 	}
 
 }

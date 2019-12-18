@@ -44,12 +44,14 @@ public class Reservation {
 	@UpdateTimestamp
 	private Date updatedAt;
 
+	private boolean approved;
+
 	public Reservation() {
 		super();
 	}
 
 	public Reservation(int id, Date openDate, Date closeDate, Gear gearId, boolean completed, User shopperId,
-			Date createdAt, Date updatedAt) {
+			Date createdAt, Date updatedAt, boolean approved) {
 		super();
 		this.id = id;
 		this.openDate = openDate;
@@ -59,6 +61,7 @@ public class Reservation {
 		this.shopperId = shopperId;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.approved = approved;
 	}
 
 	public int getId() {
@@ -125,17 +128,19 @@ public class Reservation {
 		this.updatedAt = updatedAt;
 	}
 
-	@Override
-	public String toString() {
-		return "Reservation [id=" + id + ", openDate=" + openDate + ", closeDate=" + closeDate + ", gearId=" + gearId
-				+ ", completed=" + completed + ", shopperId=" + shopperId + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + "]";
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (approved ? 1231 : 1237);
 		result = prime * result + ((closeDate == null) ? 0 : closeDate.hashCode());
 		result = prime * result + (completed ? 1231 : 1237);
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
@@ -156,6 +161,8 @@ public class Reservation {
 		if (getClass() != obj.getClass())
 			return false;
 		Reservation other = (Reservation) obj;
+		if (approved != other.approved)
+			return false;
 		if (closeDate == null) {
 			if (other.closeDate != null)
 				return false;
