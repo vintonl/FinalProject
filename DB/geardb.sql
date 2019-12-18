@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `gear` (
   `condition` VARCHAR(100) NULL,
   `price` DOUBLE NULL,
   `description` TEXT NULL,
-  `image_url1` TEXT NULL DEFAULT NULL,
+  `image_url` TEXT NULL DEFAULT NULL,
   `available` TINYINT NOT NULL DEFAULT 1,
   `active` TINYINT NOT NULL DEFAULT 1,
   `user_id` INT NOT NULL,
@@ -251,6 +251,10 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `geardb`;
 INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (1, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (2, '555 BackInTime Rd.', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (3, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (4, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country`) VALUES (5, '7400 E Orchard Rd #1450n', NULL, 'Greenwood Village', 'Colorado', 80111, 'USA');
 
 COMMIT;
 
@@ -265,7 +269,7 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `creat
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (3, 'Kelly ', 'Slater', 'kellyslater@gmail.com', 'surfsup', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/y6f4lgf.jpg', 'American professional surfer widely considered the greatest surfer of all time.', 3, '(333)333-3333');
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (4, 'Peyton', 'Manning', 'peytonmanning@gmail.com', 'peyton', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/78VZc9g.jpg', 'Considered to be one of the greatest quarterbacks of all time.', 4, '(222)222-2222');
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (5, 'Shaun ', 'White', 'shaunwhite@gmail.com', 'shaunwhite', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/FAGZlWy.jpg', 'Professional snowboarder, skateboarder and musician. He is a three-time Olympic gold medalist', 5, '(111)111-1111');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (6, 'Larry', 'Larry', 'larry@larry.com', 'larry', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/oHjEQpe.png', 'Outdoorsman with tons of sporting equipment.', 6, '(555');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (6, 'Larry', 'Larry', 'larry@larry.com', 'larry', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/oHjEQpe.png', 'Outdoorsman with tons of sporting equipment.', 6, '(555)555-4444');
 
 COMMIT;
 
@@ -275,7 +279,33 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url1`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (1, 'Surf Board', 'New', 50, NULL, NULL, DEFAULT, 1, 1, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (1, 'Mountain Bike', 'New', 50, 'Blackm 12 gear', 'https://i.imgur.com/vPbnSXC.jpg', 1, 1, 1, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (2, 'Hover Board', 'New', 9000, 'Pink, red, and green board. One foot strap.', 'https://i.imgur.com/CMqrSSq.jpg', 1, 1, 2, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (3, 'Surf Board', 'Solid', 100, 'Medium size board', 'https://i.imgur.com/43Dmmgz.jpg', 1, 1, 3, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `category` (`id`, `name`) VALUES (1, 'Mountain biking');
+INSERT INTO `category` (`id`, `name`) VALUES (2, 'Street Boarding');
+INSERT INTO `category` (`id`, `name`) VALUES (3, 'Surf');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `gear_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (1, 1);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (2, 2);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (3, 3);
 
 COMMIT;
 
