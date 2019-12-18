@@ -41,38 +41,43 @@ class AddressTest {
 	}
 
 	@Test
-	@DisplayName("Address entity mapping to address")
+	@DisplayName("Address entity mapping to Id")
 	void test() {
+		assertEquals(1, address.getId());
+	}
+	@Test
+	@DisplayName("Address entity mapping to address")
+	void test1() {
 		assertEquals("7400 E Orchard Rd #1450n", address.getAddress());
 	}
 
 	@Test
 	@DisplayName("Address entity mapping to address2")
-	void test1() {
+	void test2() {
 		assertEquals(null, address.getAddress2());
 	}
 
 	@Test
 	@DisplayName("Address entity mapping to city")
-	void test2() {
+	void test3() {
 		assertEquals("Greenwood Village", address.getCity());
 	}
 
 	@Test
 	@DisplayName("Address entity mapping to state")
-	void test3() {
+	void test4() {
 		assertEquals("Colorado", address.getState());
 	}
 
 	@Test
 	@DisplayName("Address entity mapping to postal code")
-	void test4() {
+	void test5() {
 		assertEquals(80111, address.getPostalCode());
 	}
 
 	@Test
 	@DisplayName("Address entity mapping to country")
-	void test5() {
+	void test6() {
 		assertEquals("USA", address.getCountry());
 	}
 

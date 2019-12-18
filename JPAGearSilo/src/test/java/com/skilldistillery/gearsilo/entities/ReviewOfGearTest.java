@@ -1,6 +1,6 @@
 package com.skilldistillery.gearsilo.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,10 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class ReviewOfLenderTest {
+class ReviewOfGearTest {
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
-	private ReviewOfLender reviewLender;
+	private ReviewOfGear reviewGear;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,31 +31,31 @@ class ReviewOfLenderTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		reviewLender = em.find(ReviewOfLender.class, 1);
+		reviewGear = em.find(ReviewOfGear.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		reviewLender = null;
+		reviewGear = null;
 	}
 
 	@Test
-	@DisplayName("ReviewOfLender entity mapping to Id")
+	@DisplayName("ReviewOfGear entity mapping to Id")
 	void test() {
-		assertEquals(1, reviewLender.getId());
+		assertEquals(1, reviewGear.getId());
 	}
 
 	@Test
-	@DisplayName("ReviewOfLender entity mapping to Rating")
+	@DisplayName("ReviewOfGear entity mapping to Rating")
 	void test1() {
-		assertEquals(5, reviewLender.getRating());
+		assertEquals(4, reviewGear.getRating());
 	}
 
 	@Test
-	@DisplayName("ReviewOfLender entity mapping to Review")
+	@DisplayName("ReviewOfGear entity mapping to Review")
 	void test2() {
-		assertEquals("Lender was timely and had great tips!", reviewLender.getReview());
+		assertEquals("Mountain Bike road well!", reviewGear.getReview());
 	}
 
 }
