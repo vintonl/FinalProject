@@ -52,13 +52,13 @@ class CategoryTest {
 		
 	}
 	
-//	@Test
-//	@DisplayName("testing user-address relationship mappings")
-//	void test2() {
-//		// SELECT adr.street FROM address adr JOIN user usr ON usr.address_id = adr.id
-//		// WHERE usr.id = 1;
-//		assertEquals("silo", user.getLastName());
-//	}
+	@Test
+	@DisplayName("testing user-address relationship mappings")
+	void test2() {
+		// SELECT adr.street FROM address adr JOIN user usr ON usr.address_id = adr.id
+		// WHERE usr.id = 1;
+		assertEquals("silo", user.getLastName());
+	}
 
 
 }

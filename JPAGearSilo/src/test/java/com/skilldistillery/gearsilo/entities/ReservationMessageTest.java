@@ -11,7 +11,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ReservationMessageTest {
@@ -43,13 +42,17 @@ class ReservationMessageTest {
 		em.close();
 	}
 
-//	@Test
-//	void test_Reservation_Message_entity__mappings() {
-//		assertNotNull(res);
-//		assertEquals("gearsilo@gmail.com", res.getMessage());
-//		
-//		
-//	}
+	@Test
+	void test_Reservation_Message_entity__mappings() {
+		assertNotNull(res);
+		assertEquals("Great looking Bike! Excited to ride it!", res.getMessage());
+		assertEquals(1, res.getReservationId());
+		assertEquals(6, res.getShopperUserId());
+		assertEquals("2019-12-18 00:00:00", res.getMessageDate());
+
+		
+		
+	}
 
 
 
