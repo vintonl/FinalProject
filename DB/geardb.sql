@@ -287,6 +287,54 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `reservation`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (1, '2019-18-19', '2019-19-19', 1, 0, 6, '2019-18-19', '2019-18-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-18-19', '2019-19-19', 3, 0, 6, '2019-18-19', '2019-18-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-18-19', '2019-12-19', 2, 0, 5, '2019-18-19', '2019-18-19', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `review_of_lender`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `gear_id`) VALUES (1, 5, 'Lender was timely and had great tips!', 1);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `gear_id`) VALUES (2, 3, 'Marty was late to our reservation appointment.', 2);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `gear_id`) VALUES (3, 5, 'Wooah! I got to meet Kelly Slater! Radical!', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `review_of_shopper`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (1, 5, 'Larry showed up on time and took great care of the bike!', 6);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (2, 5, 'Shaun was rad!', 5);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (3, 5, 'Larry kept the Surf board in great condition and surfed like a pro! ', 6);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `review_of_gear`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `gear_id`) VALUES (1, 4, 'Mountain Bike road well!', 1);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `gear_id`) VALUES (2, 1, 'Hoverboard didn\'t live up to the hype...', 2);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `gear_id`) VALUES (3, 5, 'Surf Board was awesome! Held up on some gnarly swells! ', 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `category`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -294,6 +342,18 @@ USE `geardb`;
 INSERT INTO `category` (`id`, `name`) VALUES (1, 'Mountain biking');
 INSERT INTO `category` (`id`, `name`) VALUES (2, 'Street Boarding');
 INSERT INTO `category` (`id`, `name`) VALUES (3, 'Surf');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `reservation_message`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `geardb`;
+INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (1, 'Great looking Bike! Excited to ride it!', '2019-18-19', 1, 6);
+INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (2, 'I\'ve been looking for one of these forever!  Stoked to ride a real hoverboard!', '2019-18-19', 3, 6);
+INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (3, 'Awesome looking board Kelly! ', '2019-18-19', 2, 5);
 
 COMMIT;
 
