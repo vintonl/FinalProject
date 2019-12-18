@@ -64,10 +64,13 @@ class UserTest {
 	@Test
 	@DisplayName("testing user-address relationship mappings")
 	void test2() {
-		// SELECT adr.posal_code FROM address adr JOIN user usr ON usr.address_id = adr.id
-		// WHERE usr.id = 1;
+
 		assertNotNull(user);
 		assertEquals(80111, user.getAddress().getPostalCode());
+		assertEquals("Mountain Bike", user.getGearList().get(0).getName());
+//		assertEquals(1, user.getReservations().size());
+//		assertEquals(1, user.getReservations().get(0).getId());
+		
 	}
 
 }

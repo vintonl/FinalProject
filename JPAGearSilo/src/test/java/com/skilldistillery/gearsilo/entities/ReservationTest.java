@@ -52,7 +52,7 @@ class ReservationTest {
 	@DisplayName("Mappings Test")
 	void test2() {
 		assertEquals("Mountain Bike", resv.getGearId().getName());
-		assertEquals("Larry", resv.getShopperId().getFirstName());
+		assertEquals("Larry", resv.getUserShopper().getFirstName());
 
 	}
 
