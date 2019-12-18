@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 class ReservationMessageTest {
 
 	private static EntityManagerFactory emf;
@@ -43,13 +44,16 @@ class ReservationMessageTest {
 		em.close();
 	}
 
-//	@Test
-//	void test_Reservation_Message_entity__mappings() {
-//		assertNotNull(res);
-//		assertEquals("gearsilo@gmail.com", res.getMessage());
-//		
-//		
-//	}
+	@Test
+	void test_Reservation_Message_entity__mappings() {
+		assertNotNull(res);
+		assertEquals("Great looking Bike! Excited to ride it!", res.getMessage());
+		assertEquals("2019-12-18 00:00:00", res.getMessageDate());
+		assertEquals("6", res.getShopperUserId());
+		assertEquals("1", res.getReservationId());
+		
+		
+	}
 
 
 
