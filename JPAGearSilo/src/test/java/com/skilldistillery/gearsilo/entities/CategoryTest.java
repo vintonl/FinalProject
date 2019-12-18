@@ -14,11 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class CategoryTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Category cat;
+	private User user;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,20 +33,32 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		cat = em.find(Category.class, 1);
+		user = em.find(User.class, 1);
 	}
+	
 
 	@AfterEach
 	void tearDown() throws Exception {
-		cat = null;
+		user = null;
 		em.close();
 	}
 
+	@Test
+	void test_User_entity__mappings() {
+		assertNotNull(user);
+		assertEquals("gearsilo@gmail.com", user.getEmail());
+		assertEquals("silo", user.getLastName());
+		
+		
+	}
+	
 //	@Test
-//	void test_Category_entity__mappings() {
-//		assertNotNull(cat);
-//		assertEquals("gearsilo@gmail.com", cat.getName());
-//
+//	@DisplayName("testing user-address relationship mappings")
+//	void test2() {
+//		// SELECT adr.street FROM address adr JOIN user usr ON usr.address_id = adr.id
+//		// WHERE usr.id = 1;
+//		assertEquals("silo", user.getLastName());
 //	}
+
 
 }
