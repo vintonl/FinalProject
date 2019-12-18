@@ -33,7 +33,7 @@ class AddressTest {
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
 		address = em.find(Address.class, 1);
-	}a
+	}
 
 	@AfterEach
 	void tearDown() throws Exception {
