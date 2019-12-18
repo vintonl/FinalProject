@@ -285,10 +285,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (1, 'Mountain Bike', 'New', 50, 'Blackm 12 gear', 'https://i.imgur.com/vPbnSXC.jpg', 1, 1, 1, NULL, NULL);
-INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (2, 'Hover Board', 'New', 9000, 'Pink, red, and green board. One foot strap.', 'https://i.imgur.com/CMqrSSq.jpg', 1, 1, 2, NULL, NULL);
-INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (3, 'Surf Board', 'Solid', 100, 'Medium size board', 'https://i.imgur.com/43Dmmgz.jpg', 1, 1, 3, NULL, NULL);
-INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (4, 'Snow Shoes', 'New', 30, 'Mens, Mountain terrain, Aluminum-frame', 'https://i.imgur.com/3wwDK0L.jpg', 1, 1, 6, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (1, 'Mountain Bike', 'New', 50.00, 'Black,10 gear', 'https://i.imgur.com/vPbnSXC.jpg', 1, 1, 1, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (2, 'Hover Board', 'New', 9000.00, 'Pink, red, and green board. One foot strap.', 'https://i.imgur.com/CMqrSSq.jpg', 1, 1, 2, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (3, 'Surf Board', 'Solid', 100.00, 'Medium size board', 'https://i.imgur.com/43Dmmgz.jpg', 1, 1, 3, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (4, 'Snow Shoes', 'New', 30.00, 'Mens, Mountain terrain, Aluminum-frame', 'https://i.imgur.com/3wwDK0L.jpg', 1, 1, 6, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (5, 'Kayak', 'Slightly Used', 40.00, 'Orange', 'https://i.imgur.com/fn77owl.jpg', 1, 1, 4, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (6, 'Wake Surf Board', 'New', 30.00, 'Medium, grey, black, and lime green', 'https://i.imgur.com/fvTD0Os.jpg', 1, 1, 5, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (7, 'Rock Climbing Rope', 'Slightly Used', 10.00, 'Strong, red and purple', 'https://i.imgur.com/U2Sl7WV.jpg', 1, 1, 1, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (8, 'Skis', 'Good', 30.00, 'White and black', 'https://i.imgur.com/a99gARQ.jpg', 1, 1, 1, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (9, 'Snowboard', 'Almost New', 40.00, 'Freestyle, traditional camber.', 'https://i.imgur.com/7YFS4E1.jpg', 1, 1, 5, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (10, 'Wingsuit', 'Great condition', 80.00, 'Blue', 'https://i.imgur.com/NzKIe7G.jpg', 0, 1, 1, NULL, NULL);
 
 COMMIT;
 
@@ -346,9 +352,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `category` (`id`, `name`) VALUES (1, 'Mountain biking');
-INSERT INTO `category` (`id`, `name`) VALUES (2, 'Street Boarding');
+INSERT INTO `category` (`id`, `name`) VALUES (1, 'Mountain Biking');
+INSERT INTO `category` (`id`, `name`) VALUES (2, 'Street, Boarding');
 INSERT INTO `category` (`id`, `name`) VALUES (3, 'Surf');
+INSERT INTO `category` (`id`, `name`) VALUES (4, 'Snow, Hiking');
+INSERT INTO `category` (`id`, `name`) VALUES (5, 'Kayaking, Water');
+INSERT INTO `category` (`id`, `name`) VALUES (6, 'Watersports, Wakeboarding');
+INSERT INTO `category` (`id`, `name`) VALUES (7, 'Rock Climbing');
+INSERT INTO `category` (`id`, `name`) VALUES (8, 'Skiing, Snow');
+INSERT INTO `category` (`id`, `name`) VALUES (9, 'Snowboarding, Snow');
+INSERT INTO `category` (`id`, `name`) VALUES (10, 'Freefalling');
 
 COMMIT;
 
@@ -373,6 +386,13 @@ USE `geardb`;
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (1, 1);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (2, 2);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (3, 3);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (4, 4);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (5, 5);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (6, 6);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (7, 7);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (8, 8);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (9, 9);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (10, 10);
 
 COMMIT;
 
