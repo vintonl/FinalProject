@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Gear {
@@ -31,9 +34,15 @@ public class Gear {
 //	| image_url3  | text         | YES  |     | NULL    |                |
 //	+-------------+--------------+------+-----+---------+----------------+
 
+	// F I E L D S
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	private String name;
 	private String condition;
 	private Double price;
@@ -46,75 +55,130 @@ public class Gear {
 	private String imageUrl3;
 	private Boolean available;
 	private Boolean active;
+
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "gear_category", joinColumns = @JoinColumn(name = "gear_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories;
+
+	// C T O R S
+
+	public Gear(int id, String name, String condition, Double price, String description, String imageUrl,
+			String imageUrl2, String imageUrl3, Boolean available, Boolean active, List<Category> categories) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.condition = condition;
+		this.price = price;
+		this.description = description;
+		this.imageUrl = imageUrl;
+		this.imageUrl2 = imageUrl2;
+		this.imageUrl3 = imageUrl3;
+		this.available = available;
+		this.active = active;
+		this.categories = categories;
+	}
+
+	// G E T T E R S __ A N D __ S E T T E R S
+	public Gear() {
+		super();
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getCondition() {
 		return condition;
 	}
+
 	public void setCondition(String condition) {
 		this.condition = condition;
 	}
+
 	public Double getPrice() {
 		return price;
 	}
+
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getImageUrl() {
 		return imageUrl;
 	}
+
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
 	public String getImageUrl2() {
 		return imageUrl2;
 	}
+
 	public void setImageUrl2(String imageUrl2) {
 		this.imageUrl2 = imageUrl2;
 	}
+
 	public String getImageUrl3() {
 		return imageUrl3;
 	}
+
 	public void setImageUrl3(String imageUrl3) {
 		this.imageUrl3 = imageUrl3;
 	}
+
 	public Boolean getAvailable() {
 		return available;
 	}
+
 	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
+
 	public Boolean getActive() {
 		return active;
 	}
+
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
+
 	public List<Category> getCategories() {
 		return categories;
 	}
+
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -130,8 +194,10 @@ public class Gear {
 		result = prime * result + ((imageUrl3 == null) ? 0 : imageUrl3.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -193,26 +259,14 @@ public class Gear {
 				return false;
 		} else if (!price.equals(other.price))
 			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		return true;
 	}
-	public Gear(int id, String name, String condition, Double price, String description, String imageUrl,
-			String imageUrl2, String imageUrl3, Boolean available, Boolean active, List<Category> categories) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.condition = condition;
-		this.price = price;
-		this.description = description;
-		this.imageUrl = imageUrl;
-		this.imageUrl2 = imageUrl2;
-		this.imageUrl3 = imageUrl3;
-		this.available = available;
-		this.active = active;
-		this.categories = categories;
-	}
-	public Gear() {
-		super();
-	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -240,6 +294,4 @@ public class Gear {
 		return builder.toString();
 	}
 
-	
 }
-
