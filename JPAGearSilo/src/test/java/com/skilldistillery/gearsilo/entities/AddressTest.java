@@ -1,6 +1,7 @@
 package com.skilldistillery.gearsilo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -79,6 +80,13 @@ class AddressTest {
 	@DisplayName("Address entity mapping to country")
 	void test6() {
 		assertEquals("USA", address.getCountry());
+	}
+	
+	@Test
+	@DisplayName("testing address entity mappings")
+	void test7() {
+		assertNotNull(address);
+		assertEquals("gear", address.getUser().getFirstName());
 	}
 
 }

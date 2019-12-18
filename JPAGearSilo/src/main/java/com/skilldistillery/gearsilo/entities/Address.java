@@ -5,12 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@OneToOne(mappedBy = "address")
+	private User user;
+
 	private String address;
 	private String address2;
 	private String city;
@@ -18,6 +23,32 @@ public class Address {
 	@Column(name = "postal_code")
 	private Integer postalCode;
 	private String country;
+
+	// C O N S T R U C T O R S
+	public Address(int id, String address, String address2, String city, String state, Integer postalCode,
+			String country) {
+		super();
+		this.id = id;
+		this.address = address;
+		this.address2 = address2;
+		this.city = city;
+		this.state = state;
+		this.postalCode = postalCode;
+		this.country = country;
+	}
+
+	public Address() {
+		super();
+	}
+
+	// G E T T E R S __A N D __ S E T T E R S
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public int getId() {
 		return id;
@@ -86,6 +117,7 @@ public class Address {
 		result = prime * result + id;
 		result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -130,23 +162,12 @@ public class Address {
 				return false;
 		} else if (!state.equals(other.state))
 			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
 		return true;
-	}
-
-	public Address(int id, String address, String address2, String city, String state, Integer postalCode,
-			String country) {
-		super();
-		this.id = id;
-		this.address = address;
-		this.address2 = address2;
-		this.city = city;
-		this.state = state;
-		this.postalCode = postalCode;
-		this.country = country;
-	}
-
-	public Address() {
-		super();
 	}
 
 	@Override
