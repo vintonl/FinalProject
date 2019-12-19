@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `about` TEXT NULL,
   `address_id` INT NULL,
   `phone` VARCHAR(45) NOT NULL,
+  `enabled` TINYINT(4) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_address1_idx` (`address_id` ASC),
   CONSTRAINT `fk_user_address1`
@@ -127,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `review_of_lender` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL DEFAULT 5,
   `review` VARCHAR(500) NULL DEFAULT NULL,
-  `reservation_id` INT NULL,
+  `reservation_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_review_of_lender_reservation1_idx` (`reservation_id` ASC),
   CONSTRAINT `fk_review_of_lender_reservation1`
@@ -147,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `review_of_shopper` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL DEFAULT 5,
   `review` VARCHAR(500) NULL DEFAULT NULL,
-  `reservation_id` INT NULL,
+  `reservation_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_review_of_shopper_reservation1_idx` (`reservation_id` ASC),
   CONSTRAINT `fk_review_of_shopper_reservation1`
@@ -167,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `review_of_gear` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL DEFAULT 5,
   `review` VARCHAR(500) NULL DEFAULT NULL,
-  `reservation_id` INT NULL,
+  `reservation_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_review_of_gear_reservation1_idx` (`reservation_id` ASC),
   CONSTRAINT `fk_review_of_gear_reservation1`
@@ -270,17 +271,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (1, 'gear', 'silo', 'gearsilo@gmail.com', 'gear', '2019-12-17', '2019-12-17', 'admin', 'sdafasd', 'afdsadf', 1, '(555)555-5555');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (2, 'Marty', 'McFly', 'martymcfly@gmail.com', '88mph', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/PVxBA1f.jpg', 'Loves skateboarding and playing guitar. Don\'t call me chicken!', 2, '(444)444-4444');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (3, 'Kelly ', 'Slater', 'kellyslater@gmail.com', 'surfsup', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/y6f4lgf.jpg', 'American professional surfer widely considered the greatest surfer of all time.', 3, '(333)333-3333');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (4, 'Peyton', 'Manning', 'peytonmanning@gmail.com', 'peyton', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/78VZc9g.jpg', 'Considered to be one of the greatest quarterbacks of all time.', 4, '(222)222-2222');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (5, 'Shaun ', 'White', 'shaunwhite@gmail.com', 'shaunwhite', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/FAGZlWy.jpg', 'Professional snowboarder, skateboarder and musician. He is a three-time Olympic gold medalist', 5, '(111)111-1111');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (6, 'Larry', 'Larry', 'larry@larry.com', 'larry', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/oHjEQpe.png', 'Outdoorsman with tons of sporting equipment.', 6, '(555)555-4444');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (7, 'Vinton', 'Lee', 'vintonlee@gear.com ', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 7, '(555)555-5555');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (8, 'Jerry', 'Rogers', 'jerryrogers@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 8, '(555)555-5555');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (9, 'Colt', 'Looper', 'coltlooper@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 9, '(555)555-5555');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (10, 'Adam', 'Onwan', 'adamonwan@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 10, '(555)555-5555');
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`) VALUES (11, 'Brian', 'Streetman', 'brianstreetman@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 11, '(555)555-5555');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (1, 'gear', 'silo', 'gearsilo@gmail.com', 'gear', '2019-12-17', '2019-12-17', 'admin', 'sdafasd', 'afdsadf', 1, '(555)555-5555', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (2, 'Marty', 'McFly', 'martymcfly@gmail.com', '88mph', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/PVxBA1f.jpg', 'Loves skateboarding and playing guitar. Don\'t call me chicken!', 2, '(444)444-4444', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (3, 'Kelly ', 'Slater', 'kellyslater@gmail.com', 'surfsup', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/y6f4lgf.jpg', 'American professional surfer widely considered the greatest surfer of all time.', 3, '(333)333-3333', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (4, 'Peyton', 'Manning', 'peytonmanning@gmail.com', 'peyton', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/78VZc9g.jpg', 'Considered to be one of the greatest quarterbacks of all time.', 4, '(222)222-2222', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (5, 'Shaun ', 'White', 'shaunwhite@gmail.com', 'shaunwhite', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/FAGZlWy.jpg', 'Professional snowboarder, skateboarder and musician. He is a three-time Olympic gold medalist', 5, '(111)111-1111', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (6, 'Larry', 'Larry', 'larry@larry.com', 'larry', '2019-12-18', '2019-12-18', 'user', 'https://i.imgur.com/oHjEQpe.png', 'Outdoorsman with tons of sporting equipment.', 6, '(555)555-4444', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (7, 'Vinton', 'Lee', 'vintonlee@gear.com ', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 7, '(555)555-5555', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (8, 'Jerry', 'Rogers', 'jerryrogers@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 8, '(555)555-5555', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (9, 'Colt', 'Looper', 'coltlooper@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 9, '(555)555-5555', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (10, 'Adam', 'Onwan', 'adamonwan@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 10, '(555)555-5555', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `role`, `image_url`, `about`, `address_id`, `phone`, `enabled`) VALUES (11, 'Brian', 'Streetman', 'brianstreetman@gear.com', 'gear', '2019-12-18', '2019-12-18', 'user', NULL, NULL, 11, '(555)555-5555', NULL);
 
 COMMIT;
 
@@ -322,9 +323,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 5, 'Lender was timely and had great tips!', NULL);
-INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 3, 'Marty was late to our reservation appointment.', NULL);
-INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Wooah! I got to meet Kelly Slater! Radical!', NULL);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 5, 'Lender was timely and had great tips!', 1);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 3, 'Marty was late to our reservation appointment.', 2);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Wooah! I got to meet Kelly Slater! Radical!', 3);
 
 COMMIT;
 
@@ -334,9 +335,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 5, 'Larry showed up on time and took great care of the bike!', NULL);
-INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 5, 'Shaun was rad!', NULL);
-INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Peyton kept the Surf board in great condition and surfed like a pro! ', NULL);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 5, 'Larry showed up on time and took great care of the bike!', 1);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 5, 'Shaun was rad!', 2);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Peyton kept the Surf board in great condition and surfed like a pro! ', 3);
 
 COMMIT;
 
@@ -346,9 +347,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 4, 'Mountain Bike road well!', NULL);
-INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 1, 'Hoverboard didn\'t live up to the hype...', NULL);
-INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Surf Board was awesome! Held up on some gnarly swells! ', NULL);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 4, 'Mountain Bike road well!', 1);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 1, 'Hoverboard didn\'t live up to the hype...', 2);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Surf Board was awesome! Held up on some gnarly swells! ', 3);
 
 COMMIT;
 
