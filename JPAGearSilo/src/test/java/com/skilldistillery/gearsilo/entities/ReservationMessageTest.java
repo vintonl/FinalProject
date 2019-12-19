@@ -50,7 +50,7 @@ class ReservationMessageTest {
 		assertEquals("Great looking Bike! Excited to ride it!", res.getMessage());
 		assertEquals("2019-12-18 00:00:00", res.getMessageDate());
 		assertEquals("6", res.getShopperUserId());
-		assertEquals("1", res.getReservation().getGearReview());
+		assertEquals(4, res.getReservation().getGearReview().getRating());
 		
 		
 	}

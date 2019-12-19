@@ -36,13 +36,16 @@ public class Reservation {
 	@ManyToOne
 	@JoinColumn(name = "gear_id")
 	private Gear gearId;
-
+	
+	@JsonIgnore
 	@OneToOne(mappedBy = "reservation")
 	private ReviewOfLender lenderReview;
-
+	
+	@JsonIgnore
 	@OneToOne(mappedBy = "reservation")
 	private ReviewOfGear gearReview;
-
+	
+	@JsonIgnore
 	@OneToOne(mappedBy = "reservation")
 	private ReviewOfShopper shopperReview;
 
