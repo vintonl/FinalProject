@@ -3,6 +3,9 @@ package com.skilldistillery.gearsilo.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(int id, User user) {
-		
+
 		Optional<User> userOpt = userRepo.findById(id);
 		if (userOpt.isPresent()) {
 			User managedUser = userOpt.get();
@@ -34,14 +37,13 @@ public class UserServiceImpl implements UserService {
 			managedUser.setCreatedAt(user.getCreatedAt());
 			managedUser.setUpdatedAt(user.getUpdatedAt());
 			managedUser.setRole(user.getRole());
-			
+
 			// TODO check to make sure security works
-			
-			
+
 			userRepo.saveAndFlush(managedUser);
 			return managedUser;
 		}
-		
+
 		return null;
 	}
 }
