@@ -118,8 +118,7 @@ public class ReviewOfShopper {
 
 	@Override
 	public String toString() {
-		return "ReviewOfShopper [id=" + id + ", rating=" + rating + ", review=" + review + ", reservation="
-				+ reservation + "]";
+		return "ReviewOfShopper [id=" + id + ", rating=" + rating + ", review=" + review ;
 	}
 
 }
