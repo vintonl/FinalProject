@@ -32,7 +32,7 @@ public class Reservation {
 	@Column(name = "close_date")
 	private Date closeDate;
 
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "gear_id")
 	private Gear gearId;
@@ -55,7 +55,6 @@ public class Reservation {
 	@OneToMany(mappedBy = "reservation")
 	private List<ReservationMessage> messages;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "shopper_user_id")
 	private User userShopper;
