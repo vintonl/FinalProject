@@ -27,24 +27,21 @@ public class ReservationController {
 
 	@Autowired
 	private ReservationService resSvc;
-	
-	
 
 	@GetMapping("reservations")
 	@ResponseBody
-	public List<Reservation> index(Principal p, HttpServletRequest req,
-			HttpServletResponse resp) {
-		
+	public List<Reservation> index(Principal p, HttpServletRequest req, HttpServletResponse resp) {
+
 		List<Reservation> res = resSvc.findAll(p.getName());
-		
+
 		if (res != null && res.size() == 0) {
 			resp.setStatus(204);
 		}
-		
+
 		if (res == null) {
 			resp.setStatus(404);
 		}
-		
+
 		return res;
 
 	}
@@ -52,7 +49,7 @@ public class ReservationController {
 	@GetMapping("reservations/{id}")
 	@ResponseBody
 	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {
-		
+
 		Reservation res = resSvc.findReservationById(p.getName(), id);
 		if (res == null) {
 			resp.setStatus(404);
@@ -64,16 +61,27 @@ public class ReservationController {
 	@ResponseBody
 	public Reservation createReservation(@RequestBody Reservation reservation, HttpServletRequest req,
 			HttpServletResponse resp, Principal p) {
-
-		try {
-			resSvc.createReservation(p.getName(), reservation);
+		
+		Reservation newRes = resSvc.createReservation(p.getName(), reservation);
+		
+		if (newRes != null) {
+			StringBuffer url = req.getRequestURL();
+			resp.addHeader("Location", url.toString());
 			resp.setStatus(201);
-			return reservation;
-		} catch (Exception e) {
-			e.printStackTrace();
-			resp.setStatus(400);
+			return newRes;
+		} else {
+			resp.setStatus(401);
 			return null;
 		}
+//		try {
+//			resSvc.createReservation(p.getName(), reservation);
+//			resp.setStatus(201);
+//			return reservation;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			resp.setStatus(400);
+//			return null;
+//		}
 
 	}
 

@@ -44,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Reservation createReservation(String username, Reservation reservation) {
-//		return resRepo.saveAndFlush(reservation);
+
 		User user = uRepo.findUserByUsername(username);
 
 		if (user != null) {
