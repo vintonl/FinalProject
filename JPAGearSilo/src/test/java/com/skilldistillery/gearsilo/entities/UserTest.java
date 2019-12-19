@@ -51,7 +51,7 @@ class UserTest {
 		assertEquals("gear", user.getFirstName());
 		assertEquals("silo", user.getLastName());
 		assertEquals("gearsilo@gmail.com", user.getEmail());
-		assertEquals("gear", user.getPassword());
+		assertEquals("$2a$10$BKe0NjmOywOYa6s7lux5oe3YsEfwnun5YDXzAVstY1KQTJD8a/vf.", user.getPassword());
 		assertTrue(user.getCreatedAt().toString().contains("2019-12-17"));
 		assertTrue(user.getUpdatedAt().toString().contains("2019-12-17"));
 		assertEquals("admin", user.getRole());
