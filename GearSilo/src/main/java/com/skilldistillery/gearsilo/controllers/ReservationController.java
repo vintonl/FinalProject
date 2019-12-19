@@ -1,5 +1,6 @@
 package com.skilldistillery.gearsilo.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.skilldistillery.gearsilo.entities.Reservation;
 import com.skilldistillery.gearsilo.services.ReservationService;
+import com.skilldistillery.gearsilo.services.UserService;
 
 @RestController
 @RequestMapping("api")
@@ -24,11 +27,13 @@ public class ReservationController {
 
 	@Autowired
 	private ReservationService resSvc;
+	
+	
 
 	@GetMapping("reservations")
-	@ResponseBody
-	public List<Reservation> index() {
-		return resSvc.findAll();
+//	@ResponseBody
+	public List<Reservation> index(Principal p) {
+		return resSvc.findAll(p.getName());
 
 	}
 
