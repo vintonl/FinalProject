@@ -10,7 +10,7 @@ public interface ReservationService {
 
 	public Reservation findReservationById(int id);
 	
-	public Reservation createReseration(Reservation reservation);
+	public Reservation createReservation(Reservation reservation);
 	
 	public Reservation updateReservation(Reservation reservation, int id);
 	
