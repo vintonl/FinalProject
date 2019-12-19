@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.gearsilo.entities.Reservation;
 import com.skilldistillery.gearsilo.entities.ReviewOfLender;
-import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.services.ReviewOfLenderService;
 import com.skilldistillery.gearsilo.services.UserService;
 
@@ -46,39 +48,27 @@ public class ReviewOfLenderController {
 		return lenderReview;
 	}
 
-//	@GetMapping("user/{id}/reviews/lenderreview/{lid}")
-//	public List<ReviewOfLender> findLenderReviewById(HttpServletRequest req, HttpServletResponse resp,
-//			Principal principal) {
-//		ReviewOfLender lenderReview = lenderReviewSvc.show(principal.getName(), tid);
+//	@PostMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews")
+//	public ReviewOfLender createLenderReview(@RequestBody ReviewOfLender lenderReview, @PathVariable int uid,
+//			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 //
-//		if (lenderReview == null) {
-//			resp.setStatus(404);
-//		}
-//		if (lenderReview.size() == 0) {x
-//			resp.setStatus(204);
-//		}
+////		List<ReviewOfLender> lenderReview = lenderReviewSvc.findAll(principal.getName(), lenderReview);
 //
+//		System.out.println("inside constroller add review");
+//
+//		try {
+//			lenderReviewSvc.create(principal.getName(), lenderReview, uid, rid);
+//			res.setStatus(201);
+////			resp.addHeader("Location", "http://localhost:8082/api/addresses/" + address.getId());
+//			StringBuffer url = req.getRequestURL();
+////			url.append("/").append(todo.getId());
+//			res.addHeader("Location", url.toString());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			res.setStatus(400);
+//			e.printStackTrace();
+//		}
 //		return lenderReview;
 //	}
 
-//	@PutMapping("users/{id}")
-//	public User replaceExistingUser(@RequestBody User user, @PathVariable int id, HttpServletRequest req,
-//			HttpServletResponse resp) {
-//		try {
-//			user = reviewSvc.updateUser(id, user);
-//			if (user == null) {
-//				resp.setStatus(404);
-//				return null;
-//			}
-//			resp.setStatus(202);
-//			StringBuffer url = req.getRequestURL();
-//			url.append("/").append(user.getId());
-//			resp.addHeader("Location", url.toString());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			resp.setStatus(400);
-//			return null;
-//		}
-//		return user;
-//	}
 }
