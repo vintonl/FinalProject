@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 
@@ -37,10 +39,12 @@ public class User {
 	private Date updatedAt;
 
 	private String role;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Gear> gearList;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "userShopper")
 	private List<Reservation> reservations;
 
