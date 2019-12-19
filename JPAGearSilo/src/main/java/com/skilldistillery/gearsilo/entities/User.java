@@ -17,6 +17,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class User {
 
+//	+------------+--------------+------+-----+-------------------+-----------------------------+
+//	| Field      | Type         | Null | Key | Default           | Extra                       |
+//	+------------+--------------+------+-----+-------------------+-----------------------------+
+//	| id         | int(11)      | NO   | PRI | NULL              | auto_increment              |
+//	| first_name | varchar(100) | NO   |     | NULL              |                             |
+//	| last_name  | varchar(100) | NO   |     | NULL              |                             |
+//	| email      | varchar(150) | NO   |     | NULL              |                             |
+//	| password   | varchar(45)  | NO   |     | NULL              |                             |
+//	| created_at | date         | YES  |     | NULL              |                             |
+//	| updated_at | datetime     | YES  |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+//	| role       | varchar(45)  | NO   |     | 0                 |                             |
+//	| image_url  | text         | YES  |     | NULL              |                             |
+//	| about      | text         | YES  |     | NULL              |                             |
+//	| address_id | int(11)      | YES  | MUL | NULL              |                             |
+//	| phone      | varchar(45)  | NO   |     | NULL              |                             |
+//	| enabled    | tinyint(4)   | YES  |     | NULL              |                             |
+//	+------------+--------------+------+-----+-------------------+-----------------------------+
+
 	// F I E L D S
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +57,11 @@ public class User {
 	private Date updatedAt;
 
 	private String role;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Gear> gearList;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "userShopper")
 	private List<Reservation> reservations;
@@ -58,6 +76,7 @@ public class User {
 	private Address address;
 
 	private String phone;
+	private Boolean enabled;
 
 	// C O N S T R U C T O R S
 	public User() {
@@ -198,24 +217,19 @@ public class User {
 		return id;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((about == null) ? 0 : about.hashCode());
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((gearList == null) ? 0 : gearList.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + ((reservations == null) ? 0 : reservations.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		return result;
 	}
 
@@ -228,72 +242,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (about == null) {
-			if (other.about != null)
-				return false;
-		} else if (!about.equals(other.about))
-			return false;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (createdAt == null) {
-			if (other.createdAt != null)
-				return false;
-		} else if (!createdAt.equals(other.createdAt))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (gearList == null) {
-			if (other.gearList != null)
-				return false;
-		} else if (!gearList.equals(other.gearList))
-			return false;
 		if (id != other.id)
-			return false;
-		if (imageUrl == null) {
-			if (other.imageUrl != null)
-				return false;
-		} else if (!imageUrl.equals(other.imageUrl))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (phone == null) {
-			if (other.phone != null)
-				return false;
-		} else if (!phone.equals(other.phone))
-			return false;
-		if (reservations == null) {
-			if (other.reservations != null)
-				return false;
-		} else if (!reservations.equals(other.reservations))
-			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
-			return false;
-		if (updatedAt == null) {
-			if (other.updatedAt != null)
-				return false;
-		} else if (!updatedAt.equals(other.updatedAt))
 			return false;
 		return true;
 	}
@@ -302,7 +251,8 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", password=" + password + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", role=" + role
-				+ ", imageUrl=" + imageUrl + ", about=" + about + ", address=" + address + ", phone=" + phone + "]";
+				+ ", imageUrl=" + imageUrl + ", about=" + about + ", address=" + address + ", phone=" + phone
+				+ ", enabled=" + enabled + "]";
 	}
 
 }
