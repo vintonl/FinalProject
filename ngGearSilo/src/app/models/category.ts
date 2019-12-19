@@ -2,6 +2,7 @@
 // 	private String name;
 
 export class Category {
+
   id: number;
   name: string;
 
