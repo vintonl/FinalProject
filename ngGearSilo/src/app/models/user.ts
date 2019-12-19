@@ -10,8 +10,6 @@ import { Address } from './address';
 // 	private Date createdAt;
 // 	private Date updatedAt;
 // 	private String role;
-// 	private List<Gear> gearList;
-// 	private List<Reservation> reservations;
 // 	private String imageUrl;
 // 	private String about;
 // 	private Address address;
