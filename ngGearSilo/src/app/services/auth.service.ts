@@ -13,6 +13,9 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(username, password) {
+
+    // console.log(username);
+
     // Make credentials
     const credentials = this.generateBasicAuthCredentials(username, password);
     // Send credentials as Authorization header (this is spring security convention for basic auth)
@@ -40,6 +43,9 @@ export class AuthService {
 
   register(user) {
     // create request to register a new account
+
+    console.log(user);
+
     return this.http.post(this.baseUrl + 'register', user)
       .pipe(
         catchError((err: any) => {

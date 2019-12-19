@@ -17,7 +17,7 @@ export class Gear {
   id: number;
   user: User;
   name: string;
-  condition: string;
+  gearCondition: string;
   price: number;
   description: number;
   imageUrl: string;
@@ -30,7 +30,7 @@ export class Gear {
     id?: number,
     user?: User,
     name?: string,
-    condition?: string,
+    gearCondition?: string,
     price?: number,
     description?: number,
     imageUrl?: string,
@@ -43,7 +43,7 @@ export class Gear {
     this.id = id;
     this.user = user;
     this.name = name;
-    this.condition = condition;
+    this.gearCondition = gearCondition;
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
