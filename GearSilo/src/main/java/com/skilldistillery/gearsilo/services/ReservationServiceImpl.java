@@ -31,12 +31,12 @@ public class ReservationServiceImpl implements ReservationService {
 		} else {
 			return null;
 		}
-		
+
 	}
 
 	@Override
 	public Reservation createReservation(Reservation reservation) {
-		return null;
+		return resRepo.saveAndFlush(reservation);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public boolean deleteReservation(int id) {
+	public boolean deleteReservation(int id) { // disable vs delete ...
 		return false;
 	}
 }
