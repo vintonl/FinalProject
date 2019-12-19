@@ -35,14 +35,14 @@ public class GearController {
 		return gearSvc.showMyGear(principal.getName());
 	}
 	
-//	@GetMapping("gears")
-//	public List<Gear> listAllGears(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
-//		List<Gear> gearList = gearSvc.listAllGears();
-//		if (gearList == null) {
-//			resp.setStatus(404);
-//		}
-//		return gearList;
-//	}
+	@GetMapping("gearslist")
+	public List<Gear> listAllGears(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
+		List<Gear> gearList = gearSvc.listAllGears();
+		if (gearList == null) {
+			resp.setStatus(404);
+		}
+		return gearList;
+	}
 
 	@GetMapping("gears/{gearId}")
 	public Gear show(@PathVariable("gearId") Integer gid, HttpServletRequest req, HttpServletResponse resp) {
