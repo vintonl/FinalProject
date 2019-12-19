@@ -39,12 +39,13 @@ public class Gear {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@JsonIgnore
-	@ManyToOne
+//	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private User user;
 
 	private String name;
+	@Column(name = "gear_condition")
 	private String condition;
 	private Double price;
 	private String description;
