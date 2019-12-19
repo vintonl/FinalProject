@@ -10,8 +10,10 @@ public interface GearService {
 
 	Gear findGear(int id);
 
-	Gear addGear(Gear gear);
+	Gear addGear(String username, Gear gear);
 
-	Gear updateGear(int id, Gear gear);
+	Gear updateGear(String username, int id, Gear gear);
+
+	List<Gear> showMyGear(String name);
 
 }
