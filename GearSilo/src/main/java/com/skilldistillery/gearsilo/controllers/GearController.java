@@ -28,13 +28,12 @@ public class GearController {
 
 	@Autowired
 	private GearService gearSvc;
-	
+
 	@GetMapping("gears")
-	public List<Gear> index (HttpServletRequest req, HttpServletResponse res, Principal principal) {
-		System.out.println("in gears");
+	public List<Gear> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		return gearSvc.showMyGear(principal.getName());
 	}
-	
+
 	@GetMapping("gearslist")
 	public List<Gear> listAllGears(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
 		List<Gear> gearList = gearSvc.listAllGears();
@@ -46,7 +45,7 @@ public class GearController {
 
 	@GetMapping("gears/{gearId}")
 	public Gear show(@PathVariable("gearId") Integer gid, HttpServletRequest req, HttpServletResponse resp) {
-		
+
 		Gear gear = gearSvc.findGear(gid);
 		if (gear == null) {
 			resp.setStatus(404);
@@ -55,12 +54,10 @@ public class GearController {
 		}
 		return gear;
 	}
-	
+
 	@PostMapping("users/{uid}/gears")
-	public Gear create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Gear gear, @PathVariable("uid") int uid) {
-		System.out.println("id: " + uid);
-		System.out.println("***********************************try");
-		System.out.println(gear);
+	public Gear create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Gear gear,
+			@PathVariable("uid") int uid) {
 		try {
 			gear = gearSvc.addGear(principal.getName(), gear);
 			if (gear == null) {
@@ -70,21 +67,20 @@ public class GearController {
 				StringBuffer url = req.getRequestURL();
 				url.append("/").append(gear.getId());
 				res.addHeader("Location", url.toString());
-				System.out.println("***********************************" + gear);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(500);
 			gear = null;
 		}
-		System.out.println("**********************************" + gear);
 
 		return gear;
 	}
 
 	@PutMapping("/users/{uid}/gears/{gid}")
 	@ResponseBody
-	public Gear updateGear(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int gid, @RequestBody Gear gear) {
+	public Gear updateGear(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int gid,
+			@RequestBody Gear gear) {
 		try {
 			gear = gearSvc.updateGear(principal.getName(), gid, gear);
 			if (gear == null) {
