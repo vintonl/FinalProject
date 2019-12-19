@@ -6,5 +6,5 @@ import com.skilldistillery.gearsilo.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	
+	User findUserByUsername(String username);
 }

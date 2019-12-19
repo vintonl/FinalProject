@@ -6,7 +6,7 @@ import com.skilldistillery.gearsilo.entities.User;
 
 public interface UserService {
 
-	List<User> findAll();
+	List<User> findAll(String username);
 
 	User updateUser(int id, User user);
 
