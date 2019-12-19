@@ -310,7 +310,7 @@ COMMIT;
 START TRANSACTION;
 USE `geardb`;
 INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (1, '2019-12-19', '2019-12-19', 1, 0, 6, '2019-12-19', '2019-12-19', 1);
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-12-19', '2019-12-19', 3, 0, 6, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-12-19', '2019-12-19', 3, 0, 4, '2019-12-19', '2019-12-19', 1);
 INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-12-19', '2019-12-19', 2, 0, 5, '2019-12-19', '2019-12-19', 1);
 
 COMMIT;
@@ -335,7 +335,7 @@ START TRANSACTION;
 USE `geardb`;
 INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (1, 5, 'Larry showed up on time and took great care of the bike!', 6);
 INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (2, 5, 'Shaun was rad!', 5);
-INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (3, 5, 'Larry kept the Surf board in great condition and surfed like a pro! ', 6);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (3, 5, 'Peyton kept the Surf board in great condition and surfed like a pro! ', 4);
 
 COMMIT;
 
