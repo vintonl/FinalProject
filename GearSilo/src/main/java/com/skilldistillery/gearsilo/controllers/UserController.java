@@ -1,5 +1,6 @@
 package com.skilldistillery.gearsilo.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +27,10 @@ public class UserController {
 	private UserService userSvc;
 	
 	@GetMapping("users")
-	public List<User> findAll(HttpServletRequest req, HttpServletResponse resp) {
-		List<User> users = userSvc.findAll();
+	public List<User> findAll(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
+		;
+		
+		List<User> users = userSvc.findAll(principal.getName());
 
 		if (users == null) {
 			resp.setStatus(404);

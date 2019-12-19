@@ -24,7 +24,7 @@ public class User {
 //	| first_name | varchar(100) | NO   |     | NULL              |                             |
 //	| last_name  | varchar(100) | NO   |     | NULL              |                             |
 //	| email      | varchar(150) | NO   |     | NULL              |                             |
-//	| password   | varchar(45)  | NO   |     | NULL              |                             |
+//	| password   | varchar(300) | NO   |     | NULL              |                             |
 //	| created_at | date         | YES  |     | NULL              |                             |
 //	| updated_at | datetime     | YES  |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
 //	| role       | varchar(45)  | NO   |     | 0                 |                             |
@@ -33,6 +33,7 @@ public class User {
 //	| address_id | int(11)      | YES  | MUL | NULL              |                             |
 //	| phone      | varchar(45)  | NO   |     | NULL              |                             |
 //	| enabled    | tinyint(4)   | YES  |     | NULL              |                             |
+//	| username   | varchar(150) | NO   |     | NULL              |                             |
 //	+------------+--------------+------+-----+-------------------+-----------------------------+
 
 	// F I E L D S
@@ -47,6 +48,7 @@ public class User {
 	private String lastName;
 
 	private String email;
+	private String username;
 
 	private String password;
 
@@ -143,6 +145,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUsername() {
+		return email;
+	}
+
+	public void setUsername(String email) {
+		this.username = email;
 	}
 
 	public String getPassword() {
