@@ -41,10 +41,16 @@ public class GearServiceImpl implements GearService {
 	
 	@Override
 	public Gear addGear(String username, Gear gear) {
+		System.out.println("************ impl ***************************");
 		User user = userRepo.findUserByUsername(username);
 		if (user != null) {
+			System.out.println("in the service impl add gear if statement");
+			System.err.println("gear: " + gear);
+			System.err.println("user: " + user);
 			gear.setUser(user);
+			System.err.println("gear 2: " + gear.getUser().getEmail());
 			gearRepo.saveAndFlush(gear);
+			System.err.println("gear 3: " + gear);
 		} else {
 			gear = null;
 		}
@@ -56,7 +62,7 @@ public class GearServiceImpl implements GearService {
 		Gear updateGear = gearRepo.findByUser_UsernameAndId(username, gid);
 		if (updateGear != null) {
 		updateGear.setName(gear.getName());
-		updateGear.setCondition(gear.getCondition());
+		updateGear.setGearCondition(gear.getGearCondition());
 		updateGear.setPrice(gear.getPrice());
 		updateGear.setDescription(gear.getDescription());
 		updateGear.setImageUrl(gear.getImageUrl());
