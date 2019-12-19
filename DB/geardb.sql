@@ -127,12 +127,12 @@ CREATE TABLE IF NOT EXISTS `review_of_lender` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL DEFAULT 5,
   `review` VARCHAR(500) NULL DEFAULT NULL,
-  `gear_id` INT NOT NULL,
+  `reservation_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_gear_id_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_gear_id`
-    FOREIGN KEY (`gear_id`)
-    REFERENCES `reservation` (`gear_id`)
+  INDEX `fk_review_of_lender_reservation1_idx` (`reservation_id` ASC),
+  CONSTRAINT `fk_review_of_lender_reservation1`
+    FOREIGN KEY (`reservation_id`)
+    REFERENCES `reservation` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -147,12 +147,12 @@ CREATE TABLE IF NOT EXISTS `review_of_shopper` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL DEFAULT 5,
   `review` VARCHAR(500) NULL DEFAULT NULL,
-  `shopper_user_id` INT NOT NULL,
+  `reservation_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_shopper_user_id_idx` (`shopper_user_id` ASC),
-  CONSTRAINT `fk_shopper_user_id`
-    FOREIGN KEY (`shopper_user_id`)
-    REFERENCES `reservation` (`shopper_user_id`)
+  INDEX `fk_review_of_shopper_reservation1_idx` (`reservation_id` ASC),
+  CONSTRAINT `fk_review_of_shopper_reservation1`
+    FOREIGN KEY (`reservation_id`)
+    REFERENCES `reservation` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -167,12 +167,12 @@ CREATE TABLE IF NOT EXISTS `review_of_gear` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rating` INT NULL DEFAULT 5,
   `review` VARCHAR(500) NULL DEFAULT NULL,
-  `gear_id` INT NOT NULL,
+  `reservation_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_gear_id_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_gear_id_in_review_of_gear`
-    FOREIGN KEY (`gear_id`)
-    REFERENCES `reservation` (`gear_id`)
+  INDEX `fk_review_of_gear_reservation1_idx` (`reservation_id` ASC),
+  CONSTRAINT `fk_review_of_gear_reservation1`
+    FOREIGN KEY (`reservation_id`)
+    REFERENCES `reservation` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -309,9 +309,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (1, '2019-12-19', '2019-12-19', 1, 0, 6, '2019-12-19', '2019-12-19', 1);
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-12-19', '2019-12-19', 3, 0, 4, '2019-12-19', '2019-12-19', 1);
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-12-19', '2019-12-19', 2, 0, 5, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (1, '2019-12-19', '2019-12-19', 1, 1, 6, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-12-19', '2019-12-19', 3, 1, 4, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-12-19', '2019-12-19', 2, 1, 5, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (4, '2019-12-19', '2019-12-19', 4, 0, 7, '2019-12-19', '2019-12-19', 1);
 
 COMMIT;
 
@@ -321,9 +322,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `gear_id`) VALUES (1, 5, 'Lender was timely and had great tips!', 1);
-INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `gear_id`) VALUES (2, 3, 'Marty was late to our reservation appointment.', 2);
-INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `gear_id`) VALUES (3, 5, 'Wooah! I got to meet Kelly Slater! Radical!', 3);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 5, 'Lender was timely and had great tips!', NULL);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 3, 'Marty was late to our reservation appointment.', NULL);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Wooah! I got to meet Kelly Slater! Radical!', NULL);
 
 COMMIT;
 
@@ -333,9 +334,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (1, 5, 'Larry showed up on time and took great care of the bike!', 6);
-INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (2, 5, 'Shaun was rad!', 5);
-INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `shopper_user_id`) VALUES (3, 5, 'Peyton kept the Surf board in great condition and surfed like a pro! ', 4);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 5, 'Larry showed up on time and took great care of the bike!', NULL);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 5, 'Shaun was rad!', NULL);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Peyton kept the Surf board in great condition and surfed like a pro! ', NULL);
 
 COMMIT;
 
@@ -345,9 +346,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `geardb`;
-INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `gear_id`) VALUES (1, 4, 'Mountain Bike road well!', 1);
-INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `gear_id`) VALUES (2, 1, 'Hoverboard didn\'t live up to the hype...', 2);
-INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `gear_id`) VALUES (3, 5, 'Surf Board was awesome! Held up on some gnarly swells! ', 3);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (1, 4, 'Mountain Bike road well!', NULL);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (2, 1, 'Hoverboard didn\'t live up to the hype...', NULL);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`) VALUES (3, 5, 'Surf Board was awesome! Held up on some gnarly swells! ', NULL);
 
 COMMIT;
 
@@ -379,6 +380,7 @@ USE `geardb`;
 INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (1, 'Great looking Bike! Excited to ride it!', '2019-12-18', 1, 6);
 INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (2, 'I\'ve been looking for one of these forever!  Stoked to ride a real hoverboard!', '2019-12-18', 3, 6);
 INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (3, 'Awesome looking board Kelly! ', '2019-12-18', 2, 5);
+INSERT INTO `reservation_message` (`id`, `message`, `message_date`, `reservation_id`, `shopper_user_id`) VALUES (4, 'Can\'t wait to try out them snow shoes!!', '2019-12-19', 4, 7);
 
 COMMIT;
 
