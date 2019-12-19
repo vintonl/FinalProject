@@ -41,7 +41,6 @@ public class GearServiceImpl implements GearService {
 	
 	@Override
 	public Gear addGear(String username, Gear gear) {
-		System.out.println("************ impl ***************************");
 		User user = userRepo.findUserByUsername(username);
 		if (user != null) {
 			gear.setUser(user);
