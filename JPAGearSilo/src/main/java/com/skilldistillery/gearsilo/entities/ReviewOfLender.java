@@ -19,7 +19,7 @@ public class ReviewOfLender {
 	private String review;
 
 	@OneToOne
-	@JoinColumn(name = "gear_id")
+	@JoinColumn(name = "reservation_id")
 	private Reservation reservation;
 
 	public int getId() {
