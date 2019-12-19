@@ -24,7 +24,7 @@ public class ReviewOfGearController {
 	@Autowired
 	private ReviewOfGearService reviewGearSvc;
 	
-	@GetMapping("users/{uid}/reviews")
+	@GetMapping("users/{uid}/reviews/gearreviews")
 	public List<ReviewOfGear> index (@PathVariable int uid, HttpServletRequest req,
 			HttpServletResponse resp, Principal principal) {
 		List<ReviewOfGear> gearReview = reviewGearSvc.findAll(principal.getName(), uid);
