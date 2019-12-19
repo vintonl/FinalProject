@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +30,8 @@ public class ReservationController {
 	@Autowired
 	private ReservationService resSvc;
 
-	@GetMapping("reservations")
-	public List<Reservation> index(Principal p, HttpServletRequest req, HttpServletResponse resp) {
+	@GetMapping("user/{id}/reservations")
+	public List<Reservation> index(@PathVariable int id, Principal p, HttpServletRequest req, HttpServletResponse resp) {
 
 		List<Reservation> res = resSvc.findAll(p.getName());
 
@@ -46,7 +47,7 @@ public class ReservationController {
 
 	}
 
-	@GetMapping("reservations/{id}")
+	@GetMapping("user{id}reservations/{id}")
 	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {
 
 		Reservation res = resSvc.findReservationById(p.getName(), id);
@@ -56,8 +57,8 @@ public class ReservationController {
 		return res;
 	}
 
-	@PostMapping("reservations")
-	public Reservation createReservation(@RequestBody Reservation reservation, HttpServletRequest req,
+	@PostMapping("user/{id}/reservations")
+	public Reservation createReservation(@PathVariable int id, @RequestBody Reservation reservation, HttpServletRequest req,
 			HttpServletResponse resp, Principal p) {
 
 		Reservation newRes = resSvc.createReservation(p.getName(), reservation);
@@ -74,7 +75,7 @@ public class ReservationController {
 
 	}
 
-	@PutMapping("reservations/{id}")
+	@PutMapping("user/{id}/reservations/{id}")
 	public Reservation updateReservation(@RequestBody Reservation reservation, @PathVariable int id,
 			HttpServletRequest req, HttpServletResponse resp, Principal p) {
 
