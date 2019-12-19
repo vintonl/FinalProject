@@ -56,6 +56,7 @@ class ReviewOfShopperTest {
 	@DisplayName("ReviewOfGear entity mapping to Review")
 	void test2() {
 		assertEquals("Larry showed up on time and took great care of the bike!", reviewShopper.getReview());
+		assertEquals(1, reviewShopper.getReservation().getId());
 	}
 
 }

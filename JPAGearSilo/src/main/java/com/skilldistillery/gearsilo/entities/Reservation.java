@@ -1,6 +1,7 @@
 package com.skilldistillery.gearsilo.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Reservation {
 
+	// F I E L D S
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -40,7 +43,14 @@ public class Reservation {
 	@OneToOne(mappedBy = "reservation")
 	private ReviewOfGear gearReview;
 
+	@OneToOne(mappedBy = "reservation")
+	private ReviewOfShopper shopperReview;
+
 	private boolean completed;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "reservation")
+	private List<ReservationMessage> messages;
 
 	@JsonIgnore
 	@ManyToOne
@@ -57,19 +67,45 @@ public class Reservation {
 
 	private boolean approved;
 
+	// C T O R S
+
+	public Reservation() {
+		super();
+	}
+
 	public Reservation(int id, Date openDate, Date closeDate, Gear gearId, ReviewOfLender lenderReview,
-			boolean completed, User userShopper, Date createdAt, Date updatedAt, boolean approved) {
+			ReviewOfGear gearReview, ReviewOfShopper shopperReview, boolean completed, User userShopper, Date createdAt,
+			Date updatedAt, boolean approved) {
 		super();
 		this.id = id;
 		this.openDate = openDate;
 		this.closeDate = closeDate;
 		this.gearId = gearId;
 		this.lenderReview = lenderReview;
+		this.gearReview = gearReview;
+		this.shopperReview = shopperReview;
 		this.completed = completed;
 		this.userShopper = userShopper;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.approved = approved;
+	}
+
+	// G E T __ A N D __ S E T
+	public ReviewOfShopper getShopperReview() {
+		return shopperReview;
+	}
+
+	public void setShopperReview(ReviewOfShopper shopperReview) {
+		this.shopperReview = shopperReview;
+	}
+
+	public List<ReservationMessage> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<ReservationMessage> messages) {
+		this.messages = messages;
 	}
 
 	public ReviewOfGear getGearReview() {
@@ -78,10 +114,6 @@ public class Reservation {
 
 	public void setGearReview(ReviewOfGear gearReview) {
 		this.gearReview = gearReview;
-	}
-
-	public Reservation() {
-		super();
 	}
 
 	public int getId() {
@@ -175,8 +207,10 @@ public class Reservation {
 		result = prime * result + ((gearId == null) ? 0 : gearId.hashCode());
 		result = prime * result + ((gearReview == null) ? 0 : gearReview.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((lenderReview == null) ? 0 : lenderReview.hashCode());
+//		result = prime * result + ((lenderReview == null) ? 0 : lenderReview.hashCode());
+//		result = prime * result + ((messages == null) ? 0 : messages.hashCode());
 		result = prime * result + ((openDate == null) ? 0 : openDate.hashCode());
+		result = prime * result + ((shopperReview == null) ? 0 : shopperReview.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		result = prime * result + ((userShopper == null) ? 0 : userShopper.hashCode());
 		return result;
@@ -227,6 +261,11 @@ public class Reservation {
 				return false;
 		} else if (!openDate.equals(other.openDate))
 			return false;
+		if (shopperReview == null) {
+			if (other.shopperReview != null)
+				return false;
+		} else if (!shopperReview.equals(other.shopperReview))
+			return false;
 		if (updatedAt == null) {
 			if (other.updatedAt != null)
 				return false;
@@ -243,9 +282,8 @@ public class Reservation {
 	@Override
 	public String toString() {
 		return "Reservation [id=" + id + ", openDate=" + openDate + ", closeDate=" + closeDate + ", gearId=" + gearId
-				+ ", lenderReview=" + lenderReview + ", gearReview=" + gearReview + ", completed=" + completed
-				+ ", userShopper=" + userShopper + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", approved=" + approved + "]";
+				+ ", completed=" + completed + ", userShopper=" + userShopper + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", approved=" + approved + "]";
 	}
 
 }

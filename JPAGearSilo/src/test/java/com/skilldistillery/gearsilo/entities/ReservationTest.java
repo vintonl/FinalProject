@@ -1,7 +1,7 @@
 package com.skilldistillery.gearsilo.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -58,11 +58,15 @@ class ReservationTest {
 
 	@Test
 	void test3() {
+		System.out.println(resv);
 		assertEquals(1, resv.getId());
-		assertEquals(false, resv.isCompleted());
+		assertEquals(true, resv.isCompleted());
 		assertEquals(true, resv.isApproved());
 		assertEquals(4, resv.getGearReview().getRating());
 		assertEquals(5, resv.getLenderReview().getRating());
+		assertNotNull(resv.getShopperReview());
+		assertEquals(1, resv.getShopperReview().getId());
+		assertEquals("Great looking Bike! Excited to ride it!", resv.getMessages().get(0).getMessage());
 	}
 
 }

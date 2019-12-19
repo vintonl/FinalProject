@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "reservation_message")
@@ -16,33 +20,46 @@ public class ReservationMessage {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@ManyToOne
+	@JoinColumn(name = "reservation_id")
+	private Reservation reservation;
+
 	private String message;
 
 	@Column(name = "message_date")
 	private String messageDate;
 
-	@Column(name = "reservation_id")
-	private String reservationId;
+//	@Column(name = "reservation_id")
+//	private String reservationId;
 
 	@Column(name = "shopper_user_id")
 	private String shopperUserId;
 
 	// C O N S T R U C T O R S
 
-	public ReservationMessage(int id, String message, String messageDate, String reservationId, String shopperUserId) {
-		super();
-		this.id = id;
-		this.message = message;
-		this.messageDate = messageDate;
-		this.reservationId = reservationId;
-		this.shopperUserId = shopperUserId;
-	}
-
 	public ReservationMessage() {
 		super();
 	}
 
 	// G E T T E R S __ A N D __ S E T T E R S
+
+	public ReservationMessage(int id, Reservation reservation, String message, String messageDate,
+			String shopperUserId) {
+		super();
+		this.id = id;
+		this.reservation = reservation;
+		this.message = message;
+		this.messageDate = messageDate;
+		this.shopperUserId = shopperUserId;
+	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
 
 	public int getId() {
 		return id;
@@ -68,14 +85,6 @@ public class ReservationMessage {
 		this.messageDate = messageDate;
 	}
 
-	public String getReservationId() {
-		return reservationId;
-	}
-
-	public void setReservationId(String reservationId) {
-		this.reservationId = reservationId;
-	}
-
 	public String getShopperUserId() {
 		return shopperUserId;
 	}
@@ -91,7 +100,7 @@ public class ReservationMessage {
 		result = prime * result + id;
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		result = prime * result + ((messageDate == null) ? 0 : messageDate.hashCode());
-		result = prime * result + ((reservationId == null) ? 0 : reservationId.hashCode());
+		result = prime * result + ((reservation == null) ? 0 : reservation.hashCode());
 		result = prime * result + ((shopperUserId == null) ? 0 : shopperUserId.hashCode());
 		return result;
 	}
@@ -117,10 +126,10 @@ public class ReservationMessage {
 				return false;
 		} else if (!messageDate.equals(other.messageDate))
 			return false;
-		if (reservationId == null) {
-			if (other.reservationId != null)
+		if (reservation == null) {
+			if (other.reservation != null)
 				return false;
-		} else if (!reservationId.equals(other.reservationId))
+		} else if (!reservation.equals(other.reservation))
 			return false;
 		if (shopperUserId == null) {
 			if (other.shopperUserId != null)
@@ -133,7 +142,7 @@ public class ReservationMessage {
 	@Override
 	public String toString() {
 		return "ReservationMessage [id=" + id + ", message=" + message + ", messageDate=" + messageDate
-				+ ", reservationId=" + reservationId + ", shopperUserId=" + shopperUserId + "]";
+				+ ", shopperUserId=" + shopperUserId + "]";
 	}
 
 }
