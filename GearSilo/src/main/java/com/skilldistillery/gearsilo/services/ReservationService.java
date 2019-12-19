@@ -6,7 +6,7 @@ import com.skilldistillery.gearsilo.entities.Reservation;
 
 public interface ReservationService {
 
-	public List<Reservation> findAll();
+	public List<Reservation> findAll(String username);
 
 	public Reservation findReservationById(int id);
 	
