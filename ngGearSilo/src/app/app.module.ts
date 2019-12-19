@@ -1,3 +1,9 @@
+import { UserService } from './services/user.service';
+import { ReviewOfShopperService } from './services/review-of-shopper.service';
+import { ReviewOfLenderService } from './services/review-of-lender.service';
+import { ReservationService } from './services/reservation.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { GearService } from './services/gear.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,6 +21,8 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReservationMessageService } from './services/reservation-message.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -36,7 +44,16 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    GearService,
+    AuthService,
+    ReservationService,
+    ReservationMessageService,
+    DatePipe,
+    ReviewOfLenderService,
+    ReviewOfShopperService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
