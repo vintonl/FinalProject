@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "review_of_lender")
 public class ReviewOfLender {
@@ -19,6 +21,7 @@ public class ReviewOfLender {
 	private String review;
 
 	@OneToOne
+	@JsonIgnore
 	@JoinColumn(name = "reservation_id")
 	private Reservation reservation;
 
