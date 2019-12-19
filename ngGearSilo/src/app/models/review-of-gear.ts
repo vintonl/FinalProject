@@ -2,15 +2,15 @@ import { Reservation } from './reservation';
 
 export class ReviewOfGear {
 
-  reviewOfGearId: number;
+  id: number;
   rating: number;
-  reviewOfGear: string;
+  review: string;
   reservation: Reservation;
 
-  constructor( reviewOfGearId?: number, rating?: number, reviewOfGear?: string, reservation?: Reservation) {
-    this.reviewOfGearId = reviewOfGearId;
+  constructor( id?: number, rating?: number, review?: string, reservation?: Reservation) {
+    this.id = id;
     this.rating = rating;
-    this.reviewOfGear = reviewOfGear;
+    this.review = review;
     this.reservation = reservation;
   }
 }
