@@ -21,16 +21,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
-	// this bean is created in the application starter class if you're looking for it
+	// this bean is created in the application starter class if you're looking for
+	// it
 	@Autowired
 	private PasswordEncoder encoder;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() // For CORS, the preflight request
-				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // will hit the OPTIONS on the route
+		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() // For CORS,
+																											// the
+																											// preflight
+																											// request
+																											// will hit
+																											// the
+																											// OPTIONS
+																											// on the
+																											// route
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+				.antMatchers(HttpMethod.GET, "/api/gears").permitAll()
+				
+				.antMatchers("/login").permitAll()
+				
+				.antMatchers("/register").permitAll()
+				
+				.antMatchers("/logout").permitAll()
+				
+				.antMatchers("/home").permitAll()
+
 				.antMatchers("/api/**").authenticated() // Requests for our REST API must be authorized.
+
 				.anyRequest().permitAll() // All other requests are allowed without authorization.
+
 				.and().httpBasic(); // Use HTTP Basic Authentication
 
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
