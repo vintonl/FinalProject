@@ -1,0 +1,25 @@
+<div class="login-form-1">
+  <div class="mx-auto" style="width: 20%;">
+    <H1>Login</H1>
+  </div>
+  <form #loginForm="ngForm" id="login-form" class="text-left">
+    <div class="login-form-main-message"></div>
+    <div class="main-login-form">
+      <div class="login-group">
+        <div class="form-group">
+          <label for="username" class="sr-only">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="username" ngModel>
+        </div>
+        <div class="form-group">
+          <label for="password" class="sr-only">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="password" ngModel>
+        </div>
+      </div>
+      <button type="submit" class="login-button btn btn-success" (click)="login(loginForm)">Submit</button>
+    </div>
+    <div class="etc-login-form">
+      <!-- <p>forgot your password? <a href="#">click here</a></p> -->
+      <p>new user? <a href="/register">create new account</a></p>
+    </div>
+  </form>
+</div>
