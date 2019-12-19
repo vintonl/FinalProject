@@ -158,7 +158,7 @@ public class Reservation {
 		this.gearId = gearId;
 	}
 
-	public boolean isCompleted() {
+	public boolean getCompleted() {
 		return completed;
 	}
 
@@ -190,7 +190,7 @@ public class Reservation {
 		this.updatedAt = updatedAt;
 	}
 
-	public boolean isApproved() {
+	public boolean getApproved() {
 		return approved;
 	}
 
@@ -209,8 +209,8 @@ public class Reservation {
 		result = prime * result + ((gearId == null) ? 0 : gearId.hashCode());
 		result = prime * result + ((gearReview == null) ? 0 : gearReview.hashCode());
 		result = prime * result + id;
-//		result = prime * result + ((lenderReview == null) ? 0 : lenderReview.hashCode());
-//		result = prime * result + ((messages == null) ? 0 : messages.hashCode());
+		result = prime * result + ((lenderReview == null) ? 0 : lenderReview.hashCode());
+		result = prime * result + ((messages == null) ? 0 : messages.hashCode());
 		result = prime * result + ((openDate == null) ? 0 : openDate.hashCode());
 		result = prime * result + ((shopperReview == null) ? 0 : shopperReview.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
@@ -258,6 +258,11 @@ public class Reservation {
 				return false;
 		} else if (!lenderReview.equals(other.lenderReview))
 			return false;
+		if (messages == null) {
+			if (other.messages != null)
+				return false;
+		} else if (!messages.equals(other.messages))
+			return false;
 		if (openDate == null) {
 			if (other.openDate != null)
 				return false;
@@ -284,8 +289,9 @@ public class Reservation {
 	@Override
 	public String toString() {
 		return "Reservation [id=" + id + ", openDate=" + openDate + ", closeDate=" + closeDate + ", gearId=" + gearId
-				+ ", completed=" + completed + ", userShopper=" + userShopper + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + ", approved=" + approved + "]";
+				+ ", lenderReview=" + lenderReview + ", gearReview=" + gearReview + ", shopperReview=" + shopperReview
+				+ ", completed=" + completed + ", messages=" + messages + ", userShopper=" + userShopper
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", approved=" + approved + "]";
 	}
 
 }
