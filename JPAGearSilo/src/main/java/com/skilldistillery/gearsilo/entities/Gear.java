@@ -46,7 +46,7 @@ public class Gear {
 
 	private String name;
 	@Column(name = "gear_condition")
-	private String condition;
+	private String gearCondition;
 	private Double price;
 	private String description;
 	@Column(name = "image_url")
@@ -63,14 +63,15 @@ public class Gear {
 	@JoinTable(name = "gear_category", joinColumns = @JoinColumn(name = "gear_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories;
 
+	
 	// C T O R S
-
-	public Gear(int id, String name, String condition, Double price, String description, String imageUrl,
+	public Gear(int id, User user, String name, String gearCondition, Double price, String description, String imageUrl,
 			String imageUrl2, String imageUrl3, Boolean available, Boolean active, List<Category> categories) {
 		super();
 		this.id = id;
+		this.user = user;
 		this.name = name;
-		this.condition = condition;
+		this.gearCondition = gearCondition;
 		this.price = price;
 		this.description = description;
 		this.imageUrl = imageUrl;
@@ -81,9 +82,17 @@ public class Gear {
 		this.categories = categories;
 	}
 
-	// G E T T E R S __ A N D __ S E T T E R S
 	public Gear() {
 		super();
+	}
+	// G E T T E R S __ A N D __ S E T T E R S
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public User getUser() {
@@ -94,14 +103,6 @@ public class Gear {
 		this.user = user;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -110,12 +111,12 @@ public class Gear {
 		this.name = name;
 	}
 
-	public String getCondition() {
-		return condition;
+	public String getGearCondition() {
+		return gearCondition;
 	}
 
-	public void setCondition(String condition) {
-		this.condition = condition;
+	public void setGearCondition(String gearCondition) {
+		this.gearCondition = gearCondition;
 	}
 
 	public Double getPrice() {
@@ -189,8 +190,8 @@ public class Gear {
 		result = prime * result + ((active == null) ? 0 : active.hashCode());
 		result = prime * result + ((available == null) ? 0 : available.hashCode());
 		result = prime * result + ((categories == null) ? 0 : categories.hashCode());
-		result = prime * result + ((condition == null) ? 0 : condition.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((gearCondition == null) ? 0 : gearCondition.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
 		result = prime * result + ((imageUrl2 == null) ? 0 : imageUrl2.hashCode());
@@ -225,15 +226,15 @@ public class Gear {
 				return false;
 		} else if (!categories.equals(other.categories))
 			return false;
-		if (condition == null) {
-			if (other.condition != null)
-				return false;
-		} else if (!condition.equals(other.condition))
-			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
+			return false;
+		if (gearCondition == null) {
+			if (other.gearCondition != null)
+				return false;
+		} else if (!gearCondition.equals(other.gearCondition))
 			return false;
 		if (id != other.id)
 			return false;
@@ -275,10 +276,12 @@ public class Gear {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Gear [id=");
 		builder.append(id);
+		builder.append(", user=");
+		builder.append(user);
 		builder.append(", name=");
 		builder.append(name);
-		builder.append(", condition=");
-		builder.append(condition);
+		builder.append(", gearCondition=");
+		builder.append(gearCondition);
 		builder.append(", price=");
 		builder.append(price);
 		builder.append(", description=");
@@ -296,5 +299,5 @@ public class Gear {
 		builder.append("]");
 		return builder.toString();
 	}
-
+	
 }

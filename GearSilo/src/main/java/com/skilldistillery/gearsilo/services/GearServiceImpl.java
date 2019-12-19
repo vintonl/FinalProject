@@ -62,7 +62,7 @@ public class GearServiceImpl implements GearService {
 		Gear updateGear = gearRepo.findByUser_UsernameAndId(username, gid);
 		if (updateGear != null) {
 		updateGear.setName(gear.getName());
-		updateGear.setCondition(gear.getCondition());
+		updateGear.setGearCondition(gear.getGearCondition());
 		updateGear.setPrice(gear.getPrice());
 		updateGear.setDescription(gear.getDescription());
 		updateGear.setImageUrl(gear.getImageUrl());
