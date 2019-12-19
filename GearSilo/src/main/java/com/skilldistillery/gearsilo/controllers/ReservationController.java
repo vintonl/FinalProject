@@ -31,17 +31,29 @@ public class ReservationController {
 	
 
 	@GetMapping("reservations")
-//	@ResponseBody
-	public List<Reservation> index(Principal p) {
-		return resSvc.findAll(p.getName());
+	@ResponseBody
+	public List<Reservation> index(Principal p, HttpServletRequest req,
+			HttpServletResponse resp) {
+		
+		List<Reservation> res = resSvc.findAll(p.getName());
+		
+		if (res != null && res.size() == 0) {
+			resp.setStatus(204);
+		}
+		
+		if (res == null) {
+			resp.setStatus(404);
+		}
+		
+		return res;
 
 	}
 
 	@GetMapping("reservations/{id}")
 	@ResponseBody
-	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp) {
-		System.err.println("In Controller" + id);
-		Reservation res = resSvc.findReservationById(id);
+	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {
+		
+		Reservation res = resSvc.findReservationById(p.getName(), id);
 		if (res == null) {
 			resp.setStatus(404);
 		}
@@ -51,10 +63,10 @@ public class ReservationController {
 	@PostMapping("reservations")
 	@ResponseBody
 	public Reservation createReservation(@RequestBody Reservation reservation, HttpServletRequest req,
-			HttpServletResponse resp) {
+			HttpServletResponse resp, Principal p) {
 
 		try {
-			resSvc.createReservation(reservation);
+			resSvc.createReservation(p.getName(), reservation);
 			resp.setStatus(201);
 			return reservation;
 		} catch (Exception e) {

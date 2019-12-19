@@ -22,18 +22,19 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<Reservation> findAll(String username) {
-
+		
 		return resRepo.findAll();
 		
 	}
 
 	@Override
-	public Reservation findReservationById(int id) {
-		System.err.println("In Impl " + id);
+	public Reservation findReservationById(String username, int id) {
+		
 		Reservation res = null;
 		Optional<Reservation> opt = resRepo.findById(id);
 		if (opt.isPresent()) {
 			res = opt.get();
+			
 			return res;
 		} else {
 			return null;
@@ -42,17 +43,25 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public Reservation createReservation(Reservation reservation) {
-		return resRepo.saveAndFlush(reservation);
+	public Reservation createReservation(String username, Reservation reservation) {
+//		return resRepo.saveAndFlush(reservation);
+		User user = uRepo.findUserByUsername(username);
+
+		if (user != null) {
+			reservation.setUserShopper(user);
+			return resRepo.saveAndFlush(reservation);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
-	public Reservation updateReservation(Reservation reservation, int id) {
+	public Reservation updateReservation(String username, Reservation reservation, int id) {
 		return null;
 	}
 
 	@Override
-	public boolean deleteReservation(int id) { // disable vs delete ...
+	public boolean deleteReservation(String username, int id) { // disable vs delete ...
 		return false;
 	}
 
