@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +30,6 @@ public class ReservationController {
 	private ReservationService resSvc;
 
 	@GetMapping("reservations")
-	@ResponseBody
 	public List<Reservation> index(Principal p, HttpServletRequest req, HttpServletResponse resp) {
 
 		List<Reservation> res = resSvc.findAll(p.getName());
@@ -47,7 +47,6 @@ public class ReservationController {
 	}
 
 	@GetMapping("reservations/{id}")
-	@ResponseBody
 	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {
 
 		Reservation res = resSvc.findReservationById(p.getName(), id);
@@ -58,12 +57,11 @@ public class ReservationController {
 	}
 
 	@PostMapping("reservations")
-	@ResponseBody
 	public Reservation createReservation(@RequestBody Reservation reservation, HttpServletRequest req,
 			HttpServletResponse resp, Principal p) {
-		
+
 		Reservation newRes = resSvc.createReservation(p.getName(), reservation);
-		
+
 		if (newRes != null) {
 			StringBuffer url = req.getRequestURL();
 			resp.addHeader("Location", url.toString());
@@ -73,16 +71,23 @@ public class ReservationController {
 			resp.setStatus(401);
 			return null;
 		}
-//		try {
-//			resSvc.createReservation(p.getName(), reservation);
-//			resp.setStatus(201);
-//			return reservation;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			resp.setStatus(400);
-//			return null;
-//		}
 
+	}
+
+	@PutMapping("reservations/{id}")
+	public Reservation updateReservation(@RequestBody Reservation reservation, @PathVariable int id,
+			HttpServletRequest req, HttpServletResponse resp, Principal p) {
+
+		try {
+			resp.setStatus(201);
+			StringBuffer url = req.getRequestURL();
+			resp.addHeader("Location", url.toString());
+			return resSvc.updateReservation(p.getName(), reservation, id);
+
+		} catch (Exception e) {
+			resp.setStatus(400);
+			return null;
+		}
 	}
 
 }

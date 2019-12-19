@@ -57,12 +57,36 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Reservation updateReservation(String username, Reservation reservation, int id) {
-		return null;
+		
+		Reservation oldRes = resRepo.findByUserShopper_UsernameAndId(username, id);
+		
+		if (oldRes != null) {
+			
+			oldRes.setApproved(reservation.getApproved());
+			oldRes.setCloseDate(reservation.getCloseDate());
+			oldRes.setCompleted(reservation.getCompleted());
+			oldRes.setCreatedAt(reservation.getCreatedAt());
+			oldRes.setGearId(reservation.getGearId());
+			oldRes.setGearReview(reservation.getGearReview());
+			oldRes.setLenderReview(reservation.getLenderReview());
+			oldRes.setMessages(reservation.getMessages());
+			oldRes.setOpenDate(reservation.getOpenDate());
+			oldRes.setShopperReview(reservation.getShopperReview());
+			return resRepo.saveAndFlush(oldRes);
+			
+		} else {
+			return null;
+		}
+		
+		
+		
+		
 	}
-
+	
+	// disable vs delete ... 
 	@Override
-	public boolean deleteReservation(String username, int id) { // disable vs delete ...
-		return false;
-	}
+	public boolean deleteReservation(String username, int id) {
+		return false; 
 
+	}
 }
