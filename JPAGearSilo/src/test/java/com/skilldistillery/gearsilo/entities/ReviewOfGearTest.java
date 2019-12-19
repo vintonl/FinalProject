@@ -56,6 +56,7 @@ class ReviewOfGearTest {
 	@DisplayName("ReviewOfGear entity mapping to Review")
 	void test2() {
 		assertEquals("Mountain Bike road well!", reviewGear.getReview());
+		assertEquals(1, reviewGear.getReservation().getId());
 	}
 
 }

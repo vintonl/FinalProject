@@ -19,7 +19,7 @@ public class ReviewOfGear {
 	private String review;
 
 	@OneToOne
-	@JoinColumn(name = "gear_id")
+	@JoinColumn(name = "reservation_id")
 	private Reservation reservation;
 
 	public int getId() {
@@ -46,12 +46,21 @@ public class ReviewOfGear {
 		this.review = review;
 	}
 
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
 		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
+		result = prime * result + ((reservation == null) ? 0 : reservation.hashCode());
 		result = prime * result + ((review == null) ? 0 : review.hashCode());
 		return result;
 	}
@@ -71,6 +80,11 @@ public class ReviewOfGear {
 			if (other.rating != null)
 				return false;
 		} else if (!rating.equals(other.rating))
+			return false;
+		if (reservation == null) {
+			if (other.reservation != null)
+				return false;
+		} else if (!reservation.equals(other.reservation))
 			return false;
 		if (review == null) {
 			if (other.review != null)
