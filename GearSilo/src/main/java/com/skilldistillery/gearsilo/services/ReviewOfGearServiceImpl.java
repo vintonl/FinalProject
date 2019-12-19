@@ -21,5 +21,11 @@ public class ReviewOfGearServiceImpl implements ReviewOfGearService {
 	public List<ReviewOfGear> showMyReviewOfGear(String username) {
 		return reviewOfGearRepo.findByUser_Username(username);
 	}
+
+	@Override
+	public List<ReviewOfGear> findAll(String name, int uid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
