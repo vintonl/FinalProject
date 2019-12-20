@@ -25,11 +25,11 @@ public class UserController {
 
 	@Autowired
 	private UserService userSvc;
-	
+
 	@GetMapping("users")
 	public List<User> findAll(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
 		;
-		
+
 		List<User> users = userSvc.findAll(principal.getName());
 
 		if (users == null) {
@@ -41,7 +41,7 @@ public class UserController {
 
 		return users;
 	}
-	
+
 	@PutMapping("users/{id}")
 	public User replaceExistingUser(@RequestBody User user, @PathVariable int id, HttpServletRequest req,
 			HttpServletResponse resp) {
@@ -60,6 +60,32 @@ public class UserController {
 			resp.setStatus(400);
 			return null;
 		}
+		return user;
+	}
+
+	@GetMapping("users/{username}")
+	public User replaceExistingUser(@PathVariable String username, HttpServletRequest req, Principal principal,
+			HttpServletResponse resp) {
+System.out.println(username);
+		User user = null;
+
+		try {
+			user = userSvc.findUserByUsername(username);
+			if (user == null) {
+				resp.setStatus(404);
+				return null;
+			}
+			System.out.println(user);
+			resp.setStatus(202);
+//			StringBuffer url = req.getRequestURL();
+//			url.append("/").append(user.getId());
+//			resp.addHeader("Location", url.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			resp.setStatus(400);
+			return null;
+		}
+
 		return user;
 	}
 }
