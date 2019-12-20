@@ -23,8 +23,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReservationMessageService } from './services/reservation-message.service';
 import { DatePipe } from '@angular/common';
+<<<<<<< HEAD
 import { AdminComponent } from './components/admin/admin.component';
 import { TestingComponent } from './components/testing/testing.component';
+=======
+import { HtmlTestingComponent } from './components/html-testing/html-testing.component';
+>>>>>>> ab0d12d0199613ec752ffc1efa635a5bf8876efc
 
 @NgModule({
   declarations: [
@@ -37,8 +41,12 @@ import { TestingComponent } from './components/testing/testing.component';
     LoginComponent,
     LogoutComponent,
     RegisterComponent,
+<<<<<<< HEAD
     AdminComponent,
     TestingComponent
+=======
+    HtmlTestingComponent
+>>>>>>> ab0d12d0199613ec752ffc1efa635a5bf8876efc
   ],
   imports: [
     BrowserModule,

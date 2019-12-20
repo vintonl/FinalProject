@@ -1,1 +1,35 @@
-<p>gear-list works!</p>
+<div class="contaner-fluid">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <div>
+        <br>
+        <div class="text-center">
+          <h2>Gear List</h2>
+        </div>
+        <table class="table table-primary table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Price</th>
+              <th scope="col">Condition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of gearList">
+              <td scope="row">{{item.name | titlecase }}</td>
+              <td>{{item.description | lowercase }}</td>
+              <td>{{item.price | currency}}</td>
+              <td>{{item.gearCondition | lowercase }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <p>Click a row for more details.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>
