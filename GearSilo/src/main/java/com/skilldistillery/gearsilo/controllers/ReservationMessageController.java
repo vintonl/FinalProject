@@ -24,10 +24,10 @@ import com.skilldistillery.gearsilo.services.ReservationMessageService;
 @RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost:4207" })
 public class ReservationMessageController {
-	
+
 	@Autowired
 	private ReservationMessageService resMsgSvc;
-	
+
 	@GetMapping("user/{uid}/reservation/reservationmessages")
 	public List<ReservationMessage> findReservationMessageById(@PathVariable int uid, HttpServletRequest req,
 			HttpServletResponse resp, Principal principal) {
@@ -45,14 +45,14 @@ public class ReservationMessageController {
 		return resMsg;
 	}
 
-	@PostMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews")
-	public ReservationMessage createLenderReview(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
+	@PostMapping("user/{uid}/reservation/{rid}/reservationmessages")
+	public ReservationMessage createReservationMessage(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 
 		System.out.println("inside constroller add review");
 
 		try {
-			resMsgSvc.createReviewOfLender(principal.getName(), lenderReview, uid, rid);
+			resMsgSvc.createReservationMessage(principal.getName(), resMsg, uid, rid);
 			res.setStatus(201);
 			StringBuffer url = req.getRequestURL();
 			res.addHeader("Location", url.toString());
@@ -60,25 +60,24 @@ public class ReservationMessageController {
 			res.setStatus(400);
 			e.printStackTrace();
 		}
-		return lenderReview;
+		return resMsg;
 	}
-	
-	@PutMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews/{lrid}")
-	public ReservationMessage updateReviewOfLender(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
-			@PathVariable int rid,@PathVariable int lrid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+
+	@PutMapping("user/{uid}/reservation/{rid}/reservationmessages/{rmid}")
+	public ReservationMessage updateReservationMessage(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
+			@PathVariable int rid, @PathVariable int lrid, HttpServletRequest req, HttpServletResponse res,
+			Principal principal) {
 		try {
-			lenderReview = resMsgSvc.updateReviewOfLender(principal.getName(), lenderReview, uid, rid, lrid);
-			if (lenderReview == null) {
+			resMsg = resMsgSvc.updateReservationMessage(principal.getName(), resMsg, uid, rid, lrid);
+			if (resMsg == null) {
 				res.setStatus(404);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(400);
-			lenderReview = null;
+			resMsg = null;
 		}
-		return lenderReview;
+		return resMsg;
 	}
-
-	
 
 }
