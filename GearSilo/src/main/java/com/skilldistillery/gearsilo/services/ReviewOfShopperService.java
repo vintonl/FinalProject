@@ -9,4 +9,8 @@ public interface ReviewOfShopperService {
 
 	List<ReviewOfShopper> findById(String username, int uid);
 
+	ReviewOfShopper createReviewOfShopper(String username, ReviewOfShopper shopperReview, int id, int rid);
+
+	ReviewOfShopper updateReviewOfShopper(String username, ReviewOfShopper shopperReview, int id, int rid, int sid);
+
 }

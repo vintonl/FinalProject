@@ -33,7 +33,7 @@ public class ReservationMessage {
 //	private String reservationId;
 
 	@Column(name = "shopper_user_id")
-	private String shopperUserId;
+	private int shopperUserId;
 
 	// C O N S T R U C T O R S
 
@@ -44,7 +44,7 @@ public class ReservationMessage {
 	// G E T T E R S __ A N D __ S E T T E R S
 
 	public ReservationMessage(int id, Reservation reservation, String message, String messageDate,
-			String shopperUserId) {
+			int shopperUserId) {
 		super();
 		this.id = id;
 		this.reservation = reservation;
@@ -85,11 +85,11 @@ public class ReservationMessage {
 		this.messageDate = messageDate;
 	}
 
-	public String getShopperUserId() {
+	public int getShopperUserId() {
 		return shopperUserId;
 	}
 
-	public void setShopperUserId(String shopperUserId) {
+	public void setShopperUserId(int shopperUserId) {
 		this.shopperUserId = shopperUserId;
 	}
 
@@ -101,7 +101,7 @@ public class ReservationMessage {
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		result = prime * result + ((messageDate == null) ? 0 : messageDate.hashCode());
 		result = prime * result + ((reservation == null) ? 0 : reservation.hashCode());
-		result = prime * result + ((shopperUserId == null) ? 0 : shopperUserId.hashCode());
+		result = prime * result + shopperUserId;
 		return result;
 	}
 
@@ -131,10 +131,7 @@ public class ReservationMessage {
 				return false;
 		} else if (!reservation.equals(other.reservation))
 			return false;
-		if (shopperUserId == null) {
-			if (other.shopperUserId != null)
-				return false;
-		} else if (!shopperUserId.equals(other.shopperUserId))
+		if (shopperUserId != other.shopperUserId)
 			return false;
 		return true;
 	}

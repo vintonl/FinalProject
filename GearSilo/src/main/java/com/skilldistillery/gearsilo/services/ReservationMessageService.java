@@ -7,7 +7,7 @@ import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 
 public interface ReservationMessageService {
 	
-	public List<ReservationMessage> findAll(String username);
+	List<ReservationMessage> findAll(String username, int id);
 	
 	public ReservationMessage findReservationMessageById(String username, int resMsgId);
 
@@ -16,6 +16,8 @@ public interface ReservationMessageService {
 	public ReservationMessage updateReservationMessage(String username, ReservationMessage resMsg, int id, int resId, int resMsgId);
 	
 	public boolean deleteReservationMessage(String username, int resMsgId);
+
+	
 
 
 }

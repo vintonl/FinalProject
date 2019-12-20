@@ -16,43 +16,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.gearsilo.entities.ReservationMessage;
 import com.skilldistillery.gearsilo.entities.ReviewOfLender;
-import com.skilldistillery.gearsilo.services.ReviewOfLenderService;
-import com.skilldistillery.gearsilo.services.UserService;
+import com.skilldistillery.gearsilo.services.ReservationMessageService;
 
 @RestController
 @RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost:4207" })
-public class ReviewOfLenderController {
-
+public class ReservationMessageController {
+	
 	@Autowired
-	private ReviewOfLenderService lenderReviewSvc;
-
-	@GetMapping("user/{uid}/reviews/lenderreviews")
-	public List<ReviewOfLender> findLenderReviewsListByUser(@PathVariable int uid, HttpServletRequest req,
+	private ReservationMessageService resMsgSvc;
+	
+	@GetMapping("user/{uid}/reservation/reservationmessages")
+	public List<ReservationMessage> findReservationMessageById(@PathVariable int uid, HttpServletRequest req,
 			HttpServletResponse resp, Principal principal) {
 
-		List<ReviewOfLender> lenderReviews = lenderReviewSvc.findAll(principal.getName(), uid);
+		List<ReservationMessage> resMsg = resMsgSvc.findAll(principal.getName(), uid);
 
-		if (lenderReviews != null && lenderReviews.size() == 0) {
+		if (resMsg != null && resMsg.size() == 0) {
 			resp.setStatus(204);
 		}
 
-		if (lenderReviews == null) {
+		if (resMsg == null) {
 			resp.setStatus(404);
 		}
 
-		return lenderReviews;
+		return resMsg;
 	}
 
 	@PostMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews")
-	public ReviewOfLender createLenderReview(@RequestBody ReviewOfLender lenderReview, @PathVariable int uid,
+	public ReservationMessage createLenderReview(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 
 		System.out.println("inside constroller add review");
 
 		try {
-			lenderReviewSvc.createReviewOfLender(principal.getName(), lenderReview, uid, rid);
+			resMsgSvc.createReviewOfLender(principal.getName(), lenderReview, uid, rid);
 			res.setStatus(201);
 			StringBuffer url = req.getRequestURL();
 			res.addHeader("Location", url.toString());
@@ -64,10 +64,10 @@ public class ReviewOfLenderController {
 	}
 	
 	@PutMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews/{lrid}")
-	public ReviewOfLender updateReviewOfLender(@RequestBody ReviewOfLender lenderReview, @PathVariable int uid,
+	public ReservationMessage updateReviewOfLender(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
 			@PathVariable int rid,@PathVariable int lrid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		try {
-			lenderReview = lenderReviewSvc.updateReviewOfLender(principal.getName(), lenderReview, uid, rid, lrid);
+			lenderReview = resMsgSvc.updateReviewOfLender(principal.getName(), lenderReview, uid, rid, lrid);
 			if (lenderReview == null) {
 				res.setStatus(404);
 			}
@@ -78,5 +78,7 @@ public class ReviewOfLenderController {
 		}
 		return lenderReview;
 	}
+
+	
 
 }
