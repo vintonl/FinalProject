@@ -67,10 +67,7 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 			reservation = resOpt.get();
 
 			System.out.println(reservation);
-
 			if (user.getId() == id || user.getRole().equals("admin")) {
-				List<Reservation> reservations = user.getReservations();
-				System.err.println("number of reservations in user: " + reservations.size());
 				lenderReview.setReservation(reservation);
 			}
 			reviewLenderRepo.saveAndFlush(lenderReview);
@@ -80,28 +77,28 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 	}
 
 	@Override
-	public ReviewOfLender updateReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId, int reviewOfLenderId) {
+	public ReviewOfLender updateReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId,
+			int reviewOfLenderId) {
 		User user = userRepo.findUserByUsername(username);
 		Optional<Reservation> resOpt = resRepo.findById(resId);
 		Reservation reservation;
 		ReviewOfLender existing = null;
-		
-		if(resOpt.isPresent()) {
+
+		if (resOpt.isPresent()) {
 			reservation = resOpt.get();
 			if (user.getId() == id || user.getRole().equals("admin")) {
-				List<Reservation> reservations = user.getReservations();
 				Optional<ReviewOfLender> optRev = reviewLenderRepo.findById(reviewOfLenderId);
 				lenderReview.setReservation(reservation);
-			
-			if (optRev.isPresent()) {
-				existing = optRev.get();
-				existing.setRating(lenderReview.getRating());
-				existing.setReview(lenderReview.getReview());
-				existing.setReservation(lenderReview.getReservation());
-				reviewLenderRepo.saveAndFlush(existing);
-			} else {
-				return null;
-			}
+
+				if (optRev.isPresent()) {
+					existing = optRev.get();
+					existing.setRating(lenderReview.getRating());
+					existing.setReview(lenderReview.getReview());
+					existing.setReservation(lenderReview.getReservation());
+					reviewLenderRepo.saveAndFlush(existing);
+				} else {
+					return null;
+				}
 			}
 		}
 		return existing;
