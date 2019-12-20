@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { TestingComponent } from './components/testing/testing.component';
 
 // NOTE: The route 'testing' is just a temporary playground.
 const routes: Routes = [
