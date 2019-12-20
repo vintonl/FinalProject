@@ -1,6 +1,5 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
-
 */#mainNav {
   min-height: 56px;
   background-color: #fff;
@@ -87,7 +86,7 @@
       rgba(22, 22, 22, 0.7) 75%,
       #161616 100%
     ),
-    url(https://i.imgur.com/HDoLtPp.jpg);
+    url(https://i.imgur.com/HlVLzU9.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
