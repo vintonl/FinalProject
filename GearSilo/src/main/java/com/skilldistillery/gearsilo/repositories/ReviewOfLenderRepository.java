@@ -10,5 +10,5 @@ import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 public interface ReviewOfLenderRepository extends JpaRepository<ReviewOfLender, Integer> {
 
 
-//	public Optional<ReviewOfLender> findByUser_UsernameAndId(String username, int reviewOfLenderId);
+
 }
