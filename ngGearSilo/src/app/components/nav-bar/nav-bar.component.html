@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary sticky">
+<nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-secondary sticky">
   <a class="navbar-brand" href="#">GearSilo</a>
   <button
-    class="navbar-toggler sticky"
+    class="navbar-toggler navbar-toggler-right sticky"
     type="button"
     data-toggle="collapse"
     data-target="#navbarNavAltMarkup"
@@ -19,10 +19,18 @@
       <a class="nav-item nav-link showHand" onclick="window.location='#/gears'"
         >Gear</a
       >
+      <a class="nav-item nav-link showHand" [routerLink]="['/about']"
+        >About</a
+      >
+      <a class="nav-item nav-link showHand" [routerLink]="['/login']"
+        >Login</a
+      >
+      <a class="nav-item nav-link showHand" [routerLink]="['/register']"
+        >Create Account</a
+      >
 
-      <a class="nav-item nav-link showHand" onclick="window.location='#/about'">About</a>
+
     </div>
   </div>
 </nav>
-
 

@@ -11,3 +11,6 @@
   flex: 1 1 auto !important;
 }
 
+#nav {
+  z-index: 9999;
+}
