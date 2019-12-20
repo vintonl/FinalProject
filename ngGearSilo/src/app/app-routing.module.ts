@@ -1,4 +1,4 @@
-import { HtmlTestingComponent } from './components/html-testing/html-testing.component';
+import { TestingComponent } from './components/testing/testing.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -17,8 +17,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'testing', component: HtmlTestingComponent },
   { path: 'users', component: ProfileComponent },
+  { path: 'testing', component: TestingComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
