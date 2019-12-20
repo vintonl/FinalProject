@@ -24,6 +24,7 @@ import { FormsModule } from '@angular/forms';
 import { ReservationMessageService } from './services/reservation-message.service';
 import { DatePipe } from '@angular/common';
 import { AdminComponent } from './components/admin/admin.component';
+import { TestingComponent } from './components/testing/testing.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AdminComponent } from './components/admin/admin.component';
     LoginComponent,
     LogoutComponent,
     RegisterComponent,
-    AdminComponent
+    AdminComponent,
+    TestingComponent
   ],
   imports: [
     BrowserModule,
