@@ -32,7 +32,6 @@ export class RegisterComponent implements OnInit {
           error => {
             console.error('RegisterComponent.register(): error logging in.');
             console.log(error);
-            this.router.navigateByUrl('/login');
           }
         );
       },
