@@ -7,6 +7,6 @@ import com.skilldistillery.gearsilo.entities.ReviewOfShopper;
 
 public interface ReviewOfShopperService {
 
-	List<ReviewOfShopper> findAll(String name, int uid);
+	List<ReviewOfShopper> findById(String username, int uid);
 
 }
