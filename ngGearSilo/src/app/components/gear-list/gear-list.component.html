@@ -62,6 +62,16 @@
           <li class="list-group-item " *ngIf="selected.available == true">Available: Yes!</li>
           <li class="list-group-item " *ngIf="selected.available == false">Available: Sorry, it is not available to rent
             at this time.</li>
+
+          <li class="list-group-item ">Rent From: {{selected.user.firstName | titlecase }}
+            {{selected.user.lastName | titlecase }}</li>
+          <!-- <li class="list-group-item ">Address: {{selected.user.address.address | titlecase }} </li>
+          <li class="list-group-item "
+            *ngIf="selected && selected.user.address.address2 && selected.user.address.address2.length > 0">Address:
+            {{selected.user.address.address2 | titlecase }} </li> -->
+          <li class="list-group-item ">Location: {{selected.user.address.city | titlecase }},
+            {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
+
         </ul>
         <br>
         <div class="btn-group" role="group" aria-label="Basic example">

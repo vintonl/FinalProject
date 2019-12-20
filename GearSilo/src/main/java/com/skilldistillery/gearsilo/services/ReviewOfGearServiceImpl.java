@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.gearsilo.entities.Gear;
 import com.skilldistillery.gearsilo.entities.Reservation;
 import com.skilldistillery.gearsilo.entities.ReviewOfGear;
 import com.skilldistillery.gearsilo.entities.ReviewOfLender;
@@ -28,7 +29,6 @@ public class ReviewOfGearServiceImpl implements ReviewOfGearService {
 	private ReservationRepository reservationRepo;
 
 	public List<ReviewOfGear> findAll(String username, int id) {
-
 		User user = userRepo.findUserByUsername(username);
 		List<ReviewOfGear> results = new ArrayList<>();
 		List<ReviewOfGear> gearReviews = new ArrayList<>();
@@ -46,28 +46,47 @@ public class ReviewOfGearServiceImpl implements ReviewOfGearService {
 
 	@Override
 	public ReviewOfGear createReviewOfGear(String username, ReviewOfGear gearReview, int id, int rid) {
-
 		User user = userRepo.findUserByUsername(username);
 		// use an optional to make sure that a reservation actually exists
 		Optional<Reservation> reviewReservationOpt = reservationRepo.findById(rid);
 		Reservation reservation;
 		if (reviewReservationOpt.isPresent()) {
-			// if the optional exists (is not null), set the optional to the Reservation object
+			// if the optional exists (is not null), set the optional to the Reservation
+			// object
 			reservation = reviewReservationOpt.get();
-			System.err.println(reservation);
-			// if the user is the proper user or an admin, attach this reservation object before save and flush of Gear Review
+			// if the user is the proper user or an admin, attach this reservation object
+			// before save and flush of Gear Review
 			if (user.getId() == id || user.getRole().equals("admin")) {
 				List<Reservation> reservations = user.getReservations();
-				System.err.println("number of reservations in user: " + reservations.size());
 				gearReview.setReservation(reservation);
-//				for (Reservation reservation2 : reservations) {
-//					if (reservation2.equals(reservation)) {
-//						System.err.println("in the foreach loop setting reservation to review");
-//					}
-//				}
 			}
 			reviewOfGearRepo.saveAndFlush(gearReview);
 		}
 		return gearReview;
+	}
+
+	@Override
+	public ReviewOfGear updateReviewOfGear(String username, ReviewOfGear gearReview, int id, int rid, int grid) {
+		User user = userRepo.findUserByUsername(username);
+		Optional<Reservation> reviewReservationOpt = reservationRepo.findById(rid);
+		Reservation reservation;
+		ReviewOfGear existing = null;
+		if (reviewReservationOpt.isPresent()) {
+			reservation = reviewReservationOpt.get();
+			if (user.getId() == id || user.getRole().equals("admin")) {
+				List<Reservation> reservations = user.getReservations();
+				gearReview.setReservation(reservation);
+				Optional<ReviewOfGear> updateReviewOfGearOpt = reviewOfGearRepo.findById(grid);
+				if (updateReviewOfGearOpt.isPresent()) {
+					existing = updateReviewOfGearOpt.get();
+					existing.setRating(gearReview.getRating());
+					existing.setReview(gearReview.getReview());
+					reviewOfGearRepo.saveAndFlush(existing);
+				} else {
+					return null;
+				}
+			}
+		}
+		return existing;
 	}
 }

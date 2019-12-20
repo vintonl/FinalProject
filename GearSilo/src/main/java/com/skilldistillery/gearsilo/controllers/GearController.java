@@ -30,6 +30,7 @@ public class GearController {
 
 	@GetMapping("gears")
 	public List<Gear> index(HttpServletRequest req, HttpServletResponse res) {
+		System.err.println("checking on controller routes");
 		return gearSvc.listAllGears();
 	}
 
@@ -92,4 +93,18 @@ public class GearController {
 		}
 		return gear;
 	}
+
+
+	@GetMapping("gears/users/username")
+	public List<Gear> getUsersGear(@PathVariable("username") String username, HttpServletResponse resp, Principal principal) {
+
+		
+		System.out.println("inside gear controller get gear by user");
+		List<Gear> gear = gearSvc.findByUserUsername(username);
+		resp.setStatus(200);
+		
+		System.out.println(gear);
+		return gear;
+	}
+
 }
