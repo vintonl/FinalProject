@@ -1,5 +1,6 @@
 package com.skilldistillery.gearsilo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
 import com.skilldistillery.gearsilo.entities.ReservationMessage;
-import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.repositories.ReservationMessageRepository;
 import com.skilldistillery.gearsilo.repositories.ReservationRepository;
@@ -27,9 +27,23 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 	private ReservationRepository resRepo;
 
 	@Override
-	public List<ReservationMessage> findAll(String username) {
-
-		return resMsgRepo.findAll();
+	public List<ReservationMessage> findAll(String username, int id) {
+		User user = userRepo.findUserByUsername(username);
+		List<ReservationMessage> results = new ArrayList<>();
+		List<ReservationMessage> resMsgs = new ArrayList<>();
+		if(user.getId() == id || user.getRole().equals("admin")) {
+			resMsgs = resMsgRepo.findAll();
+			for (ReservationMessage reservationMessage : resMsgs) {
+				if(reservationMessage.getReservation().getGearId().getId() == id) {
+					results.add(reservationMessage);
+				}
+				if(reservationMessage.getShopperUserId() == id) {
+					results.add(reservationMessage);
+				}
+			}
+			return resMsgs;
+		}
+		return null;
 	}
 
 	@Override
@@ -43,7 +57,6 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 		} else {
 			return null;
 		}
-
 	}
 
 	@Override
