@@ -26,10 +26,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     const cred = this.authService.getCredentials();
 
-    // if (cred === null) {
-    //   this.router.navigateByUrl('/login');
+    if (cred === null) {
+      this.router.navigateByUrl('/login');
 
-    // }
+    }
 
     this.loadGear();
   }
@@ -42,6 +42,30 @@ export class ProfileComponent implements OnInit {
         this.loggedInUser = yes;
         console.log('Got logged in user:');
         console.log(this.loggedInUser);
+
+
+        this.gearSrv.index().subscribe(
+          (aGoodThingHappened) => {
+            console.log(aGoodThingHappened);
+
+            aGoodThingHappened.forEach(gear => {
+
+              if (gear.user.id === this.loggedInUser.id) {
+                console.log("*************************get user id");
+                console.log(gear.user.id);
+                console.log(this.loggedInUser.id);
+                this.gearList.push(gear);
+
+                // this.loggedInUser = e.user;
+              }
+
+            });
+
+          },
+          (didntWork) => {
+            console.log(didntWork);
+          }
+        );
       },
       no => {
         console.error('Error getting logged in user');
@@ -54,27 +78,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.loggedInUser);
     // this.loggedInUser = this.userService.getUserById();
 
-    // this.gearSrv.index().subscribe(
-    //   (aGoodThingHappened) => {
-    //     console.log(aGoodThingHappened);
 
-    //     aGoodThingHappened.forEach(gear => {
-
-    //       if (gear.user.id === id) {
-    //         console.log("get user id");
-    //         console.log(gear.user.id);
-    //         this.gearList.push(gear);
-
-    //         // this.loggedInUser = e.user;
-    //       }
-
-    //     });
-
-    //   },
-    //   (didntWork) => {
-    //     console.log(didntWork);
-    //   }
-    // );
   }
 
 
