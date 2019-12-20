@@ -18,4 +18,6 @@ public interface GearService {
 
 	List<Gear> findByUserUsername(String username);
 
+	Gear deactivateGear(String username, int gid);
+
 }
