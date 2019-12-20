@@ -24,6 +24,8 @@ import { FormsModule } from '@angular/forms';
 import { ReservationMessageService } from './services/reservation-message.service';
 import { DatePipe } from '@angular/common';
 import { HtmlTestingComponent } from './components/html-testing/html-testing.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { HtmlTestingComponent } from './components/html-testing/html-testing.com
     LoginComponent,
     LogoutComponent,
     RegisterComponent,
-    HtmlTestingComponent
+    HtmlTestingComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { HtmlTestingComponent } from './components/html-testing/html-testing.com
     DatePipe,
     ReviewOfLenderService,
     ReviewOfShopperService,
-    UserService
+    UserService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

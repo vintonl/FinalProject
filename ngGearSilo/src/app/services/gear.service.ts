@@ -27,6 +27,28 @@ export class GearService {
       );
   }
 
+  getGearByUserName(username: any) {
+    console.log('in get gear by user name gear service');
+    console.error(username);
+
+    if (localStorage.length === 0) {
+      this.router.navigateByUrl('/login');
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<Gear[]>(this.url + '/users/' + username, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('Error gear service - getGearByUser');
+      })
+    );
+  }
+
 
 
 

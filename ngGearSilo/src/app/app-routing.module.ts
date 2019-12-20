@@ -7,6 +7,7 @@ import { GearListComponent } from './components/gear-list/gear-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 // NOTE: The route 'testing' is just a temporary playground.
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'testing', component: HtmlTestingComponent },
+  { path: 'users', component: ProfileComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
