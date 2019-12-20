@@ -78,7 +78,6 @@ public class GearController {
 	}
 
 	@PutMapping("/users/{uid}/gears/{gid}")
-	@ResponseBody
 	public Gear updateGear(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int gid,
 			@RequestBody Gear gear) {
 		try {
@@ -94,15 +93,32 @@ public class GearController {
 		return gear;
 	}
 
+	@PutMapping("/gears/{gid}")
+	public Gear deactivateGear(HttpServletRequest req, HttpServletResponse res, Principal principal,
+			@PathVariable int gid) {
+		Gear gear = null;
+
+		try {
+			gear = gearSvc.deactivateGear(principal.getName(), gid);
+			if (gear == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+			gear = null;
+		}
+		return gear;
+	}
 
 	@GetMapping("gears/users/username")
-	public List<Gear> getUsersGear(@PathVariable("username") String username, HttpServletResponse resp, Principal principal) {
+	public List<Gear> getUsersGear(@PathVariable("username") String username, HttpServletResponse resp,
+			Principal principal) {
 
-		
 		System.out.println("inside gear controller get gear by user");
 		List<Gear> gear = gearSvc.findByUserUsername(username);
 		resp.setStatus(200);
-		
+
 		System.out.println(gear);
 		return gear;
 	}
