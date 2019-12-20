@@ -12,7 +12,7 @@ public interface ReviewOfLenderService {
 
 	ReviewOfLender createReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId);
 
-//	public ReviewOfLender update(String username, ReviewOfLender lenderReview, int resId, int reviewOfLenderId);
+	public ReviewOfLender updateReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId, int reviewOfLenderId);
 
 //	List<ReviewOfLender> findByUser_Id( int uid);
 

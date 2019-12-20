@@ -48,27 +48,27 @@ public class ReviewOfLenderController {
 		return lenderReview;
 	}
 
-//	@PostMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews")
-//	public ReviewOfLender createLenderReview(@RequestBody ReviewOfLender lenderReview, @PathVariable int uid,
-//			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
-//
-////		List<ReviewOfLender> lenderReview = lenderReviewSvc.findAll(principal.getName(), lenderReview);
-//
-//		System.out.println("inside constroller add review");
-//
-//		try {
-//			lenderReviewSvc.create(principal.getName(), lenderReview, uid, rid);
-//			res.setStatus(201);
-////			resp.addHeader("Location", "http://localhost:8082/api/addresses/" + address.getId());
-//			StringBuffer url = req.getRequestURL();
-////			url.append("/").append(todo.getId());
-//			res.addHeader("Location", url.toString());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			res.setStatus(400);
-//			e.printStackTrace();
-//		}
-//		return lenderReview;
-//	}
+	@PostMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews")
+	public ReviewOfLender createLenderReview(@RequestBody ReviewOfLender lenderReview, @PathVariable int uid,
+			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+
+//		List<ReviewOfLender> lenderReview = lenderReviewSvc.findAll(principal.getName(), lenderReview);
+
+		System.out.println("inside constroller add review");
+
+		try {
+			lenderReviewSvc.createReviewOfLender(principal.getName(), lenderReview, uid, rid);
+			res.setStatus(201);
+//			resp.addHeader("Location", "http://localhost:8082/api/addresses/" + address.getId());
+			StringBuffer url = req.getRequestURL();
+//			url.append("/").append(todo.getId());
+			res.addHeader("Location", url.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			res.setStatus(400);
+			e.printStackTrace();
+		}
+		return lenderReview;
+	}
 
 }

@@ -64,7 +64,6 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 			}
 			resMsgRepo.saveAndFlush(resMsg);
 		}
-
 		return resMsg;
 	}
 

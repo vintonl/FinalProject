@@ -79,35 +79,31 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 		return lenderReview;
 	}
 
-//	@Override
-//	public ReviewOfLender update(String username, ReviewOfLender lenderReview, int resId, int reviewOfLenderId) {
-//		ReviewOfLender existing = null;
-//		Optional<ReviewOfLender> optRev = reviewLenderRepo.findById(reviewOfLenderId);
-//		
-//		if(optRev.isPresent()) {
-//			existing = optRev.get();
-//			existing.setRating(lenderReview.getRating());
-//			existing.setReview(lenderReview.getReview());
-//			existing.setReservation(reviewLenderRepo.findReservationById(username, resId));
-//			reviewLenderRepo.saveAndFlush(existing);
-//		} else {
-//			return null;
-//		}
-//		return existing;
-//	}
-
+	@Override
+	public ReviewOfLender updateReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId, int reviewOfLenderId) {
+		User user = userRepo.findUserByUsername(username);
+		Optional<Reservation> resOpt = resRepo.findById(resId);
+		Reservation reservation;
+		ReviewOfLender existing = null;
+		
+		if(resOpt.isPresent()) {
+			reservation = resOpt.get();
+			if (user.getId() == id || user.getRole().equals("admin")) {
+				List<Reservation> reservations = user.getReservations();
+				Optional<ReviewOfLender> optRev = reviewLenderRepo.findById(reviewOfLenderId);
+				lenderReview.setReservation(reservation);
+			
+			if (optRev.isPresent()) {
+				existing = optRev.get();
+				existing.setRating(lenderReview.getRating());
+				existing.setReview(lenderReview.getReview());
+				existing.setReservation(lenderReview.getReservation());
+				reviewLenderRepo.saveAndFlush(existing);
+			} else {
+				return null;
+			}
+			}
+		}
+		return existing;
+	}
 }
-// Admin feature for create?
-//		if (user.getId() == id || user.getRole().equals("admin")) {
-//
-//			List<Reservation> reservation = user.getReservations();
-//
-//			for (Reservation reservation2 : reservation) {
-//
-//				if (reservation2.getId() == rid) {
-//
-//					lenderReview.setReservation(reservation2);
-//
-//				}
-//
-//			}
