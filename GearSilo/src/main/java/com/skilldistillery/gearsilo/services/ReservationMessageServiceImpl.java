@@ -18,22 +18,22 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 
 	@Autowired
 	private ReservationMessageRepository resMsgRepo;
-	
-	@Autowired 
+
+	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private ReservationRepository resRepo;
 
 	@Override
 	public List<ReservationMessage> findAll(String username) {
-		
+
 		return resMsgRepo.findAll();
 	}
 
 	@Override
 	public ReservationMessage findReservationMessageById(String username, int resMsgId) {
-		
+
 		ReservationMessage resMsg = null;
 		Optional<ReservationMessage> opt = resMsgRepo.findById(resMsgId);
 		if (opt.isPresent()) {
@@ -47,25 +47,24 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 
 	@Override
 	public ReservationMessage createReservationMessage(String username, ReservationMessage resMsg, int id, int resId) {
-		 User user = userRepo.findUserByUsername(username);
-		 
-		 Optional<Reservation> resOpt = resRepo.findById(resId);
-		 Reservation reservation;
-		 
-		 if(resOpt.isPresent()) {
-			 reservation = resOpt.get();
-			 
-			 System.out.println(reservation);
-			 
-				if (user.getId() == id || user.getRole().equals("admin")) {
-					List<Reservation> reservations = user.getReservations();
-					System.err.println("number of reservations in user: " + reservations.size());
-					resMsg.setReservation(reservation);
-				}
-				resMsgRepo.saveAndFlush(resMsg);
-		 }
-		
-		
+		User user = userRepo.findUserByUsername(username);
+
+		Optional<Reservation> resOpt = resRepo.findById(resId);
+		Reservation reservation;
+
+		if (resOpt.isPresent()) {
+			reservation = resOpt.get();
+
+			System.out.println(reservation);
+
+			if (user.getId() == id || user.getRole().equals("admin")) {
+				List<Reservation> reservations = user.getReservations();
+				System.err.println("number of reservations in user: " + reservations.size());
+				resMsg.setReservation(reservation);
+			}
+			resMsgRepo.saveAndFlush(resMsg);
+		}
+
 		return resMsg;
 	}
 
@@ -76,7 +75,7 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 	}
 
 	@Override
-	public ReservationMessage deleteReservation(String username, int resMsg) {
+	public ReservationMessage deleteReservationMessage(String username, int resMsg) {
 		// TODO Auto-generated method stub
 		return null;
 	}

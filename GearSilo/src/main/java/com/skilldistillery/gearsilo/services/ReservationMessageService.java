@@ -14,7 +14,7 @@ public interface ReservationMessageService {
 		
 	public ReservationMessage updateReservationMessage(String username, ReservationMessage resMsg, int resMsgId);
 	
-	public ReservationMessage deleteReservation(String username, int resMsg);
+	public ReservationMessage deleteReservationMessage(String username, int resMsg);
 
 
 }
