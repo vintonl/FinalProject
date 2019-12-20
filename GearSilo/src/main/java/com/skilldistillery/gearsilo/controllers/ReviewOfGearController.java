@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gearsilo.entities.Gear;
@@ -58,25 +60,20 @@ public class ReviewOfGearController {
 		return gearReview;
 	}
 	
-//	@PostMapping("users/{uid}/gears")
-//	public Gear create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Gear gear,
-//			@PathVariable("uid") int uid) {
-//		try {
-//			gear = gearSvc.addGear(principal.getName(), gear);
-//			if (gear == null) {
-//				res.setStatus(401);
-//			} else {
-//				res.setStatus(201);
-//				StringBuffer url = req.getRequestURL();
-//				url.append("/").append(gear.getId());
-//				res.addHeader("Location", url.toString());
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			res.setStatus(500);
-//			gear = null;
-//		}
-//
-//		return gear;
-//	}
+	@PutMapping("/users/{uid}/reservation/{rid}/reviews/gearreviews/{grid}")
+//	@ResponseBody
+	public ReviewOfGear updateGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid, 
+			@PathVariable int rid, @PathVariable int grid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		try {
+			gearReview = reviewGearSvc.updateReviewOfGear(principal.getName(), gearReview, uid, rid, grid);
+			if (gearReview == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+			gearReview = null;
+		}
+		return gearReview;
+	}
 }

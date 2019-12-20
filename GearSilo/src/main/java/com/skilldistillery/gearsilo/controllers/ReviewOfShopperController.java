@@ -28,11 +28,10 @@ public class ReviewOfShopperController {
 	@Autowired
 	private UserService userSvc;
 
-	@GetMapping("user/{uid}/reviews/shopperreviews")
-	public List<ReviewOfShopper> findShopperReviewsListByUser(@PathVariable int uid, HttpServletRequest req,
+	@GetMapping("users/{uid}/reviews/shopperreviews")
+	public List<ReviewOfShopper> index(@PathVariable int uid, HttpServletRequest req,
 			HttpServletResponse resp, Principal principal) {
-
-		List<ReviewOfShopper> shopperReview = shopperReviewSvc.findAll(principal.getName(), uid);
+		List<ReviewOfShopper> shopperReview = shopperReviewSvc.findById(principal.getName(), uid);
 
 		if (shopperReview != null && shopperReview.size() == 0) {
 			resp.setStatus(204);
@@ -41,7 +40,6 @@ public class ReviewOfShopperController {
 		if (shopperReview == null) {
 			resp.setStatus(404);
 		}
-
 		return shopperReview;
 	}
 
