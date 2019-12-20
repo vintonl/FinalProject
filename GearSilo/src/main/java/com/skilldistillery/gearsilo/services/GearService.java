@@ -16,4 +16,6 @@ public interface GearService {
 
 	List<Gear> showMyGear(String name);
 
+	List<Gear> findByUserUsername(String username);
+
 }

@@ -18,12 +18,12 @@ public class GearServiceImpl implements GearService {
 	private GearRepository gearRepo;
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Override
 	public List<Gear> showMyGear(String username) {
 		return gearRepo.findByUser_Username(username);
 	}
-		
+
 	@Override
 	public List<Gear> listAllGears() {
 		return gearRepo.findAll();
@@ -38,7 +38,7 @@ public class GearServiceImpl implements GearService {
 		}
 		return gear;
 	}
-	
+
 	@Override
 	public Gear addGear(String username, Gear gear) {
 		User user = userRepo.findUserByUsername(username);
@@ -55,18 +55,25 @@ public class GearServiceImpl implements GearService {
 	public Gear updateGear(String username, int gid, Gear gear) {
 		Gear updateGear = gearRepo.findByUser_UsernameAndId(username, gid);
 		if (updateGear != null) {
-		updateGear.setName(gear.getName());
-		updateGear.setGearCondition(gear.getGearCondition());
-		updateGear.setPrice(gear.getPrice());
-		updateGear.setDescription(gear.getDescription());
-		updateGear.setImageUrl(gear.getImageUrl());
-		updateGear.setImageUrl2(gear.getImageUrl2());
-		updateGear.setImageUrl3(gear.getImageUrl3());
-		updateGear.setAvailable(gear.getAvailable());
-		updateGear.setActive(gear.getActive());
-		gearRepo.saveAndFlush(updateGear);
+			updateGear.setName(gear.getName());
+			updateGear.setGearCondition(gear.getGearCondition());
+			updateGear.setPrice(gear.getPrice());
+			updateGear.setDescription(gear.getDescription());
+			updateGear.setImageUrl(gear.getImageUrl());
+			updateGear.setImageUrl2(gear.getImageUrl2());
+			updateGear.setImageUrl3(gear.getImageUrl3());
+			updateGear.setAvailable(gear.getAvailable());
+			updateGear.setActive(gear.getActive());
+			gearRepo.saveAndFlush(updateGear);
 		}
 		return updateGear;
 	}
-	
+
+	@Override
+	public List<Gear> findByUserUsername(String username) {
+
+		return gearRepo.findByUserUsername(username);
+
+	}
+
 }
