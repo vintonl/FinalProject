@@ -3,17 +3,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private baseUrl = environment.baseUrl;
+  private user: User = new User();
 
   constructor(private http: HttpClient) { }
 
   login(username, password) {
-
+    this.getUserByUsername(username).subscribe(data => this.user = data);
+    console.log("in login");
+    console.log(this.user);
     // console.log(username);
 
     // Make credentials
@@ -75,8 +79,28 @@ export class AuthService {
     return localStorage.getItem('credentials');
   }
 
-  getUsername(): string {
-    return localStorage.getItem('username');
+  getUserByUsername(username: string) {
+    //  localStorage.getItem();
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // 'Access-Control-Allow-Headers': 'Content-Type',
+        // 'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.get<User>(this.baseUrl + 'api/users/' + username, httpOptions)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('AuthService.register(): error registering user.');
+        })
+      );
   }
 
+  getUser(): User {
+    return this.user;
+  }
 }
