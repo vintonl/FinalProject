@@ -1,27 +1,29 @@
-<div class="login-form-1">
-  <div class="mx-auto" style="width: 20%;">
-    <H1>Login</H1>
-  </div>
-  <form #loginForm="ngForm" ngNativeValidate id="login-form" class="text-left">
-    <div class="login-form-main-message"></div>
-    <div class="main-login-form">
-      <div class="login-group">
-        <div class="form-group">
-          <label for="username" class="sr-only">Email</label>
-          <input type="email" class="form-control" id="username" name="username" placeholder="username" ngModel
-            required>
+<div class="container">
+  <div class="login-form-1">
+    <div class="mx-auto" style="width: 20%;">
+      <H1>Login</H1>
+    </div>
+    <form #loginForm="ngForm" ngNativeValidate id="login-form" class="text-left">
+      <div class="login-form-main-message"></div>
+      <div class="main-login-form">
+        <div class="login-group">
+          <div class="form-group">
+            <label for="username" class="sr-only">Email</label>
+            <input type="email" class="form-control" id="username" name="username" placeholder="username" ngModel
+              required>
+          </div>
+          <div class="form-group">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="password" ngModel
+              required>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="password" class="sr-only">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="password" ngModel
-            required>
-        </div>
+        <button type="submit" class="login-button btn btn-success" (click)="login(loginForm)">Submit</button>
       </div>
-      <button type="submit" class="login-button btn btn-success" (click)="login(loginForm)">Submit</button>
-    </div>
-    <div class="etc-login-form">
-      <!-- <p>forgot your password? <a href="#">click here</a></p> -->
-      <p>new user? <a href="/register">create new account</a></p>
-    </div>
-  </form>
+      <br>
+      <div class="etc-login-form">
+        <p>new user? <a [routerLink]="['/register']">create new account</a></p>
+      </div>
+    </form>
+  </div>
 </div>

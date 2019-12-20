@@ -36,53 +36,52 @@ export class ProfileComponent implements OnInit {
 
   loadGear() {
     // this.clearSearch(); const allgear: [] = [];
-    this.loggedInUser = this.authService.getUser();
+    // this.loggedInUser = this.authService.getUser();
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      yes => {
+        this.loggedInUser = yes;
+        console.log('Got logged in user:');
+        console.log(this.loggedInUser);
+
+
+        this.gearSrv.index().subscribe(
+          (aGoodThingHappened) => {
+            console.log(aGoodThingHappened);
+
+            aGoodThingHappened.forEach(gear => {
+
+              if (gear.user.id === this.loggedInUser.id) {
+                console.log("*************************get user id");
+                console.log(gear.user.id);
+                console.log(this.loggedInUser.id);
+                this.gearList.push(gear);
+
+                // this.loggedInUser = e.user;
+              }
+
+            });
+
+          },
+          (didntWork) => {
+            console.log(didntWork);
+          }
+        );
+      },
+      no => {
+        console.error('Error getting logged in user');
+        console.error(no);
+
+
+      }
+    );
 
     console.log(this.loggedInUser);
     // this.loggedInUser = this.userService.getUserById();
 
-    // this.gearSrv.index().subscribe(
-    //   (aGoodThingHappened) => {
-    //     console.log(aGoodThingHappened);
 
-    //     aGoodThingHappened.forEach(gear => {
-
-    //       if (gear.user.id === id) {
-    //         console.log("get user id");
-    //         console.log(gear.user.id);
-    //         this.gearList.push(gear);
-
-    //         // this.loggedInUser = e.user;
-    //       }
-
-    //     });
-
-    //   },
-    //   (didntWork) => {
-    //     console.log(didntWork);
-    //   }
-    // );
   }
 
-  // GetLoggedInUserGear() {
 
-  //   const username = this.authService.getUsername();
-
-  //   console.log("in get logged in usergear profile ts " + username);
-
-  //   this.gearSrv.getGearByUserName(username).subscribe(
-  //     data => {
-  //       this.myGear = data;
-  //       console.log("success in get user gear profile componoent " + this.myGear);
-
-  //     },
-  //     err => {
-  //       console.error(err);
-  //       console.log("error in get user gear")
-  //     }
-  //   );
-
-  // }
 }
 
 
