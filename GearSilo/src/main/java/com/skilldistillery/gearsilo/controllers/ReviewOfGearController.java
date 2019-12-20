@@ -44,7 +44,7 @@ public class ReviewOfGearController {
 		return gearReview;
 	}	
 	
-	@PostMapping("user/{uid}/reservation/{rid}/reviews/gearreviews")
+	@PostMapping("users/{uid}/reservation/{rid}/reviews/gearreviews")
 	public ReviewOfGear createGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 	
@@ -60,8 +60,7 @@ public class ReviewOfGearController {
 		return gearReview;
 	}
 	
-	@PutMapping("/users/{uid}/reservation/{rid}/reviews/gearreviews/{grid}")
-//	@ResponseBody
+	@PutMapping("users/{uid}/reservation/{rid}/reviews/gearreviews/{grid}")
 	public ReviewOfGear updateGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid, 
 			@PathVariable int rid, @PathVariable int grid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		try {
