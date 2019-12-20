@@ -34,10 +34,7 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 		if(user.getId() == id || user.getRole().equals("admin")) {
 			resMsgs = resMsgRepo.findAll();
 			for (ReservationMessage reservationMessage : resMsgs) {
-				if(reservationMessage.getReservation().getGearId().getId() == id) {
-					results.add(reservationMessage);
-				}
-				if(reservationMessage.getShopperUserId() == id) {
+				if(reservationMessage.getReservation().getGearId().getId() == id || reservationMessage.getShopperUserId() == id) {
 					results.add(reservationMessage);
 				}
 			}

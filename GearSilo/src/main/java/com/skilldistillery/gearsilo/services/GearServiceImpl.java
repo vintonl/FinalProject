@@ -76,4 +76,13 @@ public class GearServiceImpl implements GearService {
 
 	}
 
+	@Override
+	public Gear deactivateGear(String username, int gid) {
+		Gear updateGear = gearRepo.findByUser_UsernameAndId(username, gid);
+		if (updateGear != null) {
+			updateGear.setActive(false);
+			gearRepo.saveAndFlush(updateGear);
+		}
+		return updateGear;
+	}
 }

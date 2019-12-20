@@ -28,7 +28,7 @@ public class ReservationMessageController {
 	@Autowired
 	private ReservationMessageService resMsgSvc;
 
-	@GetMapping("user/{uid}/reservation/reservationmessages")
+	@GetMapping("users/{uid}/reservation/reservationmessages")
 	public List<ReservationMessage> findReservationMessageById(@PathVariable int uid, HttpServletRequest req,
 			HttpServletResponse resp, Principal principal) {
 
@@ -45,7 +45,7 @@ public class ReservationMessageController {
 		return resMsg;
 	}
 
-	@PostMapping("user/{uid}/reservation/{rid}/reservationmessages")
+	@PostMapping("users/{uid}/reservation/{rid}/reservationmessages")
 	public ReservationMessage createReservationMessage(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 
@@ -63,12 +63,12 @@ public class ReservationMessageController {
 		return resMsg;
 	}
 
-	@PutMapping("user/{uid}/reservation/{rid}/reservationmessages/{rmid}")
+	@PutMapping("users/{uid}/reservation/{rid}/reservationmessages/{rmid}")
 	public ReservationMessage updateReservationMessage(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
-			@PathVariable int rid, @PathVariable int lrid, HttpServletRequest req, HttpServletResponse res,
+			@PathVariable int rid, @PathVariable int rmid, HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {
 		try {
-			resMsg = resMsgSvc.updateReservationMessage(principal.getName(), resMsg, uid, rid, lrid);
+			resMsg = resMsgSvc.updateReservationMessage(principal.getName(), resMsg, uid, rid, rmid);
 			if (resMsg == null) {
 				res.setStatus(404);
 			}
