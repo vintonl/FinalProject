@@ -1,0 +1,12 @@
+.showHand:hover {
+  color: rgb(0, 4, 255);
+  cursor: pointer;
+}
+
+.sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  -ms-flex: 1 1 auto !important;
+  flex: 1 1 auto !important;
+}
