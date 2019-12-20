@@ -15,6 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(username, password) {
+    this.user = new User();
     this.getUserByUsername(username).subscribe(data => this.user = data);
     console.log("in login");
     console.log(this.user);
@@ -61,7 +62,10 @@ export class AuthService {
   }
 
   logout() {
+    this.user = new User();
     localStorage.removeItem('credentials');
+    localStorage.removeItem('username');
+
   }
 
   checkLogin() {
@@ -82,10 +86,12 @@ export class AuthService {
   getUserByUsername(username: string) {
     //  localStorage.getItem();
 
+    console.log("in get user by username method");
+    console.log(username);
     const httpOptions = {
       headers: new HttpHeaders({
-        // 'Access-Control-Allow-Headers': 'Content-Type',
-        // 'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json',
         Authorization: `Basic ` + this.getCredentials(),
         'X-Requested-With': 'XMLHttpRequest'
       })
