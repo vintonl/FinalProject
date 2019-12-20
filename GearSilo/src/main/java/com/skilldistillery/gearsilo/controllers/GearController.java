@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +29,9 @@ public class GearController {
 	private GearService gearSvc;
 
 	@GetMapping("gears")
-	public List<Gear> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
-		return gearSvc.showMyGear(principal.getName());
+	public List<Gear> index(HttpServletRequest req, HttpServletResponse res) {
+		System.err.println("checking on controller routes");
+		return gearSvc.listAllGears();
 	}
 
 	@GetMapping("gearslist")
@@ -93,4 +93,18 @@ public class GearController {
 		}
 		return gear;
 	}
+
+
+	@GetMapping("gears/users/username")
+	public List<Gear> getUsersGear(@PathVariable("username") String username, HttpServletResponse resp, Principal principal) {
+
+		
+		System.out.println("inside gear controller get gear by user");
+		List<Gear> gear = gearSvc.findByUserUsername(username);
+		resp.setStatus(200);
+		
+		System.out.println(gear);
+		return gear;
+	}
+
 }

@@ -6,8 +6,10 @@ import { GearListComponent } from './components/gear-list/gear-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { TestingComponent } from './components/testing/testing.component';
 
-
+// NOTE: The route 'testing' is just a temporary playground.
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
+  { path: 'users', component: ProfileComponent },
+  { path: 'testing', component: TestingComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

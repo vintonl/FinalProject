@@ -1,1 +1,91 @@
-<p>gear-list works!</p>
+<div class="contaner-fluid">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <div>
+        <br>
+        <div *ngIf="!selected">
+          <div class="text-center">
+            <h2>Gear List</h2>
+          </div>
+          <table class="table table-primary table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" style="text-align:center">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of gearList">
+                <td scope="row" (click)="displayGearItem(item)" style="text-align:center"><img src="{{item.imageUrl}}"
+                    alt="gear image" class="gear-img-list"></td>
+                <td (click)="displayGearItem(item)">{{item.name | titlecase }}</td>
+                <td (click)="displayGearItem(item)">{{item.description | lowercase }}</td>
+                <td (click)="displayGearItem(item)">{{item.price | currency}}</td>
+                <td (click)="displayGearItem(item)">{{item.gearCondition | lowercase }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <p>Click a row for more details.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="selected">
+        <br>
+        <div class="text-center">
+          <h2>Gear Details</h2>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item" *ngIf="this.selected && this.selected.id && this.selected.id > 0">
+            Id:
+            {{selected.id}}</li>
+          <li class="list-group-item ">Name: {{selected.name | titlecase }}</li>
+          <li class="list-group-item " style="text-align:center">
+            <img src="{{selected.imageUrl}}" alt="gear image" class="gear-img-details">
+            <img *ngIf="selected.imageUrl2 && selected.imageUrl2.length > 0" src="{{selected.imageUrl2}}"
+              alt="gear image" class="gear-img-details">
+            <img *ngIf="selected.imageUrl3 && selected.imageUrl3.length > 0" src="{{selected.imageUrl3}}"
+              alt="gear image" class="gear-img-details">
+          </li>
+          <li class="list-group-item"
+            *ngIf="this.selected && this.selected.description && this.selected.description.length > 0">
+            Description:
+            {{selected.description | lowercase }}</li>
+          <li class="list-group-item ">Price per day: {{selected.price | currency }}</li>
+          <li class="list-group-item ">Condition: {{selected.gearCondition | lowercase }}</li>
+          <li class="list-group-item " *ngIf="selected.available == true">Available: Yes!</li>
+          <li class="list-group-item " *ngIf="selected.available == false">Available: Sorry, it is not available to rent
+            at this time.</li>
+
+          <li class="list-group-item ">Rent From: {{selected.user.firstName | titlecase }}
+            {{selected.user.lastName | titlecase }}</li>
+          <!-- <li class="list-group-item ">Address: {{selected.user.address.address | titlecase }} </li>
+          <li class="list-group-item "
+            *ngIf="selected && selected.user.address.address2 && selected.user.address.address2.length > 0">Address:
+            {{selected.user.address.address2 | titlecase }} </li> -->
+          <li class="list-group-item ">Location: {{selected.user.address.city | titlecase }},
+            {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
+
+        </ul>
+        <br>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <span>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button (click)="selected=null" class="btn btn-dark my-2 my-sm-0">Back to the
+                list</button>
+            </div>
+          </span>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>

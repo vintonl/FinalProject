@@ -2,34 +2,37 @@
   <div class="mx-auto" style="width: 20%;">
     <H1>Register</H1>
   </div>
-  <form #registerForm="ngForm" id="registerForm" class="text-left">
+  <form #registerForm="ngForm" ngNativeValidate id="registerForm" class="text-left">
     <div class="login-form-main-message"></div>
     <div class="main-login-form">
       <div class="login-group">
 
         <div class="form-group">
           <label for="firstName" class="sr-only">First Name</label>
-          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="first name" ngModel>
+          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="first name" ngModel
+            required>
         </div>
 
         <div class="form-group">
           <label for="lastName" class="sr-only">Last Name</label>
-          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="last name" ngModel>
+          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="last name" ngModel
+            required>
         </div>
 
         <div class="form-group">
           <label for="email" class="sr-only">Email</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="email" ngModel>
+          <input type="email" class="form-control" id="email" name="email" placeholder="email" ngModel required>
         </div>
 
         <div class="form-group">
           <label for="username" class="sr-only">Username</label>
-          <input type="text" class="form-control" id="username" name="username" placeholder="username" ngModel>
+          <input type="text" class="form-control" id="username" name="username" placeholder="username" ngModel required>
         </div>
 
         <div class="form-group">
           <label for="password" class="sr-only">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="password" ngModel>
+          <input type="password" class="form-control" id="password" name="password" placeholder="password" ngModel
+            required minlength="4">
         </div>
 
         <div class="form-group">
@@ -39,7 +42,8 @@
 
         <div class="form-group">
           <label for="phone" class="sr-only">Phone</label>
-          <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" ngModel>
+          <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" ngModel required
+            minlength="10">
         </div>
 
         <div class="form-group">
@@ -47,7 +51,7 @@
           <input type="text" class="form-control" id="about" name="about" placeholder="about" ngModel>
         </div>
 
-        <!--
+        <!-- Add Address
         <div class="form-group">
           <label for="about" class="sr-only">Address</label>
           <input type="text" class="form-control" id="about" name="about" placeholder="about" ngModel>
