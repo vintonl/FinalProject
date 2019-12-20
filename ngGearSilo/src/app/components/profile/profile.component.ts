@@ -26,10 +26,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     const cred = this.authService.getCredentials();
 
-    if (cred != null) {
-      this.loadGear();
+    if (cred === null) {
+      this.router.navigateByUrl('/login');
+
     }
-    this.router.navigateByUrl('/login');
+    this.loadGear();
+
   }
 
   loadGear() {
