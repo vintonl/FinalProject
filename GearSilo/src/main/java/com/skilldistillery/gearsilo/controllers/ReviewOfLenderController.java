@@ -28,7 +28,7 @@ public class ReviewOfLenderController {
 	@Autowired
 	private ReviewOfLenderService lenderReviewSvc;
 
-	@GetMapping("user/{uid}/reviews/lenderreviews")
+	@GetMapping("users/{uid}/reviews/lenderreviews")
 	public List<ReviewOfLender> findLenderReviewsListByUser(@PathVariable int uid, HttpServletRequest req,
 			HttpServletResponse resp, Principal principal) {
 
@@ -45,12 +45,9 @@ public class ReviewOfLenderController {
 		return lenderReviews;
 	}
 
-	@PostMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews")
+	@PostMapping("users/{uid}/reservation/{rid}/reviews/lenderreviews")
 	public ReviewOfLender createLenderReview(@RequestBody ReviewOfLender lenderReview, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
-
-		System.out.println("inside constroller add review");
-
 		try {
 			lenderReviewSvc.createReviewOfLender(principal.getName(), lenderReview, uid, rid);
 			res.setStatus(201);
@@ -63,9 +60,9 @@ public class ReviewOfLenderController {
 		return lenderReview;
 	}
 	
-	@PutMapping("user/{uid}/reservation/{rid}/reviews/lenderreviews/{lrid}")
+	@PutMapping("users/{uid}/reservation/{rid}/reviews/lenderreviews/{lrid}")
 	public ReviewOfLender updateReviewOfLender(@RequestBody ReviewOfLender lenderReview, @PathVariable int uid,
-			@PathVariable int rid,@PathVariable int lrid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+			@PathVariable int rid, @PathVariable int lrid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		try {
 			lenderReview = lenderReviewSvc.updateReviewOfLender(principal.getName(), lenderReview, uid, rid, lrid);
 			if (lenderReview == null) {

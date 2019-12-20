@@ -60,8 +60,8 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 
 		User user = userRepo.findUserByUsername(username);
 
-		Optional<Reservation> resOpt = resRepo.findById(resId);
 		Reservation reservation;
+		Optional<Reservation> resOpt = resRepo.findById(resId);
 
 		if (resOpt.isPresent()) {
 			reservation = resOpt.get();
