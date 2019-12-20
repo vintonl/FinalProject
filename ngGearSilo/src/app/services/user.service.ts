@@ -23,25 +23,27 @@ export class UserService {
     private authService: AuthService
   ) {}
 
-  index() {
+  // LIST of USERS **********
 
+  index() {
     if (localStorage.length === 0) {
       this.router.navigateByUrl('/login');
     }
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: `Basic ` + this.authService.getCredentials(), //
-        'X-Requested-With': 'XMLHttpRequest',
-        // 'Content-Type': 'application/json'
+        Authorization: `Basic ` + this.authService.getCredentials(), // // Space after `Basic ` + is key due to concatenation.
+        'X-Requested-With': 'XMLHttpRequest'
       })
     };
     return this.http.get<User[]>(this.url, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('Service: Index Method');
+        return throwError('user.service.ts Error: Index Method');
       })
     );
   }
+
+  // USER BY ID **********
 
   public findById(id: number) {
     if (localStorage.length === 0) {
@@ -50,19 +52,60 @@ export class UserService {
     const httpOptions = {
       headers: new HttpHeaders({
         // tslint:disable-next-line: max-line-length
-        Authorization: `Basic ` + this.authService.getCredentials(), // Space after Basic is key due to concatenation
-        'X-Requested-With': 'XMLHttpRequest',                        // `Basic ` = good. `Basic` = bad.
-        // 'Content-Type': 'application/json'
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
       })
     };
 
     return this.http.get<User>(this.url + '/' + id, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError('Service: FindById Method');
+        return throwError('user.service.ts Error: FindById Method');
       })
     );
   }
 
+  // CREATE USER **********
 
+  create(user: User) {
+    if (localStorage.length === 0) {
+      this.router.navigateByUrl('/login');
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http
+      .post(environment.baseUrl + '/register', user, httpOptions)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('user.service.ts Error: Create Method');
+        })
+      );
+  }
+
+  // UPDATE USER **********
+
+  update(id: number, user: User) {
+    if (localStorage.length === 0) {
+      this.router.navigateByUrl('/login');
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.put(this.url + '/' + id, user, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('user.service.ts Error: Update Method');
+      })
+    );
+  }
 }
