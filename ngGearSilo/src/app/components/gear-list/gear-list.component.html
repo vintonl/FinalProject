@@ -19,9 +19,9 @@
           <tbody>
             <tr *ngFor="let item of gearList">
               <td scope="row">{{item.name | titlecase }}</td>
-              <td>{{item.description}}</td>
+              <td>{{item.description | lowercase }}</td>
               <td>{{item.price | currency}}</td>
-              <td>{{item.gearCondition | titlecase }}</td>
+              <td>{{item.gearCondition | lowercase }}</td>
             </tr>
           </tbody>
         </table>
