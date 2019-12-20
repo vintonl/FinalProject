@@ -6,7 +6,7 @@ import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 
 public interface ReviewOfLenderService {
 
-	List<ReviewOfLender> findAll(String username, int uid);
+	List<ReviewOfLender> findAll(String username, int id);
 
 	ReviewOfLender createReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId);
 
