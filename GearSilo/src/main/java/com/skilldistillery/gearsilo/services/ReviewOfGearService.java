@@ -7,5 +7,7 @@ import com.skilldistillery.gearsilo.entities.ReviewOfGear;
 public interface ReviewOfGearService {
 
 	List<ReviewOfGear> findAll(String username, int uid);
+
+	ReviewOfGear createReviewOfGear(String username, ReviewOfGear gearReview, int id, int rid);
 	
 }
