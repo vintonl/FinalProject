@@ -54,37 +54,37 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 
 	}
 
-	@Override
-	public ReviewOfLender create(String username, ReviewOfLender lenderReview, int resId) {
+//	@Override
+//	public ReviewOfLender create(String username, ReviewOfLender lenderReview, int resId) {
+//
+//		User user = userRepo.findUserByUsername(username);
+//		// Might need more in the if to check if resId is correct or this could be set in angular code?
+//		if (user != null && reviewLenderRepo.findReservationById(username, resId) != null) {
+//			reviewLenderRepo.saveAndFlush(lenderReview);
+//
+//		} else {
+//			lenderReview = null;
+//		}
+//		return lenderReview;
+//	}
 
-		User user = userRepo.findUserByUsername(username);
-		// Might need more in the if to check if resId is correct or this could be set in angular code?
-		if (user != null && reviewLenderRepo.findReservationById(username, resId) != null) {
-			reviewLenderRepo.saveAndFlush(lenderReview);
 
-		} else {
-			lenderReview = null;
-		}
-		return lenderReview;
-	}
-
-
-	@Override
-	public ReviewOfLender update(String username, ReviewOfLender lenderReview, int resId, int reviewOfLenderId) {
-		ReviewOfLender existing = null;
-		Optional<ReviewOfLender> optRev = reviewLenderRepo.findById(reviewOfLenderId);
-		
-		if(optRev.isPresent()) {
-			existing = optRev.get();
-			existing.setRating(lenderReview.getRating());
-			existing.setReview(lenderReview.getReview());
-			existing.setReservation(reviewLenderRepo.findReservationById(username, resId));
-			reviewLenderRepo.saveAndFlush(existing);
-		} else {
-			return null;
-		}
-		return existing;
-	}
+//	@Override
+//	public ReviewOfLender update(String username, ReviewOfLender lenderReview, int resId, int reviewOfLenderId) {
+//		ReviewOfLender existing = null;
+//		Optional<ReviewOfLender> optRev = reviewLenderRepo.findById(reviewOfLenderId);
+//		
+//		if(optRev.isPresent()) {
+//			existing = optRev.get();
+//			existing.setRating(lenderReview.getRating());
+//			existing.setReview(lenderReview.getReview());
+//			existing.setReservation(reviewLenderRepo.findReservationById(username, resId));
+//			reviewLenderRepo.saveAndFlush(existing);
+//		} else {
+//			return null;
+//		}
+//		return existing;
+//	}
 
 }
 		// Admin feature for create?
