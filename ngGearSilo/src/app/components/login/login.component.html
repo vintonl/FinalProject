@@ -2,17 +2,19 @@
   <div class="mx-auto" style="width: 20%;">
     <H1>Login</H1>
   </div>
-  <form #loginForm="ngForm" id="login-form" class="text-left">
+  <form #loginForm="ngForm" ngNativeValidate id="login-form" class="text-left">
     <div class="login-form-main-message"></div>
     <div class="main-login-form">
       <div class="login-group">
         <div class="form-group">
-          <label for="username" class="sr-only">Username</label>
-          <input type="text" class="form-control" id="username" name="username" placeholder="username" ngModel>
+          <label for="username" class="sr-only">Email</label>
+          <input type="email" class="form-control" id="username" name="username" placeholder="username" ngModel
+            required>
         </div>
         <div class="form-group">
           <label for="password" class="sr-only">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="password" ngModel>
+          <input type="password" class="form-control" id="password" name="password" placeholder="password" ngModel
+            required>
         </div>
       </div>
       <button type="submit" class="login-button btn btn-success" (click)="login(loginForm)">Submit</button>
