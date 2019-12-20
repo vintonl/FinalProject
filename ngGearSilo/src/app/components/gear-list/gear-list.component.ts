@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GearListComponent implements OnInit {
   gearList: Gear[] = [];
+  selected = null;
 
 
   constructor(private gearSrv: GearService) { }
@@ -30,4 +31,7 @@ export class GearListComponent implements OnInit {
     );
   }
 
+  displayGearItem(gear: Gear) {
+    this.selected = gear;
+  }
 }
