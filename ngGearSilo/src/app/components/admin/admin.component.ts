@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 
@@ -8,11 +9,23 @@ import { User } from 'src/app/models/user';
 })
 export class AdminComponent implements OnInit {
 
-  allUsers: User[] = [];
+  users: User[] = [];
+  selectedUser: User = null;
+  user: User = null;
+  updateUser: User = null;
+  disableUser: User = null;
 
-  constructor() { }
+  constructor(private userSvc: UserService) { }
 
   ngOnInit() {
+     this.loadUsers();
+
   }
+
+  loadUsers() {
+    // this.userSvc
+  }
+
+
 
 }
