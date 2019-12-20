@@ -24,8 +24,12 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.GetLoggedInUserGear();
-    this.loadGear();
+    const cred = this.authService.getCredentials();
+
+    if (cred != null) {
+      this.loadGear();
+    }
+    this.router.navigateByUrl('/login');
   }
 
   loadGear() {
@@ -40,6 +44,7 @@ export class ProfileComponent implements OnInit {
 
           if (e.user.id === e.id) {
             this.gearList.push(e);
+            this.loggedInUser = e.user;
           }
 
         });
