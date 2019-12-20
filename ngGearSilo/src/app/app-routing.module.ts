@@ -1,4 +1,3 @@
-import { TestingComponent } from './components/testing/testing.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
