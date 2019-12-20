@@ -14,8 +14,5 @@ public interface ReviewOfLenderService {
 
 	public ReviewOfLender updateReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId, int reviewOfLenderId);
 
-//	List<ReviewOfLender> findByUser_Id( int uid);
-
-//	ReviewOfLender findById();
 
 }
