@@ -30,32 +30,38 @@ export class ProfileComponent implements OnInit {
       this.router.navigateByUrl('/login');
 
     }
-    this.loadGear();
 
+    this.loadGear();
   }
 
   loadGear() {
-    // this.clearSearch();
-    const allgear: [] = [];
+    // this.clearSearch(); const allgear: [] = [];
+    this.loggedInUser = this.authService.getUser();
 
-    this.gearSrv.index().subscribe(
-      (aGoodThingHappened) => {
-        console.log(aGoodThingHappened);
+    console.log(this.loggedInUser);
+    // this.loggedInUser = this.userService.getUserById();
 
-        aGoodThingHappened.forEach(e => {
+    // this.gearSrv.index().subscribe(
+    //   (aGoodThingHappened) => {
+    //     console.log(aGoodThingHappened);
 
-          if (e.user.id === e.id) {
-            this.gearList.push(e);
-            this.loggedInUser = e.user;
-          }
+    //     aGoodThingHappened.forEach(gear => {
 
-        });
+    //       if (gear.user.id === id) {
+    //         console.log("get user id");
+    //         console.log(gear.user.id);
+    //         this.gearList.push(gear);
 
-      },
-      (didntWork) => {
-        console.log(didntWork);
-      }
-    );
+    //         // this.loggedInUser = e.user;
+    //       }
+
+    //     });
+
+    //   },
+    //   (didntWork) => {
+    //     console.log(didntWork);
+    //   }
+    // );
   }
 
   // GetLoggedInUserGear() {
