@@ -26,10 +26,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     const cred = this.authService.getCredentials();
 
-    if (cred === null) {
-      this.router.navigateByUrl('/login');
+    // if (cred === null) {
+    //   this.router.navigateByUrl('/login');
 
-    }
+    // }
 
     this.loadGear();
   }
@@ -64,25 +64,7 @@ export class ProfileComponent implements OnInit {
     // );
   }
 
-  // GetLoggedInUserGear() {
 
-  //   const username = this.authService.getUsername();
-
-  //   console.log("in get logged in usergear profile ts " + username);
-
-  //   this.gearSrv.getGearByUserName(username).subscribe(
-  //     data => {
-  //       this.myGear = data;
-  //       console.log("success in get user gear profile componoent " + this.myGear);
-
-  //     },
-  //     err => {
-  //       console.error(err);
-  //       console.log("error in get user gear")
-  //     }
-  //   );
-
-  // }
 }
 
 
