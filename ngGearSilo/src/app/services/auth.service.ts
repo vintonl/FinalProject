@@ -10,14 +10,15 @@ import { User } from '../models/user';
 })
 export class AuthService {
   private baseUrl = environment.baseUrl;
-  private user: User = new User();
+  // private user: User = new User();
 
   constructor(private http: HttpClient) { }
 
   login(username, password) {
-    this.getUserByUsername(username).subscribe(data => this.user = data);
-    console.log("in login");
-    console.log(this.user);
+    // this.user = new User();
+    // this.getUserByUsername(username).subscribe(data => this.user = data);
+    // console.log('in login');
+    // console.log(this.user);
     // console.log(username);
 
     // Make credentials
@@ -61,7 +62,10 @@ export class AuthService {
   }
 
   logout() {
+    // this.user = new User();
     localStorage.removeItem('credentials');
+    localStorage.removeItem('username');
+
   }
 
   checkLogin() {
@@ -79,12 +83,17 @@ export class AuthService {
     return localStorage.getItem('credentials');
   }
 
+  getLoggedInUsername() {
+    return localStorage.getItem('username');
+  }
   getUserByUsername(username: string) {
     //  localStorage.getItem();
 
+    console.log('in get user by username method');
+    console.log(username);
     const httpOptions = {
       headers: new HttpHeaders({
-        // 'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Headers': 'Content-Type',
         // 'Content-Type': 'application/json',
         Authorization: `Basic ` + this.getCredentials(),
         'X-Requested-With': 'XMLHttpRequest'
@@ -100,7 +109,7 @@ export class AuthService {
       );
   }
 
-  getUser(): User {
-    return this.user;
-  }
+  // getUser(): User {
+  //   return this.user;
+  // }
 }

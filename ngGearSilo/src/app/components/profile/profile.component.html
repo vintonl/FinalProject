@@ -8,7 +8,7 @@
       <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
         <div class="row ">
           <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
-            <img src="http://nicesnippets.com/demo/1499344631_malecostume.png">
+            <img src="{{loggedInUser.imageUrl}}">
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
             <button class="btn btn-defult follow "><i class="fa fa-user-o" aria-hidden="true"></i> Edit</button>
@@ -16,8 +16,8 @@
           <div class="row user-detail-row">
             <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
               <div class="border"></div>
-              <p>Items Listed</p>
-              <span>3</span>
+              <p>Email</p>
+              <span>{{loggedInUser.email}}</span>
             </div>
             <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
               <div class="border"></div>
@@ -45,8 +45,6 @@
               </div>
             </div>
           </div>
-
-
           <div class="contaner-fluid">
             <div class="row">
               <div class="col-1"></div>
@@ -87,4 +85,3 @@
     </div>
   </div>
 </div>
-<!-- </div> -->
