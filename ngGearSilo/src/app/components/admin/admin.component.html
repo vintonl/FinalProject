@@ -1,36 +1,35 @@
-<div class="container fixed-relative bg-light">
-  <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#"><strong>Admin</strong></a>
+  <div class="container navbar navbar-light bg-light">
+    <a class="navbar-brand" ><strong>Admin</strong></a>
     <h1 *ngIf="!selectedUser">
-      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo
-      Users
+      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users
     </h1>
-  </nav>
-</div>
-<div class="container">
-  <div id="userList" *ngIf="!selectedUser">
-    <table class="table table-striped table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th>Id</th>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Enabled</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.id }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
-          <td>{{ user.enabled }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-</div>
+    <div id="userList" class="container" *ngIf="!selectedUser">
+      <table class="table table-striped table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th>Id</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Enabled</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="showHand" *ngFor="let user of users" (click)="selectedUser = true">
+            <td>{{ user.id }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>{{ user.enabled }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 <!-- <div><app-gear-list></app-gear-list></div> -->
+<div *ngIf="selectedUser">
+  <a>Diplay Single</a>
+  <button type="button" (click)="selectedUser = false">Back</button>
+</div>

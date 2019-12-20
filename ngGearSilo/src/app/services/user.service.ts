@@ -90,7 +90,7 @@ export class UserService {
 
   // UPDATE USER **********
 
-  update(id: number, user: User) {
+  update(user: User) {
     if (localStorage.length === 0) {
       this.router.navigateByUrl('/login');
     }
@@ -101,7 +101,7 @@ export class UserService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put(this.url + '/' + id, user, httpOptions).pipe(
+    return this.http.put(this.url + '/' + user.id, user, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('user.service.ts Error: Update Method');

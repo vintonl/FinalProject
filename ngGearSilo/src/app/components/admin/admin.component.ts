@@ -19,8 +19,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.loadUsers();
   }
-
-  loadUsers() {
+  public loadUsers() {
     // this.userSvc
     const userList: [] = [];
 
@@ -35,7 +34,26 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  countUsers() {
+  public countUsers() {
     return this.users.length;
+  }
+
+  public setUpdateExpense() {
+    this.updateUser = Object.assign({}, this.selectedUser);
+  }
+
+  public updatedUser(user: User) {
+    this.userSvc.update(user).subscribe(
+      uData => {
+        this.loadUsers();
+        this.selectedUser = null;
+        this.updatedUser = null;
+      },
+      uErr => {
+        this.loadUsers();
+        console.error('updatedExpense: Error');
+        console.error(uErr);
+      }
+    );
   }
 }
