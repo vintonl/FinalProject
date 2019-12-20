@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
 import com.skilldistillery.gearsilo.entities.ReservationMessage;
+import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.repositories.ReservationMessageRepository;
 import com.skilldistillery.gearsilo.repositories.ReservationRepository;
@@ -54,9 +55,6 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 
 		if (resOpt.isPresent()) {
 			reservation = resOpt.get();
-
-			System.out.println(reservation);
-
 			if (user.getId() == id || user.getRole().equals("admin")) {
 				List<Reservation> reservations = user.getReservations();
 				System.err.println("number of reservations in user: " + reservations.size());
@@ -68,14 +66,43 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 	}
 
 	@Override
-	public ReservationMessage updateReservationMessage(String username, ReservationMessage resMsg, int resMsgId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ReservationMessage updateReservationMessage(String username, ReservationMessage resMsg, int id, int resId,
+			int resMsgId) {
+		User user = userRepo.findUserByUsername(username);
+		Optional<Reservation> resOpt = resRepo.findById(resId);
+		Reservation reservation;
+		ReservationMessage existing = null;
+		if (resOpt.isPresent()) {
+			reservation = resOpt.get();
+			if (user.getId() == id || user.getRole().equals("admin")) {
+				List<Reservation> reservations = user.getReservations();
+				Optional<ReservationMessage> optRes = resMsgRepo.findById(resMsgId);
+				resMsg.setReservation(reservation);
+
+				if (optRes.isPresent()) {
+					existing = optRes.get();
+					existing.setMessage(resMsg.getMessage());
+					existing.setMessageDate(resMsg.getMessageDate());
+					existing.setReservation(resMsg.getReservation());
+					existing.setShopperUserId(resMsg.getShopperUserId());
+					resMsgRepo.saveAndFlush(existing);
+				} else {
+					return null;
+				}
+			}
+		}
+		return existing;
 	}
 
 	@Override
-	public ReservationMessage deleteReservationMessage(String username, int resMsg) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean deleteReservationMessage(String username, int resMsgId) {
+		boolean successful = true;
+		Optional<ReservationMessage> resMsg = resMsgRepo.findById(resMsgId);
+		if(resMsg != null) {
+			resMsgRepo.deleteById(resMsgId);
+		} else {
+			successful = false;
+		}
+		return successful;
 	}
 }
