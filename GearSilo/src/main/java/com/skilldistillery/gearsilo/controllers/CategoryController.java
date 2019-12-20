@@ -33,13 +33,14 @@ public class CategoryController {
 	@Autowired
 	private GearService gearSvc;
 
-//	@GetMapping("gears/category")
-//	public List<Gear> index(@PathVariable Category category, HttpServletRequest req, HttpServletResponse res,
-//			Principal principal) {
-//		System.out.println("in cat controller get ");
-//
-//		return catSvc.showMyGear(principal.getName());
-//	}
+	@GetMapping("gears/category")
+	public List<Category> listAllCategories(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
+		List<Category> categoryList = catSvc.listAllCategories();
+		if (categoryList == null) {
+			resp.setStatus(404);
+		}
+		return categoryList;
+	}
 
 //	@GetMapping("gearslist")
 //	public List<Gear> listAllGears(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
