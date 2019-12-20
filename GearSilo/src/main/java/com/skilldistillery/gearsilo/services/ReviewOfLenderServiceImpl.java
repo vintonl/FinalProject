@@ -2,6 +2,7 @@ package com.skilldistillery.gearsilo.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.gearsilo.entities.Reservation;
 import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 import com.skilldistillery.gearsilo.entities.User;
+import com.skilldistillery.gearsilo.repositories.ReservationRepository;
 import com.skilldistillery.gearsilo.repositories.ReviewOfLenderRepository;
 import com.skilldistillery.gearsilo.repositories.UserRepository;
 
@@ -18,6 +20,9 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 
 	@Autowired
 	private ReviewOfLenderRepository reviewLenderRepo;
+
+	@Autowired
+	ReservationRepository resRepo;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -50,43 +55,51 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 	}
 
 	@Override
-	public ReviewOfLender create(String username, ReviewOfLender lenderReview, int id, int rid) {
-		System.out.println("in service impl" + lenderReview);
+	public ReviewOfLender create(String username, ReviewOfLender lenderReview, int resId) {
 
 		User user = userRepo.findUserByUsername(username);
-
-		System.out.println(user.getEmail());
-
-		if (user.getId() == id || user.getRole().equals("admin")) {
-
-			List<Reservation> reservation = user.getReservations();
-
-			for (Reservation reservation2 : reservation) {
-
-				if (reservation2.getId() == rid) {
-
-					lenderReview.setReservation(reservation2);
-
-				}
-
-			}
-
-			System.out.println("IN REVIEW OF LENDER " + lenderReview);
-			System.out.println("IN REVIEW OF RES ID" + lenderReview.getReservation());
-
-//			lenderReview.getReservation().getGearId().getUser();
-//			lenderReview.getReservation().getGearId().setUser(user);
-			System.out.println(reviewLenderRepo);
-			System.out.println("1");
+		// Might need more in the if to check if resId is correct or this could be set in angular code?
+		if (user != null && reviewLenderRepo.findReservationById(username, resId) != null) {
 			reviewLenderRepo.saveAndFlush(lenderReview);
-//			reviewLenderRepo.save(lenderReview);
-//			System.out.println("2");
-//			reviewLenderRepo.flush();
-			System.out.println("after flush" + lenderReview);
 
+		} else {
+			lenderReview = null;
 		}
-
 		return lenderReview;
 	}
 
+
+	@Override
+	public ReviewOfLender update(String username, ReviewOfLender lenderReview, int resId, int reviewOfLenderId) {
+		ReviewOfLender existing = null;
+		Optional<ReviewOfLender> optRev = reviewLenderRepo.findById(reviewOfLenderId);
+		
+		if(optRev.isPresent()) {
+			existing = optRev.get();
+			existing.setRating(lenderReview.getRating());
+			existing.setReview(lenderReview.getReview());
+			existing.setReservation(reviewLenderRepo.findReservationById(username, resId));
+			reviewLenderRepo.saveAndFlush(existing);
+		} else {
+			return null;
+		}
+		return existing;
+	}
+
 }
+		// Admin feature for create?
+//		if (user.getId() == id || user.getRole().equals("admin")) {
+//
+//			List<Reservation> reservation = user.getReservations();
+//
+//			for (Reservation reservation2 : reservation) {
+//
+//				if (reservation2.getId() == rid) {
+//
+//					lenderReview.setReservation(reservation2);
+//
+//				}
+//
+//			}
+
+
