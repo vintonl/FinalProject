@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
+import com.skilldistillery.gearsilo.entities.ReviewOfGear;
 import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.repositories.ReservationRepository;
@@ -22,7 +23,7 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 	private ReviewOfLenderRepository reviewLenderRepo;
 
 	@Autowired
-	ReservationRepository resRepo;
+	private ReservationRepository resRepo;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -54,52 +55,55 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 
 	}
 
-//	@Override
-//	public ReviewOfLender create(String username, ReviewOfLender lenderReview, int resId) {
-//
-//		User user = userRepo.findUserByUsername(username);
-//		// Might need more in the if to check if resId is correct or this could be set in angular code?
-//		if (user != null && reviewLenderRepo.findReservationById(username, resId) != null) {
-//			reviewLenderRepo.saveAndFlush(lenderReview);
-//
-//		} else {
-//			lenderReview = null;
-//		}
-//		return lenderReview;
-//	}
+	@Override
+	public ReviewOfLender createReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId) {
 
+		User user = userRepo.findUserByUsername(username);
 
-//	@Override
-//	public ReviewOfLender update(String username, ReviewOfLender lenderReview, int resId, int reviewOfLenderId) {
-//		ReviewOfLender existing = null;
-//		Optional<ReviewOfLender> optRev = reviewLenderRepo.findById(reviewOfLenderId);
-//		
-//		if(optRev.isPresent()) {
-//			existing = optRev.get();
-//			existing.setRating(lenderReview.getRating());
-//			existing.setReview(lenderReview.getReview());
-//			existing.setReservation(reviewLenderRepo.findReservationById(username, resId));
-//			reviewLenderRepo.saveAndFlush(existing);
-//		} else {
-//			return null;
-//		}
-//		return existing;
-//	}
+		Optional<Reservation> resOpt = resRepo.findById(resId);
+		Reservation reservation;
 
+		if (resOpt.isPresent()) {
+			reservation = resOpt.get();
+
+			System.out.println(reservation);
+
+			if (user.getId() == id || user.getRole().equals("admin")) {
+				List<Reservation> reservations = user.getReservations();
+				System.err.println("number of reservations in user: " + reservations.size());
+				lenderReview.setReservation(reservation);
+			}
+			reviewLenderRepo.saveAndFlush(lenderReview);
+		}
+
+		return lenderReview;
+	}
+
+	@Override
+	public ReviewOfLender updateReviewOfLender(String username, ReviewOfLender lenderReview, int id, int resId, int reviewOfLenderId) {
+		User user = userRepo.findUserByUsername(username);
+		Optional<Reservation> resOpt = resRepo.findById(resId);
+		Reservation reservation;
+		ReviewOfLender existing = null;
+		
+		if(resOpt.isPresent()) {
+			reservation = resOpt.get();
+			if (user.getId() == id || user.getRole().equals("admin")) {
+				List<Reservation> reservations = user.getReservations();
+				Optional<ReviewOfLender> optRev = reviewLenderRepo.findById(reviewOfLenderId);
+				lenderReview.setReservation(reservation);
+			
+			if (optRev.isPresent()) {
+				existing = optRev.get();
+				existing.setRating(lenderReview.getRating());
+				existing.setReview(lenderReview.getReview());
+				existing.setReservation(lenderReview.getReservation());
+				reviewLenderRepo.saveAndFlush(existing);
+			} else {
+				return null;
+			}
+			}
+		}
+		return existing;
+	}
 }
-		// Admin feature for create?
-//		if (user.getId() == id || user.getRole().equals("admin")) {
-//
-//			List<Reservation> reservation = user.getReservations();
-//
-//			for (Reservation reservation2 : reservation) {
-//
-//				if (reservation2.getId() == rid) {
-//
-//					lenderReview.setReservation(reservation2);
-//
-//				}
-//
-//			}
-
-
