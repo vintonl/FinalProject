@@ -36,7 +36,20 @@ export class ProfileComponent implements OnInit {
 
   loadGear() {
     // this.clearSearch(); const allgear: [] = [];
-    this.loggedInUser = this.authService.getUser();
+    // this.loggedInUser = this.authService.getUser();
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      yes => {
+        this.loggedInUser = yes;
+        console.log('Got logged in user:');
+        console.log(this.loggedInUser);
+      },
+      no => {
+        console.error('Error getting logged in user');
+        console.error(no);
+
+
+      }
+    );
 
     console.log(this.loggedInUser);
     // this.loggedInUser = this.userService.getUserById();
