@@ -30,9 +30,8 @@ public class ReservationController {
 	@Autowired
 	private ReservationService resSvc;
 
-	@GetMapping("user/{id}/reservations")
-	public List<Reservation> index(@PathVariable int id, Principal p, HttpServletRequest req, HttpServletResponse resp) {
-
+	@GetMapping("reservations")
+	public List<Reservation> index(Principal p, HttpServletRequest req, HttpServletResponse resp) {
 		List<Reservation> res = resSvc.findAll(p.getName());
 
 		if (res != null && res.size() == 0) {
@@ -44,24 +43,23 @@ public class ReservationController {
 		}
 
 		return res;
-
 	}
 
-	@GetMapping("user{id}reservations/{id}")
-	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {
+//	@GetMapping("user{id}reservations/{id}")
+//	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {
+//
+//		Reservation res = resSvc.findReservationById(p.getName(), id);
+//		if (res == null) {
+//			resp.setStatus(404);
+//		}
+//		return res;
+//	}
 
-		Reservation res = resSvc.findReservationById(p.getName(), id);
-		if (res == null) {
-			resp.setStatus(404);
-		}
-		return res;
-	}
+	@PostMapping("reservations")
+	public Reservation createReservation(@RequestBody Reservation reservation, HttpServletRequest req,
+			HttpServletResponse resp, Principal principal) {
 
-	@PostMapping("user/{id}/reservations")
-	public Reservation createReservation(@PathVariable int id, @RequestBody Reservation reservation, HttpServletRequest req,
-			HttpServletResponse resp, Principal p) {
-
-		Reservation newRes = resSvc.createReservation(p.getName(), reservation);
+		Reservation newRes = resSvc.createReservation(principal.getName(), reservation);
 
 		if (newRes != null) {
 			StringBuffer url = req.getRequestURL();
@@ -74,21 +72,22 @@ public class ReservationController {
 		}
 
 	}
+	
 
-	@PutMapping("user/{id}/reservations/{id}")
-	public Reservation updateReservation(@RequestBody Reservation reservation, @PathVariable int id,
-			HttpServletRequest req, HttpServletResponse resp, Principal p) {
-
-		try {
-			resp.setStatus(201);
-			StringBuffer url = req.getRequestURL();
-			resp.addHeader("Location", url.toString());
-			return resSvc.updateReservation(p.getName(), reservation, id);
-
-		} catch (Exception e) {
-			resp.setStatus(400);
-			return null;
-		}
-	}
+//	@PutMapping("user/{id}/reservations")
+//	public Reservation updateReservation(@RequestBody Reservation reservation, @PathVariable int id,
+//			HttpServletRequest req, HttpServletResponse resp, Principal p) {
+//
+//		try {
+//			resp.setStatus(201);
+//			StringBuffer url = req.getRequestURL();
+//			resp.addHeader("Location", url.toString());
+//			return resSvc.updateReservation(p.getName(), reservation, id);
+//
+//		} catch (Exception e) {
+//			resp.setStatus(400);
+//			return null;
+//		}
+//	}
 
 }

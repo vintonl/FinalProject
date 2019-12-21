@@ -1,3 +1,4 @@
+import { Reservation } from './../../models/reservation';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { GearListComponent } from './../gear-list/gear-list.component';
@@ -13,6 +14,7 @@ import { GearService } from 'src/app/services/gear.service';
 export class ReservationComponent implements OnInit {
 
   selected = null;
+  newRes: Reservation = null;
 
   constructor(private gearSrv: GearService, private gearlistComp: GearListComponent,
     // tslint:disable-next-line: align
@@ -30,5 +32,8 @@ export class ReservationComponent implements OnInit {
     console.log(this.selected);
   }
 
+  makeReservation() {
+
+  }
 
 }
