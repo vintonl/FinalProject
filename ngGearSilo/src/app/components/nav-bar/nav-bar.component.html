@@ -12,7 +12,7 @@
       <a class="nav-item nav-link showHand" [routerLink]="['/about']">About</a>
       <a class="nav-item nav-link showHand" [routerLink]="['/login']">Login</a>
       <a class="nav-item nav-link showHand" [routerLink]="['/register']">Create Account</a>
-      <a class="nav-item nav-link showHand" [routerLink]="['/logout']">Logout</a>
+      <a class="nav-item nav-link showHand" (click)="logout()">Logout</a>
 
     </div>
   </div>
