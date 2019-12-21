@@ -74,7 +74,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     ReviewOfShopperService,
     UserService,
     ProfileService,
-    NavBarComponent
+    NavBarComponent,
+    GearListComponent
   ],
   bootstrap: [AppComponent, ProfileComponent],
 

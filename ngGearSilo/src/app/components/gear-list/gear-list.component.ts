@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Gear } from './../../models/gear';
 import { GearService } from './../../services/gear.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ export class GearListComponent implements OnInit {
   selected = null;
 
 
-  constructor(private gearSrv: GearService) { }
+  constructor(private gearSrv: GearService, private router: Router) { }
 
   ngOnInit() {
     this.loadGear();
@@ -33,5 +34,14 @@ export class GearListComponent implements OnInit {
 
   displayGearItem(gear: Gear) {
     this.selected = gear;
+  }
+
+  startReservation() {
+    this.router.navigate(['/reservation']);
+    return this.selected;
+  }
+
+  getSelected() {
+    return this.selected;
   }
 }
