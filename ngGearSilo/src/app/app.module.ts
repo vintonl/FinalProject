@@ -27,6 +27,13 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileService } from './services/profile.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { TestingComponent } from './components/testing/testing.component';
+import { MatSelectModule } from '@angular/material/select';
+
+import {
+  MatButtonModule, MatFormFieldModule, MatInputModule, MatSliderModule,
+  MatIconModule, MatCardModule, MatDialogModule, MatProgressBar
+} from '@angular/material';
+
 
 
 @NgModule({
@@ -42,7 +49,7 @@ import { TestingComponent } from './components/testing/testing.component';
     RegisterComponent,
     ProfileComponent,
     AdminComponent,
-    TestingComponent
+    TestingComponent,
 
   ],
   imports: [
@@ -51,7 +58,9 @@ import { TestingComponent } from './components/testing/testing.component';
     BrowserAnimationsModule,
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule
+
   ],
   providers: [
     GearService,
@@ -64,6 +73,7 @@ import { TestingComponent } from './components/testing/testing.component';
     UserService,
     ProfileService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, ProfileComponent],
+
 })
 export class AppModule { }
