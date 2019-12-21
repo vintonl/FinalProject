@@ -8,10 +8,15 @@
       <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
         <div class="row ">
           <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
-            <img src="{{loggedInUser.imageUrl}}">
+            <div *ngIf="loggedInUser.imageUrl != null">
+              <img src="{{loggedInUser.imageUrl}}">
+              <!-- <div *ngIf="loggedInUser.imageUrl === null">
+                <img src="{{loggedInUser.imageUrl}}"> -->
+            </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
-            <button class="btn btn-defult follow "><i class="fa fa-user-o" aria-hidden="true"></i> Edit</button>
+            <button data-toggle="modal" data-target="#demo" class="btn btn-defult follow "><i class="fa fa-user-o"
+                aria-hidden="true"></i> Edit</button>
           </div>
           <div class="row user-detail-row">
             <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -21,8 +26,8 @@
             </div>
             <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
               <div class="border"></div>
-              <p>Rating</p>
-              <span>4.2</span>
+              <p>About Me</p>
+              <span>{{loggedInUser.about}}</span>
             </div>
           </div>
           <div class="col-md-12 user-detail-section2">
@@ -37,14 +42,16 @@
           <div class="col-md-12 profile-header">
             <div class="row">
               <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
-                <h1>{{loggedInUser.firstName}}</h1>
-                <p>Senior Architect</p>
+                <!-- <p>Senior Architect</p> -->
               </div>
               <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
-                <button class="btn btn-info req-btn"> REQUEST</button>
+                <!-- <button class="btn btn-info req-btn"> REQUEST</button> -->
               </div>
             </div>
           </div>
+
+
+
           <div class="contaner-fluid">
             <div class="row">
               <div class="col-1"></div>
@@ -52,25 +59,30 @@
                 <div>
                   <br>
                   <div class="text-center">
-                    <h2>Gear List</h2>
                   </div>
-                  <table class="table table-primary table-bordered">
+                  <table class="table table  table table-hover">
                     <thead class="thead-dark">
                       <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Condition</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of gearList">
-                        <td scope="row">{{item.name | titlecase }}</td>
-                        <td>{{item.description | lowercase }}</td>
-                        <td>{{item.price | currency}}</td>
-                        <td>{{item.gearCondition | lowercase }}</td>
+                        <td *ngIf="item.active == true" scope="row">{{item.name | titlecase }}</td>
+                        <td *ngIf="item.active == true">{{item.description | lowercase }}</td>
+                        <td *ngIf="item.active == true">{{item.price | currency}}</td>
+                        <td *ngIf="item.active == true"> <button type="submit" value="X" (click)="deleteGear(item.id)"
+                            class="btn btn-info btn-sm"></button></td>
+                        <td *ngIf="item.active == true"> <button type="submit" value="X" (click)="deleteGear(item.id)"
+                            class="btn btn-danger btn-sm"></button></td>
                       </tr>
                     </tbody>
+
                   </table>
                   <div class="text-center">
                     <p>Click a row for more details.</p>
@@ -80,8 +92,77 @@
               <div class="col-1"></div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+<!-- MODAL STUFF TO PLY WITH -->
+
+<div id="demo" class="modal fade" role="dialog">
+  <div class="modal-dialog"> -->
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">{{loggedInUser.firstName | titlecase}}</h4>
+      </div>
+
+
+      <div class="modal-body">
+
+        <img class="img-responsive" />
+        <input type="text" placeholder="{{loggedInUser.firstName}}" class="form-control">
+        <input type="text" placeholder="{{loggedInUser.lastName}}" class="form-control">
+        <input type="text" placeholder="{{loggedInUser.imageUrl}}" class="form-control">
+        <input type="text" placeholder="{{loggedInUser.phone}}" class="form-control">
+
+        <p class="text">.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- <section *ngFor="let item of gearList">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="card text-center">
+              <div class="title">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                <h2>Basic</h2>
+              </div>
+              <div class="price">
+                <h4><sup>$</sup>25</h4>
+              </div>
+              <div class="option">
+                <ul>
+                <li> <i class="fa fa-check" aria-hidden="true"></i> 10 GB Space </li>
+                <li> <i class="fa fa-check" aria-hidden="true"></i> 3 Domain Names </li>
+                <li> <i class="fa fa-check" aria-hidden="true"></i> 20 Email Address </li>
+                <li> <i class="fa fa-times" aria-hidden="true"></i> Live Support </li>
+                </ul>
+              </div>
+              <a href="#">Order Now </a>
+            </div>
+          </div> -->
+
+
+<!-- </div>
+      </div>
+    </div>
+  </section> -->

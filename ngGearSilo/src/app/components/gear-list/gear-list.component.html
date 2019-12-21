@@ -20,12 +20,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of gearList">
-                <td scope="row" (click)="displayGearItem(item)" style="text-align:center"><img src="{{item.imageUrl}}"
-                    alt="gear image" class="gear-img-list"></td>
-                <td (click)="displayGearItem(item)">{{item.name | titlecase }}</td>
-                <td (click)="displayGearItem(item)">{{item.description | lowercase }}</td>
-                <td (click)="displayGearItem(item)">{{item.price | currency}}</td>
-                <td (click)="displayGearItem(item)">{{item.gearCondition | lowercase }}</td>
+                <td *ngIf="item.active == true" scope="row" (click)="displayGearItem(item)" style="text-align:center">
+                  <img src="{{item.imageUrl}}" alt="gear image" class="gear-img-list"></td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.name | titlecase }}</td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.description | lowercase }}</td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.price | currency}}</td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.gearCondition | lowercase }}</td>
               </tr>
             </tbody>
           </table>
