@@ -1,63 +1,66 @@
-<div class='container'>
-
-  <div class="row">
-    <div class="col-3"></div>
-    <div class="col-6">
-      <br>
-      <div class="text-center">
-        <h2>Reservation Dates</h2>
-      </div>
-      <form class="form-group my-2 my-lg-0">
-        <label>Start date: </label>
-        <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" name="date">
-        <br>
-        <label>End date: </label>
-        <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" name="date">
-
-      </form>
-    </div>
-    <div class="col-3"></div>
+<div class="container">
+  <br>
+  <div class="text-center">
+    <h2>Gear Details</h2>
   </div>
+  <ul class="list-group">
+    <li class="list-group-item" *ngIf="this.selected && this.selected.id && this.selected.id > 0">
+      Id:
+      {{selected.id}}</li>
+    <li class="list-group-item ">Name: {{selected.name | titlecase }}</li>
+    <li class="list-group-item " style="text-align:center">
+      <img src="{{selected.imageUrl}}" alt="gear image" class="gear-img-details">
+      <img *ngIf="selected.imageUrl2 && selected.imageUrl2.length > 0" src="{{selected.imageUrl2}}" alt="gear image"
+        class="gear-img-details">
+      <img *ngIf="selected.imageUrl3 && selected.imageUrl3.length > 0" src="{{selected.imageUrl3}}" alt="gear image"
+        class="gear-img-details">
+    </li>
+    <li class="list-group-item">
+      Description:
+      {{selected.description | lowercase }}</li>
+    <li class="list-group-item ">Price per day: {{selected.price | currency }}</li>
+    <li class="list-group-item ">Condition: {{selected.gearCondition | lowercase }}</li>
+    <li class="list-group-item " *ngIf="selected.available == true">Available: Yes!</li>
+    <li class="list-group-item " *ngIf="selected.available == false">Available: Sorry, it is not available to rent
+      at this time.</li>
 
-  <div class="container">
+    <li class="list-group-item ">Rent From: {{selected.user.firstName | titlecase }}
+      {{selected.user.lastName | titlecase }}</li>
+
+    <li class="list-group-item ">Location: {{selected.user.address.city | titlecase }},
+      {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
+
+  </ul>
+  <br>
+  <div class='container'>
     <br>
     <div class="text-center">
-      <h2>Gear Details</h2>
+      <h2>Reservation Dates</h2>
     </div>
-    <ul class="list-group">
-      <li class="list-group-item" *ngIf="this.selected && this.selected.id && this.selected.id > 0">
-        Id:
-        {{selected.id}}</li>
-      <li class="list-group-item ">Name: {{selected.name | titlecase }}</li>
-      <li class="list-group-item " style="text-align:center">
-        <img src="{{selected.imageUrl}}" alt="gear image" class="gear-img-details">
-        <img *ngIf="selected.imageUrl2 && selected.imageUrl2.length > 0" src="{{selected.imageUrl2}}" alt="gear image"
-          class="gear-img-details">
-        <img *ngIf="selected.imageUrl3 && selected.imageUrl3.length > 0" src="{{selected.imageUrl3}}" alt="gear image"
-          class="gear-img-details">
-      </li>
-      <li class="list-group-item">
-        Description:
-        {{selected.description | lowercase }}</li>
-      <li class="list-group-item ">Price per day: {{selected.price | currency }}</li>
-      <li class="list-group-item ">Condition: {{selected.gearCondition | lowercase }}</li>
-      <li class="list-group-item " *ngIf="selected.available == true">Available: Yes!</li>
-      <li class="list-group-item " *ngIf="selected.available == false">Available: Sorry, it is not available to rent
-        at this time.</li>
+    <div class="row">
+      <div class="col-4">
+      </div>
 
-      <li class="list-group-item ">Rent From: {{selected.user.firstName | titlecase }}
-        {{selected.user.lastName | titlecase }}</li>
-
-      <li class="list-group-item ">Location: {{selected.user.address.city | titlecase }},
-        {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
-
-    </ul>
-    <br>
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <span>
+      <div class="col-4">
+        <form class="form-group my-2 my-lg-0">
+          <label>Start date: </label>
+          <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" name="date">
+          <br>
+          <label>End date: </label>
+          <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" name="date">
+          <br>
+        </form>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button (click)="selected=null" class="btn btn-dark my-2 my-sm-0">Submit reservation</button>
+          <span>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button (click)="selected=null" class="btn btn-dark my-2 my-sm-0">Submit reservation</button>
+            </div>
+          </span>
         </div>
-      </span>
+      </div>
+
+      <div class="col-4"></div>
     </div>
   </div>
+  <br>
+</div>
