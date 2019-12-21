@@ -1,4 +1,115 @@
-  <div class="container navbar navbar-light bg-light">
+<nav>
+  <div class="container-fluid navbar navbar-light bg-light">
+    <a class="navbar-brand"><strong>Admin</strong></a>
+    <h1 *ngIf="!selectedUser">
+      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users
+    </h1>
+  </div>
+</nav>
+<div class="container-fluid bg-light">
+  <ngb-tabset>
+    <ngb-tab title="Users">
+      <ng-template ngbTabContent>
+        <div id="userList" class="container" *ngIf="!selectedUser">
+          <table class="table table-striped table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Id</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Enabled</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="showHand"
+                *ngFor="let user of users"
+                (click)="selectedUser = true"
+              >
+                <td>{{ user.id }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.enabled }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Single Display w/Options Going Here -->
+        <div *ngIf="selectedUser">
+          <a>Diplay Single</a>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            (click)="selectedUser = false"
+          >
+            Back
+          </button>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle><b>Gear</b> List</ng-template>
+      <ng-template ngbTabContent>
+      <div id="gearList" class="container" *ngIf="!selectedGear">
+        <table class="table table-striped table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>Id</th>
+              <th>Gear</th>
+              <th>Owner</th>
+              <th></th>
+              <th></th>
+              <th>Available</th>
+              <th>Active</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let gear of gearList" class="showHand" (click)="selectedGear = true">
+              <td>{{ gear.id }}</td>
+              <td>{{ gear.name }}</td>
+              <td>{{ gear.user.id }}</td>
+              <td>{{ gear.user.firstName }}</td>
+              <td>{{ gear.user.lastName }}</td>
+              <td>{{ gear.available }}</td>
+              <td>{{ gear.active }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Single Display w/Options Going Here -->
+      <div *ngIf="selectedGear">
+        <a>Diplay Single</a>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="selectedGear = false"
+        >
+          Back
+        </button>
+      </div>
+    </ng-template>
+      </ngb-tab>
+
+    <ngb-tab title="Admin" [disabled]="true">
+      <ng-template ngbTabContent>
+        <p>
+          Open for other right now.
+        </p>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+
+
+
+
+  <!-- <div class="container navbar navbar-light bg-light">
     <a class="navbar-brand" ><strong>Admin</strong></a>
     <h1 *ngIf="!selectedUser">
       <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users
@@ -28,8 +139,7 @@
         </tbody>
       </table>
     </div>
-<!-- <div><app-gear-list></app-gear-list></div> -->
 <div *ngIf="selectedUser">
   <a>Diplay Single</a>
   <button type="button" (click)="selectedUser = false">Back</button>
-</div>
+</div> -->
