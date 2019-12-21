@@ -101,7 +101,7 @@ export class UserService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put(this.url + '/' + user.id, user, httpOptions).pipe(
+    return this.http.put(this.url, user, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('user.service.ts Error: Update Method');

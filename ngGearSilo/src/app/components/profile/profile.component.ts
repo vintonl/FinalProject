@@ -217,9 +217,32 @@ export class ProfileComponent implements OnInit {
   // UPDATE USER
 
   updateUser() {
-    console.log("in profile comp update + user id" + this.editedUser.id + ' ' + this.editedUser.lastName);
 
-    this.userService.update(this.editedUser.id, this.editedUser).subscribe(
+
+
+    this.editedUser.id = this.loggedInUser.id;
+    this.editedUser.password = this.loggedInUser.password;
+    this.editedUser.email = this.loggedInUser.email;
+    this.editedUser.role = this.loggedInUser.role;
+
+    if (this.editedUser.firstName === null || this.editedUser.firstName === undefined) {
+      this.editedUser.firstName = this.loggedInUser.firstName;
+    }
+    if (this.editedUser.lastName === null || this.editedUser.lastName === undefined) {
+      this.editedUser.lastName = this.loggedInUser.lastName;
+    }
+    if (this.editedUser.imageUrl === null || this.editedUser.imageUrl === undefined) {
+      this.editedUser.imageUrl = this.loggedInUser.imageUrl;
+    }
+    if (this.editedUser.phone === null || this.editedUser.phone === undefined) {
+      this.editedUser.phone = this.loggedInUser.phone;
+    }
+
+
+
+    console.log("in profile comp update + user id" + this.editedUser.id + ' ' + this.editedUser.lastName + " " + this.editedUser.phone);
+
+    this.userService.update(this.editedUser).subscribe(
       data => {
         // this.editedUser = data;
         this.editedUser = null;
@@ -228,8 +251,9 @@ export class ProfileComponent implements OnInit {
       },
       err => console.log('Update got an error: ' + err)
     );
-
+    this.editedUser = null;
     this.ngOnInit();
+
 
 
   }

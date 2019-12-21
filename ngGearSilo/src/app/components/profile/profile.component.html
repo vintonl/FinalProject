@@ -151,10 +151,12 @@
             [(ngModel)]="editedUser.firstName">
           <input type="text" placeholder="{{loggedInUser.lastName}}" class="form-control"
             [(ngModel)]="editedUser.lastName">
-          <input type="text" placeholder="{{loggedInUser.imageUrl}}" class="form-control"
+          <input type="url" placeholder="{{loggedInUser.imageUrl}}" class="form-control"
             [(ngModel)]="editedUser.imageUrl">
-          <input type="text" placeholder="{{loggedInUser.phone}}" class="form-control" [(ngModel)]="editedUser.phone">
+          <input type="tel" placeholder="{{loggedInUser.phone}}" class="form-control" [(ngModel)]="editedUser.phone">
+          <input  type="hidden" value="{{loggedInUser.id}}" name="{{editedUser.id}}"  class="form-control" [(ngModel)]="editedUser.id">
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           <button type="button" (click)="updateUser(editedUser)" class="btn btn-primary"

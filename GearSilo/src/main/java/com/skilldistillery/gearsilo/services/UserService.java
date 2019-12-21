@@ -9,6 +9,8 @@ public interface UserService {
 	List<User> findAll(String username);
 
 	User updateUser(int id, User user);
+	
+	User updateUserProfile( String username, User user);
 
 	User findUserByUsername(String username);
 
