@@ -21,15 +21,13 @@ export class LoginComponent implements OnInit {
     const user: User = new User();
     user.username = loginForm.value.username;
     user.password = loginForm.value.password;
-    // const user: User = loginForm.value;
 
     this.auth.login(user.username, user.password).subscribe(
       next => {
         console.log('LoginComponent.login(): user logged in, routing to /user.');
         console.log(next);
-        this.navbar.userLoggedIn = this.navbar.loadUser();
+        this.navbar.loadUser();
 
-        // this.router.navigateByUrl('/users');
         this.router.navigateByUrl('/navbar', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/users']);
         });
