@@ -55,9 +55,11 @@ public class GearController {
 		return gear;
 	}
 
-	@PostMapping("users/{uid}/gears")
-	public Gear create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Gear gear,
-			@PathVariable("uid") int uid) {
+	@PostMapping("gears/users")
+	public Gear create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Gear gear) {
+		
+		System.out.println("inside of add gears in gear controller");
+		System.out.println(gear);
 		try {
 			gear = gearSvc.addGear(principal.getName(), gear);
 			if (gear == null) {
@@ -77,9 +79,11 @@ public class GearController {
 		return gear;
 	}
 
-	@PutMapping("/users/{uid}/gears/{gid}")
+	@PutMapping("gears/users/{gid}")
 	public Gear updateGear(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int gid,
 			@RequestBody Gear gear) {
+		
+		System.out.println("inside pu update gear - printing gear " + gear);
 		try {
 			gear = gearSvc.updateGear(principal.getName(), gid, gear);
 			if (gear == null) {
@@ -90,6 +94,7 @@ public class GearController {
 			res.setStatus(400);
 			gear = null;
 		}
+		System.out.println("inside pu update gear - printing return of gear" + gear);
 		return gear;
 	}
 
