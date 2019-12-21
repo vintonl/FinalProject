@@ -1,6 +1,5 @@
 package com.skilldistillery.gearsilo.services;
 
-import java.security.Principal;
 import java.util.List;
 
 import com.skilldistillery.gearsilo.entities.Reservation;

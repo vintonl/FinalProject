@@ -22,9 +22,13 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<Reservation> findAll(String username) {
+		User user = uRepo.findUserByUsername(username);
 		
-		return resRepo.findAll();
+		if (user.getRole().equalsIgnoreCase("admin")) {
+			return resRepo.findAll();
+		}
 		
+		return null;	
 	}
 
 	@Override
@@ -44,7 +48,6 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Reservation createReservation(String username, Reservation reservation) {
-
 		User user = uRepo.findUserByUsername(username);
 
 		if (user != null) {
