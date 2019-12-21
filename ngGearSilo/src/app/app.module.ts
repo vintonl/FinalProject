@@ -71,7 +71,8 @@ import {
     ReviewOfLenderService,
     ReviewOfShopperService,
     UserService,
-    ProfileService
+    ProfileService,
+    NavBarComponent
   ],
   bootstrap: [AppComponent, ProfileComponent],
 

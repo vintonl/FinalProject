@@ -1,3 +1,4 @@
+import { NavBarComponent } from './../nav-bar/nav-bar.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService, private navbar: NavBarComponent) { }
 
   ngOnInit() {
   }
@@ -26,7 +27,12 @@ export class LoginComponent implements OnInit {
       next => {
         console.log('LoginComponent.login(): user logged in, routing to /user.');
         console.log(next);
-        this.router.navigateByUrl('/users');
+        this.navbar.userLoggedIn = this.navbar.loadUser();
+
+        // this.router.navigateByUrl('/users');
+        this.router.navigateByUrl('/navbar', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/users']);
+        });
       },
       error => {
         console.error('LoginComponent.login(): error logging in.');
