@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       next => {
         console.log('LoginComponent.login(): user logged in, routing to /user.');
         console.log(next);
-        this.navbar.loadUser();
+        // this.navbar.loadUser();
 
         this.router.navigateByUrl('/navbar', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/users']);
