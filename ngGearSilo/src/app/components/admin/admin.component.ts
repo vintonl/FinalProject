@@ -1,6 +1,8 @@
+import { GearService } from 'src/app/services/gear.service';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
+import { Gear } from 'src/app/models/gear';
 
 @Component({
   selector: 'app-admin',
@@ -14,14 +16,18 @@ export class AdminComponent implements OnInit {
   updateUser: User = null;
   disableUser: User = null;
 
-  constructor(private userSvc: UserService) {}
+  gearList: Gear[] = [];
+  gear: Gear = null;
+  selectedGear: Gear = null;
+
+  constructor(private userSvc: UserService, private gearSvc: GearService) {}
 
   ngOnInit() {
     this.loadUsers();
+    this.loadGear();
   }
+  public loadUsers() {
 
-  loadUsers() {
-    // this.userSvc
     const userList: [] = [];
 
     this.userSvc.index().subscribe(
@@ -35,7 +41,43 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  countUsers() {
+  public countUsers() {
     return this.users.length;
+  }
+
+  public setUpdateExpense() {
+    this.updateUser = Object.assign({}, this.selectedUser);
+  }
+
+  public updatedUser(user: User) {
+    this.userSvc.update(user).subscribe(
+      uData => {
+        this.loadUsers();
+        this.selectedUser = null;
+        this.updatedUser = null;
+      },
+      uErr => {
+        this.loadUsers();
+        console.error('updatedExpense: Error');
+        console.error(uErr);
+      }
+    );
+  }
+
+  public loadGear() {
+    // this.clearSearch();
+    this.gearSvc.index().subscribe(
+      (aGoodThingHappened) => {
+        console.log(aGoodThingHappened);
+        this.gearList = aGoodThingHappened;
+      },
+      (didntWork) => {
+        console.log(didntWork);
+      }
+    );
+  }
+
+  public displayGearItem(gear: Gear) {
+    this.selectedGear = gear;
   }
 }

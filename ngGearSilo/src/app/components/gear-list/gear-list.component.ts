@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GearListComponent implements OnInit {
   gearList: Gear[] = [];
-  selected = null;
+  selected: Gear;
 
 
   constructor(private gearSrv: GearService, private router: Router) { }
@@ -33,15 +33,18 @@ export class GearListComponent implements OnInit {
   }
 
   displayGearItem(gear: Gear) {
+    console.log(gear);
     this.selected = gear;
+    this.gearSrv.selected = gear;
+    console.log(this.selected);
   }
 
   startReservation() {
     this.router.navigate(['/reservation']);
-    return this.selected;
   }
 
   getSelected() {
+    console.log(this.selected);
     return this.selected;
   }
 }
