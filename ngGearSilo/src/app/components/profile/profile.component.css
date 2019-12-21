@@ -1,5 +1,6 @@
 body{
   background-color: #f1f1f1;
+  /* margin: 0px; */
 }
 .border{
   border-bottom:1px solid #F1F1F1;
@@ -7,7 +8,7 @@ body{
 }
 
 .main-secction{
-  box-shadow: 10px 10px 10px;
+  /* box-shadow: 10px 10px 10px; */
   /* margin: 0px; */
 
 }
@@ -17,7 +18,7 @@ body{
 .image-section img{
   width: 100%;
   height:250px;
-  position: relative;
+  /* position: relative; */
 }
 .user-image{
   position: absolute;
@@ -49,7 +50,7 @@ body{
 }
 .user-detail-section2 p{
   font-size:12px;
-  padding: 0px;
+  padding: 0x;
   margin: 0px;
 }
 .user-detail-section2{
@@ -123,3 +124,13 @@ body{
 .image-right-detail-section2 span{
   color:#7F7F7F;
 }
+
+
+
+
+
+
+
+
+
+
