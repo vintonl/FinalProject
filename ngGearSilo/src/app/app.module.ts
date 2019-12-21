@@ -33,6 +33,7 @@ import {
   MatButtonModule, MatFormFieldModule, MatInputModule, MatSliderModule,
   MatIconModule, MatCardModule, MatDialogModule, MatProgressBar
 } from '@angular/material';
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 
 
@@ -50,6 +51,7 @@ import {
     ProfileComponent,
     AdminComponent,
     TestingComponent,
+    ReservationComponent,
 
   ],
   imports: [
@@ -72,7 +74,8 @@ import {
     ReviewOfShopperService,
     UserService,
     ProfileService,
-    NavBarComponent
+    NavBarComponent,
+    GearListComponent
   ],
   bootstrap: [AppComponent, ProfileComponent],
 

@@ -71,4 +71,52 @@ export class GearService {
       })
     );
   }
+
+  create(newGear: Gear) {
+
+
+
+    console.log('in create  - gear service' + newGear.name);
+    // newGear.completed = false;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.post<Gear>(this.url + '/users', newGear, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('GearService.create(): Error');
+      })
+    );
+  }
+
+  update(updatedgear: Gear) {
+
+
+    // if (todo.completed) {
+    //   todo.completeDate = this.datePipe.transform(Date.now(), 'shortDate');
+    // } else {
+    //   todo.completeDate = '';
+    // }
+    console.log("in update service " + updatedgear.active + " " + updatedgear.id);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.put<Gear>(this.url + '/users/' + updatedgear.id, updatedgear, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('GearService.update(): Error');
+      })
+    );
+  }
+
+
 }

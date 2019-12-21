@@ -14,9 +14,9 @@ export class NavBarComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    if (this.authService.checkLogin()) {
-      this.loadUser();
-    }
+    // if (this.authService.checkLogin()) {
+    //   this.loadUser();
+    // }
   }
 
   logout() {
@@ -41,6 +41,9 @@ export class NavBarComponent implements OnInit {
         console.error(no);
       }
     );
-    return this.userLoggedIn;
   }
+
+
+
 }
+
