@@ -1,6 +1,6 @@
+import { GearService } from './../../services/gear.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { GearService } from 'src/app/services/gear.service';
 import { Gear } from 'src/app/models/gear';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -81,7 +81,22 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  deleteGear(id: number) {
 
+    console.log("in delete gear profile comp");
+    console.log(id);
+
+    this.gearSrv.destroy(id).subscribe(
+      (good) => {
+        console.log(good);
+
+
+      },
+      (bad) => {
+        console.log("error " + bad);
+      }
+    );
+  }
 }
 
 
