@@ -8,12 +8,13 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link active" [routerLink]="['/users']" *ngIf="this.authService.userLoggedIn">Profile <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link showHand" onclick="window.location='#/gears'">Gear</a>
       <a class="nav-item nav-link showHand" [routerLink]="['/about']">About</a>
-      <a class="nav-item nav-link showHand" [routerLink]="['/login']" *ngIf="!userLoggedIn">Login</a>
-      <a class="nav-item nav-link showHand" [routerLink]="['/register']" *ngIf="!userLoggedIn">Create
+      <a class="nav-item nav-link showHand" [routerLink]="['/login']" *ngIf="!this.authService.userLoggedIn">Login</a>
+      <a class="nav-item nav-link showHand" [routerLink]="['/register']" *ngIf="!this.authService.userLoggedIn">Create
         Account</a>
-      <a class="nav-item nav-link showHand" (click)="logout()">Logout</a>
+      <a class="nav-item nav-link showHand" (click)="logout()" *ngIf="this.authService.userLoggedIn">Logout</a>
 
     </div>
   </div>
