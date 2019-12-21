@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
 			managedUser.setCreatedAt(user.getCreatedAt());
 			managedUser.setUpdatedAt(user.getUpdatedAt());
 			managedUser.setRole(user.getRole());
+			managedUser.setEnabled(user.getEnabled());
 
 			// TODO check to make sure security works
 

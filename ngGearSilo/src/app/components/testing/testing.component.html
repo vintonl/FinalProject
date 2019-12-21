@@ -49,8 +49,8 @@
     </div>
   </div>
 </div>
-<!--  -->
-<app-admin>Loading Admin...</app-admin> <!-- Card Iteration Practice below. It works, just need iteration and some card style, etc -->
+
+<!-- <app-admin>Loading Admin...</app-admin> Card Iteration Practice below. It works, just need iteration and some card style, etc -->
 <!-- <div class="container text-center">
   <div class="row card-group">
     <div class="col-4"  >
@@ -83,3 +83,90 @@
 </div>
 
 </div> -->
+<nav>
+  <div class="container-fluid navbar navbar-light bg-light">
+    <a class="navbar-brand"><strong>Admin</strong></a>
+    <h1 *ngIf="!selectedUser">
+      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users
+    </h1>
+  </div>
+</nav>
+<div class="container-fluid bg-light">
+  <ngb-tabset>
+    <ngb-tab title="Users">
+      <ng-template ngbTabContent>
+        <div id="userList" class="container" *ngIf="!selectedUser">
+          <table class="table table-striped table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Id</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Enabled</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="showHand"
+                *ngFor="let user of users"
+                (click)="selectedUser = true"
+              >
+                <td>{{ user.id }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.enabled }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Single Display w/Options Going Here -->
+        <div *ngIf="selectedUser">
+          <a>Diplay Single</a>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            (click)="selectedUser = false"
+          >
+            Back
+          </button>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle><b>Gear</b> List</ng-template>
+      <ng-template ngbTabContent>
+      <div id="gearList" class="container" *ngIf="!selectedGear">
+        <table class="table table-striped table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>Item</th>
+              <th>Item</th>
+              <th>Item</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>input</td>
+              <td>input</td>
+              <td>input</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+      </ngb-tab>
+
+    <ngb-tab title="Admin" [disabled]="true">
+      <ng-template ngbTabContent>
+        <p>
+          Open for other right now.
+        </p>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
