@@ -1,8 +1,7 @@
 <div class="container main-secction">
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12 image-section">
-      <img
-        src="http://nicesnippets.com/demo/Nature-Night-Sky-Stars-Blurred-Light-Show-Mountains-WallpapersByte-com-1920x1080.jpg">
+      <img src="https://i.imgur.com/K2Jw9w4.jpg">
     </div>
     <div class="row user-left-part">
       <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
@@ -15,8 +14,9 @@
             </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
-            <button data-toggle="modal" data-target="#demo" class="btn btn-defult follow "><i  aria-hidden="true"></i> Edit</button>
-            <button class="btn btn-defult follow"  data-toggle="modal" data-target="#addGear">Add</button>
+            <button data-toggle="modal" data-target="#demo" class="btn btn-defult follow "><i aria-hidden="true"></i>
+              Edit</button>
+            <button class="btn btn-defult follow" data-toggle="modal" data-target="#addGear">Add</button>
           </div>
           <div class="row user-detail-row">
             <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -73,32 +73,55 @@
                   </div>
                   <table class="table table  table table-hover">
                     <thead class="thead-dark">
-                      <tr>
+                      <!-- <tr>
+
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Update</th>
+                        <th></th>
                         <th scope="col">Delete</th>
+                        <th></th>
 
-                      </tr>
+                      </tr> -->
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of gearList; let i = index">
 
+                        <td class="thumbnail">
+                          <img src="{{item.imageUrl}}" />
+                        </td>
 
-                        <td *ngIf="item.active == true" scope="row">{{item.name | titlecase }}</td>
-                        <td *ngIf="item.active == true">{{item.description | lowercase }}</td>
-                        <td *ngIf="item.active == true">{{item.price | currency}}</td>
-                        <td *ngIf="item.active == true"> <button type="submit" value="update"
-                            (click)="onClick(item, lgModal)"  data-target="#updateGear"data-toggle="modal"  class="btn btn-info btn-sm"></button></td>
-                        <td *ngIf="item.active == true"> <button type="submit" value="X" (click)="deleteGear(item.id)"
-                            class="btn btn-danger btn-sm"></button></td>
+
+                        <td *ngIf="item.active == true" scope="row" data-target="#popupGear" data-toggle="modal"
+                          (click)="onClickGearPopUp(item)">{{item.name | titlecase }}</td>
+
+                        <td *ngIf="item.active == true" data-target="#popupGear" data-toggle="modal"
+                          (click)="onClickGearPopUp(item)">{{item.description | lowercase }}</td>
+
+                        <td *ngIf="item.active == true" data-target="#popupGear" data-toggle="modal"
+                          (click)="onClickGearPopUp(item)">{{item.price | currency}}</td>
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td *ngIf="item.active == true" data-toggle="modal"> <button type="submit" value="update"
+                            class="btn btn-info" (click)="onClick(item)" data-target="#updateGear" data-toggle="modal">
+                            <img id="picDelete" src="https://i.imgur.com/hjYFM4K.gif"></button></td>
+
+
+
+                        <td></td>
+                        <td *ngIf="item.active == true" data-toggle="modal"> <button class="btn btn-danger"
+                            type="submit" (click)="deleteGear(item.id)"><img id="picDelete"
+                              src="https://i.imgur.com/gNRL8La.png"></button></td>
                       </tr>
-
                     </tbody>
                   </table>
                   <div class="text-center">
-                    <p>Click a row for more details.</p>
                   </div>
                 </div>
               </div>
@@ -115,44 +138,37 @@
 
 <div>
 
-<!-- EDIT USER PROFILE MODAL-->
-
-
-
-<div id="demo" class="modal fade" role="dialog">
-  <div class="modal-dialog"> -->
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{loggedInUser.firstName | titlecase}}</h4>
+  <!-- EDIT USER PROFILE MODAL-->
+  <div id="demo" class="modal fade" role="dialog">
+    <div class="modal-dialog"> -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{loggedInUser.firstName | titlecase}} {{loggedInUser.lastName | titlecase}} </h4>
+        </div>
+        <div class="modal-body">
+          <img class="img-responsive" />
+          <input type="text" placeholder="{{loggedInUser.firstName}}" class="form-control"
+            [(ngModel)]="editedUser.firstName">
+          <input type="text" placeholder="{{loggedInUser.lastName}}" class="form-control"
+            [(ngModel)]="editedUser.lastName">
+          <input type="text" placeholder="{{loggedInUser.imageUrl}}" class="form-control"
+            [(ngModel)]="editedUser.imageUrl">
+          <input type="text" placeholder="{{loggedInUser.phone}}" class="form-control" [(ngModel)]="editedUser.phone">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="updateUser(editedUser)" class="btn btn-primary"
+            data-dismiss="modal">Update</button>
+        </div>
       </div>
 
-
-      <div class="modal-body">
-
-        <img class="img-responsive" />
-        <input type="text" placeholder="{{loggedInUser.firstName}}" class="form-control">
-        <input type="text" placeholder="{{loggedInUser.lastName}}" class="form-control">
-        <input type="text" placeholder="{{loggedInUser.imageUrl}}" class="form-control">
-        <input type="text" placeholder="{{loggedInUser.phone}}" class="form-control">
-
-        <p class="text">.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
-      </div>
     </div>
-
   </div>
-</div>
 
 
 
 
-<!-- <section *ngFor="let item of gearList">
+  <!-- <section *ngFor="let item of gearList">
     <div class="container-fluid">
       <div class="container">
         <div class="row">
@@ -178,7 +194,7 @@
           </div> -->
 
 
-<!-- </div>
+  <!-- </div>
       </div>
     </div>
   </section> -->
@@ -187,26 +203,26 @@
 
 
 
-<!-- ADD GEAR MODAL -->
-<div class="modal fade" id="addGear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+  <!-- ADD GEAR MODAL -->
+  <div class="modal fade" id="addGear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
 
-        <input type="text" placeholder="Name" class="form-control" [(ngModel)]="newGear.name">
-        <input type="text" placeholder="Price" class="form-control" [(ngModel)]="newGear.price">
-        <input type="url" placeholder="Image Url" class="form-control" [(ngModel)]="newGear.imageUrl">
-        <input type="text" placeholder="Description" class="form-control" [(ngModel)]="newGear.description">
-        <input type="text" placeholder="Gear Condition" class="form-control" [(ngModel)]="newGear.gearCondition">
+          <input type="text" placeholder="Name" class="form-control" [(ngModel)]="newGear.name">
+          <input type="text" placeholder="Price" class="form-control" [(ngModel)]="newGear.price">
+          <input type="url" placeholder="Image Url" class="form-control" [(ngModel)]="newGear.imageUrl">
+          <input type="text" placeholder="Description" class="form-control" [(ngModel)]="newGear.description">
+          <input type="text" placeholder="Gear Condition" class="form-control" [(ngModel)]="newGear.gearCondition">
 
-        <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="newGear.user">
+          <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="newGear.user">
         <input type="hidden" valueclass="form-control" value=1 name=1 [(ngModel)]="newGear.active">
         <input type="hidden" valueclass="form-control" value=1 name=1 [(ngModel)]="newGear.available">
 
@@ -214,8 +230,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" (click)="addGear(newGear)" class="btn btn-primary">Save changes</button>
+        <button type="button" (click)="addGear(newGear)"  class="btn btn-primary" data-dismiss="modal">Save changes</button>
       </div>
+      <!-- (click)="onAddClick(lgModal)" -->
     </div>
   </div>
 </div>
@@ -234,22 +251,51 @@
       </div>
       <div class="modal-body">
         <input type="text" placeholder="{{selecteditem.name}}" class="form-control" [(ngModel)]="updatedGear.name">
-        <input type="text" placeholder="{{selecteditem.price}}" class="form-control" [(ngModel)]="updatedGear.price">
-        <input type="url" placeholder="{{selecteditem.imageUrl}}"class="form-control" [(ngModel)]="updatedGear.imageUrl">
-        <input type="text" placeholder="{{selecteditem.description}}" class="form-control" [(ngModel)]="updatedGear.description">
-        <input type="text" placeholder="{{selecteditem.gearCondition}}" class="form-control" [(ngModel)]="updatedGear.gearCondition">
+          <input type="text" placeholder="{{selecteditem.price}}" class="form-control" [(ngModel)]="updatedGear.price">
+          <input type="url" placeholder="{{selecteditem.imageUrl}}" class="form-control"
+            [(ngModel)]="updatedGear.imageUrl">
+          <input type="text" required minlength="15" placeholder="{{selecteditem.description}}" class="form-control"
+            [(ngModel)]="updatedGear.description">
+          <input type="text" placeholder="{{selecteditem.gearCondition}}" class="form-control"
+            [(ngModel)]="updatedGear.gearCondition">
 
-        <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="updatedGear.user">
-        <input type="checkbox" placeholder="{{selecteditem.gearCondition}}"   [(ngModel)]="updatedGear.active">
-        <input type="checkbox" placeholder="{{selecteditem.gearCondition}}"   [(ngModel)]="updatedGear.available">
-        <input type="text"  [(ngModel)]="updatedGear.id">
+          <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="updatedGear.user">
+        <input type="checkbox" placeholder="{{selecteditem.gearCondition}}" [(ngModel)]="updatedGear.active">
+          <input type="checkbox" placeholder="{{selecteditem.gearCondition}}" [(ngModel)]="updatedGear.available">
+          <input type="hidden" placeholder="{{selecteditem.gearCondition}}" value="{{selecteditem.id}}"
+            name="{{selecteditem.id}}" [(ngModel)]="updatedGear.id">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="updateGear(updatedGear)" class="btn btn-primary" data-dismiss="modal">Save
+            changes</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" (click)="updateGear(updatedGear)" class="btn btn-primary">Save changes</button>
+    </div>
+  </div>
+
+
+
+  <!-- POP UP GEAR INFO MODAL -->
+  <div class="modal fade" id="popupGear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{selecteditem.price | currency}} Per Day</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="popupGear">
+
+          <ul class="products">
+            <li class="crop">
+              <img src="{{selecteditem.imageUrl}}" />
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
