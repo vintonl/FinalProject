@@ -35,6 +35,8 @@ export class ProfileComponent implements OnInit {
   }
 
   loadGear() {
+    this.gearList = [];
+
     // this.clearSearch(); const allgear: [] = [];
     // this.loggedInUser = this.authService.getUser();
     this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
@@ -96,6 +98,7 @@ export class ProfileComponent implements OnInit {
         console.log("error " + bad);
       }
     );
+    this.ngOnInit();
   }
 }
 
