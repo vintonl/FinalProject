@@ -1,0 +1,4 @@
+.showHand:hover {
+  color: rgb(0, 4, 255);
+  cursor: pointer;
+}
