@@ -48,8 +48,11 @@ public class User {
 	private String lastName;
 
 	private String email;
+	
+	@JsonIgnore
 	private String username;
 
+	@JsonIgnore
 	private String password;
 
 	@Column(name = "created_at")
