@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +17,11 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileComponent implements OnInit {
 
   gearList: Gear[] = [];
+  public isCollapsed: boolean[] = [];
+  newGear: Gear = new Gear();
+  updatedGear: Gear = new Gear();
+  public selecteditem: Gear=  new Gear;
+
 
 
   constructor(private gearSrv: GearService, private router: Router, private authService: AuthService, private userService: UserService) { }
@@ -100,6 +107,50 @@ export class ProfileComponent implements OnInit {
     );
     this.ngOnInit();
   }
+
+  addGear() {
+    console.log("in add gear " + this.newGear.active);
+    this.newGear.active = true;
+    this.newGear.available = true;
+    console.log("in add gear " + this.newGear.active);
+
+
+
+    this.gearSrv.create(this.newGear).subscribe(
+      newGear => {
+        this.loadGear();
+        this.newGear = new Gear();
+      },
+      err => console.log('Observer got an error: ' + err)
+    );
+  }
+
+
+  onClick(item: any, lgModal: any) {
+
+    this.selecteditem = item;
+
+    lgModal.show();
+
+    //  console.log(this.selecteditem); // print in console
+
+  }
+
+  updateGear() {
+
+    console.log("in profile comp update + gear id" + this.updatedGear.id + "  " + this.updatedGear.description);
+
+    this.gearSrv.update(this.updatedGear).subscribe(
+      data => {
+        this.updatedGear = data;
+        this.updatedGear = null;
+
+      },
+      err => console.log('Update got an error: ' + err)
+    );
+
+  }
+
 }
 
 
