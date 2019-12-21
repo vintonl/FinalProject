@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 export class GearService {
   private baseUrl = environment.baseUrl;
   private url = this.baseUrl + 'api/gears';
-
+  selected: Gear;
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   index() {
