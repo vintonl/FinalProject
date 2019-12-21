@@ -1,9 +1,8 @@
+import { ReservationService } from './../../services/reservation.service';
 import { Reservation } from './../../models/reservation';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { GearListComponent } from './../gear-list/gear-list.component';
 import { Component, OnInit } from '@angular/core';
-import { Gear } from 'src/app/models/gear';
 import { GearService } from 'src/app/services/gear.service';
 
 @Component({
@@ -14,9 +13,9 @@ import { GearService } from 'src/app/services/gear.service';
 export class ReservationComponent implements OnInit {
 
   selected = null;
-  newRes: Reservation = null;
+  newRes: Reservation = new Reservation();
 
-  constructor(private gearSrv: GearService, private gearlistComp: GearListComponent,
+  constructor(private gearSrv: GearService, private resSrv: ReservationService,
     // tslint:disable-next-line: align
     private router: Router, private authService: AuthService) { }
 
@@ -32,8 +31,24 @@ export class ReservationComponent implements OnInit {
     console.log(this.selected);
   }
 
-  makeReservation() {
+  createReservation() {
+    console.log(this.selected);
 
+    this.newRes.gearId = this.selected;
+    this.newRes.approved = false;
+    this.newRes.completed = false;
+
+    console.log(this.newRes);
+
+    this.resSrv.create(this.newRes).subscribe(
+      created => {
+        console.log('ReservationComponent.createReservation() new reservation created');
+        console.log(created);
+      },
+      err => {
+        console.log('ReservationComponent.createReservation() ERROR ' + err);
+      }
+    );
   }
 
 }
