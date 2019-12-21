@@ -184,3 +184,13 @@ a:hover {
 footer {
   padding: 2rem 0;
 }
+.gear-img-details {
+  width: 50%;
+  max-width: 400px;
+  height: auto;
+}
+.gear-img-list {
+  width: 50%;
+  max-width: 150px;
+  height: auto;
+}
