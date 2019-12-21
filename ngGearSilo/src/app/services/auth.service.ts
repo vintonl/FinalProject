@@ -12,9 +12,13 @@ export class AuthService {
   private baseUrl = environment.baseUrl;
   // private user: User = new User();
 
+  userLoggedIn = false;
+
+
   constructor(private http: HttpClient) { }
 
   login(username, password) {
+    this.userLoggedIn = true;
     // this.user = new User();
     // this.getUserByUsername(username).subscribe(data => this.user = data);
     // console.log('in login');
@@ -62,6 +66,7 @@ export class AuthService {
   }
 
   logout() {
+    this.userLoggedIn = false;
     // this.user = new User();
     localStorage.removeItem('credentials');
     localStorage.removeItem('username');
