@@ -8,80 +8,93 @@
       <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
         <div class="row ">
           <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
-            <img src="{{loggedInUser.imageUrl}}">
-          </div>
-          <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
-            <button class="btn btn-defult follow "><i class="fa fa-user-o" aria-hidden="true"></i> Edit</button>
-          </div>
-          <div class="row user-detail-row">
-            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
-              <div class="border"></div>
-              <p>Email</p>
-              <span>{{loggedInUser.email}}</span>
+            <div *ngIf="loggedInUser.imageUrl != null">
+              <img src="{{loggedInUser.imageUrl}}">
+              <!-- <div *ngIf="loggedInUser.imageUrl === null">
+                <img src="{{loggedInUser.imageUrl}}"> -->
+              </div>
             </div>
-            <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
-              <div class="border"></div>
-              <p>Rating</p>
-              <span>4.2</span>
+            <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+              <button class="btn btn-defult follow "><i class="fa fa-user-o" aria-hidden="true"></i> Edit</button>
             </div>
-          </div>
-          <div class="col-md-12 user-detail-section2">
-            <div class="border"></div>
-            <p></p>
-            <span>56 <small>and 42 review</small></span>
+            <div class="row user-detail-row">
+              <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                <div class="border"></div>
+                <p>Email</p>
+                <span>{{loggedInUser.email}}</span>
+              </div>
+              <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
+                <div class="border"></div>
+                <p>About Me</p>
+                <span>{{loggedInUser.about}}</span>
+              </div>
+            </div>
+            <div class="col-md-12 user-detail-section2">
+              <div class="border"></div>
+              <p></p>
+              <span>56 <small>and 42 review</small></span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
-        <div class="row profile-right-section-row">
-          <div class="col-md-12 profile-header">
-            <div class="row">
-              <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
-                <h1>{{loggedInUser.firstName}}</h1>
-                <p>Senior Architect</p>
-              </div>
-              <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
-                <button class="btn btn-info req-btn"> REQUEST</button>
-              </div>
-            </div>
-          </div>
-          <div class="contaner-fluid">
-            <div class="row">
-              <div class="col-1"></div>
-              <div class="col-10">
-                <div>
-                  <br>
-                  <div class="text-center">
-                    <h2>Gear List</h2>
-                  </div>
-                  <table class="table table-primary table-bordered">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Condition</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let item of gearList">
-                        <td scope="row">{{item.name | titlecase }}</td>
-                        <td>{{item.description | lowercase }}</td>
-                        <td>{{item.price | currency}}</td>
-                        <td>{{item.gearCondition | lowercase }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div class="text-center">
-                    <p>Click a row for more details.</p>
-                  </div>
+        <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+          <div class="row profile-right-section-row">
+            <div class="col-md-12 profile-header">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                  <h1>Hi, {{loggedInUser.firstName | titlecase}}!</h1>
+                  <!-- <p>Senior Architect</p> -->
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
+                  <button class="btn btn-info req-btn"> REQUEST</button>
                 </div>
               </div>
-              <div class="col-1"></div>
+            </div>
+            <div class="contaner-fluid">
+              <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10">
+                  <div>
+                    <br>
+                    <div class="text-center">
+                      <h2>Gear List</h2>
+                    </div>
+                    <table class="table table-primary table-bordered">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Condition</th>
+                          <th scope="col">Update</th>
+                          <th scope="col">Delete</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of gearList">
+                          <td scope="row">{{item.name | titlecase }}</td>
+                          <td>{{item.description | lowercase }}</td>
+                          <td>{{item.price | currency}}</td>
+                          <td>{{item.gearCondition | lowercase }}</td>
+                          <!-- <td> <input type="submit" value="X" (click)="updateGear(item.id)" -->
+                              <!-- class="btn btn-info btn-sm" /></td> -->
+                          <td> <input type="submit" value="X" (click)="deleteGear(item.id)"
+                              class="btn btn-danger btn-sm" /></td>
+
+
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="text-center">
+                      <p>Click a row for more details.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-1"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>

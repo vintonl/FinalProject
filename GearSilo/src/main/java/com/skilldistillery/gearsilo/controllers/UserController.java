@@ -66,7 +66,7 @@ public class UserController {
 	@GetMapping("users/{username}")
 	public User replaceExistingUser(@PathVariable String username, HttpServletRequest req, Principal principal,
 			HttpServletResponse resp) {
-System.out.println(username);
+		System.out.println(username);
 		User user = null;
 
 		try {

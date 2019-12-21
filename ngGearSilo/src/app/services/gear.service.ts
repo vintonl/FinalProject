@@ -49,8 +49,26 @@ export class GearService {
     );
   }
 
+  destroy(id: number) {
+    console.log("id for delete");
+    console.log(id);
 
+    if (!this.authService.checkLogin()) {
+      return null;
+    }
 
-
-
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.delete<Gear>(this.url + '/' + id, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('Error deleting gear ');
+      })
+    );
+  }
 }
