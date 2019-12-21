@@ -43,15 +43,17 @@
 
       <div class="col-4">
         <form class="form-group my-2 my-lg-0">
-          <label>Start date: </label>
-          <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" name="date">
+          <label for="openDate">Start date:
+            <input class="form-control mr-sm-2" type="date" name="openDate" [(ngModel)]="newRes.openDate">
+          </label>
           <br>
-          <label>End date: </label>
-          <input class="form-control mr-sm-2" type="date" placeholder="Search" aria-label="Search" name="date">
+          <label for="closeDate">End date:
+            <input class="form-control mr-sm-2" type="date" name="closeDate" [(ngModel)]="newRes.closeDate">
+          </label>
           <br>
           <span>
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button (click)="makeReservation()" class="btn btn-dark my-2 my-sm-0">Submit reservation</button>
+              <button (click)="createReservation()" class="btn btn-dark my-2 my-sm-0">Submit reservation</button>
             </div>
           </span>
         </form>
