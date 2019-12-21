@@ -59,4 +59,26 @@ public class UserServiceImpl implements UserService {
 
 		return userRepo.findUserByUsername(username);
 	}
+	
+	public User updateUserProfile(String username, User user) {
+
+		User userPrincipal = userRepo.findUserByUsername(username);
+
+		if (userPrincipal.getId() == user.getId()) {
+
+			Optional<User> userOpt = userRepo.findById(user.getId());
+			if (userOpt.isPresent()) {
+				User managedUser = userOpt.get();
+				managedUser.setFirstName(user.getFirstName());
+				managedUser.setLastName(user.getLastName());
+				managedUser.setPhone(user.getPhone());
+				managedUser.setImageUrl(user.getImageUrl());
+
+
+				userRepo.saveAndFlush(managedUser);
+				return managedUser;
+			}
+		}
+		return null;
+	}
 }
