@@ -4,7 +4,18 @@
     <div class="col-10">
       <div>
         <br>
-        <div *ngIf="!selected">
+        <div class="container-center">
+          <form class="form-group my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword"
+              [(ngModel)]="keyword">
+            <button class="btn btn-dark my-2 my-sm-0" type="submit" (click)="search(); selected=null">Search by
+              keyword</button>
+          </form>
+        </div>
+
+
+        <br>
+        <div *ngIf="!selected && hideSearchResult">
           <div class="text-center">
             <h2>Gear List</h2>
           </div>
@@ -34,6 +45,46 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="!selected  && !hideSearchResult">
+        <div *ngIf="searchedGear.length === 0">
+          <div class="text-center">
+            <h2>No Search Results Found</h2>
+          </div>
+        </div>
+
+        <div *ngIf="searchedGear.length > 0">
+          <div class="text-center">
+            <h2>Search Results</h2>
+          </div>
+          <table class="table table-primary table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" style="text-align:center">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of searchedGear">
+                <td *ngIf="item.active == true" scope="row" (click)="displayGearItem(item)" style="text-align:center">
+                  <img src="{{item.imageUrl}}" alt="gear image" class="gear-img-list"></td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.name | titlecase }}</td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.description | lowercase }}</td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.price | currency}}</td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.gearCondition | lowercase }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <p>Click a row for more details.</p>
+          </div>
+        </div>
+      </div>
+
+
 
 
       <div *ngIf="selected">
