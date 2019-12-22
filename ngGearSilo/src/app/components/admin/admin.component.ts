@@ -26,6 +26,9 @@ export class AdminComponent implements OnInit {
     this.loadUsers();
     this.loadGear();
   }
+
+  // Users
+
   public loadUsers() {
 
     const userList: [] = [];
@@ -43,6 +46,7 @@ export class AdminComponent implements OnInit {
 
   public countUsers() {
     return this.users.length;
+    // set data aggr. for active users
   }
 
   public setUpdateExpense() {
@@ -64,6 +68,8 @@ export class AdminComponent implements OnInit {
     );
   }
 
+  // Gear
+
   public loadGear() {
     // this.clearSearch();
     this.gearSvc.index().subscribe(
@@ -80,4 +86,9 @@ export class AdminComponent implements OnInit {
   public displayGearItem(gear: Gear) {
     this.selectedGear = gear;
   }
-}
+
+  public countGear() {
+    return this.gearList.length;
+    // Add data aggr. for active count.
+  }
+ }
