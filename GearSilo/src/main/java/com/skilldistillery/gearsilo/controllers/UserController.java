@@ -88,4 +88,29 @@ public class UserController {
 
 		return user;
 	}
+	
+	@PutMapping("users")
+	public User replaceExistingUser(@RequestBody User user, HttpServletRequest req, Principal principal,
+			HttpServletResponse resp) {
+		
+		
+		try {
+			user = userSvc.updateUserProfile(principal.getName(), user)  ;
+			if (user == null) {
+				resp.setStatus(404);
+				return null;
+			}
+			resp.setStatus(202);
+			StringBuffer url = req.getRequestURL();
+			url.append("/").append(user.getId());
+			resp.addHeader("Location", url.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			resp.setStatus(400);
+			return null;
+		}
+		System.out.println("in return of user");
+		System.out.println(user);
+		return user;
+	}
 }
