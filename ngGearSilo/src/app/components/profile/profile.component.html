@@ -175,7 +175,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add Mew Item</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add New Item</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -197,15 +197,34 @@
 
 
                     <!-- NAME OF GEAR -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Gear Name</span>
+                      </div>
                     <input style="margin-bottom: 10px" type="text" placeholder="What item are you wishing to rent?"
                       class="form-control" [(ngModel)]="newGear.name">
-
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                        </div>
                     <input style="margin-bottom: 10px" type="text" placeholder="Description" class="form-control"
                       [(ngModel)]="newGear.description">
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Condition</span>
+                        </div>
                     <input style="margin-bottom: 10px" type="text" placeholder="Gear Condition" class="form-control"
                       [(ngModel)]="newGear.gearCondition">
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">ImageUrl</span>
+                        </div>
                     <input style="margin-bottom: 10px" type="url" placeholder="Image Url" class="form-control"
                       [(ngModel)]="newGear.imageUrl">
+                      </div>
 
                     <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="newGear.user">
         <input type="hidden" valueclass="form-control" value=1 name=1 [(ngModel)]="newGear.active">
@@ -236,8 +255,13 @@
       </div>
       <div class="modal-body">
                     <!-- NAME -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                      </div>
                    <input style="margin-bottom: 10px;" type="text" placeholder="{{selecteditem.name}}"
                       class="form-control" [(ngModel)]="updatedGear.name">
+                      </div>
 
                     <!-- PRICE OF GEAR -->
                     <div class="input-group mb-3">
@@ -252,29 +276,45 @@
                     </div>
 
                     <!-- IMAGE URL -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Image URL</span>
+                      </div>
                     <input style="margin-bottom: 10px;" type="url" placeholder="{{selecteditem.imageUrl}}"
                       class="form-control" [(ngModel)]="updatedGear.imageUrl">
-
+                    </div>
                     <!-- DESCRITPION -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                      </div>
                     <input style="margin-bottom: 10px;" type="text" required minlength="15"
                       placeholder="{{selecteditem.description}}" class="form-control"
                       [(ngModel)]="updatedGear.description">
+                    </div>
 
                     <!-- CONDITION -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Condition</span>
+                      </div>
                     <input style="margin-bottom: 10px;" type="text" placeholder="{{selecteditem.gearCondition}}"
                       class="form-control" [(ngModel)]="updatedGear.gearCondition">
+                      </div>
 
                     <!-- ACTIVE -->
                     <!-- <input style="margin-bottom: 10px;" type="checkbox" placeholder="{{selecteditem.gearCondition}}"
                       [(ngModel)]="updatedGear.active"> -->
-
-
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Active</span>
+                        </div>
                     <label style="margin-bottom: 10px;" class="switch">
                       <input type="checkbox" data-toggle="toggle" checked data-on="available" data-off="Unavailable"
                         placeholder="{{selecteditem.gearCondition}}" [(ngModel)]="updatedGear.active">
                       <span class="slider"></span>
                     </label><br><br>
-
+                    </div>
 
 
                     <!-- AVAILABLE -->
