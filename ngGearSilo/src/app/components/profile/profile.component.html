@@ -201,28 +201,28 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Gear Name</span>
                       </div>
-                    <input style="margin-bottom: 10px" type="text" placeholder="What item are you wishing to rent?"
+                    <input type="text" placeholder="What item are you wishing to rent?"
                       class="form-control" [(ngModel)]="newGear.name">
                       </div>
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
                         </div>
-                    <input style="margin-bottom: 10px" type="text" placeholder="Description" class="form-control"
+                    <input type="text" placeholder="Description" class="form-control"
                       [(ngModel)]="newGear.description">
                       </div>
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Condition</span>
+                          <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Condition</span>
                         </div>
-                    <input style="margin-bottom: 10px" type="text" placeholder="Gear Condition" class="form-control"
+                    <input type="text" placeholder="Gear Condition" class="form-control"
                       [(ngModel)]="newGear.gearCondition">
                       </div>
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">ImageUrl</span>
+                          <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">ImageUrl</span>
                         </div>
-                    <input style="margin-bottom: 10px" type="url" placeholder="Image Url" class="form-control"
+                    <input type="url" placeholder="Image Url" class="form-control"
                       [(ngModel)]="newGear.imageUrl">
                       </div>
 
@@ -257,9 +257,9 @@
                     <!-- NAME -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                        <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Name</span>
                       </div>
-                   <input style="margin-bottom: 10px;" type="text" placeholder="{{selecteditem.name}}"
+                   <input type="text" placeholder="{{selecteditem.name}}"
                       class="form-control" [(ngModel)]="updatedGear.name">
                       </div>
 
@@ -278,17 +278,17 @@
                     <!-- IMAGE URL -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Image URL</span>
+                        <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Image URL</span>
                       </div>
-                    <input style="margin-bottom: 10px;" type="url" placeholder="{{selecteditem.imageUrl}}"
+                    <input type="url" placeholder="{{selecteditem.imageUrl}}"
                       class="form-control" [(ngModel)]="updatedGear.imageUrl">
                     </div>
-                    <!-- DESCRITPION -->
+                    <!-- DESCRIPTION -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
                       </div>
-                    <input style="margin-bottom: 10px;" type="text" required minlength="15"
+                    <input type="text" required minlength="15"
                       placeholder="{{selecteditem.description}}" class="form-control"
                       [(ngModel)]="updatedGear.description">
                     </div>
@@ -296,9 +296,9 @@
                     <!-- CONDITION -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Condition</span>
+                        <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Condition</span>
                       </div>
-                    <input style="margin-bottom: 10px;" type="text" placeholder="{{selecteditem.gearCondition}}"
+                    <input type="text" placeholder="{{selecteditem.gearCondition}}"
                       class="form-control" [(ngModel)]="updatedGear.gearCondition">
                       </div>
 
@@ -307,10 +307,10 @@
                       [(ngModel)]="updatedGear.active"> -->
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Active</span>
+                          <span class="input-group-text" style="width: 117px; height: 35px" id="inputGroup-sizing-default">Active</span>
                         </div>
-                    <label style="margin-bottom: 10px;" class="switch">
-                      <input type="checkbox" data-toggle="toggle" checked data-on="available" data-off="Unavailable"
+                    <label class="switch">
+                      <input type="checkbox"  data-toggle="toggle" checked data-on="available" data-off="Unavailable"
                         placeholder="{{selecteditem.gearCondition}}" [(ngModel)]="updatedGear.active">
                       <span class="slider"></span>
                     </label><br><br>
