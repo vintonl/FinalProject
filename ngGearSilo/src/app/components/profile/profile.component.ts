@@ -83,6 +83,7 @@ export class ProfileComponent implements OnInit {
                 console.log(gear.user.id);
                 console.log(this.loggedInUser.id);
                 this.gearList.push(gear);
+                this.checkImageURl();
 
                 // this.loggedInUser = e.user;
               }
@@ -318,6 +319,14 @@ export class ProfileComponent implements OnInit {
     });
 
 
+
+  }
+
+  checkImageURl() {
+
+    if (this.loggedInUser.imageUrl.length < 10 || this.loggedInUser.imageUrl === null || this.loggedInUser.imageUrl === undefined) {
+      this.loggedInUser.imageUrl = "https://i.imgur.com/zVdNnTx.png";
+    }
 
   }
 
