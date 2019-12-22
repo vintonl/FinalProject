@@ -19,7 +19,7 @@ export class Gear {
   name: string;
   gearCondition: string;
   price: number;
-  description: number;
+  description: string;
   imageUrl: string;
   imageUrl2: string;
   imageUrl3: string;
@@ -32,7 +32,7 @@ export class Gear {
     name?: string,
     gearCondition?: string,
     price?: number,
-    description?: number,
+    description?: string,
     imageUrl?: string,
     imageUrl2?: string,
     imageUrl3?: string,
