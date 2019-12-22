@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
   myGear: Gear[] = [];
   myReservations: Reservation[] = [];
   rating: number;
+  deleteId: number;
 
 
 
@@ -102,16 +103,31 @@ export class ProfileComponent implements OnInit {
 
 
   // DELETE GEAR
-  deleteGear(id: number) {
-    this.gearSrv.destroy(id).subscribe(
+  deleteGear() {
+
+    console.log("in delete gear ")
+    console.log(this.deleteId);
+
+    this.gearSrv.destroy(this.deleteId).subscribe(
       (good) => {
         this.ngOnInit();
         console.log(good);
+        this.deleteId = null;
       },
       (bad) => {
         console.log("error " + bad);
+        this.deleteId = null;
       }
     );
+  }
+
+  onClickDelete(itemId: number) {
+    console.log("in delete click")
+    console.log(itemId);
+
+    this.deleteId = itemId;
+
+
   }
 
   // ADD GEAR
@@ -119,7 +135,7 @@ export class ProfileComponent implements OnInit {
     this.newGear.active = true;
     this.newGear.available = true;
     if (this.newGear.imageUrl === null || this.newGear.imageUrl === undefined) {
-      this.newGear.imageUrl = "https://i.imgur.com/zL0KtqB.png";
+      this.newGear.imageUrl = "https://i.imgur.com/nBygA5Y.jpg";
     }
     this.gearSrv.create(this.newGear).subscribe(
       newGear => {

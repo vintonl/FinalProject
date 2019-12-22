@@ -65,7 +65,7 @@ body{
   margin-top:10px;
 }
 .user-detail-section2 span{
-  color:#7CBBC3;
+  color: lightcoral;
   font-size: 14px;
   margin-right: 20px;
 }
@@ -128,7 +128,7 @@ body{
   margin: 0px;
 }
 .image-right-detail-section2 p{
-  color:#38ACDF;
+  color: lightcoral;
   margin:0px;
 }
 .image-right-detail-section2 span{
@@ -268,11 +268,12 @@ body{
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: lightcoral;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  background-color: lightcoral;
+  box-shadow: 0 0 1px ;
 }
 
 input:checked + .slider:before {
@@ -306,6 +307,12 @@ input:checked + .slider:before {
   background-color: whitesmoke;
 }
 
+.modal-footer {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.btn {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
 
 
