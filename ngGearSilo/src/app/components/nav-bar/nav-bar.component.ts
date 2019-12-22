@@ -19,7 +19,7 @@ export class NavBarComponent implements OnInit {
     // }
   }
   userLogInCheck(){
-    return this.authService.userLogInCheck();
+    return this.authService.getCredentials();
   }
 
   logout() {
