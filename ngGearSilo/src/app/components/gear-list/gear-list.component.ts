@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Gear } from './../../models/gear';
 import { GearService } from './../../services/gear.service';
@@ -17,9 +18,15 @@ export class GearListComponent implements OnInit {
   searchedGear: Gear[] = [];
   hideSearchResult = true;
 
-  constructor(private gearSrv: GearService, private router: Router) { }
+  constructor(private gearSrv: GearService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    const cred = this.authService.getCredentials();
+
+    if (cred === null) {
+      this.router.navigateByUrl('/login');
+
+    }
     this.loadGear();
   }
 
