@@ -127,7 +127,6 @@ export class ProfileComponent implements OnInit {
 
     this.deleteId = itemId;
 
-
   }
 
   // ADD GEAR
@@ -200,12 +199,9 @@ export class ProfileComponent implements OnInit {
       },
       err => console.log('Update got an error: ' + err));
 
+    location.reload();
     this.loadGear();
-
   }
-
-
-
 
   // UPDATE USER
   updateUser() {
