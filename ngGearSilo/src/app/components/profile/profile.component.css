@@ -29,8 +29,8 @@ body{
   margin: 0px;
 }
 .user-image img{
-  width:100px;
-  height:100px;
+  width:130px;
+  height:130px;
   border-radius: 50%;
 }
 .user-profil-part{
@@ -126,8 +126,8 @@ body{
 }
 
 .modal {
-  position: absolute;
-  top: 10px;
+  position: fixed;
+  top: 100px;
   right: 100px;
   bottom: 0;
   left: 0;
@@ -150,16 +150,16 @@ body{
 
 
  .thumbnail {
-  height: 30px;
-  width: 40px;
+  height: 100px;
+  width: 120px;
   overflow: hidden;
+  float: right;
 
  }
  .thumbnail img {
   height: auto;
-  width: 60px;
-  border: #D3A86A;
-  border-style: solid;
+  width: 120px;
+  float: right;
  }
 
  /**************************
@@ -187,56 +187,25 @@ body{
   padding: 10px 16px;
 }
 
-.btn-lg {
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 6px;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #428bca;
-  border-color: #357ebd;
-}
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
-  color: #fff;
-  background-color: #3276b1;
-  border-color: #285e8e;
-}
-
 #picDelete{
-  height: 15px;
+  height: 35px;
 }
 
 #picUpdate{
-  height: 15px;
+  height: 25px;
 }
 
+#myimage {
+  height: 25px;
+  width: 25px;
+  margin-top: 19px;;
+  margin-left: 10px;;
 
-.btn-info {
-    padding: 15px 20px;
-    border: 0 none;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border-radius: 50%;
 }
 
-.btn-danger {
-  padding: 15px 20px;
-  border: 0 none;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-radius: 50%;
-}
-.btn:focus, .btn:active:focus, .btn.active:focus {
-    outline: 0 none;
+.card:hover{
+  background-color: whitesmoke;
+  opacity: 1;
 
 }
 
