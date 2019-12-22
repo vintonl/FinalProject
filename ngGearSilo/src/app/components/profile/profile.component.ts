@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit {
     }
 
     this.loadGear();
+    this.loadReseravtions();
   }
 
 
@@ -132,10 +133,11 @@ export class ProfileComponent implements OnInit {
   // ADD GEAR
 
   addGear() {
-    console.log("in add gear " + this.newGear.active);
     this.newGear.active = true;
     this.newGear.available = true;
-    console.log("in add gear " + this.newGear.active);
+    if (this.newGear.imageUrl === null || this.newGear.imageUrl === undefined) {
+      this.newGear.imageUrl = "https://i.imgur.com/zL0KtqB.png";
+    }
     this.gearSrv.create(this.newGear).subscribe(
       newGear => {
         this.loadGear();
@@ -144,9 +146,8 @@ export class ProfileComponent implements OnInit {
       err => console.log('Observer got an error: ' + err)
     );
     this.loadGear();
+    this.newGear = null;
   }
-
-
   onClick(item: any, lgModal: any) {
 
     this.selecteditem = item;
@@ -162,11 +163,6 @@ export class ProfileComponent implements OnInit {
     lgModal.show();
 
   }
-
-
-
-
-
 
 
 
@@ -217,9 +213,6 @@ export class ProfileComponent implements OnInit {
   // UPDATE USER
 
   updateUser() {
-
-
-
     this.editedUser.id = this.loggedInUser.id;
     this.editedUser.password = this.loggedInUser.password;
     this.editedUser.email = this.loggedInUser.email;
@@ -257,45 +250,75 @@ export class ProfileComponent implements OnInit {
 
 
   }
+
+
+
+  // LOAD RESERVATIONS FOR USER
+
+  loadReseravtions() {
+    this.myReservations = [];
+    let rating;
+
+    // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+    //   yes => {
+    //     this.loggedInUser = yes;
+    //     console.log('Got logged in user:');
+    //     console.log(this.loggedInUser);
+
+
+    this.resService.index().subscribe(
+      (aGoodThingHappened) => {
+        console.log(aGoodThingHappened);
+
+        aGoodThingHappened.forEach(res => {
+          console.log('in load res from profiel ts');
+          console.log(aGoodThingHappened);
+
+          if (res.gearId.user.id === this.loggedInUser.id) {
+            this.myReservations.push(res);
+
+            console.log(res);
+
+            rating = res.lenderReview.rating;
+
+            console.log(rating + "ratimg");
+
+            console.log('about to be in rating sum');
+            this.lenderRating();
+
+            // this.loggedInUser = e.user;
+          }
+        });
+      },
+      (didntWork) => {
+        console.log('in load res from profiel ts didnt work');
+        console.log(didntWork);
+      }
+    );
+    //   },
+    //   no => {
+    //     console.error('Error laoding res in user');
+    //     console.error(no);
+    //   }
+    // );
+    // console.log(this.loggedInUser);
+  }
+
+
+
+  lenderRating() {
+    console.log("rating sum");
+    // console.log(this.myReservations[Symbol]);
+    let rating;
+
+    this.myReservations.forEach(res => {
+      rating = res.lenderReview.rating;
+      console.log(rating);
+      console.log("rating sum");
+    });
+
+
+
+  }
+
 }
-
-
-// LOAD RESERVATIONS FOR USER
-
-  // loadReseravtions() {
-  //   this.myReservations = [];
-
-  //   this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-  //     yes => {
-  //       this.loggedInUser = yes;
-  //       console.log('Got logged in user:');
-  //       console.log(this.loggedInUser);
-
-
-  //       this.resService.index().subscribe(
-  //         (aGoodThingHappened) => {
-  //           console.log(aGoodThingHappened);
-
-  //           aGoodThingHappened.forEach(res => {
-
-  //             if (res.user.id === this.loggedInUser.id) {
-  //               this.myReservations.push(res);
-
-  //               // this.loggedInUser = e.user;
-  //             }
-  //           });
-  //         },
-  //         (didntWork) => {
-  //           console.log(didntWork);
-  //         }
-  //       );
-  //     },
-  //     no => {
-  //       console.error('Error getting logged in user');
-  //       console.error(no);
-  //     }
-  //   );
-  //   console.log(this.loggedInUser);
-  // }
-
-
