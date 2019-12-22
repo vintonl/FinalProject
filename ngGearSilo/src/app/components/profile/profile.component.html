@@ -23,7 +23,7 @@
           <div class="col-md-12 user-detail-section2">
             <div class="border"></div>
             <p style="margin-left: 15px;">Rating</p>
-            <span>{{myReservations.length}} <small>4.2</small></span>
+            <span>{{rating}} <small></small></span>
           </div>
         </div>
 
@@ -36,10 +36,17 @@
 
           <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
             <div class="border"></div>
-            <p>About Me</p>
-            <span>{{loggedInUser.about}}</span>
+            <p>Location</p>
+            <span>{{loggedInUser.address.city}}, {{loggedInUser.address.state | titlecase}}</span>
           </div>
         </div>
+
+
+        <!-- MY RESERVATIONS BUTTON -->
+        <button data-toggle="modal" data-target="#myGearReservations" class="btn btn-defult"><i
+            aria-hidden="true"></i>
+          My Gear Reservations</button>
+
 
       </div>
       <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
@@ -82,17 +89,16 @@
               </div>
             </div>
           </div>
-
-
-          <ul *ngFor="let res of myReservations; let i = index">
-
-            <li>{{res.approved}}</li>
-            <li>{{res.gearReview}}</li>
-            <li>{{res | json}}</li>
-
-          </ul>
-
           <div>
+
+            <ul *ngFor="let res of myReservations; let i = index">
+              <li>{{res.approved}}</li>
+              <li>{{res.gearReview}}</li>
+            </ul>
+
+
+
+
 
             <!-- EDIT USER PROFILE MODAL-->
             <div id="editProfile" class="modal fade" role="dialog">
@@ -252,12 +258,20 @@
                       class="form-control" [(ngModel)]="updatedGear.gearCondition">
 
                     <!-- ACTIVE -->
-                    <input style="margin-bottom: 10px;" type="checkbox" placeholder="{{selecteditem.gearCondition}}"
-                      [(ngModel)]="updatedGear.active">
+                    <!-- <input style="margin-bottom: 10px;" type="checkbox" placeholder="{{selecteditem.gearCondition}}"
+                      [(ngModel)]="updatedGear.active"> -->
+
+
+                    <label style="margin-bottom: 10px;"  class="switch">
+                      <input type="checkbox" data-toggle="toggle"  checked  data-on="available" data-off="Unavailable" placeholder="{{selecteditem.gearCondition}}" [(ngModel)]="updatedGear.active">
+                      <span class="slider"></span>
+                    </label><br><br>
+
+
 
                     <!-- AVAILABLE -->
-                    <input type="checkbox" placeholder="{{selecteditem.gearCondition}}"
-                      [(ngModel)]="updatedGear.available">
+                    <!-- <input type="checkbox" placeholder="{{selecteditem.gearCondition}}"
+                      [(ngModel)]="updatedGear.available"> -->
 
                     <!-- HIDDEN FIELDS -->
                     <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="updatedGear.user">
@@ -300,3 +314,49 @@
               </div>
             </div>
           </div>
+
+
+          <!-- MY GEAR RESERVATIONS  MODAL -->
+          <div class="modal fade modal-lg" id="resModal" id="myGearReservations" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Current Number of Reservations:
+                    {{myReservations.length}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body1">
+                  <table class="table table-hover">
+                    <col width="250">
+                    <col width="250">
+                    <col width="250">
+                    <col width="250">
+
+                    <thead>
+                      <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Renter</th>
+                        <th scope="col">Days</th>
+                        <th scope="col">Approved</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let res of myReservations">
+                        <th scope="row">1</th>
+                        <td>{{res.createdAt | date}}</td>
+                        <td>{{res.userShopper.firstName | titlecase}} {{res.userShopper.lastName | titlecase}}</td>
+                        <td>{{res.openDate | date}}</td>
+                        <td>{{res.approved}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
