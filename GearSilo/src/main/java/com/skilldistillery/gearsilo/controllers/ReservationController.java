@@ -33,6 +33,7 @@ public class ReservationController {
 	@GetMapping("reservations")
 	public List<Reservation> index(Principal p, HttpServletRequest req, HttpServletResponse resp) {
 		List<Reservation> res = resSvc.findAll(p.getName());
+		System.out.println("IN RES CONTROLLER");
 
 		if (res != null && res.size() == 0) {
 			resp.setStatus(204);
@@ -41,7 +42,8 @@ public class ReservationController {
 		if (res == null) {
 			resp.setStatus(404);
 		}
-
+		System.out.println("IN RES CONTROLLER RETURN");
+		System.out.println(res);
 		return res;
 	}
 

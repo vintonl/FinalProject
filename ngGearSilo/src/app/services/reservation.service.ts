@@ -32,4 +32,23 @@ export class ReservationService {
     );
   }
 
+  index() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<Reservation[]>(this.url, httpOptions)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('ResService.index() Error');
+        })
+      );
+  }
+
+
+
 }

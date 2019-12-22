@@ -144,8 +144,8 @@ body{
  .crop img {
   height: auto;
   width: 400px;
-  border: #D3A86A;
-  border-style: solid;
+  /* border: #D3A86A;
+  border-style: solid; */
  }
 
 
