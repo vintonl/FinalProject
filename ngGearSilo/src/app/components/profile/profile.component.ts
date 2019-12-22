@@ -116,6 +116,7 @@ export class ProfileComponent implements OnInit {
 
     this.gearSrv.destroy(id).subscribe(
       (good) => {
+        this.ngOnInit();
         console.log(good);
 
 
@@ -124,8 +125,8 @@ export class ProfileComponent implements OnInit {
         console.log("error " + bad);
       }
     );
-    this.selecteditem = null;
-    this.ngOnInit();
+    // this.selecteditem = null;
+
   }
 
 
@@ -275,10 +276,16 @@ export class ProfileComponent implements OnInit {
           console.log('in load res from profiel ts');
           console.log(aGoodThingHappened);
 
-          if (res.gearId.user.id === this.loggedInUser.id) {
+          console.log("logginf all id in res");
+          console.log(res.gearId.user.id);
+
+
+          if (res.gearId.user.username === this.loggedInUser.username) {
             this.myReservations.push(res);
 
-            console.log(res);
+            console.log("in the for each for res");
+            console.log(res.gearId.user.id);
+            console.log(this.loggedInUser.id);
 
             rating = res.lenderReview.rating;
 

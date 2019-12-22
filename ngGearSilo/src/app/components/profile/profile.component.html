@@ -19,24 +19,28 @@
               Edit</button>
             <button class="btn btn-defult follow" data-toggle="modal" data-target="#addGear">Add</button>
           </div>
-          <div class="row user-detail-row">
-            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
-              <div class="border"></div>
-              <p>Email</p>
-              <span>{{loggedInUser.email}}</span>
-            </div>
-            <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
-              <div class="border"></div>
-              <p>About Me</p>
-              <span>{{loggedInUser.about}}</span>
-            </div>
-          </div>
+
           <div class="col-md-12 user-detail-section2">
             <div class="border"></div>
-            <p>Rating</p>
-            <span>{{myReservations}} <small>of 42 review</small></span>
+            <p style="margin-left: 15px;">Rating</p>
+            <span>{{myReservations.length}} <small>4.2</small></span>
           </div>
         </div>
+
+        <div class="row user-detail-row">
+          <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+            <div class="border"></div>
+            <p>Email</p>
+            <span>{{loggedInUser.email}}</span>
+          </div>
+
+          <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
+            <div class="border"></div>
+            <p>About Me</p>
+            <span>{{loggedInUser.about}}</span>
+          </div>
+        </div>
+
       </div>
       <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
         <div class="row profile-right-section-row">
@@ -54,7 +58,7 @@
 
 
 
-          <!-- USER LIST OF ITEMS -->
+          <!-- USER LIST OF ITEMS  - CARDS-->
           <h3>Listed Items for Rent</h3>
           <div style="width: 100%;" class="card" *ngFor="let item of gearList; let i = index">
             <div *ngIf="item.active == true">
@@ -158,14 +162,15 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Mew Item</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
 
-                    <input type="text" placeholder="Name" class="form-control" [(ngModel)]="newGear.name">
+
+                    <!-- PRICE OF GEAR -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
@@ -176,10 +181,18 @@
                         <span class="input-group-text">.00</span>
                       </div>
                     </div>
-                    <input type="text" placeholder="Description" class="form-control" [(ngModel)]="newGear.description">
-                    <input type="text" placeholder="Gear Condition" class="form-control"
+
+
+                    <!-- NAME OF GEAR -->
+                    <input style="margin-bottom: 10px" type="text" placeholder="What item are you wishing to rent?"
+                      class="form-control" [(ngModel)]="newGear.name">
+
+                    <input style="margin-bottom: 10px" type="text" placeholder="Description" class="form-control"
+                      [(ngModel)]="newGear.description">
+                    <input style="margin-bottom: 10px" type="text" placeholder="Gear Condition" class="form-control"
                       [(ngModel)]="newGear.gearCondition">
-                    <input type="url" placeholder="Image Url" class="form-control" [(ngModel)]="newGear.imageUrl">
+                    <input style="margin-bottom: 10px" type="url" placeholder="Image Url" class="form-control"
+                      [(ngModel)]="newGear.imageUrl">
 
                     <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="newGear.user">
         <input type="hidden" valueclass="form-control" value=1 name=1 [(ngModel)]="newGear.active">
@@ -203,28 +216,54 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Update Gear Information</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <input type="text" placeholder="{{selecteditem.name}}" class="form-control" [(ngModel)]="updatedGear.name">
-                    <input type="text" placeholder="{{selecteditem.price}}" class="form-control"
-                      [(ngModel)]="updatedGear.price">
-                    <input type="url" placeholder="{{selecteditem.imageUrl}}" class="form-control"
-                      [(ngModel)]="updatedGear.imageUrl">
-                    <input type="text" required minlength="15" placeholder="{{selecteditem.description}}"
-                      class="form-control" [(ngModel)]="updatedGear.description">
-                    <input type="text" placeholder="{{selecteditem.gearCondition}}" class="form-control"
-                      [(ngModel)]="updatedGear.gearCondition">
+                    <!-- NAME -->
+                   <input style="margin-bottom: 10px;" type="text" placeholder="{{selecteditem.name}}"
+                      class="form-control" [(ngModel)]="updatedGear.name">
 
-                    <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="updatedGear.user">
-        <input type="checkbox" placeholder="{{selecteditem.gearCondition}}" [(ngModel)]="updatedGear.active">
+                    <!-- PRICE OF GEAR -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                      </div>
+                      <input type="text" placeholder="{{selecteditem.price}}" class="form-control"
+                        aria-label="Amount (to the nearest dollar)" [(ngModel)]="updatedGear.price">
+                      <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                      </div>
+                    </div>
+
+                    <!-- IMAGE URL -->
+                    <input style="margin-bottom: 10px;" type="url" placeholder="{{selecteditem.imageUrl}}"
+                      class="form-control" [(ngModel)]="updatedGear.imageUrl">
+
+                    <!-- DESCRITPION -->
+                    <input style="margin-bottom: 10px;" type="text" required minlength="15"
+                      placeholder="{{selecteditem.description}}" class="form-control"
+                      [(ngModel)]="updatedGear.description">
+
+                    <!-- CONDITION -->
+                    <input style="margin-bottom: 10px;" type="text" placeholder="{{selecteditem.gearCondition}}"
+                      class="form-control" [(ngModel)]="updatedGear.gearCondition">
+
+                    <!-- ACTIVE -->
+                    <input style="margin-bottom: 10px;" type="checkbox" placeholder="{{selecteditem.gearCondition}}"
+                      [(ngModel)]="updatedGear.active">
+
+                    <!-- AVAILABLE -->
                     <input type="checkbox" placeholder="{{selecteditem.gearCondition}}"
                       [(ngModel)]="updatedGear.available">
+
+                    <!-- HIDDEN FIELDS -->
+                    <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="updatedGear.user">
                     <input type="hidden" placeholder="{{selecteditem.gearCondition}}" value="{{selecteditem.id}}"
                       name="{{selecteditem.id}}" [(ngModel)]="updatedGear.id">
+
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
