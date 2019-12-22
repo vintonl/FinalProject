@@ -135,7 +135,7 @@ export class ProfileComponent implements OnInit {
     this.newGear.active = true;
     this.newGear.available = true;
     if (this.newGear.imageUrl === null || this.newGear.imageUrl === undefined) {
-      this.newGear.imageUrl = "https://i.imgur.com/nBygA5Y.jpg";
+      this.newGear.imageUrl = "https://i.imgur.com/gkIBm2x.png";
     }
     this.gearSrv.create(this.newGear).subscribe(
       newGear => {
