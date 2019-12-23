@@ -49,10 +49,10 @@ public class User {
 
 	private String email;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	private String username;
 
-	@JsonIgnore
+//	@JsonIgnore
 	private String password;
 
 	@Column(name = "created_at")
