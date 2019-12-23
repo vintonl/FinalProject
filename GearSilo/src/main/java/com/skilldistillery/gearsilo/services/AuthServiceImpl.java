@@ -37,4 +37,15 @@ public class AuthServiceImpl implements AuthService {
 		return user;
 	}
 
+	@Override
+	public boolean isUserUnique(User user) {
+		User userFound = userRepo.findUserByUsername(user.getUsername());
+
+		if (userFound != null) {
+			return false;
+		}
+		
+		return true;
+	}
+
 }
