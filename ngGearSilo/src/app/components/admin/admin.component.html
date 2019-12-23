@@ -8,6 +8,9 @@
     </h1>
   </div>
 </nav>
+
+<!-- User List  -->
+
 <div class="container-fluid bg-light">
   <ngb-tabset >
     <ngb-tab title="Users" (tabChange)="selectedUser = false">
@@ -41,7 +44,8 @@
           </table>
         </div>
 
-        <!-- Single Display w/Options Going Here -->
+        <!-- Single User Display w/Options Here -->
+
           <div class="container" id="oneUser" *ngIf="selectedUser"> <!-- Add && !selectedUpdate element here -->
             <h1>{{ selectedUser.firstName | uppercase }} {{ selectedUser.lastName | uppercase }}</h1>
             <br />
@@ -53,7 +57,7 @@
                 Email: {{ selectedUser.email }}
               </li>
               <li class="list-group-item">
-                Password: $ {{ selectedUser.password }}
+                Password: {{ selectedUser.password }}
               </li>
               <li class="list-group-item">
                 Address: {{ selectedUser.address.address }}
@@ -88,7 +92,6 @@
               <li class="list-group-item">
                 Created: {{ selectedUser.enabled }}
               </li>
-
             </ul>
             <br />
             <div class="btn-group" role="group" aria-label="selected task">
@@ -105,6 +108,9 @@
     <ngb-tab>
       <ng-template ngbTabTitle><b>Gear</b> List</ng-template>
       <ng-template ngbTabContent>
+
+        <!-- Gear List Tab -->
+
       <div id="gearList" class="container-fluid" *ngIf="!selectedGear">
         <table class="table table-striped table-hover">
           <thead class="thead-light">
@@ -132,7 +138,8 @@
         </table>
       </div>
 
-      <!-- Single Display w/Options Going Here -->
+      <!-- Single Gear Display w/Options Here -->
+
       <div *ngIf="selectedGear">
         <a>Diplay Single</a>
         <button
@@ -145,6 +152,8 @@
       </div>
     </ng-template>
       </ngb-tab>
+
+      <!-- Reservation List Tab -->
 
     <ngb-tab title="Reservations">
       <ng-template ngbTabContent>
@@ -161,7 +170,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let reservation of resvList" class="showHand" (click)="selectedResv = true">
+              <tr *ngFor="let reservation of resvList" class="showHand" (click)="selectedResv = reservation">
                 <td>{{ reservation.id }}</td>
                 <td>{{ reservation.gearId.user.id }}</td>
                 <td>{{ reservation.userShopper.id }}</td>
@@ -173,56 +182,48 @@
           </table>
         </div>
 
-        <!-- Single Display w/Options Going Here -->
-        <div *ngIf="selectedResv">
-          <a>Diplay Single</a>
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            (click)="selectedResv = false"
-          >
-            Back
-          </button>
+        <!-- Single Reservation Display w/Options Here -->
+
+        <div class="container" id="oneReservation" *ngIf="selectedResv"> <!-- && !updateResv element here -->
+          <h1>{{ selectedResv.gearId.name | uppercase }}</h1>
+          <br />
+          <ul class="list-group">
+            <li class="list-group-item">
+              Reservation Id: {{ selectedResv.id }}
+            </li>
+            <li class="list-group-item">
+              Reservation Created: {{ selectedResv.createdAt | date: "shortDate" }}
+            </li>
+            <li class="list-group-item">
+              Approved: {{ selectedResv.approved }}
+            </li>
+            <li class="list-group-item">
+              Completed: {{ selectedResv.completed }}
+            </li>
+            <li class="list-group-item">
+              Lender Id: {{ selectedResv.gearId.user.id }}
+            </li>
+            <li class="list-group-item">
+              Lender Email: {{ selectedResv.gearId.user.email }}
+            </li>
+            <li class="list-group-item">
+              Shopper Id: {{ selectedResv.userShopper.id }}
+            </li>
+            <li class="list-group-item">
+              Shopper Email: {{ selectedResv.userShopper.email }}
+            </li>
+          </ul>
+          <br />
+          <div class="btn-group" role="group" aria-label="selected task">
+            <button class="btn btn-outline-success" (click)="selectedResv = null">
+              Back
+            </button>
+            <button class="btn btn-outline-success">
+              Edit
+            </button>
+          </div>
         </div>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>
 </div>
-
-
-
-
-  <!-- <div class="container navbar navbar-light bg-light">
-    <a class="navbar-brand" ><strong>Admin</strong></a>
-    <h1 *ngIf="!selectedUser">
-      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users
-    </h1>
-  </div>
-    <div id="userList" class="container" *ngIf="!selectedUser">
-      <table class="table table-striped table-hover">
-        <thead class="thead-light">
-          <tr>
-            <th>Id</th>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Enabled</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="showHand" *ngFor="let user of users" (click)="selectedUser = true">
-            <td>{{ user.id }}</td>
-            <td>{{ user.lastName }}</td>
-            <td>{{ user.firstName }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.role }}</td>
-            <td>{{ user.enabled }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-<div *ngIf="selectedUser">
-  <a>Diplay Single</a>
-  <button type="button" (click)="selectedUser = false">Back</button>
-</div> -->
