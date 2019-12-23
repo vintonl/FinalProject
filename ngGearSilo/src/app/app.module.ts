@@ -35,6 +35,7 @@ import {
   MatIconModule, MatCardModule, MatDialogModule, MatProgressBar
 } from '@angular/material';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 
@@ -53,6 +54,7 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     AdminComponent,
     TestingComponent,
     ReservationComponent,
+    AboutComponent,
 
   ],
   imports: [
