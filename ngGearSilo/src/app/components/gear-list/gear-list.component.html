@@ -1,20 +1,72 @@
+<script src="js/addons/rating.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!------ Include the above in your HEAD tag ---------->
+
 <div class="contaner-fluid">
   <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
       <div>
         <br>
-        <div class="container-center">
-          <form class="form-group my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword"
-              [(ngModel)]="keyword">
-            <button class="btn btn-dark my-2 my-sm-0" type="submit" (click)="search(); selected=null">Search by
-              keyword</button>
-          </form>
+        <form style="display: inline">
+          <div class="container-center">
+            <div class="active-pink-3 active-pink-4 mb-4">
+              <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword"
+                [(ngModel)]="keyword">
+              <button style="display: inline-block;" class="btn btn-dark my-2 my-sm-0" type="submit"
+                (click)="search(); selected=null">Search by
+                keyword</button>
+            </div>
+          </div>
+        </form>
+
+
+
+        <div *ngIf="!selected  && !hideSearchResult">
+          <div *ngIf="searchedGear.length === 0">
+            <div class="text-center">
+              <h2>No Search Results Found</h2>
+            </div>
+          </div>
         </div>
 
 
-        <br>
+        <!-- CLICKED-ON GEAR RESULTS -->
+        <div *ngIf="searchedGear.length > 0">
+          <div class="text-center">
+            <h2>Search Results</h2>
+          </div>
+          <table class="table table-primary table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" style="text-align:center">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Condition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of searchedGear">
+                <td *ngIf="item.active == true" scope="row" (click)="displayGearItem(item)" style="text-align:center">
+                  <img src="{{item.imageUrl}}" alt="gear image" class="gear-img-list"></td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.name | titlecase }}</td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.description | lowercase }}
+                </td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.price | currency}}</td>
+                <td *ngIf="item.active == true" (click)="displayGearItem(item)">
+                  {{item.gearCondition | lowercase }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <p>Click a row for more details.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <!-- <br>
         <div *ngIf="!selected && hideSearchResult">
           <div class="text-center">
             <h2>Gear List</h2>
@@ -44,49 +96,66 @@
             <p>Click a row for more details.</p>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div *ngIf="!selected  && !hideSearchResult">
-        <div *ngIf="searchedGear.length === 0">
-          <div class="text-center">
-            <h2>No Search Results Found</h2>
+
+      <!-- CARDS -->
+      <div *ngIf="!selected && hideSearchResult">
+        <div class="container" *ngFor="let item of gearList">
+          <div style="background-color: whitesmoke;" class="row">
+            <div style="background-color: whitesmoke;" class="col-xs-8">
+              <div (click)="displayGearItem(item)" style="background-color:white; margin: 3px" id="panels"
+                class="panel panel">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}}</h5>
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row"></div>
+                    <div class="col-xs-2">
+                      <img style="max-width:100px; height: auto;" class="img-responsive" src="{{item.imageUrl}}">
+                    </div>
+                    <div class="col-xs-4">
+                      <h4 class="product-name"><strong>{{item.name | titlecase }}</strong></h4>
+                      <h4><small>{{item.description | titlecase }}</small></h4>
+                    </div>
+                    <div class="col-xs-6">
+                      <img class="pic" src="{{item.user.imageUrl}}">
+                      <div class="col-xs-6 text-right">
+                        <h6><strong><span class="text-muted"></span></strong></h6>
+                      </div>
+                      <div class="col-xs-4">
+                        <p>{{item.user.firstName}}</p>
+                        <br>
+                        <ngb-rating [(rate)]="currentRate">
+                          <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                          </ng-template>
+                        </ngb-rating>
+                        <h6>Rating: <b>{{item.user.id}}</b></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div *ngIf="searchedGear.length > 0">
-          <div class="text-center">
-            <h2>Search Results</h2>
-          </div>
-          <table class="table table-primary table-bordered">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col" style="text-align:center">Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Price</th>
-                <th scope="col">Condition</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of searchedGear">
-                <td *ngIf="item.active == true" scope="row" (click)="displayGearItem(item)" style="text-align:center">
-                  <img src="{{item.imageUrl}}" alt="gear image" class="gear-img-list"></td>
-                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.name | titlecase }}</td>
-                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.description | lowercase }}</td>
-                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.price | currency}}</td>
-                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.gearCondition | lowercase }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="text-center">
-            <p>Click a row for more details.</p>
-          </div>
-        </div>
       </div>
 
 
 
 
+
+
+
+
+      <!-- RESERVATION PAGE -->
       <div *ngIf="selected">
         <br>
         <div class="text-center">
@@ -110,7 +179,8 @@
           <li class="list-group-item ">Price per day: {{selected.price | currency }}</li>
           <li class="list-group-item ">Condition: {{selected.gearCondition | lowercase }}</li>
           <li class="list-group-item " *ngIf="selected.available == true">Available: Yes!</li>
-          <li class="list-group-item " *ngIf="selected.available == false">Available: Sorry, it is not available to rent
+          <li class="list-group-item " *ngIf="selected.available == false">Available: Sorry, it is not available
+            to rent
             at this time.</li>
 
           <li class="list-group-item ">Rent From: {{selected.user.firstName | titlecase }}
@@ -130,7 +200,8 @@
         </div>
       </div>
 
+
     </div>
     <div class="col-1"></div>
   </div>
-</div>
+  <!-- </div> -->
