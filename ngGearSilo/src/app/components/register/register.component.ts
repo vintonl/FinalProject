@@ -17,31 +17,48 @@ export class RegisterComponent implements OnInit {
   }
 
   register(userForm: NgForm) {
-    const user: User = userForm.value;
+    const user = {
+      firstName: userForm.value.firstName,
+      lastName: userForm.value.lastName,
+      email: userForm.value.email,
+      username: userForm.value.email,
+      password: userForm.value.password,
+      imageUrl: userForm.value.imageUrl,
+      about: userForm.value.about,
+      phone: userForm.value.phone,
+      address: {
+        address: userForm.value.address,
+        address2: userForm.value.address2,
+        city: userForm.value.city,
+        state: userForm.value.state,
+        postalCode: userForm.value.postalCode,
+        country: 'USA'
+      }
+    };
 
-    console.log('User in the registration comp');
-    console.log(userForm);
+    // console.log('User in the registration comp');
+    // console.log(userForm);
 
     this.auth.register(user).subscribe(
       data => {
-        console.log('RegisterComponent.register(): user registered.');
-        console.log(data);
+        // console.log('RegisterComponent.register(): user registered.');
+        // console.log(data);
         this.auth.login(user.username, user.password).subscribe(
           next => {
-            console.log('RegisterComponent.register(): user logged in, routing to /gears.');
+            // console.log('RegisterComponent.register(): user logged in, routing to /gears.');
             this.router.navigateByUrl('/gears');
-            console.log(next);
+            // console.log(next);
           },
           error => {
-            console.error('RegisterComponent.register(): error logging in.');
-            console.log(error);
+            // console.error('RegisterComponent.register(): error logging in.');
+            // console.log(error);
           }
         );
       },
       err => {
-        console.error('RegisterComponent.register(): error registering.');
+        // console.error('RegisterComponent.register(): error registering.');
         console.error(err);
-        this.router.navigateByUrl('/register');
+        // this.router.navigateByUrl('/register');
       }
     );
   }
