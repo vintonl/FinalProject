@@ -28,6 +28,13 @@ public class AuthController {
 			res.setStatus(400);
 			return null;
 		}
+		
+		boolean uniqueUser = authService.isUserUnique(user);
+		
+		if (!uniqueUser) {
+			res.setStatus(403);
+			return null;
+		}
 
 		user = authService.register(user);
 
