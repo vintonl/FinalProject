@@ -1,3 +1,4 @@
+import { AddressService } from './services/address.service';
 import { UserService } from './services/user.service';
 import { ReviewOfShopperService } from './services/review-of-shopper.service';
 import { ReviewOfLenderService } from './services/review-of-lender.service';
@@ -75,7 +76,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     UserService,
     ProfileService,
     NavBarComponent,
-    GearListComponent
+    GearListComponent,
+    AddressService
   ],
   bootstrap: [AppComponent, ProfileComponent],
 
