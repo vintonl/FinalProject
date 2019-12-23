@@ -28,7 +28,7 @@
               <tr
                 class="showHand"
                 *ngFor="let user of users"
-                (click)="selectedUser = true"
+                (click)="selectedUser = user"
               >
                 <td>{{ user.id }}</td>
                 <td>{{ user.lastName }}</td>
@@ -42,16 +42,64 @@
         </div>
 
         <!-- Single Display w/Options Going Here -->
-        <div *ngIf="selectedUser">
-          <a>Diplay Single</a>
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            (click)="selectedUser = false"
-          >
-            Back
-          </button>
-        </div>
+          <div class="container" id="oneUser" *ngIf="selectedUser"> <!-- Add && !selectedUpdate element here -->
+            <h1>{{ selectedUser.firstName | uppercase }} {{ selectedUser.lastName | uppercase }}</h1>
+            <br />
+            <ul class="list-group">
+              <li class="list-group-item">
+                User Id: {{ selectedUser.id }}
+              </li>
+              <li class="list-group-item">
+                Email: {{ selectedUser.email }}
+              </li>
+              <li class="list-group-item">
+                Password: $ {{ selectedUser.password }}
+              </li>
+              <li class="list-group-item">
+                Address: {{ selectedUser.address.address }}
+              </li>
+              <li class="list-group-item">
+                Address2: {{ selectedUser.address.address2 }}
+              </li>
+              <li class="list-group-item">
+                City: {{ selectedUser.address.city }}
+              </li>
+              <li class="list-group-item">
+                State: {{ selectedUser.address.state }}
+              </li>
+              <li class="list-group-item">
+                Country: {{ selectedUser.address.country }}
+              </li>
+              <li class="list-group-item">
+                Postal Code: {{ selectedUser.address.postalCode }}
+              </li>
+              <li class="list-group-item">
+                Phone: {{ selectedUser.phone }}
+              </li>
+              <li class="list-group-item">
+                Created: {{ selectedUser.createdAt | date: "shortDate" }}
+              </li>
+              <li class="list-group-item">
+                Last Updated: {{ selectedUser.updatedAt | date: "shortDate" }}
+              </li>
+              <li class="list-group-item">
+                Role: {{ selectedUser.role }}
+              </li>
+              <li class="list-group-item">
+                Created: {{ selectedUser.enabled }}
+              </li>
+
+            </ul>
+            <br />
+            <div class="btn-group" role="group" aria-label="selected task">
+              <button class="btn btn-outline-success" (click)="selectedUser = null">
+                Back
+              </button>
+              <button class="btn btn-outline-success" > <!-- (click)="setUpdateUser()" -->
+                Edit
+              </button>
+            </div>
+          </div>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
