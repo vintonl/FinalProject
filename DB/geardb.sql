@@ -221,9 +221,9 @@ DROP TABLE IF EXISTS `gear_category` ;
 CREATE TABLE IF NOT EXISTS `gear_category` (
   `category_id` INT NOT NULL,
   `gear_id` INT NOT NULL,
-  PRIMARY KEY (`category_id`, `gear_id`),
   INDEX `fk_category_has_gear_gear1_idx` (`gear_id` ASC),
   INDEX `fk_category_has_gear_category1_idx` (`category_id` ASC),
+  PRIMARY KEY (`category_id`, `gear_id`),
   CONSTRAINT `fk_category_has_gear_category1`
     FOREIGN KEY (`category_id`)
     REFERENCES `category` (`id`)
@@ -361,15 +361,22 @@ COMMIT;
 START TRANSACTION;
 USE `geardb`;
 INSERT INTO `category` (`id`, `name`) VALUES (1, 'Mountain Biking');
-INSERT INTO `category` (`id`, `name`) VALUES (2, 'Street, Boarding');
+INSERT INTO `category` (`id`, `name`) VALUES (2, 'Skating');
 INSERT INTO `category` (`id`, `name`) VALUES (3, 'Surf');
-INSERT INTO `category` (`id`, `name`) VALUES (4, 'Snow, Hiking');
-INSERT INTO `category` (`id`, `name`) VALUES (5, 'Kayaking, Water');
-INSERT INTO `category` (`id`, `name`) VALUES (6, 'Watersports, Wakeboarding');
+INSERT INTO `category` (`id`, `name`) VALUES (4, 'Hiking');
+INSERT INTO `category` (`id`, `name`) VALUES (5, 'Kayaking');
+INSERT INTO `category` (`id`, `name`) VALUES (6, 'Water Sports');
 INSERT INTO `category` (`id`, `name`) VALUES (7, 'Rock Climbing');
-INSERT INTO `category` (`id`, `name`) VALUES (8, 'Skiing, Snow');
-INSERT INTO `category` (`id`, `name`) VALUES (9, 'Snowboarding, Snow');
+INSERT INTO `category` (`id`, `name`) VALUES (8, 'Skiing ');
+INSERT INTO `category` (`id`, `name`) VALUES (9, 'Snowboarding');
 INSERT INTO `category` (`id`, `name`) VALUES (10, 'Freefalling');
+INSERT INTO `category` (`id`, `name`) VALUES (11, 'Wakeboarding');
+INSERT INTO `category` (`id`, `name`) VALUES (12, 'Snow');
+INSERT INTO `category` (`id`, `name`) VALUES (13, 'Water');
+INSERT INTO `category` (`id`, `name`) VALUES (14, 'Mountain');
+INSERT INTO `category` (`id`, `name`) VALUES (15, 'Sky');
+INSERT INTO `category` (`id`, `name`) VALUES (16, 'Biking');
+INSERT INTO `category` (`id`, `name`) VALUES (17, 'Winter');
 
 COMMIT;
 
@@ -402,6 +409,23 @@ INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (7, 7);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (8, 8);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (9, 9);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (10, 10);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (11, 6);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (12, 4);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (12, 8);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (12, 9);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (13, 3);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (13, 5);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (14, 1);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (14, 8);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (14, 4);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (14, 9);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (15, 10);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (17, 8);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (6, 3);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (6, 5);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (17, 4);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (17, 9);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (16, 1);
 
 COMMIT;
 
