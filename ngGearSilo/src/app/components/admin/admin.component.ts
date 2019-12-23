@@ -29,7 +29,7 @@ export class AdminComponent implements OnInit {
   constructor(
     private userSvc: UserService,
     private gearSvc: GearService,
-    private resSvc: ReservationService
+    private resvSvc: ReservationService
   ) {}
 
   ngOnInit() {
@@ -106,7 +106,7 @@ export class AdminComponent implements OnInit {
 
   public loadReservations() {
 
-    this.resSvc.index().subscribe(
+    this.resvSvc.index().subscribe(
       rData => {
         console.log(rData);
         this.resvList = rData;
@@ -115,5 +115,9 @@ export class AdminComponent implements OnInit {
         console.log(rErr);
       }
     );
+  }
+
+  public countResv() {
+    return this.resvList.length;
   }
 }
