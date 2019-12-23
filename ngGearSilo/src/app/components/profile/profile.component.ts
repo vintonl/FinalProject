@@ -32,6 +32,9 @@ export class ProfileComponent implements OnInit {
   myReservations: Reservation[] = [];
   rating: number;
   deleteId: number;
+  needApprovedRes = 0;
+  needsApprovedRes: Reservation[] = [];
+  reservationStatus;
 
 
 
@@ -164,15 +167,17 @@ export class ProfileComponent implements OnInit {
 
 
   // UPDATE THE GEAR
+
+
   updateGear() {
 
+    console.log('in update gear');
+
     this.updatedGear.id = this.selecteditem.id;
+    this.updatedGear.active = this.reservationStatus;
 
     if (this.updatedGear.name === null || this.updatedGear.name === undefined) {
       this.updatedGear.name = this.selecteditem.name;
-    }
-    if (this.updatedGear.active !== true || this.updatedGear.active !== true) {
-      this.updatedGear.active = true;
     }
     if (this.updatedGear.available !== true || this.updatedGear.available !== true) {
       this.updatedGear.available = true;
@@ -242,56 +247,53 @@ export class ProfileComponent implements OnInit {
     this.myReservations = [];
 
 
-    // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-    //   yes => {
-    //     this.loggedInUser = yes;
-    //     console.log('Got logged in user:');
-    //     console.log(this.loggedInUser);
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      yes => {
+        this.loggedInUser = yes;
+
+        this.resService.index().subscribe(
+          (aGoodThingHappened) => {
+            console.log(aGoodThingHappened);
 
 
-    this.resService.index().subscribe(
-      (aGoodThingHappened) => {
-        console.log(aGoodThingHappened);
 
-        aGoodThingHappened.forEach(res => {
-          console.log('in load res from profile ts');
-          console.log(aGoodThingHappened);
+            aGoodThingHappened.forEach(res => {
+              this.myReservations.push(res);
 
-          console.log("logging all id in res");
-          console.log(res.gearId.user.id);
+              if (res.approved !== true) {
+                this.needApprovedRes++;
+                this.needsApprovedRes.push(res);
+
+              }
 
 
-          if (res.gearId.user.username === this.loggedInUser.username) {
-            this.myReservations.push(res);
-            this.lenderRating();
+              // this.lenderRating();
 
-            console.log("in the for each for res");
-            console.log(res.gearId.user.id);
-            console.log(this.loggedInUser.id);
 
-            this.rating = res.lenderReview.rating;
+              // if (res.gearId.user.id === this.loggedInUser.id) {
+              console.log(res);
 
-            console.log(this.rating + "rating");
+              // this.rating = res.lenderReview.rating;
 
-            console.log('about to be in rating sum');
-            // this.lenderRating();
 
-            // this.loggedInUser = e.user;
+              // this.lenderRating();
+
+              // this.loggedInUser = e.user;
+              // }
+            });
+          },
+          (didntWork) => {
+            console.log('in load res from profile ts didnt work');
+            console.log(didntWork);
           }
-        });
+        );
       },
-      (didntWork) => {
-        console.log('in load res from profile ts didnt work');
-        console.log(didntWork);
+      no => {
+        console.error('Error laoding res in user');
+        console.error(no);
       }
     );
-    //   },
-    //   no => {
-    //     console.error('Error laoding res in user');
-    //     console.error(no);
-    //   }
-    // );
-    // console.log(this.loggedInUser);
+    console.log(this.loggedInUser);
   }
 
 
@@ -315,5 +317,7 @@ export class ProfileComponent implements OnInit {
     }
 
   }
+
+
 
 }

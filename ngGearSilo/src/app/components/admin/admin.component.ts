@@ -1,8 +1,10 @@
+import { Reservation } from './../../models/reservation';
 import { GearService } from 'src/app/services/gear.service';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { Gear } from 'src/app/models/gear';
+import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
   selector: 'app-admin',
@@ -20,14 +22,25 @@ export class AdminComponent implements OnInit {
   gear: Gear = null;
   selectedGear: Gear = null;
 
-  constructor(private userSvc: UserService, private gearSvc: GearService) {}
+  resvList: Reservation[] = [];
+  resv: Reservation = null;
+  selectedResv: Reservation = null;
+
+  constructor(
+    private userSvc: UserService,
+    private gearSvc: GearService,
+    private resvSvc: ReservationService
+  ) {}
 
   ngOnInit() {
     this.loadUsers();
     this.loadGear();
+    this.loadReservations();
   }
-  public loadUsers() {
 
+  // Users
+
+  public loadUsers() {
     const userList: [] = [];
 
     this.userSvc.index().subscribe(
@@ -43,6 +56,7 @@ export class AdminComponent implements OnInit {
 
   public countUsers() {
     return this.users.length;
+    // set data aggr. for active users
   }
 
   public setUpdateExpense() {
@@ -64,14 +78,16 @@ export class AdminComponent implements OnInit {
     );
   }
 
+  // Gear
+
   public loadGear() {
     // this.clearSearch();
     this.gearSvc.index().subscribe(
-      (aGoodThingHappened) => {
-        console.log(aGoodThingHappened);
-        this.gearList = aGoodThingHappened;
+      gData => {
+        console.log(gData);
+        this.gearList = gData;
       },
-      (didntWork) => {
+      didntWork => {
         console.log(didntWork);
       }
     );
@@ -79,5 +95,29 @@ export class AdminComponent implements OnInit {
 
   public displayGearItem(gear: Gear) {
     this.selectedGear = gear;
+  }
+
+  public countGear() {
+    return this.gearList.length;
+    // Add data aggr. for active count.
+  }
+
+  // RESERVATIONS
+
+  public loadReservations() {
+
+    this.resvSvc.index().subscribe(
+      rData => {
+        console.log(rData);
+        this.resvList = rData;
+      },
+      rErr => {
+        console.log(rErr);
+      }
+    );
+  }
+
+  public countResv() {
+    return this.resvList.length;
   }
 }

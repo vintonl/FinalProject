@@ -11,6 +11,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TestingComponent } from './components/testing/testing.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
+import { AboutComponent } from './components/about/about.component';
 
 // NOTE: The route 'testing' is just a temporary playground.
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'testing', component: TestingComponent },
   { path: 'navbar', component: NavBarComponent },
   { path: 'reservation', component: ReservationComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'admin', component: AdminComponent },
   { path: '**', component: NotFoundComponent }
 ];

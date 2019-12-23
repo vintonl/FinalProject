@@ -302,10 +302,10 @@ input:checked + .slider:before {
 .btn-defult:hover {
   background-color: whitesmoke;
 }
-#updateGear:hover {
+/* #updateGear:hover {
   background-color: orange;
 
-}
+} */
 
 .modal-footer {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -313,6 +313,7 @@ input:checked + .slider:before {
 .btn {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 
 
 

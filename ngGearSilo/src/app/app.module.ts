@@ -36,7 +36,11 @@ import {
   MatIconModule, MatCardModule, MatDialogModule, MatProgressBar
 } from '@angular/material';
 import { ReservationComponent } from './components/reservation/reservation.component';
+<<<<<<< HEAD
 import { CategoryListComponent } from './category-list/category-list.component';
+=======
+import { AboutComponent } from './components/about/about.component';
+>>>>>>> cbd0135961d4feb6a2f951548d0f669095423ff3
 
 
 
@@ -55,7 +59,11 @@ import { CategoryListComponent } from './category-list/category-list.component';
     AdminComponent,
     TestingComponent,
     ReservationComponent,
+<<<<<<< HEAD
     CategoryListComponent,
+=======
+    AboutComponent,
+>>>>>>> cbd0135961d4feb6a2f951548d0f669095423ff3
 
   ],
   imports: [

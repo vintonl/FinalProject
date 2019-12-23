@@ -1,10 +1,13 @@
+import { Reservation } from './../../models/reservation';
+import { ReservationService } from './../../services/reservation.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Gear } from './../../models/gear';
 import { GearService } from './../../services/gear.service';
 import { Component, OnInit } from '@angular/core';
 import { isNgTemplate } from '@angular/compiler';
-import { userInfo } from 'os';
+import { User } from 'src/app/models/user';
+
 
 @Component({
   selector: 'app-gear-list',
@@ -20,10 +23,13 @@ export class GearListComponent implements OnInit {
   searchedGear: Gear[] = [];
   hideSearchResult = true;
   currentRate = null;
+  resList: Reservation[] = [];
+  loggedInUser: User = new User;
 
 
 
-  constructor(private gearSrv: GearService, private router: Router, private authService: AuthService) { }
+  constructor(private gearSrv: GearService, private resService: ReservationService,
+              private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     const cred = this.authService.getCredentials();
@@ -34,6 +40,7 @@ export class GearListComponent implements OnInit {
     }
 
     this.loadGear();
+    this.loadReseravtions();
   }
 
   loadGear() {
@@ -43,7 +50,6 @@ export class GearListComponent implements OnInit {
         this.gearList.forEach(gear => {
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
-            this.currentRate = gear.user.id;
           }
 
         });
@@ -112,4 +118,50 @@ export class GearListComponent implements OnInit {
     document.getElementById("myForm").style.display = "none";
   }
 
+ // LOAD RESERVATIONS FOR USER
+ loadReseravtions() {
+  this.resList = [];
+  this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+    yes => {
+      this.loggedInUser = yes;
+      console.log('Got logged in user:');
+      console.log(this.loggedInUser);
+      this.resService.index().subscribe(
+        (aGoodThingHappened) => {
+          console.log("loggin a good thing happend");
+          console.log(aGoodThingHappened);
+          aGoodThingHappened.forEach(res => {
+            this.currentRate = res.lenderReview.rating;
+            console.log('in load res from profile ts');
+            console.log("logging all id in res");
+            console.log(aGoodThingHappened.length);
+            this.resList.push(res);
+            // this.lenderRating();
+            // if (res.gearId.user.id === this.loggedInUser.id) {
+            console.log(res);
+            console.log("in the for each for res");
+            console.log(res.gearId.user.id);
+            console.log(this.loggedInUser.id);
+            // this.rating = res.lenderReview.rating;
+            console.log('about to be in rating sum');
+            // this.lenderRating();
+            // this.loggedInUser = e.user;
+            // }
+          });
+        },
+        (didntWork) => {
+          console.log('in load res from profile ts didnt work');
+          console.log(didntWork);
+        }
+      );
+    },
+    no => {
+      console.error('Error laoding res in user');
+      console.error(no);
+    }
+  );
+  console.log(this.loggedInUser);
 }
+
+}
+
