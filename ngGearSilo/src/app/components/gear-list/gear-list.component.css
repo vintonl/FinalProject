@@ -19,7 +19,7 @@
   }
 
   form{
-    display: inline;
+    display: inline !important;
     }
 
 
@@ -43,7 +43,7 @@
 }
 
 .container {
-  margin-left: 230px;
+  /* margin-left: 230px; */
 
 }
 
@@ -63,13 +63,13 @@
   color: #b0c4de;
 }
 .filled {
-  color: #1e90ff;
+  color: orange;
 }
 .bad {
-  color: #deb0b0;
+  color: orange;
 }
 .filled.bad {
-  color: #ff1e1e;
+  color: orange;
 }
 .zoomin img {
   height: 200px;

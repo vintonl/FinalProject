@@ -19,7 +19,7 @@ export class GearListComponent implements OnInit {
   searchResult = false;
   searchedGear: Gear[] = [];
   hideSearchResult = true;
-  currentRate = 6;
+  currentRate = null;
 
 
 
@@ -43,8 +43,12 @@ export class GearListComponent implements OnInit {
         this.gearList.forEach(gear => {
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
+            this.currentRate = gear.user.id;
           }
+
         });
+
+
       },
       (didntWork) => {
         console.log(didntWork);
