@@ -1,3 +1,5 @@
+import { CategoryService } from './services/category.service';
+import { AddressService } from './services/address.service';
 import { UserService } from './services/user.service';
 import { ReviewOfShopperService } from './services/review-of-shopper.service';
 import { ReviewOfLenderService } from './services/review-of-lender.service';
@@ -34,6 +36,11 @@ import {
   MatIconModule, MatCardModule, MatDialogModule, MatProgressBar
 } from '@angular/material';
 import { ReservationComponent } from './components/reservation/reservation.component';
+<<<<<<< HEAD
+import { CategoryListComponent } from './category-list/category-list.component';
+=======
+import { AboutComponent } from './components/about/about.component';
+>>>>>>> cbd0135961d4feb6a2f951548d0f669095423ff3
 
 
 
@@ -52,6 +59,11 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     AdminComponent,
     TestingComponent,
     ReservationComponent,
+<<<<<<< HEAD
+    CategoryListComponent,
+=======
+    AboutComponent,
+>>>>>>> cbd0135961d4feb6a2f951548d0f669095423ff3
 
   ],
   imports: [
@@ -75,7 +87,9 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     UserService,
     ProfileService,
     NavBarComponent,
-    GearListComponent
+    GearListComponent,
+    AddressService,
+    CategoryService
   ],
   bootstrap: [AppComponent, ProfileComponent],
 

@@ -16,4 +16,6 @@ public interface ReservationService {
 	
 	public boolean deleteReservation(String username, int id);
 
+	List<Reservation> findAllReservationsByUserUsername(String username);
+
 }

@@ -33,9 +33,18 @@ public class CategoryController {
 	@Autowired
 	private GearService gearSvc;
 
-	@GetMapping("gears/category")
+	@GetMapping("gears/categories")
 	public List<Category> listAllCategories(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
 		List<Category> categoryList = catSvc.listAllCategories();
+		if (categoryList == null) {
+			resp.setStatus(404);
+		}
+		return categoryList;
+	}
+	
+	@GetMapping("gears/categories")
+	public List<Gear> listGearByCategories(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
+		List<Gear> gearList = gearSvc.find;
 		if (categoryList == null) {
 			resp.setStatus(404);
 		}
