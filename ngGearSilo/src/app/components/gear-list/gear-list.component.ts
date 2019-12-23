@@ -4,7 +4,7 @@ import { Gear } from './../../models/gear';
 import { GearService } from './../../services/gear.service';
 import { Component, OnInit } from '@angular/core';
 import { isNgTemplate } from '@angular/compiler';
-import { userInfo } from 'os';
+// import { userInfo } from 'os';
 
 @Component({
   selector: 'app-gear-list',
