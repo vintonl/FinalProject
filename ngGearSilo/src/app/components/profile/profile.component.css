@@ -226,10 +226,6 @@ body{
   opacity: 1;
 
 }
-
-
-
-
 .switch {
   position: relative;
   display: inline-block;
@@ -305,6 +301,10 @@ input:checked + .slider:before {
 }
 .btn-defult:hover {
   background-color: whitesmoke;
+}
+#updateGear:hover {
+  background-color: orange;
+
 }
 
 .modal-footer {

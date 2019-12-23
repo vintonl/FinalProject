@@ -101,7 +101,7 @@
 
       <!-- CARDS -->
       <div *ngIf="!selected && hideSearchResult">
-        <div class="container" *ngFor="let item of gearList">
+        <div  class="container" *ngFor="let item of gearList">
           <div style="background-color: whitesmoke;" class="row">
             <div style="background-color: whitesmoke;" class="col-xs-8">
               <div (click)="displayGearItem(item)" style="background-color:white; margin: 3px" id="panels"
@@ -110,7 +110,7 @@
                   <div class="panel-title">
                     <div class="row">
                       <div class="col-xs-6">
-                        <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}}, {{item.user.address.city}}</h5>
+                        <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}}, {{item.user.address.state}}</h5>
                         <hr>
                       </div>
                     </div>
@@ -130,7 +130,7 @@
                         <h6><strong><span class="text-muted"></span></strong></h6>
                       </div>
                       <div class="col-xs-4">
-                        <p>{{item.user.firstName}}</p>
+                        <p>{{item.user.firstName | titlecase}}</p>
                         <br>
                         <ngb-rating [(rate)]="currentRate">
                           <ng-template let-fill="fill" let-index="index">
@@ -205,3 +205,19 @@
     <div class="col-1"></div>
   </div>
   <!-- </div> -->
+
+
+
+
+<button class="open-button" (click)="openForm()">Chat</button>
+<div class="chat-popup" id="myForm">
+  <form style="background-color: white; opacity: 1;" action="/action_page.php" class="form-container">
+    <label  for="msg"><b>Message</b></label>
+    <textarea placeholder="Type message.." name="msg" required></textarea>
+    <button type="submit" class="btn">Send</button>
+    <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+  </form>
+</div>
+
+
+
