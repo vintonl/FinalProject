@@ -10,9 +10,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 67dbec4f9c6d50dcddaacef2540fe722795728f5
+=======
+
+>>>>>>> 8b0b73f41dfb68a648e91517a13927e922e237e5
 export class CategoryService {
 
   private baseUrl = environment.baseUrl;
