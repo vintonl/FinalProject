@@ -104,4 +104,12 @@ export class GearListComponent implements OnInit {
     this.keyword = null;
   }
 
+   openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+
+   closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+
 }
