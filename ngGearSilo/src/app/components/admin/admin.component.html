@@ -97,11 +97,49 @@
     </ng-template>
       </ngb-tab>
 
-    <ngb-tab title="Admin" [disabled]="true">
+    <ngb-tab title="Reservations">
       <ng-template ngbTabContent>
-        <p>
-          Open for other right now.
-        </p>
+        <div id="resvList" class="container" *ngIf="!selectedResv">
+          <table class="table table-striped table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Reservation Id</th>
+                <th>Lender Id</th>
+                <th>Lender Email</th>
+                <th>Renter Id</th>
+                <th>Renter Email</th>
+                <th>Created Date</th>
+                <th>Approved</th>
+                <th>Approved</th>
+                <th>Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let gear of gearList" class="showHand" (click)="selectedResv = true">
+                <td>{{ resv.id }}</td>
+                <td>{{ resv.gearId.user.id }}</td>
+                <td>{{ resv.gearId.user.email }}</td>
+                <td>{{ resv.userShopper.id }}</td>
+                <td>{{ resv.userShopper.email }}</td>
+                <td>{{ resv.createdAt }}</td>
+                <td>{{ resv.approved }}</td>
+                <td>{{ resv.completed }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Single Display w/Options Going Here -->
+        <div *ngIf="selectedResv">
+          <a>Diplay Single</a>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            (click)="selectedGear = false"
+          >
+            Back
+          </button>
+        </div>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>
