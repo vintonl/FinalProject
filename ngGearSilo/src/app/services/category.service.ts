@@ -9,7 +9,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+<<<<<<< HEAD
 
+=======
+>>>>>>> 67dbec4f9c6d50dcddaacef2540fe722795728f5
 export class CategoryService {
 
   private baseUrl = environment.baseUrl;

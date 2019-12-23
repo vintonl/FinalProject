@@ -30,6 +30,15 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		return null;	
 	}
+	
+	@Override
+	public List<Reservation> findAllReservationsByUserUsername(String username) {
+		User user = uRepo.findUserByUsername(username);
+		
+		List<Reservation> reservations = resRepo.findByGearId_User_Id(user.getId());
+		
+		return reservations;	
+	}
 
 	@Override
 	public Reservation findReservationById(String username, int id) {

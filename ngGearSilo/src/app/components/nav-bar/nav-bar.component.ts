@@ -18,6 +18,9 @@ export class NavBarComponent implements OnInit {
     //   this.loadUser();
     // }
   }
+  userLogInCheck(){
+    return this.authService.getCredentials();
+  }
 
   logout() {
     // this.userLoggedIn = null;

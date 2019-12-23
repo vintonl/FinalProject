@@ -13,5 +13,7 @@ public interface GearRepository extends JpaRepository<Gear, Integer> {
 	List<Gear> findByUser_Username(String username);
 
 	List<Gear> findByUserUsername(String username);
+
+	List<Gear> findByCategories(String username, String category);
 	
 }

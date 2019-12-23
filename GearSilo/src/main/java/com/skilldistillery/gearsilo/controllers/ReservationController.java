@@ -9,18 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
 import com.skilldistillery.gearsilo.services.ReservationService;
-import com.skilldistillery.gearsilo.services.UserService;
 
 @RestController
 @RequestMapping("api")
@@ -39,6 +34,23 @@ public class ReservationController {
 			resp.setStatus(204);
 		}
 
+		if (res == null) {
+			resp.setStatus(404);
+		}
+		System.out.println("IN RES CONTROLLER RETURN");
+		System.out.println(res);
+		return res;
+	}
+	
+	@GetMapping("reservations/users")
+	public List<Reservation> indexByUser(Principal p, HttpServletRequest req, HttpServletResponse resp) {
+		List<Reservation> res = resSvc.findAllReservationsByUserUsername(p.getName());
+		System.out.println("IN RES CONTROLLER");
+		
+		if (res != null && res.size() == 0) {
+			resp.setStatus(204);
+		}
+		
 		if (res == null) {
 			resp.setStatus(404);
 		}
