@@ -2,8 +2,9 @@
   <div class="container-fluid navbar navbar-light bg-light">
     <a class="navbar-brand"><strong>Admin</strong></a>
     <h1>
-      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users and
-      <span class="badge badge-primary">{{ countGear() }}</span> pieces of Gear
+      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users,
+      <span class="badge badge-primary">{{ countGear() }}</span> pieces of Gear, and
+      <span class="badge badge-primary">{{ countResv() }}</span> Reservations
     </h1>
   </div>
 </nav>
@@ -116,7 +117,7 @@
                 <td>{{ reservation.id }}</td>
                 <td>{{ reservation.gearId.user.id }}</td>
                 <td>{{ reservation.userShopper.id }}</td>
-                <td>{{ reservation.createdAt }}</td>
+                <td type="date">{{ reservation.createdAt | date: "shortDate" }}</td>
                 <td>{{ reservation.approved }}</td>
                 <td>{{ reservation.completed }}</td>
               </tr>
