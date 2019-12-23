@@ -28,7 +28,7 @@
 	padding: 0;
 }
 .star-rating i {
-	font-size: 14px;
+	font-size: 30px;
 	color: #ffc000;
 }
 
@@ -111,7 +111,7 @@
   width: 350px;
   border: 3px solid #f1f1f1;
   z-index: 9;
-  opacity: ;
+  opacity: 50;
 }
 
 /* Add styles to the form container */
