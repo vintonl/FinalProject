@@ -12,5 +12,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 //
 	Reservation findByUserShopper_UsernameAndId(String username, int id);
 	
+	List<Reservation> findByGearId_User_Id(int userId);
+	
 	
 }

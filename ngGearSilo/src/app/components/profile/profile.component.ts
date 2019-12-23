@@ -30,6 +30,8 @@ export class ProfileComponent implements OnInit {
   loggedInUser: User = new User();
   myGear: Gear[] = [];
   myReservations: Reservation[] = [];
+  rating: number;
+  deleteId: number;
 
 
 
@@ -79,10 +81,8 @@ export class ProfileComponent implements OnInit {
             aGoodThingHappened.forEach(gear => {
 
               if (gear.user.id === this.loggedInUser.id) {
-                console.log("*************************get user id");
-                console.log(gear.user.id);
-                console.log(this.loggedInUser.id);
                 this.gearList.push(gear);
+                this.checkImageURl();
 
                 // this.loggedInUser = e.user;
               }
@@ -99,53 +99,50 @@ export class ProfileComponent implements OnInit {
       }
     );
     console.log(this.loggedInUser);
-    // this.loggedInUser = this.userService.getUserById();
   }
-
-
-
-
 
 
   // DELETE GEAR
-  deleteGear(id: number) {
+  deleteGear() {
 
-    console.log("in delete gear profile comp");
-    console.log(id);
+    console.log("in delete gear ")
+    console.log(this.deleteId);
 
-    this.gearSrv.destroy(id).subscribe(
+    this.gearSrv.destroy(this.deleteId).subscribe(
       (good) => {
+        this.ngOnInit();
         console.log(good);
-
-
+        this.deleteId = null;
       },
       (bad) => {
         console.log("error " + bad);
+        this.deleteId = null;
       }
     );
-    this.selecteditem = null;
-    this.ngOnInit();
   }
 
+  onClickDelete(itemId: number) {
+    console.log("in delete click")
+    console.log(itemId);
 
+    this.deleteId = itemId;
 
+  }
 
   // ADD GEAR
-
   addGear() {
     this.newGear.active = true;
     this.newGear.available = true;
     if (this.newGear.imageUrl === null || this.newGear.imageUrl === undefined) {
-      this.newGear.imageUrl = "https://i.imgur.com/zL0KtqB.png";
+      this.newGear.imageUrl = "https://i.imgur.com/gkIBm2x.png";
     }
     this.gearSrv.create(this.newGear).subscribe(
       newGear => {
-        this.loadGear();
         this.newGear = new Gear();
       },
       err => console.log('Observer got an error: ' + err)
     );
-    this.loadGear();
+    this.ngOnInit();
     this.newGear = null;
   }
   onClick(item: any, lgModal: any) {
@@ -167,7 +164,6 @@ export class ProfileComponent implements OnInit {
 
 
   // UPDATE THE GEAR
-
   updateGear() {
 
     this.updatedGear.id = this.selecteditem.id;
@@ -191,27 +187,22 @@ export class ProfileComponent implements OnInit {
       this.updatedGear.price = this.selecteditem.price;
     }
 
-    console.log("in profile comp update + gear id" + this.updatedGear.id + "  " + this.updatedGear.description);
-    console.log("in profile comp update + gear name" + this.updatedGear.name);
     this.selecteditem = null;
     this.gearSrv.update(this.updatedGear).subscribe(
       data => {
-        this.ngOnInit();
+
         this.updatedGear = data;
         this.updatedGear = null;
         this.selecteditem = null;
+
       },
       err => console.log('Update got an error: ' + err));
 
-    this.ngOnInit();
-
+    location.reload();
+    this.loadGear();
   }
 
-
-
-
   // UPDATE USER
-
   updateUser() {
     this.editedUser.id = this.loggedInUser.id;
     this.editedUser.password = this.loggedInUser.password;
@@ -231,10 +222,6 @@ export class ProfileComponent implements OnInit {
       this.editedUser.phone = this.loggedInUser.phone;
     }
 
-
-
-    console.log("in profile comp update + user id" + this.editedUser.id + ' ' + this.editedUser.lastName + " " + this.editedUser.phone);
-
     this.userService.update(this.editedUser).subscribe(
       data => {
         // this.editedUser = data;
@@ -246,18 +233,14 @@ export class ProfileComponent implements OnInit {
     );
     this.editedUser = null;
     this.ngOnInit();
-
-
-
   }
 
 
 
   // LOAD RESERVATIONS FOR USER
-
   loadReseravtions() {
     this.myReservations = [];
-    let rating;
+
 
     // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
     //   yes => {
@@ -271,27 +254,34 @@ export class ProfileComponent implements OnInit {
         console.log(aGoodThingHappened);
 
         aGoodThingHappened.forEach(res => {
-          console.log('in load res from profiel ts');
+          console.log('in load res from profile ts');
           console.log(aGoodThingHappened);
 
-          if (res.gearId.user.id === this.loggedInUser.id) {
+          console.log("logging all id in res");
+          console.log(res.gearId.user.id);
+
+
+          if (res.gearId.user.username === this.loggedInUser.username) {
             this.myReservations.push(res);
+            this.lenderRating();
 
-            console.log(res);
+            console.log("in the for each for res");
+            console.log(res.gearId.user.id);
+            console.log(this.loggedInUser.id);
 
-            rating = res.lenderReview.rating;
+            this.rating = res.lenderReview.rating;
 
-            console.log(rating + "ratimg");
+            console.log(this.rating + "rating");
 
             console.log('about to be in rating sum');
-            this.lenderRating();
+            // this.lenderRating();
 
             // this.loggedInUser = e.user;
           }
         });
       },
       (didntWork) => {
-        console.log('in load res from profiel ts didnt work');
+        console.log('in load res from profile ts didnt work');
         console.log(didntWork);
       }
     );
@@ -307,17 +297,22 @@ export class ProfileComponent implements OnInit {
 
 
   lenderRating() {
-    console.log("rating sum");
-    // console.log(this.myReservations[Symbol]);
-    let rating;
+    console.log("in lender rating sum");
 
     this.myReservations.forEach(res => {
-      rating = res.lenderReview.rating;
-      console.log(rating);
+      this.rating = res.lenderReview.rating;
       console.log("rating sum");
     });
 
 
+
+  }
+
+  checkImageURl() {
+
+    if (this.loggedInUser.imageUrl.length < 10 || this.loggedInUser.imageUrl === null || this.loggedInUser.imageUrl === undefined) {
+      this.loggedInUser.imageUrl = "https://i.imgur.com/zVdNnTx.png";
+    }
 
   }
 

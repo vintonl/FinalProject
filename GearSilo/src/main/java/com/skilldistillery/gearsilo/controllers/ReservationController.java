@@ -46,6 +46,23 @@ public class ReservationController {
 		System.out.println(res);
 		return res;
 	}
+	
+	@GetMapping("reservations/users")
+	public List<Reservation> indexByUser(Principal p, HttpServletRequest req, HttpServletResponse resp) {
+		List<Reservation> res = resSvc.findAllReservationsByUserUsername(p.getName());
+		System.out.println("IN RES CONTROLLER");
+		
+		if (res != null && res.size() == 0) {
+			resp.setStatus(204);
+		}
+		
+		if (res == null) {
+			resp.setStatus(404);
+		}
+		System.out.println("IN RES CONTROLLER RETURN");
+		System.out.println(res);
+		return res;
+	}
 
 //	@GetMapping("user{id}reservations/{id}")
 //	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {

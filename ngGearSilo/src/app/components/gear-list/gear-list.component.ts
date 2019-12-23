@@ -1,7 +1,10 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Gear } from './../../models/gear';
 import { GearService } from './../../services/gear.service';
 import { Component, OnInit } from '@angular/core';
+import { isNgTemplate } from '@angular/compiler';
+import { userInfo } from 'os';
 
 @Component({
   selector: 'app-gear-list',
@@ -16,10 +19,20 @@ export class GearListComponent implements OnInit {
   searchResult = false;
   searchedGear: Gear[] = [];
   hideSearchResult = true;
+  currentRate = null;
 
-  constructor(private gearSrv: GearService, private router: Router) { }
+
+
+  constructor(private gearSrv: GearService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    const cred = this.authService.getCredentials();
+
+    if (cred === null) {
+      this.router.navigateByUrl('/login');
+
+    }
+
     this.loadGear();
   }
 
@@ -27,11 +40,21 @@ export class GearListComponent implements OnInit {
     this.gearSrv.index().subscribe(
       (aGoodThingHappened) => {
         this.gearList = aGoodThingHappened;
+        this.gearList.forEach(gear => {
+          if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
+            gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
+            this.currentRate = gear.user.id;
+          }
+
+        });
+
+
       },
       (didntWork) => {
         console.log(didntWork);
       }
     );
+
   }
 
   displayGearItem(gear: Gear) {
@@ -79,6 +102,14 @@ export class GearListComponent implements OnInit {
     this.hideSearchResult = false;
 
     this.keyword = null;
+  }
+
+   openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+
+   closeForm() {
+    document.getElementById("myForm").style.display = "none";
   }
 
 }
