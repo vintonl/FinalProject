@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { isNgTemplate } from '@angular/compiler';
 import { User } from 'src/app/models/user';
 
+
 @Component({
   selector: 'app-gear-list',
   templateUrl: './gear-list.component.html',

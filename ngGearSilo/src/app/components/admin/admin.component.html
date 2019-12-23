@@ -1,16 +1,18 @@
 <nav>
   <div class="container-fluid navbar navbar-light bg-light">
     <a class="navbar-brand"><strong>Admin</strong></a>
-    <h1 *ngIf="!selectedUser">
-      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users
+    <h1>
+      <span class="badge badge-primary">{{ countUsers() }}</span> GearSilo Users,
+      <span class="badge badge-primary">{{ countGear() }}</span> pieces of Gear, and
+      <span class="badge badge-primary">{{ countResv() }}</span> Reservations
     </h1>
   </div>
 </nav>
 <div class="container-fluid bg-light">
-  <ngb-tabset>
-    <ngb-tab title="Users">
+  <ngb-tabset >
+    <ngb-tab title="Users" (tabChange)="selectedUser = false">
       <ng-template ngbTabContent>
-        <div id="userList" class="container" *ngIf="!selectedUser">
+        <div id="userList" class="container-fluid" *ngIf="!selectedUser">
           <table class="table table-striped table-hover">
             <thead class="thead-light">
               <tr>
@@ -26,7 +28,7 @@
               <tr
                 class="showHand"
                 *ngFor="let user of users"
-                (click)="selectedUser = true"
+                (click)="selectedUser = user"
               >
                 <td>{{ user.id }}</td>
                 <td>{{ user.lastName }}</td>
@@ -40,22 +42,70 @@
         </div>
 
         <!-- Single Display w/Options Going Here -->
-        <div *ngIf="selectedUser">
-          <a>Diplay Single</a>
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            (click)="selectedUser = false"
-          >
-            Back
-          </button>
-        </div>
+          <div class="container" id="oneUser" *ngIf="selectedUser"> <!-- Add && !selectedUpdate element here -->
+            <h1>{{ selectedUser.firstName | uppercase }} {{ selectedUser.lastName | uppercase }}</h1>
+            <br />
+            <ul class="list-group">
+              <li class="list-group-item">
+                User Id: {{ selectedUser.id }}
+              </li>
+              <li class="list-group-item">
+                Email: {{ selectedUser.email }}
+              </li>
+              <li class="list-group-item">
+                Password: $ {{ selectedUser.password }}
+              </li>
+              <li class="list-group-item">
+                Address: {{ selectedUser.address.address }}
+              </li>
+              <li class="list-group-item">
+                Address2: {{ selectedUser.address.address2 }}
+              </li>
+              <li class="list-group-item">
+                City: {{ selectedUser.address.city }}
+              </li>
+              <li class="list-group-item">
+                State: {{ selectedUser.address.state }}
+              </li>
+              <li class="list-group-item">
+                Country: {{ selectedUser.address.country }}
+              </li>
+              <li class="list-group-item">
+                Postal Code: {{ selectedUser.address.postalCode }}
+              </li>
+              <li class="list-group-item">
+                Phone: {{ selectedUser.phone }}
+              </li>
+              <li class="list-group-item">
+                Created: {{ selectedUser.createdAt | date: "shortDate" }}
+              </li>
+              <li class="list-group-item">
+                Last Updated: {{ selectedUser.updatedAt | date: "shortDate" }}
+              </li>
+              <li class="list-group-item">
+                Role: {{ selectedUser.role }}
+              </li>
+              <li class="list-group-item">
+                Created: {{ selectedUser.enabled }}
+              </li>
+
+            </ul>
+            <br />
+            <div class="btn-group" role="group" aria-label="selected task">
+              <button class="btn btn-outline-success" (click)="selectedUser = null">
+                Back
+              </button>
+              <button class="btn btn-outline-success" > <!-- (click)="setUpdateUser()" -->
+                Edit
+              </button>
+            </div>
+          </div>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
       <ng-template ngbTabTitle><b>Gear</b> List</ng-template>
       <ng-template ngbTabContent>
-      <div id="gearList" class="container" *ngIf="!selectedGear">
+      <div id="gearList" class="container-fluid" *ngIf="!selectedGear">
         <table class="table table-striped table-hover">
           <thead class="thead-light">
             <tr>
@@ -96,11 +146,44 @@
     </ng-template>
       </ngb-tab>
 
-    <ngb-tab title="Admin" [disabled]="true">
+    <ngb-tab title="Reservations">
       <ng-template ngbTabContent>
-        <p>
-          Open for other right now.
-        </p>
+        <div id="resvList" class="container-fluid" *ngIf="!selectedResv">
+          <table class="table table-striped table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Reservation Id</th>
+                <th>Lender Id</th>
+                <th>Renter Id</th>
+                <th>Created Date</th>
+                <th>Approved</th>
+                <th>Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let reservation of resvList" class="showHand" (click)="selectedResv = true">
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.gearId.user.id }}</td>
+                <td>{{ reservation.userShopper.id }}</td>
+                <td type="date">{{ reservation.createdAt | date: "shortDate" }}</td>
+                <td>{{ reservation.approved }}</td>
+                <td>{{ reservation.completed }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Single Display w/Options Going Here -->
+        <div *ngIf="selectedResv">
+          <a>Diplay Single</a>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            (click)="selectedResv = false"
+          >
+            Back
+          </button>
+        </div>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>

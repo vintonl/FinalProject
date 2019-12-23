@@ -19,13 +19,16 @@ export class RegisterComponent implements OnInit {
   register(userForm: NgForm) {
     const user: User = userForm.value;
 
+    console.log('User in the registration comp');
+    console.log(userForm);
+
     this.auth.register(user).subscribe(
       data => {
         console.log('RegisterComponent.register(): user registered.');
         console.log(data);
         this.auth.login(user.username, user.password).subscribe(
           next => {
-            console.log('RegisterComponent.register(): user logged in, routing to /todo.');
+            console.log('RegisterComponent.register(): user logged in, routing to /gears.');
             this.router.navigateByUrl('/gears');
             console.log(next);
           },
