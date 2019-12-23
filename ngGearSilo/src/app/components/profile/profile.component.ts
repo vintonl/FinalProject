@@ -138,7 +138,6 @@ export class ProfileComponent implements OnInit {
     }
     this.gearSrv.create(this.newGear).subscribe(
       newGear => {
-        this.ngOnInit();
         this.newGear = new Gear();
       },
       err => console.log('Observer got an error: ' + err)
@@ -255,10 +254,10 @@ export class ProfileComponent implements OnInit {
         console.log(aGoodThingHappened);
 
         aGoodThingHappened.forEach(res => {
-          console.log('in load res from profiel ts');
+          console.log('in load res from profile ts');
           console.log(aGoodThingHappened);
 
-          console.log("logginf all id in res");
+          console.log("logging all id in res");
           console.log(res.gearId.user.id);
 
 
@@ -272,7 +271,7 @@ export class ProfileComponent implements OnInit {
 
             this.rating = res.lenderReview.rating;
 
-            console.log(this.rating + "ratimg");
+            console.log(this.rating + "rating");
 
             console.log('about to be in rating sum');
             // this.lenderRating();
@@ -282,7 +281,7 @@ export class ProfileComponent implements OnInit {
         });
       },
       (didntWork) => {
-        console.log('in load res from profiel ts didnt work');
+        console.log('in load res from profile ts didnt work');
         console.log(didntWork);
       }
     );
