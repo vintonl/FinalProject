@@ -8,12 +8,12 @@
     <div class="col-10">
       <div>
         <br>
-        <form style="display: inline">
+        <form >
           <div class="container-center">
             <div class="active-pink-3 active-pink-4 mb-4">
               <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword"
                 [(ngModel)]="keyword">
-              <button style="display: inline-block;" class="btn btn-dark my-2 my-sm-0" type="submit"
+              <button  class="btn btn-dark my-2 my-sm-0" type="submit"
                 (click)="search(); selected=null">Search by
                 keyword</button>
             </div>
@@ -31,7 +31,7 @@
         </div>
 
 
-        <!-- CLICKED-ON GEAR RESULTS -->
+        <!-- SEARCHED GEAR RESULTS -->
         <div *ngIf="searchedGear.length > 0">
           <div class="text-center">
             <h2>Search Results</h2>
@@ -110,7 +110,7 @@
                   <div class="panel-title">
                     <div class="row">
                       <div class="col-xs-6">
-                        <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}}</h5>
+                        <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}}, {{item.user.address.city}}</h5>
                         <hr>
                       </div>
                     </div>
