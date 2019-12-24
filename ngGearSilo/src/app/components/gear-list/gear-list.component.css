@@ -42,8 +42,8 @@
 
 }
 
-.container {
-  /* margin-left: 230px; */
+.list-group {
+  background-color: blue;
 
 }
 
@@ -160,4 +160,49 @@
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+ .carousel {
+  /* display: block; */
+  width: 80%;
+  height: auto;
+}
+
+
+.carousel-inner > .carousel-item > img {
+  display: block;
+  width: 90%;
+  height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 0px;
+  /* height: 300px; Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.resImage {
+  position: absolute;
+  clip: rect(0px,400px,300px,0px);
+  align-content: center;
+  margin-top: -50px;
+  background-position: center center !important;
+  height: auto;
+  max-height: 300px !important;
+  overflow: hidden;
+
+
 }
