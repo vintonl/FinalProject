@@ -43,11 +43,16 @@ export class GearListComponent implements OnInit {
   loadGear() {
     this.gearSrv.index().subscribe(
       (aGoodThingHappened) => {
+        console.log("in a aGoodThingHappened Gear");
+        console.log(aGoodThingHappened);
         this.gearList = aGoodThingHappened;
         this.gearList.forEach(gear => {
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
+
+
           }
+          gear.user.userLenderRating = gear.user.id;
 
         });
 
@@ -126,6 +131,8 @@ export class GearListComponent implements OnInit {
 
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
+
+        console.log("in a aGoodThingHappened REs");
         console.log(aGoodThingHappened);
 
         this.resList = aGoodThingHappened;
@@ -133,7 +140,7 @@ export class GearListComponent implements OnInit {
         console.log(this.resList);
         console.log(this.resList.length);
         console.log(this.resList.values);
-        console.log("+++++++++++++++++====");
+        console.log('+++++++++++++++++====');
 
 
         this.resList.forEach(res => {
@@ -142,9 +149,11 @@ export class GearListComponent implements OnInit {
 
           if (res.lenderReview.rating > 0) {
 
-            this.rating = this.rating + res.lenderReview.rating;
 
-            this.averageRating = this.rating / this.resList.length;
+
+            this.rating = res.lenderReview.rating;
+
+            this.averageRating = this.rating;
           }
 
 
@@ -156,13 +165,13 @@ export class GearListComponent implements OnInit {
         console.log(didntWork);
       }
     );
-    // },
-    //   no => {
-    //     console.error('Error laoding res in user');
-    //     console.error(no);
-    //   }
-    // );
-    console.log(this.loggedInUser);
+    //     },
+    //     no => {
+    //       console.error('Error laoding res in user');
+    //       console.error(no);
+    //     }
+    //   );
+    //   console.log(this.loggedInUser);
   }
 
 

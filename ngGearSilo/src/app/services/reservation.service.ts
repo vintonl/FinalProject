@@ -40,7 +40,7 @@ export class ReservationService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.get<Reservation[]>(this.url + '/users', httpOptions)
+    return this.http.get<Reservation[]>(this.url, httpOptions)
       .pipe(
         catchError((err: any) => {
           console.log(err);

@@ -43,7 +43,8 @@
 }
 
 .list-group {
-  background-color: blue;
+  /* background-color: blue; */
+  border: none;
 
 }
 
@@ -203,6 +204,7 @@
   height: auto;
   max-height: 300px !important;
   overflow: hidden;
+  border-radius: 2%;
 
 
 }
