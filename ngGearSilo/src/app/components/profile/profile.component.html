@@ -44,7 +44,9 @@
 
         <!-- MY RESERVATIONS BUTTON -->
         <button data-toggle="modal" data-target="#myGearReservations" class="btn btn-defult"><i aria-hidden="true"></i>
-          My Gear Reservations</button>
+          Gear I am lending </button>
+        <button data-toggle="modal" data-target="#myGearReservations" class="btn btn-defult"><i aria-hidden="true"></i>
+          Gear I am renting</button>
 
 
       </div>
@@ -424,11 +426,13 @@
                       <td>{{res.closeDate | date}}</td>
                       <!-- <td>{{res.approved}}</td> -->
                       <td>
+
                         <label class="switch">
                           <input type="checkbox" data-toggle="toggle" data-on=1 data-off=0
                             placeholder="{{res.approved}}">
                           <span class="slider"></span>
                         </label>
+
                       </td>
                     </tr>
                   </tbody>
