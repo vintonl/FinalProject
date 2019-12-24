@@ -1,3 +1,4 @@
+import { ReviewOfLender } from './../../models/review-of-lender';
 import { Reservation } from './../../models/reservation';
 import { ReservationService } from './../../services/reservation.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,20 +25,16 @@ export class GearListComponent implements OnInit {
   hideSearchResult = true;
   currentRate = null;
   resList: Reservation[] = [];
-  loggedInUser: User = new User;
+  loggedInUser: User = new User();
+  rating = 0;
+  averageRating = 0;
 
 
 
   constructor(private gearSrv: GearService, private resService: ReservationService,
-              private router: Router, private authService: AuthService) { }
+    private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    const cred = this.authService.getCredentials();
-
-    if (cred === null) {
-      this.router.navigateByUrl('/login');
-
-    }
 
     this.loadGear();
     this.loadReseravtions();
@@ -110,58 +107,65 @@ export class GearListComponent implements OnInit {
     this.keyword = null;
   }
 
-   openForm() {
+  openForm() {
     document.getElementById("myForm").style.display = "block";
   }
 
-   closeForm() {
+  closeForm() {
     document.getElementById("myForm").style.display = "none";
   }
 
- // LOAD RESERVATIONS FOR USER
- loadReseravtions() {
-  this.resList = [];
-  this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-    yes => {
-      this.loggedInUser = yes;
-      console.log('Got logged in user:');
-      console.log(this.loggedInUser);
-      this.resService.index().subscribe(
-        (aGoodThingHappened) => {
-          console.log("loggin a good thing happend");
-          console.log(aGoodThingHappened);
-          aGoodThingHappened.forEach(res => {
-            this.currentRate = res.lenderReview.rating;
-            console.log('in load res from profile ts');
-            console.log("logging all id in res");
-            console.log(aGoodThingHappened.length);
-            this.resList.push(res);
-            // this.lenderRating();
-            // if (res.gearId.user.id === this.loggedInUser.id) {
-            console.log(res);
-            console.log("in the for each for res");
-            console.log(res.gearId.user.id);
-            console.log(this.loggedInUser.id);
-            // this.rating = res.lenderReview.rating;
-            console.log('about to be in rating sum');
-            // this.lenderRating();
-            // this.loggedInUser = e.user;
-            // }
-          });
-        },
-        (didntWork) => {
-          console.log('in load res from profile ts didnt work');
-          console.log(didntWork);
-        }
-      );
-    },
-    no => {
-      console.error('Error laoding res in user');
-      console.error(no);
-    }
-  );
-  console.log(this.loggedInUser);
-}
+  // LOAD RESERVATIONS FOR USER
+  loadReseravtions() {
+    this.resList = [];
+    // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+    //   yes => {
+    //     this.loggedInUser = yes;
+    //     console.log('Got logged in user:');
+    //     console.log(this.loggedInUser);
+
+    this.resService.index().subscribe(
+      (aGoodThingHappened) => {
+        console.log(aGoodThingHappened);
+
+        this.resList = aGoodThingHappened;
+
+        console.log(this.resList);
+        console.log(this.resList.length);
+        console.log(this.resList.values);
+        console.log("+++++++++++++++++====");
+
+
+        this.resList.forEach(res => {
+          console.log(res);
+          console.log(res.lenderReview.rating);
+
+          if (res.lenderReview.rating > 0) {
+
+            this.rating = this.rating + res.lenderReview.rating;
+
+            this.averageRating = this.rating / this.resList.length;
+          }
+
+
+
+        });
+      },
+      (didntWork) => {
+        console.log('in load res from profile ts didnt work');
+        console.log(didntWork);
+      }
+    );
+    // },
+    //   no => {
+    //     console.error('Error laoding res in user');
+    //     console.error(no);
+    //   }
+    // );
+    console.log(this.loggedInUser);
+  }
+
+
 
 }
 

@@ -31,6 +31,8 @@
         </div>
 
 
+
+
         <!-- SEARCHED GEAR RESULTS -->
         <div *ngIf="searchedGear.length > 0">
           <div class="text-center">
@@ -132,12 +134,12 @@
                       <div class="col-xs-4">
                         <p>{{item.user.firstName | titlecase}}</p>
                         <br>
-                        <ngb-rating [(rate)]="item.user.id" [readonly]="true">
+                        <ngb-rating [(rate)]="averageRating" [readonly]="true">
                           <ng-template let-fill="fill" let-index="index" >
                             <span class="star" [class.filled]="fill === 100" [class.bad]="index < 0">&#9733;</span>
                           </ng-template>
                         </ngb-rating>
-                        <h6>Rating: <b>{{item.user.id}}</b></h6>
+                        <h6 style="margin-left: -10px ;">User Rating: <b style="color: grey;">{{averageRating}}</b></h6>
                       </div>
                     </div>
                   </div>
