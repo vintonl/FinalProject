@@ -1,17 +1,18 @@
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Reservation } from './../../models/reservation';
-import { GearService } from 'src/app/services/gear.service';
-import { UserService } from './../../services/user.service';
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { Gear } from 'src/app/models/gear';
-import { ReservationService } from 'src/app/services/reservation.service';
+import { userInfo } from "os";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
+import { Reservation } from "./../../models/reservation";
+import { GearService } from "src/app/services/gear.service";
+import { UserService } from "./../../services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { User } from "src/app/models/user";
+import { Gear } from "src/app/models/gear";
+import { ReservationService } from "src/app/services/reservation.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: "app-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.css"]
 })
 export class AdminComponent implements OnInit {
   users: User[] = [];
@@ -66,10 +67,15 @@ export class AdminComponent implements OnInit {
 
   public countUsers() {
     return this.users.length;
-    // set data aggr. for active users
+
   }
 
-  public setUpdateExpense() {
+  public countActiveU() {
+    // set data aggr. for active users
+
+  }
+
+  public setUpdateUser() {
     this.updateUser = Object.assign({}, this.selectedUser);
   }
 
@@ -82,7 +88,7 @@ export class AdminComponent implements OnInit {
       },
       uErr => {
         this.loadUsers();
-        console.error('updatedExpense: Error');
+        console.error("updatedUser: Error");
         console.error(uErr);
       }
     );
@@ -115,7 +121,6 @@ export class AdminComponent implements OnInit {
   // RESERVATIONS
 
   public loadReservations() {
-
     this.resvSvc.index().subscribe(
       rData => {
         console.log(rData);

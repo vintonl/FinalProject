@@ -7,9 +7,9 @@
   <div class="card bordered shadow mb-3">
     <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
     <div class="card-body">
-      <h1 class="card-title"><span class="badge shadow">User Status</span></h1>
-      <h3><span class="badge border shadow">{{ countUsers() }}</span> Total Users</h3>
-      <h3><span class="badge border shadow">{{ countUsers() }}</span> Active Users</h3>
+      <h1 class="card-title">User Status</h1>
+      <h4><span class="badge badge-secondary border shadow">Total Users: {{ countUsers() }}</span></h4>
+      <h4><span class="badge badge-primary border shadow">Active Users: {{ countUsers() }}</span></h4>
     </div>
     <div class="card-footer">
       <small class="text-muted"></small>
@@ -18,18 +18,20 @@
   <div class="card bordered shadow mb-3">
     <!-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> -->
     <div class="card-body">
-      <h1 class="card-title"><span class="badge shadow">Gear Status</span></h1>
-      <h3><span class="badge border shadow">{{ countGear() }}</span> Total Items</h3>
+      <h1 class="card-title">Gear Status</h1>
+      <h4><span class="badge badge-secondary border shadow">Total Gear: {{ countGear() }}</span></h4>
+      <h4><span class="badge badge-primary border shadow">Available Gear: {{ countGear() }}</span></h4>
     </div>
     <div class="card-footer">
       <small class="text-muted"></small>
     </div>
   </div>
   <div class="card bordered shadow mb-3">
-    <!-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> -->
-    <div class="card-body">
-      <h1 class="card-title"><span class="badge shadow">Reservation Status</span></h1>
-      <h3><span class="badge border shadow">{{ countResv() }}</span> Total Reservations</h3>
+    <!-- <img class="card-img-top" src="src/assets/img/019 Malibu Beach.jpg" alt="Card image cap"> -->
+    <div class="card-body" >
+      <h1 class="card-title">Reservation Status</h1>
+      <h4><span class="badge badge-secondary border shadow">Total Reservations: {{ countResv() }}</span></h4>
+      <h4><span class="badge badge-primary border shadow">Active Reservations: {{ countResv() }}</span></h4>
     </div>
     <div class="card-footer">
       <small class="text-muted"></small>
@@ -191,7 +193,7 @@
             <li class="list-group-item">
               Description: {{ selectedGear.description }}
             </li>
-            <li class="list-group-item">Price: {{ selectedGear.price }}</li>
+            <li class="list-group-item">Price: $ {{ selectedGear.price }}</li>
             <li class="list-group-item">IMG-1: {{ selectedGear.imageUrl }}</li>
             <li class="list-group-item">IMG-2: {{ selectedGear.imageUrl2 }}</li>
             <li class="list-group-item">IMG-3: {{ selectedGear.imageUrl3 }}</li>
