@@ -38,6 +38,7 @@ import {
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { AboutComponent } from './components/about/about.component';
+import { MessagingComponent } from './components/messaging/messaging.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { AboutComponent } from './components/about/about.component';
     ReservationComponent,
     CategoryListComponent,
     AboutComponent,
+    MessagingComponent,
 
   ],
   imports: [
