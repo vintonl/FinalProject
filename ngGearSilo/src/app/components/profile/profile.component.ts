@@ -30,11 +30,14 @@ export class ProfileComponent implements OnInit {
   loggedInUser: User = new User();
   myGear: Gear[] = [];
   myReservations: Reservation[] = [];
+  myRes: Reservation;
   rating: number;
   deleteId: number;
   needApprovedRes = 0;
   needsApprovedRes: Reservation[] = [];
   reservationStatus;
+  marked = false;
+  theCheckbox = false;
 
 
 
@@ -62,6 +65,7 @@ export class ProfileComponent implements OnInit {
 
     this.loadGear();
     this.loadReseravtions();
+
   }
 
 
@@ -86,6 +90,7 @@ export class ProfileComponent implements OnInit {
               if (gear.user.id === this.loggedInUser.id) {
                 this.gearList.push(gear);
                 this.checkImageURl();
+                // this.selecteditem.active = true;
 
                 // this.loggedInUser = e.user;
               }
@@ -101,7 +106,6 @@ export class ProfileComponent implements OnInit {
         console.error(no);
       }
     );
-    console.log(this.loggedInUser);
   }
 
 
@@ -172,6 +176,8 @@ export class ProfileComponent implements OnInit {
   updateGear() {
 
     console.log('in update gear');
+    console.log(this.updatedGear.active);
+    console.log(this.reservationStatus);
 
     this.updatedGear.id = this.selecteditem.id;
     this.updatedGear.active = this.reservationStatus;
@@ -203,12 +209,13 @@ export class ProfileComponent implements OnInit {
       },
       err => console.log('Update got an error: ' + err));
 
-    location.reload();
-    this.loadGear();
+    // location.reload();
+    // this.loadGear();
   }
 
   // UPDATE USER
   updateUser() {
+    console.log("in update user")
     this.editedUser.id = this.loggedInUser.id;
     this.editedUser.password = this.loggedInUser.password;
     this.editedUser.email = this.loggedInUser.email;
@@ -317,6 +324,22 @@ export class ProfileComponent implements OnInit {
     }
 
   }
+
+  toggleVisibility() {
+    console.log("in toggle");
+    console.log(this.myRes.approved);
+    // this.myRes.approved = e.target.checked;
+    // this.updateGear();
+
+  }
+
+
+
+
+
+
+
+
 
 
 

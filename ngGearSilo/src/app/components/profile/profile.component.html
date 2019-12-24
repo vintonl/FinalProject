@@ -424,23 +424,45 @@
                       <td> {{res.userShopper.firstName | titlecase}} {{res.userShopper.lastName | titlecase}}</td>
                       <td>{{res.openDate | date}}</td>
                       <td>{{res.closeDate | date}}</td>
-                      <!-- <td>{{res.approved}}</td> -->
+                      <td>{{res.approved}}</td>
                       <td>
+
+
 
                         <!-- <label class="switch">
                           <input type="checkbox" data-toggle="toggle" data-on=1 data-off=0
                             placeholder="{{res.approved}}">
                           <span class="slider"></span>
                         </label> -->
+                        <!--
+                        <label class="container">
+                          <input type="text" placeholder="myRes.approved" data-md-icheck />
+
+                          <span *ngIf="myRes">Yes</span><span *ngIf="!myRes">No</span>
+                          <span class="checkmark"></span>
+                        </label> -->
+
+
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 117px"
+                              id="inputGroup-sizing-default">Approved</span>
+                          </div>
+                          <input type="text" placeholder="{{res.approved}}" class="form-control"
+                            [(ngModel)]="res.approved">
+                        </div>
+
+
 
                       </td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
             <div style="background-color: white; width: 625px" class="modal-footer">
-              <button type="submit" (click)="updateGear()" class="btn btn-primary">Update</button>
+              <button type="submit" (click)="toggleVisibility()" class="btn btn-primary">Update</button>
             </div>
           </div>
         </div>
