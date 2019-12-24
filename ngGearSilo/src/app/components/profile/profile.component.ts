@@ -254,52 +254,52 @@ export class ProfileComponent implements OnInit {
     this.myReservations = [];
 
 
-    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-      yes => {
-        this.loggedInUser = yes;
+    // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+    //   yes => {
+    //     this.loggedInUser = yes;
 
-        this.resService.index().subscribe(
-          (aGoodThingHappened) => {
-            console.log(aGoodThingHappened);
-
-
-
-            aGoodThingHappened.forEach(res => {
-              this.myReservations.push(res);
-
-              if (res.approved !== true) {
-                this.needApprovedRes++;
-                this.needsApprovedRes.push(res);
-
-              }
+    this.resService.index().subscribe(
+      (aGoodThingHappened) => {
+        console.log(aGoodThingHappened);
 
 
-              // this.lenderRating();
 
+        aGoodThingHappened.forEach(res => {
+          this.myReservations.push(res);
 
-              // if (res.gearId.user.id === this.loggedInUser.id) {
-              console.log(res);
+          if (res.approved !== true) {
+            this.needApprovedRes++;
+            this.needsApprovedRes.push(res);
 
-              // this.rating = res.lenderReview.rating;
-
-
-              // this.lenderRating();
-
-              // this.loggedInUser = e.user;
-              // }
-            });
-          },
-          (didntWork) => {
-            console.log('in load res from profile ts didnt work');
-            console.log(didntWork);
           }
-        );
+
+
+          // this.lenderRating();
+
+
+          // if (res.gearId.user.id === this.loggedInUser.id) {
+          console.log(res);
+
+          // this.rating = res.lenderReview.rating;
+
+
+          // this.lenderRating();
+
+          // this.loggedInUser = e.user;
+          // }
+        });
       },
-      no => {
-        console.error('Error laoding res in user');
-        console.error(no);
+      (didntWork) => {
+        console.log('in load res from profile ts didnt work');
+        console.log(didntWork);
       }
     );
+    // },
+    //   no => {
+    //     console.error('Error laoding res in user');
+    //     console.error(no);
+    //   }
+    // );
     console.log(this.loggedInUser);
   }
 
