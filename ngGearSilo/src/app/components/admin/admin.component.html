@@ -1,20 +1,47 @@
-<nav>
-  <div class="container-fluid navbar navbar-light bg-light">
-    <a class="navbar-brand"><strong>Admin</strong></a>
-    <h1> GearSilo has
-      <span class="badge badge-primary">{{ countUsers() }}</span>
-      Users, <span class="badge badge-primary">{{ countGear() }}</span> pieces
-      of Gear, and
-      <span class="badge badge-primary">{{ countResv() }}</span> Reservations
-    </h1>
+<div class="container-fluid">
+  <h1><strong>Admin Dashboard</strong></h1>
+</div>
+<!-- Cards Topper -->
+
+<div class="card-deck container-fluid">
+  <div class="card bordered shadow mb-3">
+    <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
+    <div class="card-body">
+      <h1 class="card-title"><span class="badge shadow">User Status</span></h1>
+      <h3><span class="badge border shadow">{{ countUsers() }}</span> Total Users</h3>
+      <h3><span class="badge border shadow">{{ countUsers() }}</span> Active Users</h3>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted"></small>
+    </div>
   </div>
-</nav>
+  <div class="card bordered shadow mb-3">
+    <!-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> -->
+    <div class="card-body">
+      <h1 class="card-title"><span class="badge shadow">Gear Status</span></h1>
+      <h3><span class="badge border shadow">{{ countGear() }}</span> Total Items</h3>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted"></small>
+    </div>
+  </div>
+  <div class="card bordered shadow mb-3">
+    <!-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> -->
+    <div class="card-body">
+      <h1 class="card-title"><span class="badge shadow">Reservation Status</span></h1>
+      <h3><span class="badge border shadow">{{ countResv() }}</span> Total Reservations</h3>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted"></small>
+    </div>
+  </div>
+</div>
 
 <!-- User List Tab -->
 
 <div class="container-fluid bg-light">
   <ngb-tabset>
-    <ngb-tab title="Users" (tabChange)="selectedUser = false">
+    <ngb-tab title="Users" > <!-- (tabChange)="selectedUser = null" -->
       <ng-template ngbTabContent>
         <div id="userList" class="container-fluid" *ngIf="!selectedUser">
           <table class="table table-striped table-hover">
@@ -58,7 +85,7 @@
             <li class="list-group-item">User Id: {{ selectedUser.id }}</li>
             <li class="list-group-item">Email: {{ selectedUser.email }}</li>
             <li class="list-group-item">
-              Password: {{ selectedUser.password }}
+              Username: {{ selectedUser.username }}
             </li>
             <li class="list-group-item">
               Address: {{ selectedUser.address.address }}

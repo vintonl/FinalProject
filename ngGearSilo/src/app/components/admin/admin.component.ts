@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { Reservation } from './../../models/reservation';
 import { GearService } from 'src/app/services/gear.service';
 import { UserService } from './../../services/user.service';
@@ -29,10 +31,18 @@ export class AdminComponent implements OnInit {
   constructor(
     private userSvc: UserService,
     private gearSvc: GearService,
-    private resvSvc: ReservationService
+    private resvSvc: ReservationService,
+    private authSvc: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    const cred = this.authSvc.getCredentials();
+
+    // if (cred === null ) {
+    //   this.router.navigateByUrl('/login');
+
+    // }
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
