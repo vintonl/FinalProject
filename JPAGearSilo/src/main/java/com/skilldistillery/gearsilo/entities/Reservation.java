@@ -37,7 +37,7 @@ public class Reservation {
 	@JoinColumn(name = "gear_id")
 	private Gear gearId;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToOne(mappedBy = "reservation")
 	private ReviewOfLender lenderReview;
 	

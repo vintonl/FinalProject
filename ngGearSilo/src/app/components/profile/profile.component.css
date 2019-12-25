@@ -317,6 +317,107 @@ input:checked + .slider:before {
 
 
 
+.switches {
+  margin: 20px;
+}
+
+.switches h1 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+/* ----- end demo code ----- */
+
+.switch {
+  display: inline-block;
+  height: 34px;
+  min-width: 60px;
+  position: relative;
+  vertical-align: middle;
+}
+
+.switch.disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.switch .slider {
+  background-color: #d9d9d9;
+  bottom: 0;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  height: 34px;
+  left: 0;
+  padding: 0 20px 0 40px;
+  position: relative;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+}
+
+.switch .slider .on,
+.switch .slider .off {
+  line-height: 34px;
+}
+
+.switch .slider .off {
+  display: block;
+}
+
+.switch .slider .on {
+  display: none;
+}
+
+.switch .slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: " ";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: all 0.4s;
+  width: 26px;
+}
+
+.switch .slider.round {
+  border-radius: 34px;
+}
+
+.switch .slider.round:before {
+  border-radius: 50%;
+}
+
+.switch input {
+  display: none;
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.switch input:checked + .slider {
+  background-color: #2196f3;
+  padding: 0 40px 0 20px;
+}
+
+.switch input:checked + .slider:before {
+  left: auto;
+  right: 4px;
+  transition: all 0.4s;
+}
+
+.switch input:checked + .slider .on {
+  display: block;
+}
+
+.switch input:checked + .slider .off {
+  display: none;
+}
+
+
+
+
 
 
 
