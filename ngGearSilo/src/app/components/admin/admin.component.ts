@@ -28,6 +28,8 @@ export class AdminComponent implements OnInit {
   resv: Reservation = null;
   selectedResv: Reservation = null;
 
+  admin: User = null;
+
   constructor(
     private userSvc: UserService,
     private gearSvc: GearService,
@@ -37,15 +39,17 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const cred = this.authSvc.getCredentials();
 
-    // if (cred === null ) {
-    //   this.router.navigateByUrl('/login');
-
+    // const cred = this.authSvc.getCredentials();
+    // const u = this.user;
+    // if (this.user.role !== this.admin) {
+    //   return this.router.navigate
     // }
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
+
+
   }
 
   // Users
@@ -90,6 +94,8 @@ export class AdminComponent implements OnInit {
       }
     );
   }
+
+
 
   // Gear
 

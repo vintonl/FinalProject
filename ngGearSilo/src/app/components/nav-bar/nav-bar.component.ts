@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavBarComponent implements OnInit {
   userLoggedIn: User = null;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private userSvc: UserService) { }
 
   ngOnInit() {
     // if (this.authService.checkLogin()) {
@@ -44,6 +45,10 @@ export class NavBarComponent implements OnInit {
         console.error(no);
       }
     );
+  }
+  loadAdmin() {
+
+
   }
 
 
