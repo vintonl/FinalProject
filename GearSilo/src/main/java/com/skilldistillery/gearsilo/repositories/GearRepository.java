@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.skilldistillery.gearsilo.entities.Category;
 import com.skilldistillery.gearsilo.entities.Gear;
 
 public interface GearRepository extends JpaRepository<Gear, Integer> {
@@ -14,6 +15,6 @@ public interface GearRepository extends JpaRepository<Gear, Integer> {
 
 	List<Gear> findByUserUsername(String username);
 
-//	List<Gear> findByCategories(String username, String category);
+//	List<Gear> findByCategories(String username, Category category);
 	
 }
