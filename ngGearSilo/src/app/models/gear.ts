@@ -1,4 +1,5 @@
 import { User } from './user';
+import { Category } from './category';
 
 //  Java Entity
 // private int id;
@@ -25,6 +26,7 @@ export class Gear {
   imageUrl3: string;
   available: boolean;
   active: boolean;
+  categories: any[];
 
   constructor(
     id?: number,
@@ -37,7 +39,8 @@ export class Gear {
     imageUrl2?: string,
     imageUrl3?: string,
     available?: boolean,
-    active?: boolean
+    active?: boolean,
+    categories?: Category
 
   ) {
     this.id = id;

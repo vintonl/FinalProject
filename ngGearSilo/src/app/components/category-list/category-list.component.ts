@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from './../services/category.service';
-import { Category } from '../models/category';
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../models/category';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-category-list',
@@ -18,6 +18,28 @@ export class CategoryListComponent implements OnInit {
   list = false;
   searchResult = false;
   searchedCategory: Category[] = [];
+
+  categories = [
+    'all',
+    'Mountain Biking',
+    'Skating',
+    'Surf',
+    'Hiking',
+    'Kayaking',
+    'Water Sports',
+    'Rock Climbing',
+    'Skiing',
+    'Snowboarding',
+    'Freefalling',
+    'Wakeboarding',
+    'Snow',
+    'Water',
+    'Mountain',
+    'Sky',
+    'Biking',
+    'Winter'
+  ];
+  selectedType = 'all';
 
 
 
