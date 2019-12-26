@@ -105,9 +105,12 @@
       </div> -->
 
 
+      <!-- Might need for categories filter
+      "|  gearCategory: selectedType " (click)="selected = gearList"" -->
+
       <!-- CARDS -->
       <div *ngIf="!selected && hideSearchResult"></div>
-        <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType " (click)="selected = gearList">
+        <div class="container" *ngFor="let item of gearList ">
           <div style="background-color: whitesmoke;" class="row">
             <div style="background-color: whitesmoke;" class="col-xs-8">
               <div (click)="displayGearItem(item)" style="background-color:white; margin: 3px" id="panels"
