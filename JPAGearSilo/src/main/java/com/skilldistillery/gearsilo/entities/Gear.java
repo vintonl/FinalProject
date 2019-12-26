@@ -58,7 +58,6 @@ public class Gear {
 	private Boolean available;
 	private Boolean active;
 
-	@JsonIgnore
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinTable(name = "gear_category", joinColumns = @JoinColumn(name = "gear_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories;
