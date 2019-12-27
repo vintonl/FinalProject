@@ -66,4 +66,6 @@ export class User {
     this.address = address;
     this.userLenderRating = userLenderRating;
   }
+
+
 }
