@@ -2,11 +2,21 @@
   width: 50%;
   max-width: 400px;
   height: auto;
+
 }
 .gear-img-list {
   width: 50%;
   max-width: 150px;
   height: auto;
+
+}
+.contaner-fluid {
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.btn {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .active-pink-4 input[type=text]:focus:not([readonly]) {
@@ -28,7 +38,7 @@
 	padding: 0;
 }
 .star-rating i {
-	font-size: 14px;
+	font-size: 30px;
 	color: #ffc000;
 }
 
@@ -42,8 +52,9 @@
 
 }
 
-.container {
-  /* margin-left: 230px; */
+.list-group {
+  /* background-color: blue; */
+  border: none;
 
 }
 
@@ -111,7 +122,7 @@
   width: 350px;
   border: 3px solid #f1f1f1;
   z-index: 9;
-  opacity: ;
+  opacity: 50;
 }
 
 /* Add styles to the form container */
@@ -160,4 +171,54 @@
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+ .carousel {
+  /* display: block; */
+  width: 80%;
+  height: auto;
+}
+
+
+.carousel-inner > .carousel-item > img {
+  display: block;
+  width: 90%;
+  height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 0px;
+  /* height: 300px; Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.resImage {
+  position: absolute;
+  clip: rect(0px,400px,300px,0px);
+  align-content: center;
+  margin-top: -50px;
+  background-position: center center !important;
+  height: auto;
+  max-height: 300px !important;
+  overflow: hidden;
+  border-radius: 2%;
+  border-left: orange;
+  border-bottom: orange;
+  border-style: solid;
+  mask-border-width: 5px;
+
+
 }

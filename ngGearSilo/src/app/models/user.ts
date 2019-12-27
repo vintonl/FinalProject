@@ -31,6 +31,7 @@ export class User {
   address: Address;
   phone: string;
   enabled: string;
+  userLenderRating; number;
 
   constructor(
     id?: number,
@@ -46,7 +47,8 @@ export class User {
     about?: string,
     phone?: string,
     enabled?: string,
-    address?: Address
+    address?: Address,
+    userLenderRating?: number
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -62,5 +64,8 @@ export class User {
     this.enabled = enabled;
     this.password = password;
     this.address = address;
+    this.userLenderRating = userLenderRating;
   }
+
+
 }

@@ -30,8 +30,14 @@ export class ProfileComponent implements OnInit {
   loggedInUser: User = new User();
   myGear: Gear[] = [];
   myReservations: Reservation[] = [];
+  myRes: Reservation;
   rating: number;
   deleteId: number;
+  needApprovedRes = 0;
+  needsApprovedRes: Reservation[] = [];
+  reservationStatus;
+  marked = false;
+  theCheckbox = false;
 
 
 
@@ -59,6 +65,7 @@ export class ProfileComponent implements OnInit {
 
     this.loadGear();
     this.loadReseravtions();
+
   }
 
 
@@ -83,6 +90,7 @@ export class ProfileComponent implements OnInit {
               if (gear.user.id === this.loggedInUser.id) {
                 this.gearList.push(gear);
                 this.checkImageURl();
+                // this.selecteditem.active = true;
 
                 // this.loggedInUser = e.user;
               }
@@ -98,7 +106,6 @@ export class ProfileComponent implements OnInit {
         console.error(no);
       }
     );
-    console.log(this.loggedInUser);
   }
 
 
@@ -164,15 +171,19 @@ export class ProfileComponent implements OnInit {
 
 
   // UPDATE THE GEAR
+
+
   updateGear() {
 
+    console.log('in update gear');
+    console.log(this.updatedGear.active);
+    console.log(this.reservationStatus);
+
     this.updatedGear.id = this.selecteditem.id;
+    this.updatedGear.active = this.reservationStatus;
 
     if (this.updatedGear.name === null || this.updatedGear.name === undefined) {
       this.updatedGear.name = this.selecteditem.name;
-    }
-    if (this.updatedGear.active !== true || this.updatedGear.active !== true) {
-      this.updatedGear.active = true;
     }
     if (this.updatedGear.available !== true || this.updatedGear.available !== true) {
       this.updatedGear.available = true;
@@ -198,12 +209,13 @@ export class ProfileComponent implements OnInit {
       },
       err => console.log('Update got an error: ' + err));
 
-    location.reload();
-    this.loadGear();
+    // location.reload();
+    // this.loadGear();
   }
 
   // UPDATE USER
   updateUser() {
+    console.log("in update user")
     this.editedUser.id = this.loggedInUser.id;
     this.editedUser.password = this.loggedInUser.password;
     this.editedUser.email = this.loggedInUser.email;
@@ -245,39 +257,36 @@ export class ProfileComponent implements OnInit {
     // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
     //   yes => {
     //     this.loggedInUser = yes;
-    //     console.log('Got logged in user:');
-    //     console.log(this.loggedInUser);
-
 
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
         console.log(aGoodThingHappened);
 
+
+
         aGoodThingHappened.forEach(res => {
-          console.log('in load res from profile ts');
-          console.log(aGoodThingHappened);
+          this.myReservations.push(res);
 
-          console.log("logging all id in res");
-          console.log(res.gearId.user.id);
+          if (res.approved !== true) {
+            this.needApprovedRes++;
+            this.needsApprovedRes.push(res);
 
-
-          if (res.gearId.user.username === this.loggedInUser.username) {
-            this.myReservations.push(res);
-            this.lenderRating();
-
-            console.log("in the for each for res");
-            console.log(res.gearId.user.id);
-            console.log(this.loggedInUser.id);
-
-            this.rating = res.lenderReview.rating;
-
-            console.log(this.rating + "rating");
-
-            console.log('about to be in rating sum');
-            // this.lenderRating();
-
-            // this.loggedInUser = e.user;
           }
+
+
+          // this.lenderRating();
+
+
+          // if (res.gearId.user.id === this.loggedInUser.id) {
+          console.log(res);
+
+          // this.rating = res.lenderReview.rating;
+
+
+          // this.lenderRating();
+
+          // this.loggedInUser = e.user;
+          // }
         });
       },
       (didntWork) => {
@@ -285,13 +294,13 @@ export class ProfileComponent implements OnInit {
         console.log(didntWork);
       }
     );
-    //   },
+    // },
     //   no => {
     //     console.error('Error laoding res in user');
     //     console.error(no);
     //   }
     // );
-    // console.log(this.loggedInUser);
+    console.log(this.loggedInUser);
   }
 
 
@@ -315,5 +324,23 @@ export class ProfileComponent implements OnInit {
     }
 
   }
+
+  toggleVisibility() {
+    console.log("in toggle");
+    console.log(this.myRes.approved);
+    // this.myRes.approved = e.target.checked;
+    // this.updateGear();
+
+  }
+
+
+
+
+
+
+
+
+
+
 
 }

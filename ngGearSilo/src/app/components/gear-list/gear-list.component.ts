@@ -1,10 +1,16 @@
+import { ReviewOfGear } from './../../models/review-of-gear';
+import { ReviewOfLender } from './../../models/review-of-lender';
+import { Reservation } from './../../models/reservation';
+import { ReservationService } from './../../services/reservation.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { Gear } from './../../models/gear';
 import { GearService } from './../../services/gear.service';
 import { Component, OnInit } from '@angular/core';
 import { isNgTemplate } from '@angular/compiler';
-import { userInfo } from 'os';
+import { User } from 'src/app/models/user';
+import { Category } from 'src/app/models/category';
+
 
 @Component({
   selector: 'app-gear-list',
@@ -20,46 +26,85 @@ export class GearListComponent implements OnInit {
   searchedGear: Gear[] = [];
   hideSearchResult = true;
   currentRate = null;
+  resList: Reservation[] = [];
+  loggedInUser: User = new User();
+  rating = 0;
+  averageRating = 0;
+  selectedGear: Gear;
+  selectedGearReviews: ReviewOfGear[];
+
+  // Categories
+
+  categories = [
+    'all',
+    'Mountain Biking',
+    'Skating',
+    'Surf',
+    'Hiking',
+    'Kayaking',
+    'Water Sports',
+    'Rock Climbing',
+    'Skiing',
+    'Snowboarding',
+    'Freefalling',
+    'Wakeboarding',
+    'Snow',
+    'Water',
+    'Mountain',
+    'Sky',
+    'Biking',
+    'Winter'
+  ];
+  selectedType = 'all';
 
 
+  // Constructor
 
-  constructor(private gearSrv: GearService, private router: Router, private authService: AuthService) { }
+
+  constructor(private gearSrv: GearService, private resService: ReservationService,
+    // tslint:disable-next-line: align
+    private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    const cred = this.authService.getCredentials();
-
-    if (cred === null) {
-      this.router.navigateByUrl('/login');
-
-    }
-
+    this.hideSearchResult = true;
+    this.selected = null;
+    this.searchedGear = [];
     this.loadGear();
+    this.loadReseravtions();
   }
 
   loadGear() {
     this.gearSrv.index().subscribe(
       (aGoodThingHappened) => {
+        console.log('in a aGoodThingHappened Gear');
+        console.log(aGoodThingHappened);
         this.gearList = aGoodThingHappened;
         this.gearList.forEach(gear => {
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
-            this.currentRate = gear.user.id;
           }
 
+          gear.user.userLenderRating = gear.user.id;
         });
-
-
       },
       (didntWork) => {
         console.log(didntWork);
       }
     );
-
   }
 
   displayGearItem(gear: Gear) {
     this.selected = gear;
     this.gearSrv.selected = gear;
+    this.gearSrv.loadGearReviews().subscribe(
+      (goodRequest) => {
+        this.selectedGearReviews = goodRequest;
+      },
+      (bad) => {
+        console.log('Error in GearListComponent.displayGearItem() loading gear reviews');
+        console.log(bad);
+      }
+    );
   }
 
   startReservation() {
@@ -104,12 +149,69 @@ export class GearListComponent implements OnInit {
     this.keyword = null;
   }
 
-   openForm() {
-    document.getElementById("myForm").style.display = "block";
+  openForm() {
+    document.getElementById('myForm').style.display = 'block';
   }
 
-   closeForm() {
-    document.getElementById("myForm").style.display = "none";
+  closeForm() {
+    document.getElementById('myForm').style.display = 'none';
   }
+
+  // LOAD RESERVATIONS FOR USER
+  loadReseravtions() {
+    this.resList = [];
+    // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+    //   yes => {
+    //     this.loggedInUser = yes;
+    //     console.log('Got logged in user:');
+    //     console.log(this.loggedInUser);
+
+    this.resService.index().subscribe(
+      (aGoodThingHappened) => {
+
+        console.log('in a aGoodThingHappened REs');
+        console.log(aGoodThingHappened);
+
+        this.resList = aGoodThingHappened;
+
+        console.log(this.resList);
+        console.log(this.resList.length);
+        console.log(this.resList.values);
+        console.log('+++++++++++++++++====');
+
+
+        this.resList.forEach(res => {
+          console.log(res);
+          console.log(res.lenderReview.rating);
+
+          if (res.lenderReview.rating > 0) {
+
+
+
+            this.rating = res.lenderReview.rating;
+
+            this.averageRating = this.rating;
+          }
+
+
+
+        });
+      },
+      (didntWork) => {
+        console.log('in load res from profile ts didnt work');
+        console.log(didntWork);
+      }
+    );
+    //     },
+    //     no => {
+    //       console.error('Error laoding res in user');
+    //       console.error(no);
+    //     }
+    //   );
+    //   console.log(this.loggedInUser);
+  }
+
+
 
 }
+

@@ -1,3 +1,4 @@
+import { ReviewOfGear } from './../models/review-of-gear';
 import { Gear } from './../models/gear';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -50,7 +51,7 @@ export class GearService {
   }
 
   destroy(id: number) {
-    console.log("id for delete");
+    console.log('id for delete');
     console.log(id);
 
     if (!this.authService.checkLogin()) {
@@ -101,7 +102,7 @@ export class GearService {
     // } else {
     //   todo.completeDate = '';
     // }
-    console.log("in update service " + updatedgear.active + " " + updatedgear.id);
+    console.log('in update service ' + updatedgear.active + ' ' + updatedgear.id);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -118,5 +119,21 @@ export class GearService {
     );
   }
 
+  loadGearReviews() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<ReviewOfGear[]>(this.baseUrl + 'api/users/' + this.selected.user.id + '/reviews/gearreviews', httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('GearService.loadGearReviews(): Error');
+      })
+    );
+
+  }
 
 }

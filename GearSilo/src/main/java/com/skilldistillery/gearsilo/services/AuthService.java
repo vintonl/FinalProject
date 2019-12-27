@@ -6,4 +6,6 @@ public interface AuthService {
 
 	User register(User user);
 
+	boolean isUserUnique(User user);
+
 }

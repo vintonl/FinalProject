@@ -1,3 +1,4 @@
+import { CategoryService } from './services/category.service';
 import { AddressService } from './services/address.service';
 import { UserService } from './services/user.service';
 import { ReviewOfShopperService } from './services/review-of-shopper.service';
@@ -35,7 +36,13 @@ import {
   MatIconModule, MatCardModule, MatDialogModule, MatProgressBar
 } from '@angular/material';
 import { ReservationComponent } from './components/reservation/reservation.component';
-
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { AboutComponent } from './components/about/about.component';
+import { MessagingComponent } from './components/messaging/messaging.component';
+import { UserCrudComponent } from './components/admin/user-crud/user-crud.component';
+import { GearCrudComponent } from './components/admin/gear-crud/gear-crud.component';
+import { ResvCrudComponent } from './components/admin/resv-crud/resv-crud.component';
+import { GearCategoryPipe } from './pipes/gear-category.pipe';
 
 
 @NgModule({
@@ -53,6 +60,13 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     AdminComponent,
     TestingComponent,
     ReservationComponent,
+    CategoryListComponent,
+    AboutComponent,
+    MessagingComponent,
+    UserCrudComponent,
+    GearCrudComponent,
+    ResvCrudComponent,
+    GearCategoryPipe,
 
   ],
   imports: [
@@ -77,7 +91,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
     ProfileService,
     NavBarComponent,
     GearListComponent,
-    AddressService
+    AddressService,
+    CategoryService
   ],
   bootstrap: [AppComponent, ProfileComponent],
 

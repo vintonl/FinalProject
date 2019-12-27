@@ -33,7 +33,7 @@ public class CategoryController {
 	@Autowired
 	private GearService gearSvc;
 
-	@GetMapping("gears/category")
+	@GetMapping("gears/categories")
 	public List<Category> listAllCategories(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
 		List<Category> categoryList = catSvc.listAllCategories();
 		if (categoryList == null) {
@@ -41,6 +41,15 @@ public class CategoryController {
 		}
 		return categoryList;
 	}
+	
+//	@GetMapping("gears/categories");
+//	public List<Gear> listGearByCategories(HttpServletRequest req, HttpServletResponse resp, Category category) {
+//		List<Gear> categoryList = gearSvc.findByCategories(category);
+//		if (categoryList == null) {
+//			resp.setStatus(404);
+//		}
+//		return categoryList;
+//	}
 
 //	@GetMapping("gearslist")
 //	public List<Gear> listAllGears(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
