@@ -40,11 +40,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
 
-    // const cred = this.authSvc.getCredentials();
-    // const u = this.user;
-    // if (this.user.role !== this.admin) {
-    //   return this.router.navigate
-    // }
+
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
