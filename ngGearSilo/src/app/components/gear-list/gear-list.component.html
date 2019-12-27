@@ -4,33 +4,39 @@
 
 
 
+<br>
 <div class="contaner-fluid">
   <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
       <div>
-        <br>
-        <form ngNativeValidate>
-          <div class="container-center">
+        <form class="form-group row" ngNativeValidate>
+          <div class="col-xs-4">
             <div class="active-pink-3 active-pink-4 mb-4">
-              <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword"
+              <input class="form-control" type="text" size="35" placeholder="Search" aria-label="Search" name="keyword"
                 [(ngModel)]="keyword" minlength="1" maxlength="100">
               <button class="btn btn-dark my-2 my-sm-0" type="submit" (click)="search(); selected=null">Search by
                 keyword</button>
-              <!-- <div>
-                  <ul>
-                    <li *ngFor="let category of selectedGear.categories"> {{ categories}}</li>
-                  </ul>
-                </div> -->
             </div>
           </div>
         </form>
 
-        <button class="btn btn-dark my-2 my-sm-0" (click)="ngOnInit()">See
-          all items</button>
+        <!-- <div>
+          <ul>
+            <li *ngFor="let category of selectedGear.categories"> {{ categories}}</li>
+          </ul>
+        </div> -->
+
+        <!-- Reset Button -->
+        <div class="col-xs-4">
+          <button class="btn btn-dark my-2 my-sm-0" (click)="ngOnInit()">See all items</button>
+        </div>
         <br>
         <br>
 
+        <!-- SEARCHED GEAR RESULTS -->
+
+        <!-- No results found from search -->
         <div *ngIf="!selected  && !hideSearchResult">
           <div *ngIf="searchedGear.length === 0">
             <div class="text-center">
@@ -38,9 +44,6 @@
             </div>
           </div>
         </div>
-
-
-
 
         <!-- SEARCHED GEAR RESULTS -->
         <div *ngIf="searchedGear.length > 0">
@@ -152,7 +155,7 @@
                             <span class="star" [class.filled]="fill === 100" [class.bad]="index < 0">&#9733;</span>
                           </ng-template>
                         </ngb-rating>
-                        <h6 style="margin-left: -10px ;">User Rating: <b
+                        <h6 style="margin-left: -10px ;">Owner Rating: <b
                             style="color: grey;">{{item.user.userLenderRating}}</b></h6>
                       </div>
                     </div>
