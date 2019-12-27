@@ -307,18 +307,21 @@
               Reservation Created:
               {{ selectedResv.createdAt | date: "shortDate" }}
             </li>
+            <br>
             <li class="list-group-item">
               Approved: {{ selectedResv.approved }}
             </li>
             <li class="list-group-item">
               Completed: {{ selectedResv.completed }}
             </li>
+            <br>
             <li class="list-group-item">
               Lender Id: {{ selectedResv.gearId.user.id }}
             </li>
             <li class="list-group-item">
               Lender Email: {{ selectedResv.gearId.user.email }}
             </li>
+            <br>
             <li class="list-group-item">
               Shopper Id: {{ selectedResv.userShopper.id }}
             </li>
