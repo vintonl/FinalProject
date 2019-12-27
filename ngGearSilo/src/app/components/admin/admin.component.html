@@ -1,9 +1,10 @@
 <div class="container-fluid">
   <h1><strong>Admin Dashboard</strong></h1>
+  <button type="button" class="btn btn-light btn-sm" onClick="history.go(0);">Refresh</button>
 </div>
 <!-- Cards Topper -->
 
-<div class="card-deck container-fluid" >
+<div class="card-deck container-fluid">
   <div class="card bordered shadow mb-3">
     <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
     <div class="card-body">
@@ -115,7 +116,7 @@
               Last Updated: {{ selectedUser.updatedAt | date: "shortDate" }}
             </li>
             <li class="list-group-item">Role: {{ selectedUser.role }}</li>
-            <li class="list-group-item">Created: {{ selectedUser.enabled }}</li>
+            <li class="list-group-item">Enabled: {{ selectedUser.enabled }}</li>
           </ul>
           <br />
           <div class="btn-group" role="group" aria-label="selected task">
