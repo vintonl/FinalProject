@@ -420,38 +420,28 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let res of myReservations" let i=index>
+                    <tr *ngFor="let res of myReservations; let i = index">
                       <td> {{res.userShopper.firstName | titlecase}} {{res.userShopper.lastName | titlecase}}</td>
                       <td>{{res.openDate | date}}</td>
                       <td>{{res.closeDate | date}}</td>
                       <td>
-
-
-
-                        <!-- <label class="switch">
-                          <input type="checkbox" data-toggle="toggle" data-on=1 data-off=0
-                            placeholder="{{res.approved}}">
-                          <span class="slider"></span>
-                        </label> -->
-                        <!--
-                        <label class="container">
-                          <input type="text" placeholder="myRes.approved" data-md-icheck />
-
-                          <span *ngIf="myRes">Yes</span><span *ngIf="!myRes">No</span>
-                          <span class="checkmark"></span>
-                        </label> -->
-
-
                         <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" style="width: 117px"
-                              id="inputGroup-sizing-default">Approved</span>
-                          </div>
-                          <input type="text" class="form-control">
+
+                          <!-- <form> -->
+                            <input class="form-control" type="text"  aria-label="Search"
+                              name="approved" [(ngModel)]="selectedRes.approved">
+
+                              <!-- <input class="form-control" type="hidden"  value="res.user.id" aria-label="Search"
+                              name="approved" [(ngModel)]="selectedRes.gearId.user.id"> -->
+
+
+                            <button type="submit"  (click)="onClickReservation(res)">
+                              {{res.approved}}</button>
+                          <!-- </form> -->
+                          <!-- <div style="background-color: white; width: 625px" > -->
+                          <!-- <button type="submit"  (click)="onClickReservation(res)" class="btn btn-primary">Update</button> -->
+                          <!-- </div> -->
                         </div>
-
-
-
                       </td>
                       <td></td>
                     </tr>
@@ -459,9 +449,7 @@
                 </table>
               </div>
             </div>
-            <div style="background-color: white; width: 625px" class="modal-footer">
-              <button type="submit"  class="btn btn-primary">Update</button>
-            </div>
+
           </div>
         </div>
       </div>
