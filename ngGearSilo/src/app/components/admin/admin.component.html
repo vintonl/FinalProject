@@ -123,6 +123,7 @@
             {{ selectedUser.firstName | uppercase }}
             {{ selectedUser.lastName | uppercase }}
           </h1>
+          <img class="img-fluid img-thumbnail" src="{{ selectedUser.imageUrl}}" alt="Profile Photo" width="200" height="200">
           <br />
           <ul class="list-group">
             <li class="list-group-item">User Id: {{ selectedUser.id }}</li>
@@ -158,6 +159,7 @@
             <li class="list-group-item">Role: {{ selectedUser.role }}</li>
             <li class="list-group-item">Enabled: {{ selectedUser.enabled }}</li>
           </ul>
+
           <br />
           <div class="btn-group" role="group" aria-label="selected task">
             <button
@@ -235,9 +237,9 @@
               Description: {{ selectedGear.description }}
             </li>
             <li class="list-group-item">Price: $ {{ selectedGear.price }}</li>
-            <li class="list-group-item">IMG-1: {{ selectedGear.imageUrl }}</li>
-            <li class="list-group-item">IMG-2: {{ selectedGear.imageUrl2 }}</li>
-            <li class="list-group-item">IMG-3: {{ selectedGear.imageUrl3 }}</li>
+            <li class="list-group-item">IMG-1:<img class="img-thumbnail" src="{{ selectedGear.imageUrl }}" alt="" ></li>
+            <li class="list-group-item">IMG-2:<img class="img-thumbnail" src="{{ selectedGear.imageUrl2 }}" alt=""></li>
+            <li class="list-group-item">IMG-3:<img class="img-thumbnail" src="{{ selectedGear.imageUrl3 }}" alt=""></li>
           </ul>
           <br />
           <div class="btn-group" role="group" aria-label="selected task">
