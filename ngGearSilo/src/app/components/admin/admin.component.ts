@@ -87,8 +87,6 @@ export class AdminComponent implements OnInit {
           count++;
         }
       }
-      console.log("***** THIS IS COUNT ACTIVE *****" + count);
-
       return count;
     }
   }
@@ -134,6 +132,32 @@ export class AdminComponent implements OnInit {
   public countGear() {
     return this.gearList.length;
     // Add data aggr. for active count.
+  }
+
+  public countActiveG() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.gearList.length; i++) {
+      for (this.gear of this.gearList) {
+        if (this.gear.active) {
+          count++;
+        }
+      }
+      return count;
+    }
+  }
+
+  public countAvailableG() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.gearList.length; i++) {
+      for (this.gear of this.gearList) {
+        if (this.gear.available) {
+          count++;
+        }
+      }
+      return count;
+    }
   }
 
   // RESERVATIONS
