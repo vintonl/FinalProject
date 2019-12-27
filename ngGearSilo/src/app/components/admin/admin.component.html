@@ -6,7 +6,7 @@
     <div class="col" align="right">
       <button
         type="button"
-        class="btn btn-light btn-sm"
+        class="btn btn-light"
         onClick="history.go(0);"
       >
         Refresh Dashboard
@@ -81,8 +81,10 @@
 
 <div class="container-fluid bg-light">
   <ngb-tabset>
-    <ngb-tab title="Users">
-      <!-- (tabChange)="selectedUser = null" -->
+    <ngb-tab >
+      <ng-template ngbTabTitle>
+        <div (click)="selectedUser = null">Users</div>
+      </ng-template>
       <ng-template ngbTabContent>
         <div id="userList" class="container-fluid" *ngIf="!selectedUser">
           <table class="table table-striped table-hover">
@@ -121,6 +123,7 @@
             {{ selectedUser.firstName | uppercase }}
             {{ selectedUser.lastName | uppercase }}
           </h1>
+          <img class="img-fluid img-thumbnail" src="{{ selectedUser.imageUrl}}" alt="Profile Photo" width="200" height="200">
           <br />
           <ul class="list-group">
             <li class="list-group-item">User Id: {{ selectedUser.id }}</li>
@@ -156,6 +159,7 @@
             <li class="list-group-item">Role: {{ selectedUser.role }}</li>
             <li class="list-group-item">Enabled: {{ selectedUser.enabled }}</li>
           </ul>
+
           <br />
           <div class="btn-group" role="group" aria-label="selected task">
             <button
@@ -171,7 +175,9 @@
       </ng-template>
     </ngb-tab>
     <ngb-tab>
-      <ng-template ngbTabTitle><b>Gear</b> List</ng-template>
+      <ng-template ngbTabTitle>
+        <div (click)="selectedGear = null">Gear</div>
+      </ng-template>
       <ng-template ngbTabContent>
         <!-- Gear List Tab -->
 
@@ -231,9 +237,9 @@
               Description: {{ selectedGear.description }}
             </li>
             <li class="list-group-item">Price: $ {{ selectedGear.price }}</li>
-            <li class="list-group-item">IMG-1: {{ selectedGear.imageUrl }}</li>
-            <li class="list-group-item">IMG-2: {{ selectedGear.imageUrl2 }}</li>
-            <li class="list-group-item">IMG-3: {{ selectedGear.imageUrl3 }}</li>
+            <li class="list-group-item">IMG-1:<img class="img-thumbnail" src="{{ selectedGear.imageUrl }}" alt="" ></li>
+            <li class="list-group-item">IMG-2:<img class="img-thumbnail" src="{{ selectedGear.imageUrl2 }}" alt=""></li>
+            <li class="list-group-item">IMG-3:<img class="img-thumbnail" src="{{ selectedGear.imageUrl3 }}" alt=""></li>
           </ul>
           <br />
           <div class="btn-group" role="group" aria-label="selected task">
@@ -251,7 +257,10 @@
 
     <!-- Reservation List Tab -->
 
-    <ngb-tab title="Reservations">
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <div (click)="selectedResv = null">Reservations</div>
+      </ng-template>
       <ng-template ngbTabContent>
         <div id="resvList" class="container-fluid" *ngIf="!selectedResv">
           <table class="table table-striped table-hover">
