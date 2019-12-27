@@ -12,7 +12,9 @@ public interface ReservationService {
 	
 	public Reservation createReservation(String username, Reservation reservation);
 	
-	public Reservation updateReservation(String username, Reservation reservation, int id);
+	public Reservation updateShopperReservation(String username, Reservation reservation, int id);
+	
+//	public Reservation updateHostReservation(String username, Reservation reservation, int id);
 	
 	public boolean deleteReservation(String username, int id);
 
