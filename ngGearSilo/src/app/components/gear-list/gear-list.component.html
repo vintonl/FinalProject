@@ -10,14 +10,14 @@
     <div class="col-10">
       <div>
         <br>
-        <form>
+        <form ngNativeValidate>
           <div class="container-center">
             <div class="active-pink-3 active-pink-4 mb-4">
               <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="keyword"
-                [(ngModel)]="keyword">
+                [(ngModel)]="keyword" minlength="1" maxlength="100">
               <button class="btn btn-dark my-2 my-sm-0" type="submit" (click)="search(); selected=null">Search by
                 keyword</button>
-                <!-- <div>
+              <!-- <div>
                   <ul>
                     <li *ngFor="let category of selectedGear.categories"> {{ categories}}</li>
                   </ul>
@@ -25,6 +25,11 @@
             </div>
           </div>
         </form>
+
+        <button class="btn btn-dark my-2 my-sm-0" (click)="ngOnInit()">See
+          all items</button>
+        <br>
+        <br>
 
         <div *ngIf="!selected  && !hideSearchResult">
           <div *ngIf="searchedGear.length === 0">
@@ -106,8 +111,9 @@
 
 
       <!-- CARDS -->
-      <div *ngIf="!selected && hideSearchResult"></div>
-        <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType " (click)="selected = gearList">
+      <div *ngIf="!selected && hideSearchResult">
+        <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType "
+          (click)="selected = gearList">
           <div style="background-color: whitesmoke;" class="row">
             <div style="background-color: whitesmoke;" class="col-xs-8">
               <div (click)="displayGearItem(item)" style="background-color:white; margin: 3px" id="panels"
@@ -146,7 +152,8 @@
                             <span class="star" [class.filled]="fill === 100" [class.bad]="index < 0">&#9733;</span>
                           </ng-template>
                         </ngb-rating>
-                        <h6 style="margin-left: -10px ;">User Rating: <b style="color: grey;">{{item.user.userLenderRating}}</b></h6>
+                        <h6 style="margin-left: -10px ;">User Rating: <b
+                            style="color: grey;">{{item.user.userLenderRating}}</b></h6>
                       </div>
                     </div>
                   </div>
@@ -222,10 +229,10 @@
                     <span class="sr-only">Next</span>
                   </a>
                 </div>
-              </div>
+              </div> -->
 
 
-               <!-- RIGHT SIDE - DETAILS  -->
+                <!-- RIGHT SIDE - DETAILS  -->
                 <div class="column">
                   <div class="right">
                     <li class="list-group" *ngIf="this.selected && this.selected.description">
@@ -271,7 +278,10 @@
                 <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
               </form>
             </div>
-
-
-
-
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>
