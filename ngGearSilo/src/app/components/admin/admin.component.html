@@ -71,8 +71,18 @@
         >
       </h4>
       <h4>
+        <span class="badge badge-warning border shadow"
+          >Needs Approval: {{ countNeedsApproval() }}</span
+        >
+      </h4>
+      <h4>
         <span class="badge badge-success border shadow"
-          >Active Reservations: {{ countResv() }}</span
+          >Completed Reservations: {{ countCompletedR() }}</span
+        >
+      </h4>
+      <h4>
+        <span class="badge badge-success border shadow"
+          >Active Reservations: {{ countActiveR() }}</span
         >
       </h4>
     </div>

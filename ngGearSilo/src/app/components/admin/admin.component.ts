@@ -177,4 +177,43 @@ export class AdminComponent implements OnInit {
   public countResv() {
     return this.resvList.length;
   }
+
+  public countActiveR() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.resvList.length; i++) {
+      for (this.resv of this.resvList) {
+        if (!this.resv.completed) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  public countCompletedR() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.resvList.length; i++) {
+      for (this.resv of this.resvList) {
+        if (this.resv.completed) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  public countNeedsApproval() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.resvList.length; i++) {
+      for (this.resv of this.resvList) {
+        if (!this.resv.approved) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
 }
