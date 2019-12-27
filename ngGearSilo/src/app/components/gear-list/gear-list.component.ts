@@ -1,3 +1,4 @@
+import { ReviewOfGear } from './../../models/review-of-gear';
 import { ReviewOfLender } from './../../models/review-of-lender';
 import { Reservation } from './../../models/reservation';
 import { ReservationService } from './../../services/reservation.service';
@@ -30,6 +31,7 @@ export class GearListComponent implements OnInit {
   rating = 0;
   averageRating = 0;
   selectedGear: Gear;
+  selectedGearReviews: ReviewOfGear[];
 
   // Categories
 
@@ -94,6 +96,15 @@ export class GearListComponent implements OnInit {
   displayGearItem(gear: Gear) {
     this.selected = gear;
     this.gearSrv.selected = gear;
+    this.gearSrv.loadGearReviews().subscribe(
+      (goodRequest) => {
+        this.selectedGearReviews = goodRequest;
+      },
+      (bad) => {
+        console.log('Error in GearListComponent.displayGearItem() loading gear reviews');
+        console.log(bad);
+      }
+    );
   }
 
   startReservation() {
