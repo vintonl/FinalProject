@@ -150,13 +150,12 @@
                       <div class="col-xs-4">
                         <p>{{item.user.firstName | titlecase}}</p>
                         <br>
-                        <ngb-rating [(rate)]="item.user.userLenderRating" [readonly]="true">
+                        <h6 style="margin-left: -10px ;">Owner Rating:</h6>
+                        <ngb-rating [(rate)]="item.user.userLenderRating" [readonly]="true" max="5">
                           <ng-template let-fill="fill" let-index="index">
                             <span class="star" [class.filled]="fill === 100" [class.bad]="index < 0">&#9733;</span>
                           </ng-template>
                         </ngb-rating>
-                        <h6 style="margin-left: -10px ;">Owner Rating: <b
-                            style="color: grey;">{{item.user.userLenderRating}}</b></h6>
                       </div>
                     </div>
                   </div>

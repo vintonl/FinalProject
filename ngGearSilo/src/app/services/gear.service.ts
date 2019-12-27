@@ -133,7 +133,6 @@ export class GearService {
         return throwError('GearService.loadGearReviews(): Error');
       })
     );
-
   }
 
 }
