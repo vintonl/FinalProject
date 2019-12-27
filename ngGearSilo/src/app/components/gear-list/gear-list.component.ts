@@ -1,3 +1,4 @@
+import { ReviewOfLenderService } from './../../services/review-of-lender.service';
 import { ReviewOfGear } from './../../models/review-of-gear';
 import { ReviewOfLender } from './../../models/review-of-lender';
 import { Reservation } from './../../models/reservation';
@@ -10,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 import { isNgTemplate } from '@angular/compiler';
 import { User } from 'src/app/models/user';
 import { Category } from 'src/app/models/category';
+import { count } from 'rxjs/operators';
 
 
 @Component({
@@ -63,7 +65,7 @@ export class GearListComponent implements OnInit {
 
   constructor(private gearSrv: GearService, private resService: ReservationService,
     // tslint:disable-next-line: align
-    private router: Router, private authService: AuthService) { }
+    private router: Router, private authService: AuthService, private revOfLenderService: ReviewOfLenderService) { }
 
   ngOnInit() {
     this.hideSearchResult = true;
@@ -83,8 +85,28 @@ export class GearListComponent implements OnInit {
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
           }
-
-          gear.user.userLenderRating = gear.user.id;
+          this.revOfLenderService.loadGearOwnerReviews(gear.user).subscribe(
+            (good) => {
+              let ratingAvg = 0;
+              // tslint:disable-next-line: no-shadowed-variable
+              let count = 0;
+              if (good != null) {
+                // tslint:disable-next-line: prefer-for-of
+                for (let index = 0; index < good.length; index++) {
+                  if (good[index].rating != null) {
+                    ratingAvg += good[index].rating;
+                    count++;
+                  }
+                }
+              }
+              gear.user.userLenderRating = ratingAvg / count;
+            },
+            (bad) => {
+              console.log('Error in GearListComponent.loadGear() loading reviews of lender');
+              console.log(bad);
+            }
+          );
+          gear.user.userLenderRating = 0;
         });
       },
       (didntWork) => {
