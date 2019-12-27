@@ -1,17 +1,17 @@
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Reservation } from './../../models/reservation';
-import { GearService } from 'src/app/services/gear.service';
-import { UserService } from './../../services/user.service';
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { Gear } from 'src/app/models/gear';
-import { ReservationService } from 'src/app/services/reservation.service';
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
+import { Reservation } from "./../../models/reservation";
+import { GearService } from "src/app/services/gear.service";
+import { UserService } from "./../../services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { User } from "src/app/models/user";
+import { Gear } from "src/app/models/gear";
+import { ReservationService } from "src/app/services/reservation.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: "app-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.css"]
 })
 export class AdminComponent implements OnInit {
   users: User[] = [];
@@ -28,6 +28,8 @@ export class AdminComponent implements OnInit {
   resv: Reservation = null;
   selectedResv: Reservation = null;
 
+  // admin: User = null;
+
   constructor(
     private userSvc: UserService,
     private gearSvc: GearService,
@@ -37,16 +39,23 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const cred = this.authSvc.getCredentials();
-
-    // if (cred === null ) {
-    //   this.router.navigateByUrl('/login');
-
-    // }
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
+    // this.adminLoggedInCheck();
   }
+
+  // Admin Check here not good
+  // adminLoggedInCheck() {
+  //   this.authSvc.getCredentials();
+  //   if (this.selectedUser.role !== "admin") {
+  //     return this.router.navigateByUrl("#/home");
+  //   } else {
+  //     this.loadUsers();
+  //     this.loadGear();
+  //     this.loadReservations();
+  //   }
+  // }
 
   // Users
 
@@ -85,7 +94,7 @@ export class AdminComponent implements OnInit {
       },
       uErr => {
         this.loadUsers();
-        console.error('updatedUser: Error');
+        console.error("updatedUser: Error");
         console.error(uErr);
       }
     );

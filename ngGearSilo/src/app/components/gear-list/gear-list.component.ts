@@ -60,10 +60,13 @@ export class GearListComponent implements OnInit {
 
 
   constructor(private gearSrv: GearService, private resService: ReservationService,
+    // tslint:disable-next-line: align
     private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-
+    this.hideSearchResult = true;
+    this.selected = null;
+    this.searchedGear = [];
     this.loadGear();
     this.loadReseravtions();
   }
@@ -71,26 +74,21 @@ export class GearListComponent implements OnInit {
   loadGear() {
     this.gearSrv.index().subscribe(
       (aGoodThingHappened) => {
-        console.log("in a aGoodThingHappened Gear");
+        console.log('in a aGoodThingHappened Gear');
         console.log(aGoodThingHappened);
         this.gearList = aGoodThingHappened;
         this.gearList.forEach(gear => {
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
-
-
           }
+
           gear.user.userLenderRating = gear.user.id;
-
         });
-
-
       },
       (didntWork) => {
         console.log(didntWork);
       }
     );
-
   }
 
   displayGearItem(gear: Gear) {
@@ -141,11 +139,11 @@ export class GearListComponent implements OnInit {
   }
 
   openForm() {
-    document.getElementById("myForm").style.display = "block";
+    document.getElementById('myForm').style.display = 'block';
   }
 
   closeForm() {
-    document.getElementById("myForm").style.display = "none";
+    document.getElementById('myForm').style.display = 'none';
   }
 
   // LOAD RESERVATIONS FOR USER
@@ -160,7 +158,7 @@ export class GearListComponent implements OnInit {
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
 
-        console.log("in a aGoodThingHappened REs");
+        console.log('in a aGoodThingHappened REs');
         console.log(aGoodThingHappened);
 
         this.resList = aGoodThingHappened;
