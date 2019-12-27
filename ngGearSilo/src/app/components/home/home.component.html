@@ -6,9 +6,9 @@
       <br>
       <a [routerLink]="['/gears']" class="btn btn-outline-light js-scroll-trigger">See avalible gear to rent</a>
       <br><br>
-      <a [routerLink]="['/login']" class="btn btn-outline-light js-scroll-trigger">Login</a>
+      <a [routerLink]="['/login']" class="btn btn-outline-light js-scroll-trigger" *ngIf="!userLogInCheck()">Login</a>
       <br><br>
-      <a [routerLink]="['/register']" class="btn btn-outline-light js-scroll-trigger">Join our community</a>
+      <a [routerLink]="['/register']" class="btn btn-outline-light js-scroll-trigger" *ngIf="!userLogInCheck()">Join our community</a>
     </div>
   </div>
 </header>
