@@ -8,6 +8,7 @@ import { GearService } from './../../services/gear.service';
 import { Component, OnInit } from '@angular/core';
 import { isNgTemplate } from '@angular/compiler';
 import { User } from 'src/app/models/user';
+import { Category } from 'src/app/models/category';
 
 
 @Component({
@@ -28,7 +29,34 @@ export class GearListComponent implements OnInit {
   loggedInUser: User = new User();
   rating = 0;
   averageRating = 0;
+  selectedGear: Gear;
 
+  // Categories
+
+  categories = [
+    'all',
+    'Mountain Biking',
+    'Skating',
+    'Surf',
+    'Hiking',
+    'Kayaking',
+    'Water Sports',
+    'Rock Climbing',
+    'Skiing',
+    'Snowboarding',
+    'Freefalling',
+    'Wakeboarding',
+    'Snow',
+    'Water',
+    'Mountain',
+    'Sky',
+    'Biking',
+    'Winter'
+  ];
+  selectedType = 'all';
+
+
+  // Constructor
 
 
   constructor(private gearSrv: GearService, private resService: ReservationService,

@@ -17,11 +17,14 @@
                 [(ngModel)]="keyword">
               <button class="btn btn-dark my-2 my-sm-0" type="submit" (click)="search(); selected=null">Search by
                 keyword</button>
+                <!-- <div>
+                  <ul>
+                    <li *ngFor="let category of selectedGear.categories"> {{ categories}}</li>
+                  </ul>
+                </div> -->
             </div>
           </div>
         </form>
-
-
 
         <div *ngIf="!selected  && !hideSearchResult">
           <div *ngIf="searchedGear.length === 0">
@@ -103,8 +106,8 @@
 
 
       <!-- CARDS -->
-      <div *ngIf="!selected && hideSearchResult">
-        <div class="container" *ngFor="let item of gearList">
+      <div *ngIf="!selected && hideSearchResult"></div>
+        <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType " (click)="selected = gearList">
           <div style="background-color: whitesmoke;" class="row">
             <div style="background-color: whitesmoke;" class="col-xs-8">
               <div (click)="displayGearItem(item)" style="background-color:white; margin: 3px" id="panels"

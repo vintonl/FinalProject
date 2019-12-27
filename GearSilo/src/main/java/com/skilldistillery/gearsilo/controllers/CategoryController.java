@@ -42,9 +42,9 @@ public class CategoryController {
 		return categoryList;
 	}
 	
-//	@GetMapping("gears/categories")
-//	public List<Gear> listGearByCategories(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
-//		List<Gear> gearList = gearSvc.find;
+//	@GetMapping("gears/categories");
+//	public List<Gear> listGearByCategories(HttpServletRequest req, HttpServletResponse resp, Category category) {
+//		List<Gear> categoryList = gearSvc.findByCategories(category);
 //		if (categoryList == null) {
 //			resp.setStatus(404);
 //		}
