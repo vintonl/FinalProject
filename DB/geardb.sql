@@ -312,8 +312,8 @@ COMMIT;
 START TRANSACTION;
 USE `geardb`;
 INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (1, '2019-12-19', '2019-12-19', 1, 1, 6, '2019-12-19', '2019-12-19', 1);
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-12-19', '2019-12-19', 3, 1, 4, '2019-12-19', '2019-12-19', 1);
-INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-12-19', '2019-12-19', 2, 1, 5, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-12-19', '2019-12-19', 2, 1, 4, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-12-19', '2019-12-19', 3, 1, 5, '2019-12-19', '2019-12-19', 1);
 INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (4, '2019-12-19', '2019-12-19', 4, 0, 7, '2019-12-19', '2019-12-19', 1);
 
 COMMIT;
