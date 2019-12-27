@@ -254,6 +254,17 @@
                     <li class="list-group ">Location: {{selected.user.address.city | titlecase }},
                       {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
 
+                    <!-- Reviews of gear if user is logged in and item has reviews -->
+                    <div *ngIf="selectedGearReviews && selectedGearReviews.length > 0">
+                      <li class="list-group ">{{selected.name | titlecase}} Reviews: </li>
+                      <ol *ngFor="let review of selectedGearReviews">
+                        <li>Rating: {{review.rating}}</li>
+                        <ul>
+                          <li>Review: {{review.review}}</li>
+                        </ul>
+                      </ol>
+                    </div>
+
                     <div class="btn-group" role="group" aria-label="Basic example">
                       <div class="btn-group" role="group" aria-label="Basic example">
                         <button (click)="selected=null" class="btn btn-dark my-2 my-sm-0">Back to the list</button>
