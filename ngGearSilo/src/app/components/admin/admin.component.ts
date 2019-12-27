@@ -79,6 +79,18 @@ export class AdminComponent implements OnInit {
 
   public countActiveU() {
     // set data aggr. for active users
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.users.length; i++) {
+      for (this.user of this.users) {
+        if (this.user.enabled) {
+          count++;
+        }
+      }
+      console.log("***** THIS IS COUNT ACTIVE *****" + count);
+
+      return count;
+    }
   }
 
   public setUpdateUser() {
