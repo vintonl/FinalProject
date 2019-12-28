@@ -142,7 +142,7 @@
           <br />
           <ul class="list-group">
             <li class="list-group-item">User Id: {{ selectedUser.id }}</li>
-            <li class="list-group-item">Email: {{ selectedUser.email }}</li>
+            <li class="list-group-item">Email: <a href="mailto:{{ selectedUser.email }}"><u>{{ selectedUser.email }}</u></a></li>
             <li class="list-group-item">
               Username: {{ selectedUser.username }}
             </li>
