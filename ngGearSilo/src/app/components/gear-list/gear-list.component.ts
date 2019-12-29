@@ -61,8 +61,6 @@ export class GearListComponent implements OnInit {
 
 
   // Constructor
-
-
   constructor(private gearSrv: GearService, private resService: ReservationService,
     // tslint:disable-next-line: align
     private router: Router, private authService: AuthService, private revOfLenderService: ReviewOfLenderService) { }
@@ -118,6 +116,7 @@ export class GearListComponent implements OnInit {
   displayGearItem(gear: Gear) {
     this.selected = gear;
     this.gearSrv.selected = gear;
+    this.searchedGear.length = 0;
     this.gearSrv.loadGearReviews().subscribe(
       (goodRequest) => {
         this.selectedGearReviews = goodRequest;
@@ -135,6 +134,8 @@ export class GearListComponent implements OnInit {
 
   search() {
     this.searchedGear = [];
+
+    console.log(this.keyword)
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
@@ -233,13 +234,7 @@ export class GearListComponent implements OnInit {
     //   console.log(this.loggedInUser);
   }
 
-  onClickGearPopUp(item: any, lgModal: any) {
 
-    this.selected = item;
-
-    lgModal.show();
-
-  }
 
 }
 
