@@ -223,6 +223,9 @@
 .form-control:valid {
   border-color: orange !important;
 }
+.form-control {
+  background-color: white;
+}
 
 input[type=text] {
   width: 50%;
@@ -233,3 +236,7 @@ input[type=text] {
 input[type=text]:focus {
   width: 53%;
 }
+
+
+
+

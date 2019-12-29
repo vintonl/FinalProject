@@ -233,7 +233,13 @@ export class GearListComponent implements OnInit {
     //   console.log(this.loggedInUser);
   }
 
+  onClickGearPopUp(item: any, lgModal: any) {
 
+    this.selected = item;
+
+    lgModal.show();
+
+  }
 
 }
 

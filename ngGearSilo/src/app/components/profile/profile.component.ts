@@ -178,11 +178,10 @@ export class ProfileComponent implements OnInit {
 
     console.log('in update gear');
     console.log(this.updatedGear.active);
-    console.log(this.reservationStatus);
 
 
     this.updatedGear.id = this.selecteditem.id;
-    this.updatedGear.active = this.reservationStatus;
+    this.updatedGear.active = true;
 
     if (this.updatedGear.name === null || this.updatedGear.name === undefined) {
       this.updatedGear.name = this.selecteditem.name;
@@ -203,15 +202,17 @@ export class ProfileComponent implements OnInit {
     this.selecteditem = null;
     this.gearSrv.update(this.updatedGear).subscribe(
       data => {
+        // this.updatedGear = data;
+        location.reload();
+        // this.updatedGear = null;
+        // this.selecteditem = null;
 
-        this.updatedGear = data;
-        this.updatedGear = null;
-        this.selecteditem = null;
 
       },
       err => console.log('Update got an error: ' + err));
 
-    // location.reload();
+
+    // this.loadGear();
     // this.loadGear();
   }
 
@@ -263,9 +264,6 @@ export class ProfileComponent implements OnInit {
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
         console.log(aGoodThingHappened);
-
-
-
         aGoodThingHappened.forEach(res => {
           this.myReservations.push(res);
 
@@ -365,7 +363,7 @@ export class ProfileComponent implements OnInit {
     this.resService.update(this.updatedRes).subscribe(
       data => {
 
-        console.log("inside res a good thing happened " +  this.updatedRes.id);
+        console.log("inside res a good thing happened " + this.updatedRes.id);
         this.updatedRes = data;
         this.updatedRes = null;
         this.selectedRes = null;
