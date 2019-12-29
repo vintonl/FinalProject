@@ -1,3 +1,8 @@
+<script src="js/addons/rating.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!------ Include the above in your HEAD tag ---------->
+
+
 <div class="container">
   <br>
   <div class="text-center">
@@ -29,6 +34,12 @@
 
     <li class="list-group-item ">Location: {{selected.user.address.city | titlecase }},
       {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
+
+    <li class="list-group-item ">Click here to email: <a
+        href="mailto:{{selected.user.email}}?subject=Gear Silo Rental Inquiry!&body=Hi, {{selected.user.firstName}}! I would Like to rent your {{selected.name}}. Please confirm the requested reserve dates.">
+        <span style="margin-right: 5px" class="glyphicon glyphicon-envelope"></span>{{selected.user.firstName}}</a>
+    </li>
+
 
   </ul>
   <br>
