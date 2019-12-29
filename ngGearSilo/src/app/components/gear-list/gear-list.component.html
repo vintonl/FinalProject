@@ -36,7 +36,7 @@
         <form class="form-inline" ngNativeValidate>
           <div class="input-group-prepend">
             <button class="btn btn-outline-secondary" style="margin: 5px" type="submit"
-              (click)="search(); selected=null"><span style="margin: 2px"class="glyphicon glyphicon-search"></span>
+              (click)="search(); selected=null"><span style="margin: 2px" class="glyphicon glyphicon-search"></span>
             </button>
           </div>
           <div>
@@ -44,7 +44,8 @@
               name="keyword" [(ngModel)]="keyword" minlength="1" maxlength="100">
           </div>
           <!-- RESET BUTTON -->
-          <button style="margin-left: 530px" class="btn btn-outline-secondary" (click)="ngOnInit()"><span style="margin: 2px"class="glyphicon glyphicon-th-list"></span> See all
+          <button style="margin-left: 530px" class="btn btn-outline-secondary" (click)="ngOnInit()"><span
+              style="margin: 2px" class="glyphicon glyphicon-th-list"></span> See all
             Items</button>
         </form>
 
@@ -231,54 +232,12 @@
 
                 <div class="row">
                   <div class="column">
-
                     <div style="max-width:600px; max-height:500px !important; padding: 10px; overflow: hidden;">
                       <img class="resImage" src="{{selected.imageUrl}}" alt="">
                     </div>
-
                   </div>
 
 
-
-
-                  <!-- CAROUSEL - LEFT-->
-                  <!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                  <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                  </ol>
-                  <div class="carousel-inner" style="max-width:300px; max-height:300px !important;">
-
-                    <div class="carousel-item active">
-                      <img class="d-block w-100" src="{{selected.imageUrl}}" alt="First slide">
-                    </div>
-
-                    <div *ngIf="selected.imageUrl2 && selected.imageUrl2.length > 0">
-                      <div class="carousel-item">
-                        <img *ngIf="selected.imageUrl2 && selected.imageUrl2.length > 0" class="d-block w-100"
-                          src="{{selected.imageUrl2}}" alt="Second slide">
-                      </div>
-                    </div>
-
-                    <div *ngIf="selected.imageUrl3 && selected.imageUrl3.length > 0">
-                      <div class="carousel-item">
-                        <img class="image" src="{{selected.imageUrl3}}" alt="Third slide">
-                      </div>
-                    </div> -->
-
-                  <!-- LEFT AND RIGHT BUTTONS -->
-                  <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a style="margin-right: 5%; " class="carousel-control-next" href="#carouselExampleIndicators"
-                    role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
-              </div> -->
 
 
                   <!-- RIGHT SIDE - DETAILS  -->
@@ -300,16 +259,7 @@
                       <li class="list-group ">Location: {{selected.user.address.city | titlecase }},
                         {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
 
-                      <!-- Reviews of gear if user is logged in and item has reviews -->
-                      <div *ngIf="selectedGearReviews && selectedGearReviews.length > 0">
-                        <li class="list-group ">{{selected.name | titlecase}} Reviews: </li>
-                        <ol *ngFor="let review of selectedGearReviews">
-                          <li>Rating: {{review.rating}}</li>
-                          <ul>
-                            <li>Review: {{review.review}}</li>
-                          </ul>
-                        </ol>
-                      </div>
+
 
                       <div class="btn-group" role="group" aria-label="Basic example">
                         <div class="btn-group" role="group" aria-label="Basic example">
@@ -327,8 +277,40 @@
 
 
 
+              <!-- Reviews of gear if user is logged in and item has reviews -->
+              <div class="container" *ngIf="selectedGearReviews && selectedGearReviews.length > 0">
+                <div class="row">
+                  <div class="col-md-8">
 
-              <!-- CHAT
+                    <div class="page-header">
+                      <h1><small class="pull-right">{{selectedGearReviews.length}} Review(s)</small> Comments </h1>
+                    </div>
+                    <div class="comments-list" *ngFor="let review of selectedGearReviews">
+                      <div class="media">
+                        <a class="media-left" href="#">
+                          <!-- <img src="{{review.reservation.userShopper.imageUrl}}"> -->
+                        </a>
+                        <div class="media-body">
+                          <h4 class="media-heading user_name">{{review.reservation}}</h4>
+                          {{review.review}}
+                          <p style="margin-right: 10px" class="pull-right"><small>
+                              <ngb-rating [(rate)]="review.rating" [readonly]="true" max="5">
+                                <ng-template let-fill="fill" let-index="index">
+                                  <span class="star" [class.filled]="fill === 100"
+                                    [class.bad]="index < 0">&#9733;</span>
+                                </ng-template>
+                              </ngb-rating>
+                            </small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                <!-- CHAT
           <button class="open-button" (click)="openForm()">Chat</button>
           <div class="chat-popup" id="myForm">
             <form style="background-color: white; opacity: 1;" action="/action_page.php" class="form-container">
@@ -338,10 +320,10 @@
               <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
             </form>
           </div> -->
+              </div>
             </div>
           </div>
         </div>
+        <div class="col-1"></div>
       </div>
-      <div class="col-1"></div>
     </div>
-  </div>
