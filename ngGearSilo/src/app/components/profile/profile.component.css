@@ -308,6 +308,9 @@ input:checked + .slider:before {
 
 }
 
+
+
+
 .modal-footer {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
