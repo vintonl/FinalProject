@@ -41,9 +41,11 @@
           </div>
           <input class="form-control" type="text" size="35" placeholder="Search by Keyword" aria-label="Search"
             name="keyword" [(ngModel)]="keyword" minlength="1" maxlength="100">
-            <!-- RESET BUTTON -->
-          <button style="margin-left: 270px" class="btn btn-outline-secondary" (click)="ngOnInit()">See all items</button>
+          <!-- RESET BUTTON -->
+          <button style="margin-left: 270px" class="btn btn-outline-secondary" (click)="ngOnInit()">See all
+            items</button>
         </form>
+
 
         <!-- <div>
           <ul>
@@ -135,10 +137,9 @@
       <div *ngIf="!selected && hideSearchResult">
         <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType "
           (click)="selected = gearList">
-          <div style="background-color: whitesmoke;" class="row">
+          <div (click)="displayGearItem(item)"  style="background-color: whitesmoke;" class="row">
             <div style="background-color: whitesmoke;" class="col-xs-8">
-              <div (click)="displayGearItem(item)" style="background-color:white; margin: 3px" id="panels"
-                class="panel panel">
+              <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
                 <div class="panel-heading">
                   <div class="panel-title">
                     <div class="row">
@@ -300,16 +301,16 @@
 
 
 
-
-            <button class="open-button" (click)="openForm()">Chat</button>
-            <div class="chat-popup" id="myForm">
-              <form style="background-color: white; opacity: 1;" action="/action_page.php" class="form-container">
-                <label for="msg"><b>Message</b></label>
-                <textarea placeholder="Type message.." name="msg" required></textarea>
-                <button type="submit" class="btn">Send</button>
-                <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
-              </form>
-            </div>
+            <!-- CHAT
+          <button class="open-button" (click)="openForm()">Chat</button>
+          <div class="chat-popup" id="myForm">
+            <form style="background-color: white; opacity: 1;" action="/action_page.php" class="form-container">
+              <label for="msg"><b>Message</b></label>
+              <textarea placeholder="Type message.." name="msg" required></textarea>
+              <button type="submit" class="btn">Send</button>
+              <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+            </form>
+          </div> -->
           </div>
         </div>
       </div>
