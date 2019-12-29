@@ -20,18 +20,20 @@
             <button class="btn btn-defult follow" data-toggle="modal" data-target="#addGear">Add</button>
           </div>
 
-          <div class="col-md-12 user-detail-section2">
-            <div class="border"></div>
-            <p style="margin-left: 15px;">Rating</p>
-            <span>{{rating}} <small></small></span>
+          <div class="row user-detail-row">
+            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+              <div class="border"></div>
+              <p>Phone</p>
+              <span>{{loggedInUser.phone}} <small></small></span>
+            </div>
           </div>
-        </div>
 
-        <div class="row user-detail-row">
-          <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
-            <div class="border"></div>
-            <p>Email</p>
-            <span>{{loggedInUser.email}}</span>
+          <div class="row user-detail-row">
+            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+              <div class="border"></div>
+              <p>Email</p>
+              <span>{{loggedInUser.email}}</span>
+            </div>
           </div>
 
           <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
