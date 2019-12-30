@@ -1,3 +1,4 @@
+import { Address } from './../../models/address';
 import { ReviewOfLenderService } from './../../services/review-of-lender.service';
 import { ReviewOfGear } from './../../models/review-of-gear';
 import { ReviewOfLender } from './../../models/review-of-lender';
@@ -12,6 +13,7 @@ import { isNgTemplate } from '@angular/compiler';
 import { User } from 'src/app/models/user';
 import { Category } from 'src/app/models/category';
 import { count } from 'rxjs/operators';
+import { MapService } from 'src/app/services/map.service';
 
 
 @Component({
@@ -32,8 +34,11 @@ export class GearListComponent implements OnInit {
   loggedInUser: User = new User();
   rating = 0;
   averageRating = 0;
+  location;
   selectedGear: Gear;
   selectedGearReviews: ReviewOfGear[];
+  lat = null;
+  long = null;
 
   // Categories
 
@@ -63,7 +68,8 @@ export class GearListComponent implements OnInit {
   // Constructor
   constructor(private gearSrv: GearService, private resService: ReservationService,
     // tslint:disable-next-line: align
-    private router: Router, private authService: AuthService, private revOfLenderService: ReviewOfLenderService) { }
+    private router: Router, private authService:
+      AuthService, private revOfLenderService: ReviewOfLenderService, private mapService: MapService) { }
 
   ngOnInit() {
     this.hideSearchResult = true;
@@ -120,6 +126,7 @@ export class GearListComponent implements OnInit {
     this.gearSrv.loadGearReviews().subscribe(
       (goodRequest) => {
         this.selectedGearReviews = goodRequest;
+        this.getLocation(this.selected);
       },
       (bad) => {
         console.log('Error in GearListComponent.displayGearItem() loading gear reviews');
@@ -234,7 +241,29 @@ export class GearListComponent implements OnInit {
     //   console.log(this.loggedInUser);
   }
 
+  getLocation(item: Gear) {
+    console.log("inside get location");
+    this.mapService.getAll(item).subscribe(
 
+      (goodRequest) => {
+        this.location = goodRequest;
+        console.log("logging a good request");
+        console.log(goodRequest);
+        console.log(this.location.results[0].geometry.location.lat);
+
+
+
+
+        this.lat = this.location.results[0].geometry.location.lat;
+        this.long = this.location.results[0].geometry.location.long;
+
+      },
+      (bad) => {
+        console.log('Error in Gear Comp - fetching map geocode from Map Service ');
+        console.log(bad);
+      }
+    );
+  }
 
 }
 
