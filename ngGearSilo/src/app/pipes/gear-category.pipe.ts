@@ -10,7 +10,7 @@ export class GearCategoryPipe implements PipeTransform {
 
   // String may need to be Category for table?
   transform(gearList: Gear[], category: string): Gear[] {
-    if( category === 'all') {
+    if ( category === 'All') {
       return gearList;
     }
     const result: Gear[] = [];

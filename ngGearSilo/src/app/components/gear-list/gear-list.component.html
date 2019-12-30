@@ -44,18 +44,17 @@
               name="keyword" [(ngModel)]="keyword" minlength="1" maxlength="100">
           </div>
           <!-- RESET BUTTON -->
-          <button style="margin-left: 530px" class="btn btn-outline-secondary" (click)="ngOnInit()"><span
+          <button style="margin-left: 530px" class="btn btn-outline-secondary" (click)="ngOnInit(); selectedType = 'All'"><span
               style="margin: 2px" class="glyphicon glyphicon-th-list"></span> See all
             Items</button>
         </form>
-
-
-        <!-- <div>
-          <ul>
-            <li *ngFor="let category of selectedGear.categories"> {{ categories}}</li>
+        <ul class="nav nav-tabs">
+          <li class="active">
+              <span class="showHand hover border border-warning rounded" *ngFor="let category of categories" (click)="selectedType = category">&nbsp;{{category}}&nbsp;</span>
+            </li>
           </ul>
-        </div> -->
-
+        <h3>{{selectedType}}</h3>
+        <br>
 
         <!-- SEARCHED GEAR RESULTS -->
 
