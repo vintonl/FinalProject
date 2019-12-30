@@ -27,6 +27,8 @@ export class Gear {
   available: boolean;
   active: boolean;
   categories: any[];
+  lat: string;
+  long: string;
 
   constructor(
     id?: number,
@@ -40,7 +42,9 @@ export class Gear {
     imageUrl3?: string,
     available?: boolean,
     active?: boolean,
-    categories?: Category
+    categories?: Category,
+    lat?: string,
+    long?: string
 
   ) {
     this.id = id;
@@ -54,6 +58,8 @@ export class Gear {
     this.imageUrl3 = imageUrl3;
     this.available = available;
     this.active = active;
+    this.lat = lat;
+    this.long = long;
 
   }
 }

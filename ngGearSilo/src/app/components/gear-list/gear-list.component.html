@@ -69,10 +69,6 @@
         </div>
 
 
-
-
-
-
         <!-- SEARCH SEARCH CARDS -->
         <div *ngIf="searchedGear.length > 0">
           <h2>{{searchedGear.length}} Search Results Found</h2>
@@ -173,7 +169,7 @@
                       <div class="row">
                         <div class="col-xs-6">
                           <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}},
-                            {{item.user.address.state}}</h5>
+                            {{item.user.address.state}} </h5> <h6 style="color: orange; margin-right: -5px">{{distanceFromGear | number : '1.1-2'}} Miles from you</h6>
                           <hr>
                         </div>
                       </div>
@@ -313,7 +309,7 @@
 
                 <div class="map">
                   <iframe src="https://maps.google.com/maps?q={lat},{long}&hl=es;z=10&amp;output=embed" height="300"
-                    style="border:0;" allowfullscreen=""></iframe>
+                    style="border:0;" allowfullscreen="" ></iframe>
                 </div>
 
 

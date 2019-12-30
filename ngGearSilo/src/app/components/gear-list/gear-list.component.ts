@@ -39,6 +39,7 @@ export class GearListComponent implements OnInit {
   selectedGearReviews: ReviewOfGear[];
   lat = null;
   long = null;
+  distanceFromGear;
 
   // Categories
 
@@ -89,6 +90,7 @@ export class GearListComponent implements OnInit {
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
           }
+
           this.revOfLenderService.loadGearOwnerReviews(gear.user).subscribe(
             (good) => {
               let ratingAvg = 0;
@@ -104,6 +106,14 @@ export class GearListComponent implements OnInit {
                 }
               }
               gear.user.userLenderRating = ratingAvg / count;
+              console.log("about to get location");
+
+
+              this.getLocation(gear);
+              gear.lat = this.lat;
+              gear.long = this.long;
+              this.getDistance(this.lat, this.long, gear);
+              // this.distanceFromGear = 0;
             },
             (bad) => {
               console.log('Error in GearListComponent.loadGear() loading reviews of lender');
@@ -243,27 +253,67 @@ export class GearListComponent implements OnInit {
 
   getLocation(item: Gear) {
     console.log("inside get location");
-    this.mapService.getAll(item).subscribe(
 
+    this.mapService.getAll(item).subscribe(
       (goodRequest) => {
         this.location = goodRequest;
         console.log("logging a good request");
         console.log(goodRequest);
-        console.log(this.location.results[0].geometry.location.lat);
-
-
-
 
         this.lat = this.location.results[0].geometry.location.lat;
-        this.long = this.location.results[0].geometry.location.long;
+        this.long = this.location.results[0].geometry.location.lng;
+        console.log("in get local")
+        console.log(this.long);
+        console.log(this.lat);
 
       },
       (bad) => {
         console.log('Error in Gear Comp - fetching map geocode from Map Service ');
         console.log(bad);
       }
+
     );
+
   }
+
+  getDistance(lat, long, item) {
+
+    console.log("in get disatnce method");
+
+    console.log("in get disatnce field")
+
+    let lat1 = item.lat;
+    let long1 = item.long;
+    console.log("item long" + item.long);
+    console.log("item lat" + item.lat);
+
+    let lat2 = 39.536421;
+    let long2 = -104.865641;
+
+
+    let R = 6378137; // Earth’s mean radius in meter
+    let dLat = rad(lat2 - lat1);
+
+    console.log(dLat);
+    let dLong = rad(long2 - long1);
+    console.log(dLong);
+
+    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(rad(lat1)) * Math.cos(rad(lat2)) *
+      Math.sin(dLong / 2) * Math.sin(dLong / 2);
+
+    console.log(a);
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let d = R * c;
+
+    console.log(d)
+    this.distanceFromGear = (d * 0.00062137);
+    return d; // returns the distance in meter
+  };
+};
+let rad = function (x) {
+  return x * Math.PI / 180;
+
 
 }
 
