@@ -89,21 +89,23 @@ public class ReservationController {
 
 	}
 
-//	@PutMapping("reservations/users/{id}")
-//	public Reservation updateReservation(@RequestBody Reservation reservation, @PathVariable int id,
-//			HttpServletRequest req, HttpServletResponse resp, Principal p) {
-//		System.out.println("inside res controller update - " + reservation.getApproved());
-//
-//		try {
-//			resp.setStatus(201);
-//			StringBuffer url = req.getRequestURL();
-//			resp.addHeader("Location", url.toString());
-//			return resSvc.updateHostReservation(p.getName(), reservation, id);
-//
-//		} catch (Exception e) {
-//			resp.setStatus(400);
-//			return null;
-//		}
-//	}
+	@PutMapping("reservations/users")
+	public Reservation updateReservation(HttpServletRequest req, HttpServletResponse resp, Principal principal,
+			@RequestBody Reservation reservation) {
+		System.out.println("inside res controller update - " + reservation.getApproved());
+
+		try {
+			reservation = resSvc.updateHostReservation(principal.getName(), reservation, reservation.getGearId().getId());
+			if (reservation == null) {
+				resp.setStatus(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			resp.setStatus(400);
+			reservation = null;
+		}
+		System.out.println("inside pu update gear - printing return of gear" + reservation);
+		return reservation;
+	}
 
 }
