@@ -29,6 +29,7 @@ export class Gear {
   categories: any[];
   lat: string;
   long: string;
+  distance: string;
 
   constructor(
     id?: number,
