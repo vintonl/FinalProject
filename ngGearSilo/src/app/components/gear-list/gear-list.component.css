@@ -49,10 +49,12 @@
 
 #panels:hover {
   background-color: white;
-  transition: transform 0.3s;
+  transition: transform 0.4s;
+  transition-delay: .1s;
   transform: scale(1.01);
-  transform-style: flat;
+  transform-style: preserve-3d;
 }
+
 
 .list-group {
   /* background-color: blue; */
