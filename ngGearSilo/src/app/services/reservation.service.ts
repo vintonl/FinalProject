@@ -64,7 +64,7 @@ export class ReservationService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put<Reservation>(this.url + '/users/' + 1, updatedRes, httpOptions).pipe(
+    return this.http.put<Reservation>(this.url + '/users', updatedRes, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('ResService.update(): Error');

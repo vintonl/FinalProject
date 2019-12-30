@@ -14,10 +14,10 @@ public interface ReservationService {
 	
 	public Reservation updateShopperReservation(String username, Reservation reservation, int id);
 	
-//	public Reservation updateHostReservation(String username, Reservation reservation, int id);
-	
 	public boolean deleteReservation(String username, int id);
 
 	List<Reservation> findAllReservationsByUserUsername(String username);
+
+	Reservation updateHostReservation(String username, Reservation reservation, int gid);
 
 }

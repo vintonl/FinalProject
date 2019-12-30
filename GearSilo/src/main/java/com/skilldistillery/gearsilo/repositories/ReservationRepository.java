@@ -11,7 +11,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	List<Reservation> findByUserShopper_Username(String username);
 
 //	Reservation findByGearId_User_Username(String username,  int gearId);
-
+	Reservation findByGearId_User_UsernameAndId(String username, int id);
 //
 	Reservation findByUserShopper_UsernameAndId(String username, int id);
 
