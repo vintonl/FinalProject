@@ -337,8 +337,33 @@ export class ProfileComponent implements OnInit {
   // UPDATE THE RESERVATION
   // tslint:disable-next-line: adjacent-overload-signatures
   updateResApproval(res) {
+    console.log(this.updatedRes.createdAt + "update res approval");
 
     // this.updatedRes.gearId.user;
+
+    if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined ) {
+      this.updatedRes.createdAt = this.selectedRes.createdAt
+      console.log(this.updatedRes.createdAt + "update res approval");
+    }
+    if (this.updatedRes.openDate === null || this.updatedRes.openDate === undefined) {
+      this.updatedRes.openDate = this.selectedRes.openDate
+    }
+    if (this.updatedRes.closeDate === null || this.updatedRes.closeDate === undefined) {
+      this.updatedRes.closeDate = this.selectedRes.closeDate
+    }
+    if (this.updatedRes.updatedAt === null || this.updatedRes.updatedAt === undefined) {
+      this.updatedRes.updatedAt = this.selectedRes.updatedAt
+    }
+    if (this.updatedRes.completed === null || this.updatedRes.completed === undefined) {
+      this.updatedRes.completed = this.selectedRes.completed
+    }
+    if (this.updatedRes.gearId === null || this.updatedRes.gearId === undefined) {
+      this.updatedRes.gearId = this.selectedRes.gearId
+    }
+    if (this.updatedRes.userShopper === null || this.updatedRes.userShopper === undefined) {
+      this.updatedRes.userShopper = this.selectedRes.userShopper
+    }
+
     this.updatedRes.id = this.selectedRes.id;
     this.updatedRes.approved = this.selectedRes.approved;
     console.log('in update res before ');
