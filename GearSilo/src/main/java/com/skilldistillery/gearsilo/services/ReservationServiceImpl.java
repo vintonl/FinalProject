@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
+import com.skilldistillery.gearsilo.entities.ReviewOfShopper;
 import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.repositories.ReservationRepository;
 import com.skilldistillery.gearsilo.repositories.UserRepository;
@@ -98,13 +99,18 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 	}
 
+	@Override
+	public Reservation updateHostReservation(String username, Reservation reservation, int id) {
+		Reservation updateReservation = resRepo.findByGearId_User_UsernameAndId(username, id); 
+			if (reservation != null) {
+				updateReservation.setApproved(reservation.getApproved());
+				resRepo.saveAndFlush(updateReservation);
+			}
+		return updateReservation;
+	}
+
 //	@Override
 //	public Reservation updateHostReservation(String username, Reservation reservation, int id) {
-//
-//		System.out.println(username);
-//		System.out.println(reservation);
-//		System.out.println(id);
-//
 //		Reservation oldRes = resRepo.findByGearId_User_Username(username, id);
 //
 //		System.out.println("old res");
