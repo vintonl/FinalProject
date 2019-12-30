@@ -48,14 +48,13 @@
               style="margin: 2px" class="glyphicon glyphicon-th-list"></span> See all
             Items</button>
         </form>
-
-
-        <!-- <div>
-          <ul>
-            <li *ngFor="let category of selectedGear.categories"> {{ categories}}</li>
+        <ul class="nav nav-tabs">
+          <li class="active">
+              <span class="showHand hover border border-warning rounded" *ngFor="let category of categories" (click)="selectedType = category">&nbsp;{{category}}&nbsp;</span>
+            </li>
           </ul>
-        </div> -->
-
+        <br>
+        <br>
 
         <!-- SEARCHED GEAR RESULTS -->
 

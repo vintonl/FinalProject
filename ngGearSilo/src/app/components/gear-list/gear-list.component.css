@@ -247,6 +247,17 @@ input[type=text]:focus {
   border-bottom: 1px dotted #ccc;
 }
 
+/* CSS For Category Select Bar */
+.showHand {
+  color: white;
+  background-color: grey;
+  font-size: 15px;
+  cursor: pointer;
+}
+  span:hover{
+    color: orange;
+  }
+
 
 
 

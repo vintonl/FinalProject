@@ -44,15 +44,16 @@ export class GearListComponent implements OnInit {
   // Categories
 
   categories = [
-    'all',
+    'All',
     'Mountain Biking',
     'Skating',
     'Surf',
     'Hiking',
+    'Biking',
     'Kayaking',
     'Water Sports',
     'Rock Climbing',
-    'Skiing',
+    'Skiing ',
     'Snowboarding',
     'Freefalling',
     'Wakeboarding',
@@ -60,10 +61,9 @@ export class GearListComponent implements OnInit {
     'Water',
     'Mountain',
     'Sky',
-    'Biking',
     'Winter'
   ];
-  selectedType = 'all';
+  selectedType = 'All';
 
 
   // Constructor
@@ -200,6 +200,7 @@ export class GearListComponent implements OnInit {
 
     this.keyword = null;
   }
+
 
   openForm() {
     document.getElementById('myForm').style.display = 'block';
