@@ -113,8 +113,6 @@ export class GearListComponent implements OnInit {
               gear.user.userLenderRating = ratingAvg / count;
 
               this.getLocation(gear);
-
-              // this.distanceFromGear = 0;
             },
             (bad) => {
               console.log('Error in GearListComponent.loadGear() loading reviews of lender');
@@ -122,16 +120,12 @@ export class GearListComponent implements OnInit {
             }
           );
           gear.user.userLenderRating = 0;
-
         });
-
       },
       (didntWork) => {
         console.log(didntWork);
       }
-
     );
-
   }
 
   displayGearItem(gear: Gear) {
@@ -157,9 +151,6 @@ export class GearListComponent implements OnInit {
   search() {
     this.searchedGear = [];
 
-    console.log(this.keyword)
-
-    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
       if (this.gearList[i].name.toLowerCase().includes(this.keyword.toLowerCase())) {
         this.searchedGear.push(this.gearList[i]);
@@ -206,41 +197,18 @@ export class GearListComponent implements OnInit {
   // LOAD RESERVATIONS FOR USER
   loadReseravtions() {
     this.resList = [];
-    // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-    //   yes => {
-    //     this.loggedInUser = yes;
-    //     console.log('Got logged in user:');
-    //     console.log(this.loggedInUser);
-
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
-
-        console.log('in a aGoodThingHappened REs');
         console.log(aGoodThingHappened);
 
         this.resList = aGoodThingHappened;
-
-        console.log(this.resList);
-        console.log(this.resList.length);
-        console.log(this.resList.values);
-        console.log('+++++++++++++++++====');
-
-
         this.resList.forEach(res => {
-          console.log(res);
-          console.log(res.lenderReview.rating);
 
           if (res.lenderReview.rating > 0) {
 
-
-
             this.rating = res.lenderReview.rating;
-
             this.averageRating = this.rating;
           }
-
-
-
         });
       },
       (didntWork) => {
@@ -248,31 +216,20 @@ export class GearListComponent implements OnInit {
         console.log(didntWork);
       }
     );
-    //     },
-    //     no => {
-    //       console.error('Error laoding res in user');
-    //       console.error(no);
-    //     }
-    //   );
-    //   console.log(this.loggedInUser);
+
   }
 
+  // GETS LOCATION OF EACH ITEM AND CALLS THE CALCULATE DISTANCE METHOD
   getLocation(item: Gear) {
     console.log("inside get location");
 
     this.mapService.getAll(item).subscribe(
       (goodRequest) => {
         this.location = goodRequest;
-        console.log("logging a good request by gear ");
 
         item.lat = this.location.results[0].geometry.location.lat;
         item.long = this.location.results[0].geometry.location.lng;
-
-
-
         this.getDistance(this.lat, this.long, item);
-        console.log(item.lat);
-        console.log(item.long);
 
       },
       (bad) => {
@@ -288,8 +245,6 @@ export class GearListComponent implements OnInit {
     this.mapService.getUserAddress(add).subscribe(
       (goodRequest) => {
         this.location = goodRequest;
-        console.log("logging a good request b ADDRESS");
-        console.log(goodRequest);
 
         this.lat2 = this.location.results[0].geometry.location.lat;
         this.long2 = this.location.results[0].geometry.location.lng;
@@ -301,13 +256,11 @@ export class GearListComponent implements OnInit {
     );
   }
 
+  // LOADS THR LOGGED IN USER AND GETS THEIR LOCATION
   loadUser() {
-    console.log("load user");
     this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
       yes => {
         this.loggedInUser = yes;
-        console.log("LOGGING LOGGED USER ADDRESS");
-        console.log(this.loggedInUser.address);
         this.getUserLocation(this.loggedInUser.address);
 
       },
@@ -320,18 +273,8 @@ export class GearListComponent implements OnInit {
 
 
 
-
+  // HAVERSINE FORMULA TO GET STRAIGHT_LINE DISTANCE
   getDistance(lat, long, item) {
-    // this.distanceFromGear = 0;
-
-    console.log(item.id);
-    console.log("**************" + item.lat + "   " + item.long);
-    const lat1 = item.lat;
-    const long1 = item.long;
-
-
-    // const lat2 = 39.536421;
-    // const long2 = -104.865641;
 
     let R = 6378137; // Earth’s mean radius in meter
     let dLat = rad(this.lat2 - item.lat);
@@ -348,16 +291,11 @@ export class GearListComponent implements OnInit {
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let d = R * c;
 
-    console.log("logging D")
-    console.log(d);
 
     this.distanceFromGear = (d * 0.00062137);
     item.distance = this.distanceFromGear;
 
-    console.log("logging distance")
-    console.log(this.distanceFromGear);
 
-    return d; // returns the distance in meter
   };
 };
 
