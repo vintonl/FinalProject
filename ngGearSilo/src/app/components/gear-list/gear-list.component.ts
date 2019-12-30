@@ -14,6 +14,8 @@ import { User } from 'src/app/models/user';
 import { Category } from 'src/app/models/category';
 import { count } from 'rxjs/operators';
 import { MapService } from 'src/app/services/map.service';
+import { fadeInContent } from '@angular/material';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -40,6 +42,8 @@ export class GearListComponent implements OnInit {
   lat = null;
   long = null;
   distanceFromGear;
+  lat2;
+  long2;
 
   // Categories
 
@@ -70,12 +74,13 @@ export class GearListComponent implements OnInit {
   constructor(private gearSrv: GearService, private resService: ReservationService,
     // tslint:disable-next-line: align
     private router: Router, private authService:
-      AuthService, private revOfLenderService: ReviewOfLenderService, private mapService: MapService) { }
+      AuthService, private revOfLenderService: ReviewOfLenderService, private mapService: MapService, private userSVC: UserService) { }
 
   ngOnInit() {
     this.hideSearchResult = true;
     this.selected = null;
     this.searchedGear = [];
+    this.loadUser();
     this.loadGear();
     this.loadReseravtions();
   }
@@ -88,15 +93,9 @@ export class GearListComponent implements OnInit {
         this.gearList = aGoodThingHappened;
         this.gearList.forEach(gear => {
 
-
-
-
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
           }
-
-
-
           this.revOfLenderService.loadGearOwnerReviews(gear.user).subscribe(
             (good) => {
               let ratingAvg = 0;
@@ -114,12 +113,6 @@ export class GearListComponent implements OnInit {
               gear.user.userLenderRating = ratingAvg / count;
 
               this.getLocation(gear);
-              gear.lat = this.lat;
-              gear.long = this.long;
-              this.getDistance(this.lat, this.long, gear);
-
-
-
 
               // this.distanceFromGear = 0;
             },
@@ -270,11 +263,17 @@ export class GearListComponent implements OnInit {
     this.mapService.getAll(item).subscribe(
       (goodRequest) => {
         this.location = goodRequest;
-        console.log("logging a good request");
-        console.log(goodRequest);
+        console.log("logging a good request by gear ");
 
-        this.lat = this.location.results[0].geometry.location.lat;
-        this.long = this.location.results[0].geometry.location.lng;
+        item.lat = this.location.results[0].geometry.location.lat;
+        item.long = this.location.results[0].geometry.location.lng;
+
+
+
+        this.getDistance(this.lat, this.long, item);
+        console.log(item.lat);
+        console.log(item.long);
+
       },
       (bad) => {
         console.log('Error in Gear Comp - fetching map geocode from Map Service ');
@@ -283,39 +282,82 @@ export class GearListComponent implements OnInit {
     );
   }
 
-  getDistance(lat, long, item) {
-    this.distanceFromGear = 0;
+  getUserLocation(add: Address) {
+    console.log("inside get location");
 
+    this.mapService.getUserAddress(add).subscribe(
+      (goodRequest) => {
+        this.location = goodRequest;
+        console.log("logging a good request b ADDRESS");
+        console.log(goodRequest);
+
+        this.lat2 = this.location.results[0].geometry.location.lat;
+        this.long2 = this.location.results[0].geometry.location.lng;
+      },
+      (bad) => {
+        console.log('Error in Gear Comp - fetching map geocode from Map Service ');
+        console.log(bad);
+      }
+    );
+  }
+
+  loadUser() {
+    console.log("load user");
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      yes => {
+        this.loggedInUser = yes;
+        console.log("LOGGING LOGGED USER ADDRESS");
+        console.log(this.loggedInUser.address);
+        this.getUserLocation(this.loggedInUser.address);
+
+      },
+      no => {
+        console.error('Error getting logged in user');
+        console.error(no);
+      }
+    );
+  }
+
+
+
+
+  getDistance(lat, long, item) {
+    // this.distanceFromGear = 0;
+
+    console.log(item.id);
+    console.log("**************" + item.lat + "   " + item.long);
     const lat1 = item.lat;
-    console.log("logginf lat 1");
-    console.log(lat1);
     const long1 = item.long;
 
-    const lat2 = 39.536421;
-    const long2 = -104.865641;
+
+    // const lat2 = 39.536421;
+    // const long2 = -104.865641;
 
     let R = 6378137; // Earth’s mean radius in meter
-    let dLat = rad(lat2 - lat1);
+    let dLat = rad(this.lat2 - item.lat);
 
     console.log(dLat);
-    let dLong = rad(long2 - long1);
+    let dLong = rad(this.long2 - item.long);
     console.log(dLong);
 
     let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(rad(lat1)) * Math.cos(rad(lat2)) *
+      Math.cos(rad(item.lat)) * Math.cos(rad(this.lat2)) *
       Math.sin(dLong / 2) * Math.sin(dLong / 2);
 
     console.log(a);
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let d = R * c;
 
-
+    console.log("logging D")
+    console.log(d);
 
     this.distanceFromGear = (d * 0.00062137);
+    item.distance = this.distanceFromGear;
+
     console.log("logging distance")
     console.log(this.distanceFromGear);
 
-    // return d; // returns the distance in meter
+    return d; // returns the distance in meter
   };
 };
 
@@ -323,5 +365,9 @@ let rad = function (x) {
   return x * Math.PI / 180;
 
 
+
+
 }
+
+
 
