@@ -87,9 +87,15 @@ export class GearListComponent implements OnInit {
         console.log(aGoodThingHappened);
         this.gearList = aGoodThingHappened;
         this.gearList.forEach(gear => {
+
+
+
+
           if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
           }
+
+
 
           this.revOfLenderService.loadGearOwnerReviews(gear.user).subscribe(
             (good) => {
@@ -106,13 +112,15 @@ export class GearListComponent implements OnInit {
                 }
               }
               gear.user.userLenderRating = ratingAvg / count;
-              console.log("about to get location");
-
 
               this.getLocation(gear);
               gear.lat = this.lat;
               gear.long = this.long;
               this.getDistance(this.lat, this.long, gear);
+
+
+
+
               // this.distanceFromGear = 0;
             },
             (bad) => {
@@ -121,12 +129,16 @@ export class GearListComponent implements OnInit {
             }
           );
           gear.user.userLenderRating = 0;
+
         });
+
       },
       (didntWork) => {
         console.log(didntWork);
       }
+
     );
+
   }
 
   displayGearItem(gear: Gear) {
@@ -262,34 +274,24 @@ export class GearListComponent implements OnInit {
 
         this.lat = this.location.results[0].geometry.location.lat;
         this.long = this.location.results[0].geometry.location.lng;
-        console.log("in get local")
-        console.log(this.long);
-        console.log(this.lat);
-
       },
       (bad) => {
         console.log('Error in Gear Comp - fetching map geocode from Map Service ');
         console.log(bad);
       }
-
     );
-
   }
 
   getDistance(lat, long, item) {
+    this.distanceFromGear = 0;
 
-    console.log("in get disatnce method");
+    const lat1 = item.lat;
+    console.log("logginf lat 1");
+    console.log(lat1);
+    const long1 = item.long;
 
-    console.log("in get disatnce field")
-
-    let lat1 = item.lat;
-    let long1 = item.long;
-    console.log("item long" + item.long);
-    console.log("item lat" + item.lat);
-
-    let lat2 = 39.536421;
-    let long2 = -104.865641;
-
+    const lat2 = 39.536421;
+    const long2 = -104.865641;
 
     let R = 6378137; // Earth’s mean radius in meter
     let dLat = rad(lat2 - lat1);
@@ -306,11 +308,16 @@ export class GearListComponent implements OnInit {
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let d = R * c;
 
-    console.log(d)
+
+
     this.distanceFromGear = (d * 0.00062137);
-    return d; // returns the distance in meter
+    console.log("logging distance")
+    console.log(this.distanceFromGear);
+
+    // return d; // returns the distance in meter
   };
 };
+
 let rad = function (x) {
   return x * Math.PI / 180;
 
