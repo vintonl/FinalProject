@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 import com.skilldistillery.gearsilo.services.ReviewOfLenderService;
-import com.skilldistillery.gearsilo.services.UserService;
 
 @RestController
 @RequestMapping("api")

@@ -3,13 +3,11 @@ package com.skilldistillery.gearsilo.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
-import com.skilldistillery.gearsilo.entities.ReviewOfGear;
 import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.repositories.ReservationRepository;
@@ -35,24 +33,17 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 		List<ReviewOfLender> results = new ArrayList<>();
 		List<ReviewOfLender> lenderReviews = new ArrayList<>();
 
-		if (user.getId() == id || user.getRole().equals("admin")) {
-
+		if (user != null) {
 			lenderReviews = reviewLenderRepo.findAll();
-
 			for (ReviewOfLender reviewOfLender : lenderReviews) {
-
 				if (reviewOfLender.getReservation().getGearId().getId() == id) {
-
 					results.add(reviewOfLender);
-
 				}
-
 			}
 			return results;
-
 		}
+		
 		return null;
-
 	}
 
 	@Override

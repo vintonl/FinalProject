@@ -23,8 +23,13 @@ export class ProfileComponent implements OnInit {
   gearList: Gear[] = [];
   public isCollapsed: boolean[] = [];
   newGear: Gear = new Gear();
+
   updatedGear: Gear = new Gear();
+  updatedRes: Reservation = new Reservation();
+
   public selecteditem: Gear = new Gear;
+  public selectedRes: Reservation = new Reservation;
+
   editedUser: User = new User();
   reservations: Reservation = new Reservation();
   loggedInUser: User = new User();
@@ -38,9 +43,6 @@ export class ProfileComponent implements OnInit {
   reservationStatus;
   marked = false;
   theCheckbox = false;
-
-
-
 
 
 
@@ -152,6 +154,7 @@ export class ProfileComponent implements OnInit {
     this.ngOnInit();
     this.newGear = null;
   }
+
   onClick(item: any, lgModal: any) {
 
     this.selecteditem = item;
@@ -171,16 +174,14 @@ export class ProfileComponent implements OnInit {
 
 
   // UPDATE THE GEAR
-
-
   updateGear() {
 
     console.log('in update gear');
     console.log(this.updatedGear.active);
-    console.log(this.reservationStatus);
+
 
     this.updatedGear.id = this.selecteditem.id;
-    this.updatedGear.active = this.reservationStatus;
+    this.updatedGear.active = true;
 
     if (this.updatedGear.name === null || this.updatedGear.name === undefined) {
       this.updatedGear.name = this.selecteditem.name;
@@ -201,15 +202,17 @@ export class ProfileComponent implements OnInit {
     this.selecteditem = null;
     this.gearSrv.update(this.updatedGear).subscribe(
       data => {
+        // this.updatedGear = data;
+        location.reload();
+        // this.updatedGear = null;
+        // this.selecteditem = null;
 
-        this.updatedGear = data;
-        this.updatedGear = null;
-        this.selecteditem = null;
 
       },
       err => console.log('Update got an error: ' + err));
 
-    // location.reload();
+
+    // this.loadGear();
     // this.loadGear();
   }
 
@@ -261,9 +264,6 @@ export class ProfileComponent implements OnInit {
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
         console.log(aGoodThingHappened);
-
-
-
         aGoodThingHappened.forEach(res => {
           this.myReservations.push(res);
 
@@ -333,6 +333,57 @@ export class ProfileComponent implements OnInit {
 
   }
 
+
+  // UPDATE THE RESERVATION
+  // tslint:disable-next-line: adjacent-overload-signatures
+  updateResApproval(res) {
+
+    // this.updatedRes.gearId.user;
+    this.updatedRes.id = this.selectedRes.id;
+    this.updatedRes.approved = this.selectedRes.approved;
+    console.log('in update res before ');
+
+    // console.log(this.updatedRes.approved);
+    console.log(this.selectedRes.approved);
+    console.log(this.selectedRes.id);
+    console.log(this.selectedRes.gearId.user.id);
+
+    if (this.updatedRes.approved === true) {
+
+      this.updatedRes.approved = false;
+    } else { this.updatedRes.approved = true; }
+
+    console.log('in update res after');
+    console.log(this.updatedRes.approved);
+    console.log(this.selectedRes.approved);
+    console.log(this.selectedRes.id);
+
+
+    this.selectedRes = null;
+    this.resService.update(this.updatedRes).subscribe(
+      data => {
+
+        console.log("inside res a good thing happened " + this.updatedRes.id);
+        this.updatedRes = data;
+        this.updatedRes = null;
+        this.selectedRes = null;
+
+      },
+      err => console.log('Update Res got an error: ' + err));
+
+    // location.reload(); // this.loadGear();
+  }
+
+  onClickReservation(res: any, lgModal: any) {
+
+
+    this.selectedRes = res;
+    console.log("in on click res");
+    // console.log(this.selectedRes.id);
+    this.updateResApproval(res);
+
+
+  }
 
 
 
