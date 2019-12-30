@@ -92,7 +92,7 @@ import { GearCategoryPipe } from './pipes/gear-category.pipe';
     NavBarComponent,
     GearListComponent,
     AddressService,
-    CategoryService
+    CategoryService,
   ],
   bootstrap: [AppComponent, ProfileComponent],
 

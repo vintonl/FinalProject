@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,16 +43,16 @@ public class ReservationController {
 		System.out.println(res);
 		return res;
 	}
-	
+
 	@GetMapping("reservations/users")
 	public List<Reservation> indexByUser(Principal p, HttpServletRequest req, HttpServletResponse resp) {
 		List<Reservation> res = resSvc.findAllReservationsByUserUsername(p.getName());
 		System.out.println("IN RES CONTROLLER");
-		
+
 		if (res != null && res.size() == 0) {
 			resp.setStatus(204);
 		}
-		
+
 		if (res == null) {
 			resp.setStatus(404);
 		}
@@ -86,17 +88,17 @@ public class ReservationController {
 		}
 
 	}
-	
 
-//	@PutMapping("user/{id}/reservations")
+//	@PutMapping("reservations/users/{id}")
 //	public Reservation updateReservation(@RequestBody Reservation reservation, @PathVariable int id,
 //			HttpServletRequest req, HttpServletResponse resp, Principal p) {
+//		System.out.println("inside res controller update - " + reservation.getApproved());
 //
 //		try {
 //			resp.setStatus(201);
 //			StringBuffer url = req.getRequestURL();
 //			resp.addHeader("Location", url.toString());
-//			return resSvc.updateReservation(p.getName(), reservation, id);
+//			return resSvc.updateHostReservation(p.getName(), reservation, id);
 //
 //		} catch (Exception e) {
 //			resp.setStatus(400);

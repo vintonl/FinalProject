@@ -29,7 +29,7 @@
       </h4>
       <h4>
         <span class="badge badge-success border shadow"
-          >Active Users: {{ countUsers() }}</span
+          >Active Users: {{ countActiveU() }}</span
         >
       </h4>
     </div>
@@ -48,7 +48,12 @@
       </h4>
       <h4>
         <span class="badge badge-success border shadow"
-          >Available Gear: {{ countGear() }}</span
+          >Active Gear: {{ countActiveG() }}</span
+        >
+      </h4>
+      <h4>
+        <span class="badge badge-success border shadow"
+          >Available Gear: {{ countAvailableG() }}</span
         >
       </h4>
     </div>
@@ -66,8 +71,18 @@
         >
       </h4>
       <h4>
+        <span class="badge badge-warning border shadow"
+          >Needs Approval: {{ countNeedsApproval() }}</span
+        >
+      </h4>
+      <h4>
         <span class="badge badge-success border shadow"
-          >Active Reservations: {{ countResv() }}</span
+          >Completed Reservations: {{ countCompletedR() }}</span
+        >
+      </h4>
+      <h4>
+        <span class="badge badge-success border shadow"
+          >Active Reservations: {{ countActiveR() }}</span
         >
       </h4>
     </div>
@@ -127,7 +142,7 @@
           <br />
           <ul class="list-group">
             <li class="list-group-item">User Id: {{ selectedUser.id }}</li>
-            <li class="list-group-item">Email: {{ selectedUser.email }}</li>
+            <li class="list-group-item">Email: <a href="mailto:{{ selectedUser.email }}"><u>{{ selectedUser.email }}</u></a></li>
             <li class="list-group-item">
               Username: {{ selectedUser.username }}
             </li>

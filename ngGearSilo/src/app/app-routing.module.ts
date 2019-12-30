@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'navbar', component: NavBarComponent },
   { path: 'reservation', component: ReservationComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent }, // , data: {requiresLogin: true}
   { path: '**', component: NotFoundComponent }
 ];
 

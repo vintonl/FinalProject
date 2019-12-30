@@ -1,17 +1,17 @@
-import { Router } from "@angular/router";
-import { AuthService } from "src/app/services/auth.service";
-import { Reservation } from "./../../models/reservation";
-import { GearService } from "src/app/services/gear.service";
-import { UserService } from "./../../services/user.service";
-import { Component, OnInit } from "@angular/core";
-import { User } from "src/app/models/user";
-import { Gear } from "src/app/models/gear";
-import { ReservationService } from "src/app/services/reservation.service";
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { Reservation } from './../../models/reservation';
+import { GearService } from 'src/app/services/gear.service';
+import { UserService } from './../../services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { Gear } from 'src/app/models/gear';
+import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
-  selector: "app-admin",
-  templateUrl: "./admin.component.html",
-  styleUrls: ["./admin.component.css"]
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
   users: User[] = [];
@@ -28,7 +28,7 @@ export class AdminComponent implements OnInit {
   resv: Reservation = null;
   selectedResv: Reservation = null;
 
-  // admin: User = null;
+  admin: User = null;
 
   constructor(
     private userSvc: UserService,
@@ -42,20 +42,13 @@ export class AdminComponent implements OnInit {
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
-    // this.adminLoggedInCheck();
+
   }
 
   // Admin Check here not good
-  // adminLoggedInCheck() {
-  //   this.authSvc.getCredentials();
-  //   if (this.selectedUser.role !== "admin") {
-  //     return this.router.navigateByUrl("#/home");
-  //   } else {
-  //     this.loadUsers();
-  //     this.loadGear();
-  //     this.loadReservations();
-  //   }
-  // }
+  adminLoggedInCheck() {
+
+  }
 
   // Users
 
@@ -79,6 +72,16 @@ export class AdminComponent implements OnInit {
 
   public countActiveU() {
     // set data aggr. for active users
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.users.length; i++) {
+      for (this.user of this.users) {
+        if (this.user.enabled) {
+          count++;
+        }
+      }
+      return count;
+    }
   }
 
   public setUpdateUser() {
@@ -94,7 +97,7 @@ export class AdminComponent implements OnInit {
       },
       uErr => {
         this.loadUsers();
-        console.error("updatedUser: Error");
+        console.error('updatedUser: Error');
         console.error(uErr);
       }
     );
@@ -124,6 +127,32 @@ export class AdminComponent implements OnInit {
     // Add data aggr. for active count.
   }
 
+  public countActiveG() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.gearList.length; i++) {
+      for (this.gear of this.gearList) {
+        if (this.gear.active) {
+          count++;
+        }
+      }
+      return count;
+    }
+  }
+
+  public countAvailableG() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.gearList.length; i++) {
+      for (this.gear of this.gearList) {
+        if (this.gear.available) {
+          count++;
+        }
+      }
+      return count;
+    }
+  }
+
   // RESERVATIONS
 
   public loadReservations() {
@@ -141,4 +170,45 @@ export class AdminComponent implements OnInit {
   public countResv() {
     return this.resvList.length;
   }
+
+  public countActiveR() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.resvList.length; i++) {
+      for (this.resv of this.resvList) {
+        if (!this.resv.completed) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  public countCompletedR() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.resvList.length; i++) {
+      for (this.resv of this.resvList) {
+        if (this.resv.completed) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  public countNeedsApproval() {
+    let count = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.resvList.length; i++) {
+      for (this.resv of this.resvList) {
+        if (!this.resv.approved) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+
 }

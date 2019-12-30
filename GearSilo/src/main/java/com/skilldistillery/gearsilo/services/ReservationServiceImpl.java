@@ -16,38 +16,38 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	private ReservationRepository resRepo;
-	
+
 	@Autowired
 	private UserRepository uRepo;
 
 	@Override
 	public List<Reservation> findAll(String username) {
 		User user = uRepo.findUserByUsername(username);
-		
+
 		if (user.getRole().equalsIgnoreCase("admin")) {
 			return resRepo.findAll();
 		}
-		
-		return null;	
+
+		return null;
 	}
-	
+
 	@Override
 	public List<Reservation> findAllReservationsByUserUsername(String username) {
 		User user = uRepo.findUserByUsername(username);
-		
+
 		List<Reservation> reservations = resRepo.findByGearId_User_Id(user.getId());
-		
-		return reservations;	
+
+		return reservations;
 	}
 
 	@Override
 	public Reservation findReservationById(String username, int id) {
-		
+
 		Reservation res = null;
 		Optional<Reservation> opt = resRepo.findById(id);
 		if (opt.isPresent()) {
 			res = opt.get();
-			
+
 			return res;
 		} else {
 			return null;
@@ -68,12 +68,19 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public Reservation updateReservation(String username, Reservation reservation, int id) {
-		
+	public Reservation updateShopperReservation(String username, Reservation reservation, int id) {
+
+		System.out.println(username);
+		System.out.println(reservation);
+		System.out.println(id);
+
 		Reservation oldRes = resRepo.findByUserShopper_UsernameAndId(username, id);
-		
+
+		System.out.println("old res");
+		System.out.println(oldRes);
+
 		if (oldRes != null) {
-			
+
 			oldRes.setApproved(reservation.getApproved());
 			oldRes.setCloseDate(reservation.getCloseDate());
 			oldRes.setCompleted(reservation.getCompleted());
@@ -85,20 +92,48 @@ public class ReservationServiceImpl implements ReservationService {
 			oldRes.setOpenDate(reservation.getOpenDate());
 			oldRes.setShopperReview(reservation.getShopperReview());
 			return resRepo.saveAndFlush(oldRes);
-			
+
 		} else {
 			return null;
 		}
-		
-		
-		
-		
 	}
-	
-	// disable vs delete ... 
+
+//	@Override
+//	public Reservation updateHostReservation(String username, Reservation reservation, int id) {
+//
+//		System.out.println(username);
+//		System.out.println(reservation);
+//		System.out.println(id);
+//
+//		Reservation oldRes = resRepo.findByGearId_User_Username(username, id);
+//
+//		System.out.println("old res");
+//		System.out.println(oldRes);
+//
+//		if (oldRes != null) {
+//
+//			oldRes.setApproved(reservation.getApproved());
+//			oldRes.setCloseDate(reservation.getCloseDate());
+//			oldRes.setCompleted(reservation.getCompleted());
+//			oldRes.setCreatedAt(reservation.getCreatedAt());
+//			oldRes.setGearId(reservation.getGearId());
+//			oldRes.setGearReview(reservation.getGearReview());
+//			oldRes.setLenderReview(reservation.getLenderReview());
+//			oldRes.setMessages(reservation.getMessages());
+//			oldRes.setOpenDate(reservation.getOpenDate());
+//			oldRes.setShopperReview(reservation.getShopperReview());
+//			return resRepo.saveAndFlush(oldRes);
+//
+//		} else {
+//			return null;
+//		}
+//
+//	}
+
+	// disable vs delete ...
 	@Override
 	public boolean deleteReservation(String username, int id) {
-		return false; 
+		return false;
 
 	}
 }
