@@ -305,6 +305,7 @@ input:checked + .slider:before {
 
 .btn-save:hover {
   background-color: coral;
+  color:white;
 
 }
 
@@ -453,6 +454,9 @@ span:hover{
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px orange;
 }
 
+.btn-secondary{
+  background-color: darkgrey;
+}
 
 
 

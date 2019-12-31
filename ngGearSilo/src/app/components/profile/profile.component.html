@@ -465,7 +465,7 @@
                               name="approved" [(ngModel)]="selectedRes.gearId.user.id"> -->
 
 
-                          <button type="submit" (click)="onClickReservation(res)">
+                          <button class="btn btn-secondary" type="submit" (click)="onClickReservation(res)">
                             {{res.approved}}</button>
                           <!-- </form> -->
                           <!-- <div style="background-color: white; width: 625px" > -->
@@ -478,7 +478,7 @@
                   </tbody>
                 </table>
                 <div style="float: left" class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" (click)="ngOnInit()"data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>

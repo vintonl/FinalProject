@@ -237,6 +237,7 @@ export class ProfileComponent implements OnInit {
 
   // LOAD RESERVATIONS FOR USER
   loadReseravtions() {
+    this.needApprovedRes=0;
     this.myReservations = [];
     // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
     //   yes => {
