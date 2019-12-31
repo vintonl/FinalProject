@@ -43,87 +43,104 @@
             <input class="form-control" type="text" size="35" placeholder="Search by Keyword" aria-label="Search"
               name="keyword" [(ngModel)]="keyword" minlength="1" maxlength="100">
           </div>
-          <!-- RESET BUTTON -->
-          <button style="margin-left: 530px" class="btn btn-outline-secondary" (click)="ngOnInit(); selectedType = 'All'"><span
-              style="margin: 2px" class="glyphicon glyphicon-th-list"></span> See all
-            Items</button>
+
+
+          <div>
+            <div class="distanceBar">
+              <label style="margin-bottom: -70px; margin-left: 50px; color: orange" placeholder="Distance" >{{searchDistance}} miles</label>
+              <input style="margin-left: 200px; margin-top: 55px" [(ngModel)]="searchDistance" placeholder="Distance" min={{min}} max={{max}} name="searchDistance"(change)="searchByDistance(); selected=null" type="range" >
+              <!-- <p>{{searchDistance}}</p> -->
+            </div>
+              <!-- RESET BUTTON -->
+              <button style="margin-left: 530px; margin-top: -45px" class="btn btn-outline-secondary"
+                (click)="ngOnInit(); selectedType = 'All'"><span style="margin: 2px"
+                  class="glyphicon glyphicon-th-list"></span> See all
+                Items</button>
+          </div>
         </form>
         <ul class="nav nav-tabs">
           <li class="active">
-              <span class="showHand hover border border-warning rounded" *ngFor="let category of categories" (click)="selectedType = category">&nbsp;{{category}}&nbsp;</span>
-            </li>
-          </ul>
-        <h3>{{selectedType}}</h3>
-        <br>
-
-        <!-- SEARCHED GEAR RESULTS -->
-
-        <!-- No results found from search -->
-        <div *ngIf="!selected  && !hideSearchResult">
-          <div *ngIf="searchedGear.length === 0">
-            <div class="text-center">
-              <h2>No Search Results Found</h2>
-            </div>
-          </div>
-        </div>
+            <span class="showHand hover border border-warning rounded" *ngFor="let category of categories"
+              (click)="selectedType = category">&nbsp;{{category}}&nbsp;</span> </li> </ul> <h3>{{selectedType}}</h3>
+              <br>
 
 
-        <!-- SEARCH SEARCH CARDS -->
-        <div *ngIf="searchedGear.length > 0">
-          <h2>{{searchedGear.length}} Search Results Found</h2>
-          <div class="container" *ngFor="let item of searchedGear">
-            <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
-              <div style="background-color: whitesmoke;" class="col-xs-8">
-                <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      <div class="row">
-                        <div class="col-xs-6">
-                          <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}},
-                            {{item.user.address.state}}</h5>
-                          <hr>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel-body">
-                      <div class="row"></div>
-                      <div class="col-xs-2">
-                        <img style="max-width:100px; height: auto;" class="img-responsive" src="{{item.imageUrl}}">
-                      </div>
-                      <div class="col-xs-4">
-                        <h4 style="margin-top:  -5px;" class="product-name"><strong>{{item.name | titlecase }}</strong>
-                        </h4>
-                        <h4><small>{{item.description | titlecase }}</small></h4>
-                        <h4 style="margin-top:  -10px;"><small>{{item.price | currency }}/ day</small></h4>
-                      </div>
-                      <div class="col-xs-6">
-                        <img class="pic" src="{{item.user.imageUrl}}">
-                        <div class="col-xs-6 text-right">
-                          <h6><strong><span class="text-muted"></span></strong></h6>
-                        </div>
-                        <div class="col-xs-4">
-                          <p>{{item.user.firstName | titlecase}}</p>
-                          <br>
-                          <div *ngIf="item.user.userLenderRating > 0 ">
-                            <h6 style="margin-left: -5px;">Lender Rating: {{item.user.userLenderRating}}</h6>
+
+
+              <!-- SEARCHED GEAR RESULTS -->
+
+              <!-- No results found from search -->
+              <div *ngIf="!selected  && !hideSearchResult">
+                <div *ngIf="searchedGear.length === 0">
+                  <div class="text-center">
+                    <h2>No Search Results Found</h2>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- SEARCH SEARCH CARDS -->
+              <div *ngIf="searchedGear.length > 0">
+                <h2>{{searchedGear.length}} Search Results Found</h2>
+                <div class="container" *ngFor="let item of searchedGear">
+                  <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
+                    <div style="background-color: whitesmoke;" class="col-xs-8">
+                      <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
+                        <div class="panel-heading">
+                          <div class="panel-title">
+                            <div class="row">
+                              <div class="col-xs-6">
+                                <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}},
+                                  {{item.user.address.state}} </h5>
+                                <h6 style="color: orange; margin-right: -5px">{{item.distance | number : '1.1-1'}} Miles
+                                  from
+                                  you</h6>
+                                <hr>
+                              </div>
+                            </div>
                           </div>
-                          <ngb-rating [(rate)]="item.user.userLenderRating" [readonly]="true" max="5">
-                            <ng-template let-fill="fill" let-index="index">
-                              <span class="star" [class.filled]="fill === 100" [class.bad]="index < 0">&#9733;</span>
-                            </ng-template>
-                          </ngb-rating>
+                          <div class="panel-body">
+                            <div class="row"></div>
+                            <div class="col-xs-2">
+                              <img style="max-width:100px; height: auto;" class="img-responsive"
+                                src="{{item.imageUrl}}">
+                            </div>
+                            <div class="col-xs-4">
+                              <h4 style="margin-top:  -5px;" class="product-name">
+                                <strong>{{item.name | titlecase }}</strong>
+                              </h4>
+                              <h4><small>{{item.description | titlecase }}</small></h4>
+                              <h4 style="margin-top:  -10px;"><small>{{item.price | currency }}/ day</small></h4>
+                            </div>
+                            <div class="col-xs-6">
+                              <img class="pic" src="{{item.user.imageUrl}}">
+                              <div class="col-xs-6 text-right">
+                                <h6><strong><span class="text-muted"></span></strong></h6>
+                              </div>
+                              <div class="col-xs-4">
+                                <p>{{item.user.firstName | titlecase}}</p>
+                                <br>
+                                <div *ngIf="item.user.userLenderRating > 0 ">
+                                  <h6 style="margin-left: -5px;">Lender Rating: {{item.user.userLenderRating}}</h6>
+                                </div>
+                                <ngb-rating [(rate)]="item.user.userLenderRating" [readonly]="true" max="5">
+                                  <ng-template let-fill="fill" let-index="index">
+                                    <span class="star" [class.filled]="fill === 100"
+                                      [class.bad]="index < 0">&#9733;</span>
+                                  </ng-template>
+                                </ngb-rating>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- TABLE -->
-        <!-- <br>
+              <!-- TABLE -->
+              <!-- <br>
         <div *ngIf="!selected && hideSearchResult">
           <div class="text-center">
             <h2>Gear List</h2>
@@ -156,113 +173,59 @@
       </div> -->
 
 
-        <!-- CARDS -->
-        <div *ngIf="!selected && hideSearchResult">
-          <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType "
-            (click)="selected = gearList">
-            <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
-              <div style="background-color: whitesmoke;" class="col-xs-8">
-                <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      <div class="row">
-                        <div class="col-xs-6">
-                          <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}},
-                            {{item.user.address.state}} </h5> <h6 style="color: orange; margin-right: -5px">{{item.distance | number : '1.1-2'}} Miles from you</h6>
-                          <hr>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel-body">
-                      <div class="row"></div>
-                      <div class="col-xs-2">
-                        <img style="max-width:100px; height: auto;" class="img-responsive" src="{{item.imageUrl}}">
-                      </div>
-                      <div class="col-xs-4">
-                        <h4 style="margin-top:  -5px;" class="product-name"><strong>{{item.name | titlecase }}</strong>
-                        </h4>
-                        <h4><small>{{item.description | titlecase }}</small></h4>
-                        <h4 style="margin-top:  -10px;"><small>{{item.price | currency }}/ day</small></h4>
-                      </div>
-                      <div class="col-xs-6">
-                        <img class="pic" src="{{item.user.imageUrl}}">
-                        <div class="col-xs-6 text-right">
-                          <h6><strong><span class="text-muted"></span></strong></h6>
-                        </div>
-                        <div class="col-xs-4">
-                          <p>{{item.user.firstName | titlecase}}</p>
-                          <br>
-                          <div *ngIf="item.user.userLenderRating > 0 ">
-                            <h6 style="margin-left: -5px;">Lender Rating: {{item.user.userLenderRating}}</h6>
+              <!-- CARDS -->
+              <div *ngIf="!selected && hideSearchResult">
+                <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType "
+                  (click)="selected = gearList">
+                  <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
+                    <div style="background-color: whitesmoke;" class="col-xs-8">
+                      <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
+                        <div class="panel-heading">
+                          <div class="panel-title">
+                            <div class="row">
+                              <div class="col-xs-6">
+                                <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}},
+                                  {{item.user.address.state}} </h5>
+                                <h6 style="color: orange; margin-right: -5px">{{item.distance | number : '1.1-1'}} Miles
+                                  from
+                                  you</h6>
+                                <hr>
+                              </div>
+                            </div>
                           </div>
-                          <ngb-rating [(rate)]="item.user.userLenderRating" [readonly]="true" max="5">
-                            <ng-template let-fill="fill" let-index="index">
-                              <span class="star" [class.filled]="fill === 100" [class.bad]="index < 0">&#9733;</span>
-                            </ng-template>
-                          </ngb-rating>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-
-
-
-
-        <!-- RESERVATION PAGE -->
-        <div *ngIf="selected">
-          <div class="list-group">
-            <div *ngIf="this.selected && this.selected.id && this.selected.id > 0">
-              <div style="align-items: center; align-content: center; align-self: auto;">
-
-                <h2 style="margin-left: 800px">{{selected.name | titlecase}}</h2>
-
-
-                <div class="row">
-                  <div class="column">
-                    <div style="max-width:600px; max-height:500px !important; padding: 10px; overflow: hidden;">
-                      <img class="resImage" src="{{selected.imageUrl}}" alt="">
-                    </div>
-                  </div>
-
-
-
-
-                  <!-- RIGHT SIDE - DETAILS  -->
-                  <div class="column">
-                    <div class="right">
-                      <li class="list-group" *ngIf="this.selected && this.selected.description">
-                        Description:
-                        {{selected.description | lowercase }}</li>
-                      <li class="list-group ">Price per day: {{selected.price | currency }}</li>
-                      <li class="list-group ">Condition: {{selected.gearCondition | lowercase }}</li>
-                      <li class="list-group " *ngIf="selected.available == true">Available: Yes!</li>
-                      <li class="list-group " *ngIf="selected.available == false">Available: Sorry, it is not
-                        available
-                        to rent
-                        at this time.</li>
-
-                      <li class="list-group ">Rent From: {{selected.user.firstName | titlecase }}
-                        {{selected.user.lastName | titlecase }}</li>
-                      <li class="list-group ">Location: {{selected.user.address.city | titlecase }},
-                        {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
-
-
-
-                      <div class="btn-group" role="group" aria-label="Basic example">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                          <button (click)="ngOnInit()" class="btn btn-dark my-2 my-sm-0">Back to the list</button>
-                        </div>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                          <button (click)="startReservation()" class="btn btn-warning my-2 my-sm-0">Make a
-                            Reservation</button>
+                          <div class="panel-body">
+                            <div class="row"></div>
+                            <div class="col-xs-2">
+                              <img style="max-width:100px; height: auto;" class="img-responsive"
+                                src="{{item.imageUrl}}">
+                            </div>
+                            <div class="col-xs-4">
+                              <h4 style="margin-top:  -5px;" class="product-name">
+                                <strong>{{item.name | titlecase }}</strong>
+                              </h4>
+                              <h4><small>{{item.description | titlecase }}</small></h4>
+                              <h4 style="margin-top:  -10px;"><small>{{item.price | currency }}/ day</small></h4>
+                            </div>
+                            <div class="col-xs-6">
+                              <img class="pic" src="{{item.user.imageUrl}}">
+                              <div class="col-xs-6 text-right">
+                                <h6><strong><span class="text-muted"></span></strong></h6>
+                              </div>
+                              <div class="col-xs-4">
+                                <p>{{item.user.firstName | titlecase}}</p>
+                                <br>
+                                <div *ngIf="item.user.userLenderRating > 0 ">
+                                  <h6 style="margin-left: -5px;">Lender Rating: {{item.user.userLenderRating}}</h6>
+                                </div>
+                                <ngb-rating [(rate)]="item.user.userLenderRating" [readonly]="true" max="5">
+                                  <ng-template let-fill="fill" let-index="index">
+                                    <span class="star" [class.filled]="fill === 100"
+                                      [class.bad]="index < 0">&#9733;</span>
+                                  </ng-template>
+                                </ngb-rating>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -272,51 +235,112 @@
 
 
 
-              <!-- Reviews of gear if user is logged in and item has reviews -->
-              <div class="container" *ngIf="selectedGearReviews && selectedGearReviews.length > 0">
-                <div class="row">
-                  <div class="col-md-8">
 
-                    <div class="page-header">
-                      <h1><small class="pull-right">{{selectedGearReviews.length}} Review(s)</small> Comments </h1>
-                    </div>
-                    <div class="comments-list" *ngFor="let review of selectedGearReviews">
-                      <div class="media">
-                        <a class="media-left" href="#">
-                          <!-- <img src="{{review.reservation.userShopper.imageUrl}}"> -->
-                        </a>
-                        <div class="media-body">
-                          <h4 class="media-heading user_name">{{review.reservation}}</h4>
-                          {{review.review}}
-                          <p style="margin-right: 10px" class="pull-right"><small>
-                              <ngb-rating [(rate)]="review.rating" [readonly]="true" max="5">
-                                <ng-template let-fill="fill" let-index="index">
-                                  <span class="star" [class.filled]="fill === 100"
-                                    [class.bad]="index < 0">&#9733;</span>
-                                </ng-template>
-                              </ngb-rating>
-                            </small></p>
+
+
+
+              <!-- RESERVATION PAGE -->
+              <div *ngIf="selected">
+                <div class="list-group">
+                  <div *ngIf="this.selected && this.selected.id && this.selected.id > 0">
+                    <div style="align-items: center; align-content: center; align-self: auto;">
+
+                      <h2 style="margin-left: 800px">{{selected.name | titlecase}}</h2>
+
+
+                      <div class="row">
+                        <div class="column">
+                          <div style="max-width:600px; max-height:500px !important; padding: 10px; overflow: hidden;">
+                            <img class="resImage" src="{{selected.imageUrl}}" alt="">
+                          </div>
+                        </div>
+
+
+
+
+                        <!-- RIGHT SIDE - DETAILS  -->
+                        <div class="column">
+                          <div class="right">
+                            <li class="list-group" *ngIf="this.selected && this.selected.description">
+                              Description:
+                              {{selected.description | lowercase }}</li>
+                            <li class="list-group ">Price per day: {{selected.price | currency }}</li>
+                            <li class="list-group ">Condition: {{selected.gearCondition | lowercase }}</li>
+                            <li class="list-group " *ngIf="selected.available == true">Available: Yes!</li>
+                            <li class="list-group " *ngIf="selected.available == false">Available: Sorry, it is not
+                              available
+                              to rent
+                              at this time.</li>
+
+                            <li class="list-group ">Rent From: {{selected.user.firstName | titlecase }}
+                              {{selected.user.lastName | titlecase }}</li>
+                            <li class="list-group ">Location: {{selected.user.address.city | titlecase }},
+                              {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
+
+
+
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                <button (click)="ngOnInit()" class="btn btn-dark my-2 my-sm-0">Back to the list</button>
+                              </div>
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                <button (click)="startReservation()" class="btn btn-warning my-2 my-sm-0">Make a
+                                  Reservation</button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div>
-
-                  <hr>
-                </div>
-
-                <div class="map">
-                  <iframe src="https://maps.google.com/maps?q={lat},{long}&hl=es;z=10&amp;output=embed" height="300"
-                    style="border:0;" allowfullscreen="" ></iframe>
-                </div>
 
 
 
+                    <!-- Reviews of gear if user is logged in and item has reviews -->
+                    <div class="container" *ngIf="selectedGearReviews && selectedGearReviews.length > 0">
+                      <div class="row">
+                        <div class="col-md-8">
+
+                          <div class="page-header">
+                            <h1><small class="pull-right">{{selectedGearReviews.length}} Review(s)</small> Comments
+                            </h1>
+                          </div>
+                          <div class="comments-list" *ngFor="let review of selectedGearReviews">
+                            <div class="media">
+                              <a class="media-left" href="#">
+                                <!-- <img src="{{review.reservation.userShopper.imageUrl}}"> -->
+                              </a>
+                              <div class="media-body">
+                                <h4 class="media-heading user_name">{{review.reservation}}</h4>
+                                {{review.review}}
+                                <p style="margin-right: 10px" class="pull-right"><small>
+                                    <ngb-rating [(rate)]="review.rating" [readonly]="true" max="5">
+                                      <ng-template let-fill="fill" let-index="index">
+                                        <span class="star" [class.filled]="fill === 100"
+                                          [class.bad]="index < 0">&#9733;</span>
+                                      </ng-template>
+                                    </ngb-rating>
+                                  </small></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+
+                        <hr>
+                      </div>
+
+                      <div class="map">
+                        <iframe src="https://maps.google.com/maps?q={lat},{long}&hl=es;z=10&amp;output=embed"
+                          height="300" style="border:0;" allowfullscreen=""></iframe>
+                      </div>
 
 
 
-                <!-- CHAT
+
+
+
+                      <!-- CHAT
           <button class="open-button" (click)="openForm()">Chat</button>
           <div class="chat-popup" id="myForm">
             <form style="background-color: white; opacity: 1;" action="/action_page.php" class="form-container">
@@ -326,10 +350,10 @@
               <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
             </form>
           </div> -->
+                    </div>
+                  </div>
+                </div>
               </div>
+              <div class="col-1"></div>
             </div>
           </div>
-        </div>
-        <div class="col-1"></div>
-      </div>
-    </div>
