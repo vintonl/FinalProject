@@ -175,17 +175,7 @@
   opacity: 1;
 }
 
-.carousel {
-  /* display: block; */
-  width: 80%;
-  height: auto;
-}
 
-.carousel-inner > .carousel-item > img {
-  display: block;
-  width: 90%;
-  height: auto;
-}
 
 * {
   box-sizing: border-box;
@@ -226,7 +216,7 @@
   border-color: orange !important;
 }
 .form-control {
-  background-color: white;
+  background-color: white !important;
 }
 
 input[type=text] {

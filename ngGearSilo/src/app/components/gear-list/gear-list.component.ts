@@ -134,6 +134,7 @@ export class GearListComponent implements OnInit {
 
   displayGearItem(gear: Gear) {
     this.selected = gear;
+    this.getLocation(this.selected);
     this.gearSrv.selected = gear;
     this.searchedGear.length = 0;
     this.gearSrv.loadGearReviews().subscribe(
@@ -205,7 +206,7 @@ export class GearListComponent implements OnInit {
       console.log(this.gearList[i].distance);
       let distanceNumber = +this.gearList[i].distance;
 
-      if (distanceNumber < this.searchDistance) {
+      if (distanceNumber <= this.searchDistance) {
         this.searchedGear.push(this.gearList[i]);
       }
     }
@@ -249,6 +250,8 @@ export class GearListComponent implements OnInit {
   // GETS LOCATION OF EACH ITEM AND CALLS THE CALCULATE DISTANCE METHOD
   getLocation(item: Gear) {
     console.log("inside get location");
+    // this.lat = null;
+    // this.long = null;
 
     this.mapService.getAll(item).subscribe(
       (goodRequest) => {
@@ -257,6 +260,8 @@ export class GearListComponent implements OnInit {
         item.lat = this.location.results[0].geometry.location.lat;
         item.long = this.location.results[0].geometry.location.lng;
         this.getDistance(this.lat, this.long, item);
+        this.lat = item.lat;
+        this.long = item.long;
 
       },
       (bad) => {

@@ -81,7 +81,7 @@
 
               <!-- SEARCH SEARCH CARDS -->
               <div *ngIf="searchedGear.length > 0">
-                <h2>{{searchedGear.length}} Search Results Found</h2>
+                <h4>{{searchedGear.length}} Search Results Found</h4>
                 <div class="container" *ngFor="let item of searchedGear">
                   <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
                     <div style="background-color: whitesmoke;" class="col-xs-8">
@@ -329,11 +329,11 @@
 
                         <hr>
                       </div>
-
+<!--
                       <div class="map">
-                        <iframe src="https://maps.google.com/maps?q={lat},{long}&hl=es;z=10&amp;output=embed"
+                        <iframe src="https://maps.google.com/maps?q={lat},{long}&hl=es;z=5&amp;output=embed"
                           height="300" style="border:0;" allowfullscreen=""></iframe>
-                      </div>
+                      </div> -->
 
 
 
