@@ -44,6 +44,9 @@ export class GearListComponent implements OnInit {
   distanceFromGear;
   lat2;
   long2;
+  searchDistance: number = 0;
+  min = 0;
+  max = 150;
 
   // Categories
 
@@ -152,6 +155,7 @@ export class GearListComponent implements OnInit {
     this.searchedGear = [];
 
     for (let i = 0; i < this.gearList.length; i++) {
+      this.getLocation(this.gearList[i]);
       if (this.gearList[i].name.toLowerCase().includes(this.keyword.toLowerCase())) {
         this.searchedGear.push(this.gearList[i]);
         continue;
@@ -178,6 +182,10 @@ export class GearListComponent implements OnInit {
       }
       if (this.gearList[i].user.address.state.toLowerCase().includes(this.keyword.toLowerCase())) {
         this.searchedGear.push(this.gearList[i]);
+        continue;
+      }
+      if (this.gearList[i].distance < this.keyword) {
+        this.searchedGear.push(this.gearList[i]);
       }
     }
     this.hideSearchResult = false;
@@ -185,6 +193,24 @@ export class GearListComponent implements OnInit {
     this.keyword = null;
   }
 
+
+
+
+
+  searchByDistance() {
+    this.searchedGear = [];
+
+    for (let i = 0; i < this.gearList.length; i++) {
+      console.log(this.gearList[i].distance);
+      let distanceNumber = +this.gearList[i].distance;
+
+      if (distanceNumber < this.searchDistance) {
+        this.searchedGear.push(this.gearList[i]);
+      }
+    }
+    this.hideSearchResult = false;
+
+  }
 
   openForm() {
     document.getElementById('myForm').style.display = 'block';
