@@ -83,6 +83,7 @@ export class GearListComponent implements OnInit {
     this.hideSearchResult = true;
     this.selected = null;
     this.searchedGear = [];
+    this.searchDistance = 0;
     this.loadUser();
     this.loadGear();
     this.loadReseravtions();
