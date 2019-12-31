@@ -87,6 +87,7 @@
           <h3 style="color: dimgrey;">Listed Items for Rent </h3>
 
 
+
           <!-- TOAST -->
           <div *ngIf='needsApprovedRes.length > 0'>
 
@@ -103,8 +104,10 @@
           </div>
 
 
-          <div *ngIf="gearList.length === 0">
-            <h3 style="color: lightslategrey; z-index: 1000;">You do not have any gear items listed</h3>
+          <div *ngIf="gearList.length < 1">
+            <br>
+            <hr>
+            <h3 style="color: lightslategrey; z-index: 1000; margin-left: 150px">You do not have any gear items listed</h3>
 
           </div>
           <div style="width: 100%;" class="card" *ngFor="let item of gearList; let i = index">
