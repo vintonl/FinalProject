@@ -43,6 +43,7 @@ import { UserCrudComponent } from './components/admin/user-crud/user-crud.compon
 import { GearCrudComponent } from './components/admin/gear-crud/gear-crud.component';
 import { ResvCrudComponent } from './components/admin/resv-crud/resv-crud.component';
 import { GearCategoryPipe } from './pipes/gear-category.pipe';
+import { ReviewComponent } from './components/review/review.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { GearCategoryPipe } from './pipes/gear-category.pipe';
     GearCrudComponent,
     ResvCrudComponent,
     GearCategoryPipe,
+    ReviewComponent,
 
   ],
   imports: [
