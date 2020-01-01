@@ -38,6 +38,11 @@ public class AuthController {
 
 		user = authService.register(user);
 
+		if (user == null) {
+			res.setStatus(400);
+			return null;
+		}
+		
 		return user;
 	}
 
