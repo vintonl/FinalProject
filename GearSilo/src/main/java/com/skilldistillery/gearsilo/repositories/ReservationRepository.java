@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
+import com.skilldistillery.gearsilo.entities.User;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
@@ -16,5 +17,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	Reservation findByUserShopper_UsernameAndId(String username, int id);
 
 	List<Reservation> findByGearId_User_Id(int userId);
+
+	List<Reservation> findByUserShopper(User user);
 
 }

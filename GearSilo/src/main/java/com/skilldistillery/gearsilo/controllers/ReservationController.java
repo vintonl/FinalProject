@@ -61,6 +61,24 @@ public class ReservationController {
 		return res;
 	}
 
+	@GetMapping("reservations/users/shoppers")
+	public List<Reservation> indexByUserShopper(Principal p, HttpServletRequest req, HttpServletResponse resp) {
+		
+		List<Reservation> res = resSvc.findAllReservationsByUserShopper(p.getName());
+		System.out.println("IN RES CONTROLLER");
+
+		if (res != null && res.size() == 0) {
+			resp.setStatus(204);
+		}
+
+		if (res == null) {
+			resp.setStatus(404);
+		}
+		System.out.println("IN RES CONTROLLER RETURN");
+		System.out.println(res);
+		return res;
+	}
+
 //	@GetMapping("user{id}reservations/{id}")
 //	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {
 //
@@ -93,6 +111,7 @@ public class ReservationController {
 	public Reservation updateReservation(HttpServletRequest req, HttpServletResponse resp, Principal principal,
 			@RequestBody Reservation reservation) {
 		System.out.println("inside res controller update - " + reservation.getApproved());
+		System.out.println("inside res controller update - " + reservation.getCompleted());
 
 		try {
 			reservation = resSvc.updateHostReservation(principal.getName(), reservation, reservation.getId());

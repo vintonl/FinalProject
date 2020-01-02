@@ -42,6 +42,15 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
+	public List<Reservation> findAllReservationsByUserShopper(String username) {
+		User user = uRepo.findUserByUsername(username);
+
+		List<Reservation> reservations = resRepo.findByUserShopper(user);
+
+		return reservations;
+	}
+
+	@Override
 	public Reservation findReservationById(String username, int id) {
 
 		Reservation res = null;
@@ -101,11 +110,12 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Reservation updateHostReservation(String username, Reservation reservation, int id) {
-		Reservation updateReservation = resRepo.findByGearId_User_UsernameAndId(username, id); 
-			if (reservation != null) {
-				updateReservation.setApproved(reservation.getApproved());
-				resRepo.saveAndFlush(updateReservation);
-			}
+		Reservation updateReservation = resRepo.findByGearId_User_UsernameAndId(username, id);
+		if (reservation != null) {
+			updateReservation.setApproved(reservation.getApproved());
+			updateReservation.setCompleted(reservation.getCompleted());
+			resRepo.saveAndFlush(updateReservation);
+		}
 		return updateReservation;
 	}
 
