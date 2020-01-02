@@ -183,8 +183,12 @@
             >
               Back
             </button>
-            <app-user-crud></app-user-crud>
-            <!-- Edit / Delete Button -->
+            <button class="btn btn-outline-warning" *ngIf="!selectedUser.enabled">
+              Enable
+            </button>
+            <button class="btn btn-outline-danger" *ngIf="selectedUser.enabled">
+              Disable
+            </button>
           </div>
         </div>
       </ng-template>
@@ -264,7 +268,12 @@
             >
               Back
             </button>
-            <app-gear-crud></app-gear-crud>
+            <button class="btn btn-outline-warning" *ngIf="!selectedGear.active">
+              Enable
+            </button>
+            <button class="btn btn-outline-danger" *ngIf="selectedGear.active">
+              Disable
+            </button>
           </div>
         </div>
       </ng-template>
@@ -352,7 +361,12 @@
             >
               Back
             </button>
-            <app-resv-crud></app-resv-crud>
+            <button class="btn btn-outline-warning" *ngIf="!selectedResv.approved">
+              Enable
+            </button>
+            <button class="btn btn-outline-danger" *ngIf="selectedResv.approved">
+              Disable
+            </button>
           </div>
         </div>
       </ng-template>
