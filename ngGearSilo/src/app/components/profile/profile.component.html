@@ -468,8 +468,10 @@
                               name="approved" [(ngModel)]="selectedRes.gearId.user.id"> -->
 
 
-                          <button class="btn btn-secondary" type="submit" (click)="onClickReservation(res)">
+                          Approved: <button class="btn btn-secondary" type="submit" (click)="onClickReservation(res)">
                             {{res.approved}}</button>
+                          Completed: <button class="btn btn-secondary" type="submit" (click)="onClickCompletedReservation(res)">
+                            {{res.completed}}</button>
                           <!-- </form> -->
                           <!-- <div style="background-color: white; width: 625px" > -->
                           <!-- <button type="submit"  (click)="onClickReservation(res)" class="btn btn-primary">Update</button> -->

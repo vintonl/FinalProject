@@ -93,6 +93,7 @@ public class ReservationController {
 	public Reservation updateReservation(HttpServletRequest req, HttpServletResponse resp, Principal principal,
 			@RequestBody Reservation reservation) {
 		System.out.println("inside res controller update - " + reservation.getApproved());
+		System.out.println("inside res controller update - " + reservation.getCompleted());
 
 		try {
 			reservation = resSvc.updateHostReservation(principal.getName(), reservation, reservation.getId());
