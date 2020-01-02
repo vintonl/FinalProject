@@ -23,6 +23,19 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User register(User user) {
+		
+		if(user.getFirstName().length() < 1 || user.getLastName().length() < 1 || user.getPhone().length() < 10) {
+			return null;
+		}
+		
+		if(user.getAddress().getPostalCode() < 501 || user.getAddress().getAddress().length() < 3 || user.getAddress().getState().length() < 2) {
+			return null;
+		}
+		
+		if(user.getAddress().getCity().length() < 1) {
+			return null;
+		}
+		
 		if (user.getAddress() != null) {
 			Address newAdd = user.getAddress();
 			newAdd = addressRepo.saveAndFlush(newAdd);

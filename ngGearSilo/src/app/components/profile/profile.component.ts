@@ -50,10 +50,10 @@ export class ProfileComponent implements OnInit {
 
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
-    private router: Router,
-    private authService: AuthService,
-    private userService: UserService,
-    private resService: ReservationService) { }
+              private router: Router,
+              private authService: AuthService,
+              private userService: UserService,
+              private resService: ReservationService) { }
 
 
 
@@ -164,21 +164,12 @@ export class ProfileComponent implements OnInit {
   }
 
   onClickGearPopUp(item: any, lgModal: any) {
-
     this.selecteditem = item;
-
     lgModal.show();
-
   }
-
-
 
   // UPDATE THE GEAR
   updateGear() {
-
-    console.log('in update gear');
-    console.log(this.updatedGear.active);
-
 
     this.updatedGear.id = this.selecteditem.id;
     this.updatedGear.active = true;
@@ -206,19 +197,14 @@ export class ProfileComponent implements OnInit {
         location.reload();
         // this.updatedGear = null;
         // this.selecteditem = null;
-
-
       },
       err => console.log('Update got an error: ' + err));
-
-
     // this.loadGear();
     // this.loadGear();
   }
 
   // UPDATE USER
   updateUser() {
-    console.log("in update user")
     this.editedUser.id = this.loggedInUser.id;
     this.editedUser.password = this.loggedInUser.password;
     this.editedUser.email = this.loggedInUser.email;
@@ -242,7 +228,6 @@ export class ProfileComponent implements OnInit {
         // this.editedUser = data;
         this.editedUser = null;
         this.selecteditem = null;
-
       },
       err => console.log('Update got an error: ' + err)
     );
@@ -250,17 +235,13 @@ export class ProfileComponent implements OnInit {
     this.ngOnInit();
   }
 
-
-
   // LOAD RESERVATIONS FOR USER
   loadReseravtions() {
+    this.needApprovedRes=0;
     this.myReservations = [];
-
-
     // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
     //   yes => {
     //     this.loggedInUser = yes;
-
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
         console.log(aGoodThingHappened);
@@ -303,18 +284,10 @@ export class ProfileComponent implements OnInit {
     console.log(this.loggedInUser);
   }
 
-
-
   lenderRating() {
-    console.log("in lender rating sum");
-
     this.myReservations.forEach(res => {
       this.rating = res.lenderReview.rating;
-      console.log("rating sum");
     });
-
-
-
   }
 
   checkImageURl() {
@@ -332,66 +305,56 @@ export class ProfileComponent implements OnInit {
     // this.updateGear();
 
   }
-
-
   // UPDATE THE RESERVATION
   // tslint:disable-next-line: adjacent-overload-signatures
   updateResApproval(res) {
-
-    // this.updatedRes.gearId.user;
+    if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined ) {
+      this.updatedRes.createdAt = this.selectedRes.createdAt
+    }
+    if (this.updatedRes.openDate === null || this.updatedRes.openDate === undefined) {
+      this.updatedRes.openDate = this.selectedRes.openDate
+    }
+    if (this.updatedRes.closeDate === null || this.updatedRes.closeDate === undefined) {
+      this.updatedRes.closeDate = this.selectedRes.closeDate
+    }
+    if (this.updatedRes.updatedAt === null || this.updatedRes.updatedAt === undefined) {
+      this.updatedRes.updatedAt = this.selectedRes.updatedAt
+    }
+    if (this.updatedRes.completed === null || this.updatedRes.completed === undefined) {
+      this.updatedRes.completed = this.selectedRes.completed
+    }
+    if (this.updatedRes.gearId === null || this.updatedRes.gearId === undefined) {
+      this.updatedRes.gearId = this.selectedRes.gearId
+    }
+    if (this.updatedRes.userShopper === null || this.updatedRes.userShopper === undefined) {
+      this.updatedRes.userShopper = this.selectedRes.userShopper
+    }
     this.updatedRes.id = this.selectedRes.id;
     this.updatedRes.approved = this.selectedRes.approved;
-    console.log('in update res before ');
-
-    // console.log(this.updatedRes.approved);
-    console.log(this.selectedRes.approved);
-    console.log(this.selectedRes.id);
-    console.log(this.selectedRes.gearId.user.id);
-
     if (this.updatedRes.approved === true) {
-
-      this.updatedRes.approved = false;
-    } else { this.updatedRes.approved = true; }
-
-    console.log('in update res after');
-    console.log(this.updatedRes.approved);
-    console.log(this.selectedRes.approved);
-    console.log(this.selectedRes.id);
-
-
+         this.updatedRes.approved = false;
+      } else { this.updatedRes.approved = true; }
     this.selectedRes = null;
     this.resService.update(this.updatedRes).subscribe(
       data => {
-
-        console.log("inside res a good thing happened " + this.updatedRes.id);
         this.updatedRes = data;
-        this.updatedRes = null;
+        this.needApprovedRes = 0;
+        for(let i = 0; i < this.myReservations.length; i++) {
+          if(this.myReservations[i].id === this.updatedRes.id) {
+            this.myReservations[i].approved = this.updatedRes.approved;
+          }
+          if(!this.myReservations[i].approved) {
+            this.needApprovedRes++;
+          }
+        }
+        this.updatedRes = new Reservation();;
         this.selectedRes = null;
-
       },
       err => console.log('Update Res got an error: ' + err));
-
-    // location.reload(); // this.loadGear();
   }
 
   onClickReservation(res: any, lgModal: any) {
-
-
     this.selectedRes = res;
-    console.log("in on click res");
-    // console.log(this.selectedRes.id);
     this.updateResApproval(res);
-
-
   }
-
-
-
-
-
-
-
-
-
-
 }

@@ -55,8 +55,8 @@ class UserTest {
 		assertTrue(user.getCreatedAt().toString().contains("2019-12-17"));
 		assertTrue(user.getUpdatedAt().toString().contains("2019-12-17"));
 		assertEquals("admin", user.getRole());
-		assertEquals("sdafasd", user.getImageUrl());
-		assertEquals("afdsadf", user.getAbout());
+		assertEquals("https://i.imgur.com/zVdNnTx.png", user.getImageUrl());
+		assertEquals("GearSilo OG", user.getAbout());
 		assertEquals("(555)555-5555", user.getPhone());
 
 	}

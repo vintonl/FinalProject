@@ -95,7 +95,7 @@ public class ReservationController {
 		System.out.println("inside res controller update - " + reservation.getApproved());
 
 		try {
-			reservation = resSvc.updateHostReservation(principal.getName(), reservation, reservation.getGearId().getId());
+			reservation = resSvc.updateHostReservation(principal.getName(), reservation, reservation.getId());
 			if (reservation == null) {
 				resp.setStatus(404);
 			}

@@ -87,6 +87,7 @@
           <h3 style="color: dimgrey;">Listed Items for Rent </h3>
 
 
+
           <!-- TOAST -->
           <div *ngIf='needsApprovedRes.length > 0'>
 
@@ -103,8 +104,10 @@
           </div>
 
 
-          <div *ngIf="gearList.length === 0">
-            <h3 style="color: lightslategrey; z-index: 1000;">You do not have any gear items listed</h3>
+          <div *ngIf="gearList.length < 1">
+            <br>
+            <hr>
+            <h3 style="color: lightslategrey; z-index: 1000; margin-left: 150px">You do not have any gear items listed</h3>
 
           </div>
           <div style="width: 100%;" class="card" *ngFor="let item of gearList; let i = index">
@@ -177,12 +180,12 @@
 
                     <!-- PHONE -->
                     <div class="input-group mb-3">
-                      <div class="input-group-prepend">
+                      <div class="input-group-prependd">
                         <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
                       </div>
-                      <input type="text" class="form-control" [(ngModel)]="editedUser.phone"
+                      <input type="tel" class="form-control" [(ngModel)]="editedUser.phone"
                         placeholder="{{loggedInUser.phone}}" aria-label="Default"
-                        aria-describedby="inputGroup-sizing-default" [(ngModel)]="editedUser.imageUrl">
+                        aria-describedby="inputGroup-sizing-default">
                     </div>
 
                     <!-- HIDDEN FIELD _ USER ID -->
@@ -444,14 +447,28 @@
                         <div class="input-group mb-3">
 
                           <!-- <form> -->
-                          <input class="form-control" type="text" aria-label="Search" name="approved"
-                            [(ngModel)]="selectedRes.approved">
+                          <!-- <input class="form-control" type="text" aria-label="Search" name="approved"
+                            [(ngModel)]="selectedRes.approved"> -->
+                          <input class="form-control" type="hidden" aria-label="Search" value="{{res.createdAt}}" name="createdAt"
+                            [(ngModel)]="res.createdAt">
+                          <input class="form-control" type="hidden" aria-label="Search" value="{{res.openDate}}" name="openDate"
+                            [(ngModel)]="res.openDate">
+                          <input class="form-control" type="hidden" aria-label="Search" value="{{res.closeDate}}" name="closeDate"
+                            [(ngModel)]="res.closeDate">
+                          <input class="form-control" type="hidden" aria-label="Search" value="{{res.gearId}}" name="gearId"
+                            [(ngModel)]="res.gearId">
+                          <input class="form-control" type="hidden" aria-label="Search" value="{{res.completed}}" name="completed"
+                            [(ngModel)]="res.completed">
+                          <input class="form-control" type="hidden" aria-label="Search" value="{{res.userShopper}}" name="userShopper"
+                            [(ngModel)]="res.userShopper">
+                          <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}" name="updatedAt"
+                            [(ngModel)]="res.updatedAt">
 
                           <!-- <input class="form-control" type="hidden"  value="res.user.id" aria-label="Search"
                               name="approved" [(ngModel)]="selectedRes.gearId.user.id"> -->
 
 
-                          <button type="submit" (click)="onClickReservation(res)">
+                          <button class="btn btn-secondary" type="submit" (click)="onClickReservation(res)">
                             {{res.approved}}</button>
                           <!-- </form> -->
                           <!-- <div style="background-color: white; width: 625px" > -->
@@ -464,7 +481,7 @@
                   </tbody>
                 </table>
                 <div style="float: left" class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" (click)="ngOnInit()"data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>

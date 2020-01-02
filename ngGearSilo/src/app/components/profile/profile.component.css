@@ -305,6 +305,7 @@ input:checked + .slider:before {
 
 .btn-save:hover {
   background-color: coral;
+  color:white;
 
 }
 
@@ -415,7 +416,47 @@ input:checked + .slider:before {
 .switch input:checked + .slider .off {
   display: none;
 }
+.input-group-text {
 
+  /* color: orange; */
+  background-color: whitesmoke;
+  /* border-radius: 1px; */
+  /* border-color: black; */
+
+}
+.form-control:valid {
+  border-color: darkgray !important;
+
+}
+.form-control {
+  background-color: white;
+}
+.form-control::shadow {
+  color: orange !important;
+
+}
+
+input[type=text] {
+  width: 70%;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+  width: 160%;
+}
+span:hover{
+  color: orange;
+}
+
+.form-control:focus {
+  border-color: orange;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px orange;
+}
+
+.btn-secondary{
+  background-color: darkgrey;
+}
 
 
 
