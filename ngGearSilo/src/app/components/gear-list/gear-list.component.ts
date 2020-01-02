@@ -44,9 +44,9 @@ export class GearListComponent implements OnInit {
   distanceFromGear;
   lat2;
   long2;
-  searchDistance: number = 0;
+  searchDistance = 4000;
   min = 0;
-  max = 150;
+  max = 2000;
 
   // Categories
 
@@ -77,13 +77,14 @@ export class GearListComponent implements OnInit {
   constructor(private gearSrv: GearService, private resService: ReservationService,
     // tslint:disable-next-line: align
     private router: Router, private authService:
+      // tslint:disable-next-line: align
       AuthService, private revOfLenderService: ReviewOfLenderService, private mapService: MapService, private userSVC: UserService) { }
 
   ngOnInit() {
     this.hideSearchResult = true;
     this.selected = null;
     this.searchedGear = [];
-    this.searchDistance = 0;
+    this.searchDistance = 2000;
     this.loadUser();
     this.loadGear();
     this.loadReseravtions();
@@ -156,6 +157,7 @@ export class GearListComponent implements OnInit {
   search() {
     this.searchedGear = [];
 
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
       this.getLocation(this.gearList[i]);
       if (this.gearList[i].name.toLowerCase().includes(this.keyword.toLowerCase())) {
@@ -195,16 +197,13 @@ export class GearListComponent implements OnInit {
     this.keyword = null;
   }
 
-
-
-
-
   searchByDistance() {
     this.searchedGear = [];
 
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
       console.log(this.gearList[i].distance);
-      let distanceNumber = +this.gearList[i].distance;
+      const distanceNumber = +this.gearList[i].distance;
 
       if (distanceNumber <= this.searchDistance) {
         this.searchedGear.push(this.gearList[i]);
@@ -249,7 +248,7 @@ export class GearListComponent implements OnInit {
 
   // GETS LOCATION OF EACH ITEM AND CALLS THE CALCULATE DISTANCE METHOD
   getLocation(item: Gear) {
-    console.log("inside get location");
+    console.log('inside get location');
     // this.lat = null;
     // this.long = null;
 
@@ -272,7 +271,7 @@ export class GearListComponent implements OnInit {
   }
 
   getUserLocation(add: Address) {
-    console.log("inside get location");
+    console.log('inside get location');
 
     this.mapService.getUserAddress(add).subscribe(
       (goodRequest) => {
@@ -308,36 +307,34 @@ export class GearListComponent implements OnInit {
   // HAVERSINE FORMULA TO GET STRAIGHT_LINE DISTANCE
   getDistance(lat, long, item) {
 
-    let R = 6378137; // Earth’s mean radius in meter
-    let dLat = rad(this.lat2 - item.lat);
+    const R = 6378137; // Earth’s mean radius in meter
+    const dLat = rad(this.lat2 - item.lat);
 
     console.log(dLat);
-    let dLong = rad(this.long2 - item.long);
+    const dLong = rad(this.long2 - item.long);
     console.log(dLong);
 
-    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(rad(item.lat)) * Math.cos(rad(this.lat2)) *
       Math.sin(dLong / 2) * Math.sin(dLong / 2);
 
     console.log(a);
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    let d = R * c;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const d = R * c;
 
 
     this.distanceFromGear = (d * 0.00062137);
     item.distance = this.distanceFromGear;
 
 
-  };
-};
+  }
+}
 
-let rad = function (x) {
+// tslint:disable-next-line: only-arrow-functions
+const rad = function (x: number) {
   return x * Math.PI / 180;
 
-
-
-
-}
+};
 
 
 
