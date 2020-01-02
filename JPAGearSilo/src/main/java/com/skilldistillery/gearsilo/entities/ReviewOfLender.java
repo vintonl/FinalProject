@@ -24,6 +24,16 @@ public class ReviewOfLender {
 	@JsonIgnore
 	@JoinColumn(name = "reservation_id")
 	private Reservation reservation;
+	
+	private boolean active;
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 	public int getId() {
 		return id;
@@ -61,6 +71,7 @@ public class ReviewOfLender {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + id;
 		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
 		result = prime * result + ((reservation == null) ? 0 : reservation.hashCode());
@@ -77,6 +88,8 @@ public class ReviewOfLender {
 		if (getClass() != obj.getClass())
 			return false;
 		ReviewOfLender other = (ReviewOfLender) obj;
+		if (active != other.active)
+			return false;
 		if (id != other.id)
 			return false;
 		if (rating == null) {
@@ -111,15 +124,8 @@ public class ReviewOfLender {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ReviewOfLender [id=");
-		builder.append(id);
-		builder.append(", rating=");
-		builder.append(rating);
-		builder.append(", review=");
-		builder.append(review);
-		builder.append("]");
-		return builder.toString();
+		return "ReviewOfLender [id=" + id + ", rating=" + rating + ", review=" + review + ", reservation=" + reservation
+				+ ", active=" + active + "]";
 	}
 
 }
