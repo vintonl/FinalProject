@@ -124,7 +124,7 @@ public class ReviewOfLender {
 
 	@Override
 	public String toString() {
-		return "ReviewOfLender [id=" + id + ", rating=" + rating + ", review=" + review + ", reservation=" + reservation
+		return "ReviewOfLender [id=" + id + ", rating=" + rating + ", review=" + review 
 				+ ", active=" + active + "]";
 	}
 
