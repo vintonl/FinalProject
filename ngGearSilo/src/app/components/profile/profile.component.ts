@@ -1,3 +1,4 @@
+import { ReviewOfShopperService } from './../../services/review-of-shopper.service';
 import { ReservationService } from './../../services/reservation.service';
 import { GearService } from './../../services/gear.service';
 import { Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
 import { Reservation } from 'src/app/models/reservation';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -50,15 +52,13 @@ export class ProfileComponent implements OnInit {
   theCheckbox = false;
 
 
-
-  // tslint:disable-next-line: no-shadowed-variable
-
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
     private router: Router,
     private authService: AuthService,
     private userService: UserService,
-    private resService: ReservationService) { }
+    private resService: ReservationService,
+    private reviewOfShopperSvc: ReviewOfShopperService) { }
 
 
 
@@ -77,7 +77,6 @@ export class ProfileComponent implements OnInit {
 
 
   // LOAD THE GEAR
-
   loadGear() {
     this.gearList = [];
 
@@ -97,9 +96,7 @@ export class ProfileComponent implements OnInit {
               if (gear.user.id === this.loggedInUser.id) {
                 this.gearList.push(gear);
                 this.checkImageURl();
-                // this.selecteditem.active = true;
 
-                // this.loggedInUser = e.user;
               }
             });
           },
@@ -198,14 +195,9 @@ export class ProfileComponent implements OnInit {
     this.selecteditem = null;
     this.gearSrv.update(this.updatedGear).subscribe(
       data => {
-        // this.updatedGear = data;
         location.reload();
-        // this.updatedGear = null;
-        // this.selecteditem = null;
       },
       err => console.log('Update got an error: ' + err));
-    // this.loadGear();
-    // this.loadGear();
   }
 
   // UPDATE USER
@@ -230,7 +222,6 @@ export class ProfileComponent implements OnInit {
 
     this.userService.update(this.editedUser).subscribe(
       data => {
-        // this.editedUser = data;
         this.editedUser = null;
         this.selecteditem = null;
       },
@@ -243,7 +234,6 @@ export class ProfileComponent implements OnInit {
   // LOAD ALL RESERVATIONS FOR USER
   loadReseravtions() {
     this.needApprovedRes = 0;
-    // this.needCompletedRes = 0;
     this.myReservations = [];
     this.shopperReservations = [];
     this.userneedsCompletedRes = [];
@@ -275,6 +265,7 @@ export class ProfileComponent implements OnInit {
     );
 
     console.log("in load shopper res 0");
+
     // LOADING SHOPPER RESERVATIONS
     this.resService.indexShopperUser().subscribe(
       (aGoodThingHappened) => {
@@ -282,7 +273,9 @@ export class ProfileComponent implements OnInit {
         console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
 
-          if (res.completed === true && res.shopperReview.active === false) {
+
+
+          if (res.completed === true && res.gearReview === null) {
 
             console.log(res);
             this.userneedsCompletedResNum++;
@@ -296,10 +289,6 @@ export class ProfileComponent implements OnInit {
         console.log(didntWork);
       }
     );
-
-
-
-
   }
 
   lenderRating() {
@@ -319,12 +308,9 @@ export class ProfileComponent implements OnInit {
   toggleVisibility() {
     console.log("in toggle");
     console.log(this.myRes.approved);
-    // this.myRes.approved = e.target.checked;
-    // this.updateGear();
 
   }
   // UPDATE THE RESERVATION
-  // tslint:disable-next-line: adjacent-overload-signatures
   updateResCompleted(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
       this.updatedRes.createdAt = this.selectedRes.createdAt
@@ -423,5 +409,47 @@ export class ProfileComponent implements OnInit {
   onClickCompletedReservation(res: any, lgModal: any) {
     this.selectedRes = res;
     this.updateResCompleted(res);
+
   }
+
+  onClickReviewGear(res: any, lgModal: any) {
+    this.selectedRes = res;
+
+  }
+
+  createGearReview(gearReview: NgForm) {
+    console.log(this.selectedRes.id);
+    const newGearReview = {
+      rating: gearReview.value.rating,
+      review: gearReview.value.review,
+      active: 'true',
+      reservation: {
+        id: this.selectedRes.id
+      }
+    };
+
+    let user = new User();
+
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      good => {
+        user = good;
+        console.log(user);
+        this.reviewOfShopperSvc.createGearReview(newGearReview, user).subscribe(
+          next => {
+
+            console.log('ReviewComponent.createGearReview(): review of gear created.');
+            console.log(next);
+          },
+          error => {
+            console.error('ReviewComponent.createGearReview(): error createGearReview.');
+            console.log(error);
+          }
+        );
+      },
+      error => {
+        console.log('ReviewOfShopperService.create() Error getting logged in user while creating gear review');
+      }
+    );
+  }
+
 }
