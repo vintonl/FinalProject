@@ -245,6 +245,7 @@ input[type="text"]:focus {
   /* width: 40px !important; */
 
 }
+
 .nav-container{
   width: 110%;
 }
@@ -253,6 +254,7 @@ input[type="text"]:focus {
   width: 30%;
   /* padding: 10px 5px; */
 }
+
 span:hover {
   color: orange;
   /* width: 40px; */
