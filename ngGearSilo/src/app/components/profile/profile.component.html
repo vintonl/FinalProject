@@ -113,7 +113,8 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <div data-toggle="modal" data-target="#userResModal">
-                  <strong>Hi, {{loggedInUser.firstName}}!</strong> You have {{userneedsCompletedResNum}} completed gear rentals that need your review!
+                  <strong>Hi, {{loggedInUser.firstName}}!</strong> You have {{userneedsCompletedResNum}} completed gear
+                  rentals that need your review!
                 </div>
               </div>
             </div>
@@ -589,9 +590,13 @@
                         name="updatedAt" [(ngModel)]="res.updatedAt">
 
                       <h4><span class="badge badge-light">{{res.completed}}</span></h4>
+
                     </div>
                   </td>
-                  <td></td>
+                  <td> <button type="button" class="btn btn-secondary" data-toggle="modal"
+                      data-target="#reviewLenderModal">
+                      Review Lender
+                    </button></td>
                 </tr>
               </tbody>
             </table>
@@ -599,6 +604,45 @@
               <button type="button" class="btn btn-secondary" (click)="ngOnInit()" data-dismiss="modal">Close</button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Review the lender Modal -->
+  <div class="modal fade" id="reviewLenderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Review the Lender</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Description</span>
+            </div>
+            <input type="text" class="form-control" [(ngModel)]="updatedGear.name">
+          </div>
+
+          <!-- <ngb-rating [(rate)]="rating" [readonly]="true" max="5">
+            <ng-template let-fill="fill" let-index="index">
+              <span class="star" [class.filled]="fill === 100" [class.bad]="index < 0">&#9733;</span>
+            </ng-template>
+          </ngb-rating> -->
+
+          <input type="number">
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-save">Save changes</button>
         </div>
       </div>
     </div>

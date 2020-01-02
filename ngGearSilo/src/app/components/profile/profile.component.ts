@@ -282,17 +282,13 @@ export class ProfileComponent implements OnInit {
         console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
 
-          console.log("in load shopper res 2");
-          this.shopperReservations.push(res);
+          if (res.completed === true && res.shopperReview.active === false) {
 
-
-          if (res.completed === true && res.shopperReview.review === null) {
+            console.log(res);
             this.userneedsCompletedResNum++;
             this.userneedsCompletedRes.push(res);
+            this.shopperReservations.push(res);
           }
-
-
-
         });
       },
       (didntWork) => {
