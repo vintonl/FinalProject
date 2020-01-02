@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   loggedInUser: User = new User();
   myGear: Gear[] = [];
   myReservations: Reservation[] = [];
+  shopperReservations: Reservation[] = [];
   myRes: Reservation;
   rating: number;
   deleteId: number;
@@ -43,6 +44,8 @@ export class ProfileComponent implements OnInit {
   needCompletedRes = 0;
   needsCompletedRes: Reservation[] = [];
   reservationStatus;
+  userneedsCompletedRes: Reservation[] = [];
+  userneedsCompletedResNum = 0;
   marked = false;
   theCheckbox = false;
 
@@ -52,10 +55,10 @@ export class ProfileComponent implements OnInit {
 
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
-              private router: Router,
-              private authService: AuthService,
-              private userService: UserService,
-              private resService: ReservationService) { }
+    private router: Router,
+    private authService: AuthService,
+    private userService: UserService,
+    private resService: ReservationService) { }
 
 
 
@@ -237,13 +240,17 @@ export class ProfileComponent implements OnInit {
     this.ngOnInit();
   }
 
-  // LOAD RESERVATIONS FOR USER
+  // LOAD ALL RESERVATIONS FOR USER
   loadReseravtions() {
-    this.needApprovedRes=0;
+    this.needApprovedRes = 0;
+    // this.needCompletedRes = 0;
     this.myReservations = [];
-    // this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-    //   yes => {
-    //     this.loggedInUser = yes;
+    this.shopperReservations = [];
+    this.userneedsCompletedRes = [];
+    this.userneedsCompletedResNum = 0;
+
+
+    // LOADING LENDER RESERVATIONS
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
         console.log(aGoodThingHappened);
@@ -253,28 +260,12 @@ export class ProfileComponent implements OnInit {
           if (res.completed !== true) {
             this.needCompletedRes++;
             this.needsCompletedRes.push(res);
-
           }
           if (res.approved !== true) {
             this.needApprovedRes++;
             this.needsApprovedRes.push(res);
-
           }
-
-
-          // this.lenderRating();
-
-
-          // if (res.gearId.user.id === this.loggedInUser.id) {
           console.log(res);
-
-          // this.rating = res.lenderReview.rating;
-
-
-          // this.lenderRating();
-
-          // this.loggedInUser = e.user;
-          // }
         });
       },
       (didntWork) => {
@@ -282,13 +273,37 @@ export class ProfileComponent implements OnInit {
         console.log(didntWork);
       }
     );
-    // },
-    //   no => {
-    //     console.error('Error laoding res in user');
-    //     console.error(no);
-    //   }
-    // );
-    console.log(this.loggedInUser);
+
+    console.log("in load shopper res 0");
+    // LOADING SHOPPER RESERVATIONS
+    this.resService.indexShopperUser().subscribe(
+      (aGoodThingHappened) => {
+        console.log("in load shopper res 1")
+        console.log(aGoodThingHappened);
+        aGoodThingHappened.forEach(res => {
+
+          console.log("in load shopper res 2");
+          this.shopperReservations.push(res);
+
+
+          if (res.completed === true && res.shopperReview.review === null) {
+            this.userneedsCompletedResNum++;
+            this.userneedsCompletedRes.push(res);
+          }
+
+
+
+        });
+      },
+      (didntWork) => {
+        console.log('load shopper reservations didnt work');
+        console.log(didntWork);
+      }
+    );
+
+
+
+
   }
 
   lenderRating() {
@@ -315,7 +330,7 @@ export class ProfileComponent implements OnInit {
   // UPDATE THE RESERVATION
   // tslint:disable-next-line: adjacent-overload-signatures
   updateResCompleted(res) {
-    if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined ) {
+    if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
       this.updatedRes.createdAt = this.selectedRes.createdAt
     }
     if (this.updatedRes.openDate === null || this.updatedRes.openDate === undefined) {
@@ -339,18 +354,18 @@ export class ProfileComponent implements OnInit {
     this.updatedRes.id = this.selectedRes.id;
     this.updatedRes.completed = this.selectedRes.completed;
     if (this.updatedRes.completed === true) {
-         this.updatedRes.completed = false;
-      } else { this.updatedRes.completed = true; }
+      this.updatedRes.completed = false;
+    } else { this.updatedRes.completed = true; }
     this.selectedRes = null;
     this.resService.update(this.updatedRes).subscribe(
       data => {
         this.updatedRes = data;
         this.needCompletedRes = 0;
-        for(let i = 0; i < this.myReservations.length; i++) {
-          if(this.myReservations[i].id === this.updatedRes.id) {
+        for (let i = 0; i < this.myReservations.length; i++) {
+          if (this.myReservations[i].id === this.updatedRes.id) {
             this.myReservations[i].completed = this.updatedRes.completed;
           }
-          if(!this.myReservations[i].completed) {
+          if (!this.myReservations[i].completed) {
             this.needCompletedRes++;
           }
         }
@@ -360,7 +375,7 @@ export class ProfileComponent implements OnInit {
       err => console.log('Update Res got an error: ' + err));
   }
   updateResApproval(res) {
-    if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined ) {
+    if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
       this.updatedRes.createdAt = this.selectedRes.createdAt
     }
     if (this.updatedRes.openDate === null || this.updatedRes.openDate === undefined) {
@@ -384,18 +399,18 @@ export class ProfileComponent implements OnInit {
     this.updatedRes.id = this.selectedRes.id;
     this.updatedRes.approved = this.selectedRes.approved;
     if (this.updatedRes.approved === true) {
-         this.updatedRes.approved = false;
-      } else { this.updatedRes.approved = true; }
+      this.updatedRes.approved = false;
+    } else { this.updatedRes.approved = true; }
     this.selectedRes = null;
     this.resService.update(this.updatedRes).subscribe(
       data => {
         this.updatedRes = data;
         this.needApprovedRes = 0;
-        for(let i = 0; i < this.myReservations.length; i++) {
-          if(this.myReservations[i].id === this.updatedRes.id) {
+        for (let i = 0; i < this.myReservations.length; i++) {
+          if (this.myReservations[i].id === this.updatedRes.id) {
             this.myReservations[i].approved = this.updatedRes.approved;
           }
-          if(!this.myReservations[i].approved) {
+          if (!this.myReservations[i].approved) {
             this.needApprovedRes++;
           }
         }
