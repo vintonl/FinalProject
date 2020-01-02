@@ -20,4 +20,6 @@ public interface ReservationService {
 
 	Reservation updateHostReservation(String username, Reservation reservation, int gid);
 
+	List<Reservation> findAllReservationsByUserShopper(String username);
+
 }
