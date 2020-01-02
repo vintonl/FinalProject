@@ -2,7 +2,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" />
 <!------ Include the above in your HEAD tag ---------->
 
@@ -87,15 +87,14 @@
           <ul class="nav nav-tabs">
             <li class="active">
               <span class="showHand hover border border-warning rounded" *ngFor="let category of categories"
-                (click)="selectedType = category">&nbsp;{{category}}&nbsp;</span>
+                (click)="selectedType = category">
+                &nbsp;{{category}}&nbsp;
+              </span>
               <h4 *ngIf="selectedType !== 'All'">{{selectedType}}</h4>
             </li>
           </ul>
         </div>
         <br>
-
-
-
 
         <!-- SEARCHED GEAR RESULTS -->
 
