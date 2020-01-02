@@ -247,6 +247,28 @@
                       <input type="text" placeholder="Description" class="form-control"
                         [(ngModel)]="newGear.description">
                     </div>
+
+                    <div class="form-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Category</span>
+                      </div>
+                      <select placeholder="Category" class="form-control"
+                        [(ngModel)]="newGear.categories">
+                      <option>All</option>
+                      <option>Mountain Biking</option>
+                      <option>Skating</option>
+                      <option>Surf</option>
+                      <option>Hiking</option>
+                      <option>Biking</option>
+                      <option>Kayaking</option>
+                      <option>Water Sports</option>
+                      <option>Rock Climbing</option>
+                      <option>Skiing</option>
+                      <option>All</option>
+                      <option>All</option>
+                      </select>
+                    </div>
+
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text" style="width: 117px"

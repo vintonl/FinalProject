@@ -367,7 +367,7 @@ INSERT INTO `category` (`id`, `name`) VALUES (4, 'Hiking');
 INSERT INTO `category` (`id`, `name`) VALUES (5, 'Kayaking');
 INSERT INTO `category` (`id`, `name`) VALUES (6, 'Water Sports');
 INSERT INTO `category` (`id`, `name`) VALUES (7, 'Rock Climbing');
-INSERT INTO `category` (`id`, `name`) VALUES (8, 'Skiing ');
+INSERT INTO `category` (`id`, `name`) VALUES (8, 'Skiing');
 INSERT INTO `category` (`id`, `name`) VALUES (9, 'Snowboarding');
 INSERT INTO `category` (`id`, `name`) VALUES (10, 'Freefalling');
 INSERT INTO `category` (`id`, `name`) VALUES (11, 'Wakeboarding');

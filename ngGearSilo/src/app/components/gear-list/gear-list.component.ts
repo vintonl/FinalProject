@@ -60,7 +60,7 @@ export class GearListComponent implements OnInit {
     'Kayaking',
     'Water Sports',
     'Rock Climbing',
-    'Skiing ',
+    'Skiing',
     'Snowboarding',
     'Freefalling',
     'Wakeboarding',
