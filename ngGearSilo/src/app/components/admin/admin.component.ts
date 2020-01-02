@@ -94,21 +94,26 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  public setUpdateUser() {
-    this.updateUser = Object.assign({}, this.selectedUser);
-  }
-
-  public updatedUser(user: User) {
+  public updatedUserEnabled(user: User) {
+    if (user.enabled) {
+      user.enabled = false;
+    } else {
+      user.enabled = true;
+    }
     this.userSvc.update(user).subscribe(
       uData => {
-        this.loadUsers();
-        this.selectedUser = null;
-        this.updatedUser = null;
+        console.log(user);
+
+        // this.loadUsers();
+        // this.selectedUser = null;
+        // this.updatedUserEnabled = null;
       },
       uErr => {
         this.loadUsers();
         console.error('updatedUser: Error');
         console.error(uErr);
+        console.log(user);
+
       }
     );
   }

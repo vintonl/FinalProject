@@ -183,10 +183,10 @@
             >
               Back
             </button>
-            <button class="btn btn-outline-warning" *ngIf="!selectedUser.enabled">
+            <button class="btn btn-outline-warning" *ngIf="!selectedUser.enabled" (click)="updatedUserEnabled(selectedUser)">
               Enable
             </button>
-            <button class="btn btn-outline-danger" *ngIf="selectedUser.enabled">
+            <button class="btn btn-outline-danger" *ngIf="selectedUser.enabled" (click)="updatedUserEnabled(selectedUser)">
               Disable
             </button>
           </div>

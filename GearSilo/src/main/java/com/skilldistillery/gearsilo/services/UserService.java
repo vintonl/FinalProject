@@ -8,7 +8,7 @@ public interface UserService {
 
 	List<User> findAll(String username);
 
-	User updateUser(int id, User user);
+	User updateUser(User user, String username);
 	
 	User updateUserProfile( String username, User user);
 

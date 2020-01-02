@@ -42,11 +42,11 @@ public class UserController {
 		return users;
 	}
 
-	@PutMapping("users/{id}")
-	public User replaceExistingUser(@RequestBody User user, @PathVariable int id, HttpServletRequest req,
-			HttpServletResponse resp) {
+	@PutMapping("users/admin")
+	public User replaceExistingUser(@RequestBody User user, HttpServletRequest req,
+			HttpServletResponse resp, Principal principal) {
 		try {
-			user = userSvc.updateUser(id, user);
+			user = userSvc.updateUser(user, principal.getName());
 			if (user == null) {
 				resp.setStatus(404);
 				return null;
