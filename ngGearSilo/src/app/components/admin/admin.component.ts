@@ -39,16 +39,26 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authSvc
+      .getUserByUsername(this.authSvc.getLoggedInUsername())
+      .subscribe(
+        good => {
+          this.user = good;
+          console.log(this.user);
+          if (this.user.role !== 'admin') {
+            this.router.navigateByUrl('/login');
+          }
+        },
+        error => {}
+      );
+
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
-
   }
 
   // Admin Check here not good
-  adminLoggedInCheck() {
-
-  }
+  adminLoggedInCheck() {}
 
   // Users
 
@@ -209,6 +219,4 @@ export class AdminComponent implements OnInit {
     }
     return count;
   }
-
-
 }
