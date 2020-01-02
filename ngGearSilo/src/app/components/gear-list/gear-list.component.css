@@ -245,21 +245,22 @@ input[type="text"]:focus {
   /* width: 40px !important; */
 
 }
+
 .nav-container{
   width: 110%;
 }
-
 
 .nav-tabs span.showHand {
   width: 30%;
   /* padding: 10px 5px; */
 }
+
 span:hover {
   color: orange;
   /* width: 40px; */
 }
 
-h3 {
+h4 {
   text-align: center;
   text-decoration: underline;
 }
