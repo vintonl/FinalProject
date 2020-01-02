@@ -52,9 +52,6 @@ export class ProfileComponent implements OnInit {
   theCheckbox = false;
 
 
-
-  // tslint:disable-next-line: no-shadowed-variable
-
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
     private router: Router,
@@ -80,7 +77,6 @@ export class ProfileComponent implements OnInit {
 
 
   // LOAD THE GEAR
-
   loadGear() {
     this.gearList = [];
 
@@ -100,9 +96,7 @@ export class ProfileComponent implements OnInit {
               if (gear.user.id === this.loggedInUser.id) {
                 this.gearList.push(gear);
                 this.checkImageURl();
-                // this.selecteditem.active = true;
 
-                // this.loggedInUser = e.user;
               }
             });
           },
@@ -201,14 +195,9 @@ export class ProfileComponent implements OnInit {
     this.selecteditem = null;
     this.gearSrv.update(this.updatedGear).subscribe(
       data => {
-        // this.updatedGear = data;
         location.reload();
-        // this.updatedGear = null;
-        // this.selecteditem = null;
       },
       err => console.log('Update got an error: ' + err));
-    // this.loadGear();
-    // this.loadGear();
   }
 
   // UPDATE USER
@@ -233,7 +222,6 @@ export class ProfileComponent implements OnInit {
 
     this.userService.update(this.editedUser).subscribe(
       data => {
-        // this.editedUser = data;
         this.editedUser = null;
         this.selecteditem = null;
       },
@@ -246,7 +234,6 @@ export class ProfileComponent implements OnInit {
   // LOAD ALL RESERVATIONS FOR USER
   loadReseravtions() {
     this.needApprovedRes = 0;
-    // this.needCompletedRes = 0;
     this.myReservations = [];
     this.shopperReservations = [];
     this.userneedsCompletedRes = [];
@@ -286,7 +273,7 @@ export class ProfileComponent implements OnInit {
         console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
 
-          if (res.completed === true && res.lenderReview === null) {
+          if (res.completed === true && res.gearReview.active === null) {
 
             console.log(res);
             this.userneedsCompletedResNum++;
@@ -300,10 +287,6 @@ export class ProfileComponent implements OnInit {
         console.log(didntWork);
       }
     );
-
-
-
-
   }
 
   lenderRating() {
@@ -323,12 +306,9 @@ export class ProfileComponent implements OnInit {
   toggleVisibility() {
     console.log("in toggle");
     console.log(this.myRes.approved);
-    // this.myRes.approved = e.target.checked;
-    // this.updateGear();
 
   }
   // UPDATE THE RESERVATION
-  // tslint:disable-next-line: adjacent-overload-signatures
   updateResCompleted(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
       this.updatedRes.createdAt = this.selectedRes.createdAt
@@ -434,8 +414,6 @@ export class ProfileComponent implements OnInit {
     this.selectedRes = res;
 
   }
-
-
 
   createGearReview(gearReview: NgForm) {
     console.log(this.selectedRes.id);
