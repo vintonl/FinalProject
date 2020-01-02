@@ -1,3 +1,4 @@
+import { ReviewOfShopperService } from './../../services/review-of-shopper.service';
 import { ReservationService } from './../../services/reservation.service';
 import { GearService } from './../../services/gear.service';
 import { Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
 import { Reservation } from 'src/app/models/reservation';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -58,7 +60,8 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private userService: UserService,
-    private resService: ReservationService) { }
+    private resService: ReservationService,
+    private reviewOfShopperSvc: ReviewOfShopperService) { }
 
 
 
@@ -275,6 +278,7 @@ export class ProfileComponent implements OnInit {
     );
 
     console.log("in load shopper res 0");
+
     // LOADING SHOPPER RESERVATIONS
     this.resService.indexShopperUser().subscribe(
       (aGoodThingHappened) => {
@@ -282,7 +286,7 @@ export class ProfileComponent implements OnInit {
         console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
 
-          if (res.completed === true && res.shopperReview.active === false) {
+          if (res.completed === true && res.lenderReview === null) {
 
             console.log(res);
             this.userneedsCompletedResNum++;
@@ -423,5 +427,49 @@ export class ProfileComponent implements OnInit {
   onClickCompletedReservation(res: any, lgModal: any) {
     this.selectedRes = res;
     this.updateResCompleted(res);
+
   }
+
+  onClickReviewGear(res: any, lgModal: any) {
+    this.selectedRes = res;
+
+  }
+
+
+
+  createGearReview(gearReview: NgForm) {
+    console.log(this.selectedRes.id);
+    const newGearReview = {
+      rating: gearReview.value.rating,
+      review: gearReview.value.review,
+      active: 'true',
+      reservation: {
+        id: this.selectedRes.id
+      }
+    };
+
+    let user = new User();
+
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      good => {
+        user = good;
+        console.log(user);
+        this.reviewOfShopperSvc.createGearReview(newGearReview, user).subscribe(
+          next => {
+            console.log('ReviewComponent.createGearReview(): review of gear created.');
+
+            console.log(next);
+          },
+          error => {
+            console.error('ReviewComponent.createGearReview(): error createGearReview.');
+            console.log(error);
+          }
+        );
+      },
+      error => {
+        console.log('ReviewOfShopperService.create() Error getting logged in user while creating gear review');
+      }
+    );
+  }
+
 }
