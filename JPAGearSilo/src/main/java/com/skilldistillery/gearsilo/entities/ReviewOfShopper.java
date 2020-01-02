@@ -134,8 +134,8 @@ public class ReviewOfShopper {
 
 	@Override
 	public String toString() {
-		return "ReviewOfShopper [id=" + id + ", rating=" + rating + ", review=" + review + ", reservation="
-				+ reservation + ", active=" + active + "]";
+		return "ReviewOfShopper [id=" + id + ", rating=" + rating + ", review=" + review + 
+				 ", active=" + active + "]";
 	}
 
 }

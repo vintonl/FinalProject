@@ -123,7 +123,7 @@ public class ReviewOfGear {
 
 	@Override
 	public String toString() {
-		return "ReviewOfGear [id=" + id + ", rating=" + rating + ", review=" + review + ", reservation=" + reservation
+		return "ReviewOfGear [id=" + id + ", rating=" + rating + ", review=" + review 
 				+ ", active=" + active + "]";
 	}
 
