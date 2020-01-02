@@ -40,6 +40,8 @@ export class ProfileComponent implements OnInit {
   deleteId: number;
   needApprovedRes = 0;
   needsApprovedRes: Reservation[] = [];
+  needCompletedRes = 0;
+  needsCompletedRes: Reservation[] = [];
   reservationStatus;
   marked = false;
   theCheckbox = false;
@@ -248,6 +250,11 @@ export class ProfileComponent implements OnInit {
         aGoodThingHappened.forEach(res => {
           this.myReservations.push(res);
 
+          if (res.completed !== true) {
+            this.needCompletedRes++;
+            this.needsCompletedRes.push(res);
+
+          }
           if (res.approved !== true) {
             this.needApprovedRes++;
             this.needsApprovedRes.push(res);
@@ -307,6 +314,51 @@ export class ProfileComponent implements OnInit {
   }
   // UPDATE THE RESERVATION
   // tslint:disable-next-line: adjacent-overload-signatures
+  updateResCompleted(res) {
+    if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined ) {
+      this.updatedRes.createdAt = this.selectedRes.createdAt
+    }
+    if (this.updatedRes.openDate === null || this.updatedRes.openDate === undefined) {
+      this.updatedRes.openDate = this.selectedRes.openDate
+    }
+    if (this.updatedRes.closeDate === null || this.updatedRes.closeDate === undefined) {
+      this.updatedRes.closeDate = this.selectedRes.closeDate
+    }
+    if (this.updatedRes.updatedAt === null || this.updatedRes.updatedAt === undefined) {
+      this.updatedRes.updatedAt = this.selectedRes.updatedAt
+    }
+    if (this.updatedRes.approved === null || this.updatedRes.approved === undefined) {
+      this.updatedRes.approved = this.selectedRes.approved
+    }
+    if (this.updatedRes.gearId === null || this.updatedRes.gearId === undefined) {
+      this.updatedRes.gearId = this.selectedRes.gearId
+    }
+    if (this.updatedRes.userShopper === null || this.updatedRes.userShopper === undefined) {
+      this.updatedRes.userShopper = this.selectedRes.userShopper
+    }
+    this.updatedRes.id = this.selectedRes.id;
+    this.updatedRes.completed = this.selectedRes.completed;
+    if (this.updatedRes.completed === true) {
+         this.updatedRes.completed = false;
+      } else { this.updatedRes.completed = true; }
+    this.selectedRes = null;
+    this.resService.update(this.updatedRes).subscribe(
+      data => {
+        this.updatedRes = data;
+        this.needCompletedRes = 0;
+        for(let i = 0; i < this.myReservations.length; i++) {
+          if(this.myReservations[i].id === this.updatedRes.id) {
+            this.myReservations[i].completed = this.updatedRes.completed;
+          }
+          if(!this.myReservations[i].completed) {
+            this.needCompletedRes++;
+          }
+        }
+        this.updatedRes = new Reservation();;
+        this.selectedRes = null;
+      },
+      err => console.log('Update Res got an error: ' + err));
+  }
   updateResApproval(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined ) {
       this.updatedRes.createdAt = this.selectedRes.createdAt
@@ -356,5 +408,9 @@ export class ProfileComponent implements OnInit {
   onClickReservation(res: any, lgModal: any) {
     this.selectedRes = res;
     this.updateResApproval(res);
+  }
+  onClickCompletedReservation(res: any, lgModal: any) {
+    this.selectedRes = res;
+    this.updateResCompleted(res);
   }
 }

@@ -104,6 +104,7 @@ public class ReservationServiceImpl implements ReservationService {
 		Reservation updateReservation = resRepo.findByGearId_User_UsernameAndId(username, id); 
 			if (reservation != null) {
 				updateReservation.setApproved(reservation.getApproved());
+				updateReservation.setCompleted(reservation.getCompleted());
 				resRepo.saveAndFlush(updateReservation);
 			}
 		return updateReservation;
