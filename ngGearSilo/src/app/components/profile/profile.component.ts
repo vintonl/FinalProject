@@ -273,7 +273,9 @@ export class ProfileComponent implements OnInit {
         console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
 
-          if (res.completed === true && res.gearReview.active === null) {
+
+
+          if (res.completed === true && res.gearReview === null) {
 
             console.log(res);
             this.userneedsCompletedResNum++;
@@ -434,8 +436,8 @@ export class ProfileComponent implements OnInit {
         console.log(user);
         this.reviewOfShopperSvc.createGearReview(newGearReview, user).subscribe(
           next => {
-            console.log('ReviewComponent.createGearReview(): review of gear created.');
 
+            console.log('ReviewComponent.createGearReview(): review of gear created.');
             console.log(next);
           },
           error => {
