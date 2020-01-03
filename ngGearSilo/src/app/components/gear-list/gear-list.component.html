@@ -51,15 +51,12 @@
         <div class="nav-container" *ngIf="!selected">
           <ul class="nav nav-tabs">
             <li class="active">
-<<<<<<< HEAD
-              <span class="showHand hover border border-warning rounded" *ngFor="let category of categories"
+              <!-- <span class="showHand hover border border-warning rounded" *ngFor="let category of categories"
                 (click)="selectedType = category">
                 &nbsp;{{category}}&nbsp;
-              </span>
-=======
+              </span> -->
               <button class="showHand hover btn-primary btn-warning" *ngFor="let category of categories"
                 (click)="selectedType = category">&nbsp;{{category}}&nbsp;</button>
->>>>>>> 1f8ea1e224b933a885031bac530e89d55fed4a80
               <h4 *ngIf="selectedType !== 'All'">{{selectedType}}</h4>
             </li>
           </ul>
