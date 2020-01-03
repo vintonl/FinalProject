@@ -1,3 +1,4 @@
+import { ReviewOfLender } from './../../models/review-of-lender';
 import { ReviewOfShopperService } from './../../services/review-of-shopper.service';
 import { ReservationService } from './../../services/reservation.service';
 import { GearService } from './../../services/gear.service';
@@ -425,7 +426,7 @@ export class ProfileComponent implements OnInit {
       review: gearReview.value.review,
       active: 'true',
       reservation: {
-        id: this.selectedRes.id
+        id: this.selectedRes.id,
       }
     };
 
@@ -437,6 +438,8 @@ export class ProfileComponent implements OnInit {
         console.log(user);
         this.reviewOfShopperSvc.createGearReview(newGearReview, user).subscribe(
           next => {
+
+            this.createLenderReview(gearReview, user);
 
             console.log('ReviewComponent.createGearReview(): review of gear created.');
             console.log(next);
@@ -453,4 +456,30 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  createLenderReview(gearReview: NgForm, user: User) {
+
+    const newLenderReview = {
+      rating: gearReview.value.lenderRating,
+      review: "default review",
+      active: 'true',
+      reservation: {
+        id: this.selectedRes.id
+      }
+    }
+
+    this.reviewOfShopperSvc.createLenderReview(newLenderReview, user).subscribe(
+      next => {
+
+        console.log('ReviewComponent.createLenderReview(): review of lender created.');
+        console.log(next);
+      },
+      error => {
+        console.error('ReviewComponent.createLenderReview(): error createLenderReview.');
+        console.log(error);
+      }
+    );
+
+  };
 }
+
+

@@ -7,6 +7,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ReviewOfLender } from '../models/review-of-lender';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,24 @@ export class ReviewOfShopperService {
         catchError((err: any) => {
           console.log(err);
           return throwError('ReviewOfShopperService.create(): Error creating new gear review');
+        })
+      );
+  }
+
+  createLenderReview(newLenderReview, user) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.post<ReviewOfLender>(this.url + 'users/' + user.id + '/reservation/'
+      + newLenderReview.reservation.id + '/reviews/lenderreviews', newLenderReview, httpOptions).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('ReviewOfShopperService.create(): Error creating new lender review');
         })
       );
   }
