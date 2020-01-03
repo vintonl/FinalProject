@@ -49,18 +49,21 @@
     <div class="text-center">
       <h2>Reservation Dates</h2>
     </div>
+    <div class="text-center" *ngIf="badRes">
+      <h4>Sorry, please try again.</h4>
+    </div>
     <div class="row">
       <div class="col-4">
       </div>
 
       <div class="col-4">
-        <form class="form-group my-2 my-lg-0">
+        <form class="form-group my-2 my-lg-0" ngNativeValidate>
           <label for="openDate">Start date:
-            <input class="form-control mr-sm-2" type="date" name="openDate" [(ngModel)]="newRes.openDate">
+            <input class="form-control mr-sm-2" type="date" name="openDate" [(ngModel)]="newRes.openDate" required>
           </label>
           <br>
           <label for="closeDate">End date:
-            <input class="form-control mr-sm-2" type="date" name="closeDate" [(ngModel)]="newRes.closeDate">
+            <input class="form-control mr-sm-2" type="date" name="closeDate" [(ngModel)]="newRes.closeDate" required>
           </label>
           <br>
           <span>
