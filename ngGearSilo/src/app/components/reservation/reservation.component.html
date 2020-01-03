@@ -35,9 +35,10 @@
     <li class="list-group-item ">Location: {{selected.user.address.city | titlecase }},
       {{selected.user.address.state | titlecase }} {{selected.user.address.postalCode}}</li>
 
-    <li class="list-group-item ">Click here to email: <a
+    <li class="list-group-item ">
+      <h4>Click here to notify <span style="color:orange">{{selected.user.firstName | titlecase}}</span></h4> <a
         href="mailto:{{selected.user.email}}?subject=Gear Silo Rental Inquiry!&body=Hi, {{selected.user.firstName}}! I would Like to rent your {{selected.name}}. Please confirm the requested reserve dates.">
-        <span style="margin-right: 5px" class="glyphicon glyphicon-envelope"></span>{{selected.user.firstName}}</a>
+        <span style="margin-right: 5px; font-size: 30px; color: orange" class="glyphicon glyphicon-envelope"></span></a>
     </li>
 
 
@@ -64,7 +65,8 @@
           <br>
           <span>
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button (click)="createReservation()" class="btn btn-dark my-2 my-sm-0">Submit reservation</button>
+              <button (click)="createReservation()" class="btn btn-dark my-2 my-sm-0">
+                Submit reservation</button>
               <button (click)="toGears()" class="btn btn-warning my-2 my-sm-0">Cancel</button>
             </div>
           </span>
@@ -76,4 +78,3 @@
   </div>
 </div>
 <br>
-

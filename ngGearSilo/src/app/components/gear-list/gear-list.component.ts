@@ -156,6 +156,8 @@ export class GearListComponent implements OnInit {
 
   search() {
     this.searchedGear = [];
+    console.log(this.keyword);
+
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
@@ -168,10 +170,10 @@ export class GearListComponent implements OnInit {
         this.searchedGear.push(this.gearList[i]);
         continue;
       }
-      if (this.gearList[i].gearCondition.toLowerCase().includes(this.keyword.toLowerCase())) {
-        this.searchedGear.push(this.gearList[i]);
-        continue;
-      }
+      // if (this.gearList[i].gearCondition.toLowerCase().includes(this.keyword.toLowerCase())) {
+      //   this.searchedGear.push(this.gearList[i]);
+      //   continue;
+      // }
       if (this.gearList[i].user.firstName.toLowerCase().includes(this.keyword.toLowerCase())) {
         this.searchedGear.push(this.gearList[i]);
         continue;
@@ -192,6 +194,10 @@ export class GearListComponent implements OnInit {
         this.searchedGear.push(this.gearList[i]);
       }
     }
+
+    console.log("printing search results");
+    console.log(this.searchedGear.length);
+
     this.hideSearchResult = false;
 
     this.keyword = null;
@@ -209,6 +215,7 @@ export class GearListComponent implements OnInit {
         this.searchedGear.push(this.gearList[i]);
       }
     }
+
     this.hideSearchResult = false;
 
   }
@@ -231,7 +238,7 @@ export class GearListComponent implements OnInit {
         this.resList = aGoodThingHappened;
         this.resList.forEach(res => {
 
-          if (res.lenderReview.rating > 0) {
+          if (res.lenderReview.rating > 0 ) {
 
             this.rating = res.lenderReview.rating;
             this.averageRating = this.rating;
@@ -310,15 +317,12 @@ export class GearListComponent implements OnInit {
     const R = 6378137; // Earth’s mean radius in meter
     const dLat = rad(this.lat2 - item.lat);
 
-    console.log(dLat);
     const dLong = rad(this.long2 - item.long);
-    console.log(dLong);
 
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(rad(item.lat)) * Math.cos(rad(this.lat2)) *
       Math.sin(dLong / 2) * Math.sin(dLong / 2);
 
-    console.log(a);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
 
