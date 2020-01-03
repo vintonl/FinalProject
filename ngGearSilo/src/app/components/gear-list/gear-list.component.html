@@ -39,10 +39,12 @@
 
 
             <!-- RESET BUTTON -->
-            <button style="margin-left: 530px; margin-top: -45px" class="btn btn-outline-secondary"
-              (click)="ngOnInit(); selectedType = 'All'"><span style="margin: 2px"
-                class="glyphicon glyphicon-th-list"></span> See all
-              Items</button>
+            <div>
+              <button style="margin-left: 530px; margin-top: -45px" class="btn btn-outline-secondary"
+                (click)="ngOnInit(); selectedType = 'All'"><span style="margin: 2px"
+                  class="glyphicon glyphicon-th-list"></span> See all
+                Items</button>
+            </div>
           </div>
         </form>
 
@@ -159,7 +161,8 @@
                           <strong>{{item.name | titlecase }}</strong>
                         </h4>
                         <h4 style="text-decoration-line: none;"><small>{{item.description | titlecase }}</small></h4>
-                        <h4 style="margin-top:  -10px; text-decoration-line: none;"><small>{{item.price | currency }}/ day</small></h4>
+                        <h4 style="margin-top:  -10px; text-decoration-line: none;"><small>{{item.price | currency }}/
+                            day</small></h4>
                       </div>
                       <div class="col-xs-6">
                         <img class="pic" src="{{item.user.imageUrl}}">
