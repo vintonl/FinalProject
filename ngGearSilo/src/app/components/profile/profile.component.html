@@ -379,34 +379,30 @@
                     class="form-control" [(ngModel)]="updatedGear.description">
                 </div>
 
-                <!-- CONDITION -->
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Condition</span>
-                  </div>
-                  <input type="text" placeholder="{{selecteditem.gearCondition}}" class="form-control"
-                    [(ngModel)]="updatedGear.gearCondition">
-                </div>
+                  <!-- CONDITION -->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" style="width: 117px"
+                        id="inputGroup-sizing-default">Condition</span>
+                    </div>
+                    <input type="text" placeholder="{{updatedGear.gearCondition}}" class="form-control"
+                      [(ngModel)]="updatedGear.gearCondition">
 
-                <!-- ACTIVE -->
-                <!-- <input style="margin-bottom: 10px;" type="checkbox" placeholder="{{selecteditem.gearCondition}}"
-                      [(ngModel)]="updatedGear.active"> -->
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" style="width: 117px; height: 35px"
-                      id="inputGroup-sizing-default">Active</span>
-                  </div>
-                  <label class="switch">
-                    <input type="checkbox" data-toggle="toggle" checked data-on="Available" data-off="Unavailable"
-                      placeholder="{{selecteditem.gearCondition}}" [(ngModel)]="updatedGear.active">
-                    <span class="slider"></span>
-                  </label><br><br>
-                </div>
+                  <!-- AVAILABLE -->
 
-
-                <!-- AVAILABLE -->
-                <!-- <input type="checkbox" placeholder="{{selecteditem.gearCondition}}"
-                      [(ngModel)]="updatedGear.available"> -->
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" style="width: 117px; height: 35px"
+                            id="inputGroup-sizing-default">Available</span>
+                        </div>
+                        <label class="switch">
+                          <input type="checkbox" data-toggle="toggle" checked data-on="true" data-off="false"
+                             class="form-control" [checked]="updatedGear.available" (change)="updatedGear.available=!updatedGear.available">
+                          <!-- <input type="checkbox" data-toggle="toggle" checked data-on="true" data-off="false"
+                            placeholder="{{selecteditem.available}}" class="form-control" [(ngModel)]="updatedGear.available"> -->
+                          <span class="slider"></span>
+                        </label><br><br>
+                      </div>
 
                 <!-- HIDDEN FIELDS -->
                 <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="updatedGear.user">

@@ -160,7 +160,7 @@ export class ProfileComponent implements OnInit {
   onClick(item: any) {
 
     this.selecteditem = item;
-
+    this.updatedGear = item;
     // lgModal.show();
 
   }
@@ -172,15 +172,11 @@ export class ProfileComponent implements OnInit {
 
   // UPDATE THE GEAR
   updateGear() {
-
     this.updatedGear.id = this.selecteditem.id;
     this.updatedGear.active = true;
 
     if (this.updatedGear.name === null || this.updatedGear.name === undefined) {
       this.updatedGear.name = this.selecteditem.name;
-    }
-    if (this.updatedGear.available !== true || this.updatedGear.available !== true) {
-      this.updatedGear.available = true;
     }
     if (this.updatedGear.description === null || this.updatedGear.description === undefined) {
       this.updatedGear.description = this.selecteditem.description;
@@ -191,7 +187,12 @@ export class ProfileComponent implements OnInit {
     if (this.updatedGear.price === null || this.updatedGear.price === undefined) {
       this.updatedGear.price = this.selecteditem.price;
     }
-
+    if (this.updatedGear.gearCondition === null || this.updatedGear.gearCondition === undefined) {
+      this.updatedGear.gearCondition = this.selecteditem.gearCondition;
+    }
+    if (this.updatedGear.available === null || this.updatedGear.available === undefined) {
+      this.updatedGear.available = this.selecteditem.available;
+    }
     this.selecteditem = null;
     this.gearSrv.update(this.updatedGear).subscribe(
       data => {
