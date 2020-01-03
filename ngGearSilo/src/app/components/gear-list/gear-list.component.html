@@ -6,35 +6,12 @@
 <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" />
 <!------ Include the above in your HEAD tag ---------->
 
-
-
 <br>
 <div class="contaner-fluid">
   <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
       <div>
-        <!-- <form class="form-inline" ngNativeValidate>
-          <div class="col-xs-4">
-
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="active-pink-3 active-pink-4 mb-4">
-                <input class="form-control" type="text" size="35" placeholder="Search" aria-label="Search"
-                  name="keyword" [(ngModel)]="keyword" minlength="1" maxlength="100">
-                <button class="btn btn-dark my-2 my-sm-0" type="submit" (click)="search(); selected=null">Search by
-                  keyword</button>
-              </div>
-            </div> -->
-
-        <!-- Reset Button -->
-        <!-- <div class="col-xs-4">
-              <button class="btn btn-dark my-2 my-sm-0" (click)="ngOnInit()">See all items</button>
-            </div>
-            <br>
-            <br>
-          </div>
-        </form> -->
-
 
         <!-- SEARCH BAR -->
         <form class="form-inline" ngNativeValidate>
@@ -50,12 +27,14 @@
 
           <!-- SLIDER -->
           <div>
-            <div class="distanceBar">
-              <label class="sliderLabel" placeholder="Distance">{{searchDistance}} miles</label>
-              <!-- <input class="slider" style="margin-left: 200px; margin-top: 75px" [(ngModel)]="searchDistance" placeholder="Distance"
+            <div *ngIf="loggedInUser.enabled == true">
+              <div class="distanceBar">
+                <label class="sliderLabel" placeholder="Distance">{{searchDistance}} miles</label>
+                <!-- <input class="slider" style="margin-left: 200px; margin-top: 75px" [(ngModel)]="searchDistance" placeholder="Distance"
                 min={{min}} max={{max}} name="searchDistance" (change)="searchByDistance(); selected=null" type="range"> -->
-              <input type="range" min="1" max="150" value="50" name="searchDistance" [(ngModel)]="searchDistance"
-                (change)="searchByDistance(); selected=null" class="slider" id="myRange">
+                <input type="range" min="0" max="2000" step="5" name="searchDistance" [(ngModel)]="searchDistance"
+                  (change)="searchByDistance(); selected=null" class="slider" id="myRange">
+              </div>
             </div>
 
 
@@ -67,29 +46,18 @@
           </div>
         </form>
 
-        <!-- NAV TABS -->
-        <!-- <div class="nav-container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="nav-card">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li style="padding: 0px" *ngFor="let category of categories" (click)="selectedType = category" role="presentation"
-                    class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i
-                        class="fa fa-home"></i> <span>{{category}}</span></a></li>
-                </ul>
-                <h4 *ngIf="selectedType !== 'All'">{{selectedType}}</h4>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-        <div class="nav-container">
+        <div class="nav-container" *ngIf="!selected">
           <ul class="nav nav-tabs">
             <li class="active">
+<<<<<<< HEAD
               <span class="showHand hover border border-warning rounded" *ngFor="let category of categories"
                 (click)="selectedType = category">
                 &nbsp;{{category}}&nbsp;
               </span>
+=======
+              <button class="showHand hover btn-primary btn-warning" *ngFor="let category of categories"
+                (click)="selectedType = category">&nbsp;{{category}}&nbsp;</button>
+>>>>>>> 1f8ea1e224b933a885031bac530e89d55fed4a80
               <h4 *ngIf="selectedType !== 'All'">{{selectedType}}</h4>
             </li>
           </ul>
@@ -106,7 +74,6 @@
             </div>
           </div>
         </div>
-
 
         <!-- SEARCH SEARCH CARDS -->
         <div *ngIf="searchedGear.length > 0">
@@ -168,44 +135,9 @@
           </div>
         </div>
 
-        <!-- TABLE -->
-        <!-- <br>
-        <div *ngIf="!selected && hideSearchResult">
-          <div class="text-center">
-            <h2>Gear List</h2>
-          </div>
-          <table class="table table-primary table-bordered">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col" style="text-align:center">Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Price</th>
-                <th scope="col">Condition</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of gearList">
-                <td *ngIf="item.active == true" scope="row" (click)="displayGearItem(item)" style="text-align:center">
-                  <img src="{{item.imageUrl}}" alt="gear image" class="gear-img-list"></td>
-                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.name | titlecase }}</td>
-                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.description | lowercase }}</td>
-                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.price | currency}}</td>
-                <td *ngIf="item.active == true" (click)="displayGearItem(item)">{{item.gearCondition | lowercase }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="text-center">
-            <p>Click a row for more details.</p>
-          </div>
-        </div>
-      </div> -->
-
-
         <!-- CARDS -->
         <div *ngIf="!selected && hideSearchResult">
-          <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType "
-            (click)="selected = gearList">
+          <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType " (click)="selected = item">
             <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
               <div style="background-color: whitesmoke;" class="col-xs-8">
                 <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
@@ -215,9 +147,11 @@
                         <div class="col-xs-6">
                           <h5><span class="glyphicon glyphicon-map-marker"></span> {{item.user.address.city}},
                             {{item.user.address.state}} </h5>
-                          <h6 style="color: orange; margin-right: -5px">{{item.distance | number : '1.1-1'}} Miles
-                            from
-                            you</h6>
+                          <div *ngIf="loggedInUser.enabled == true">
+                            <h6 style="color: orange; margin-right: -5px">{{item.distance | number : '1.1-1'}} Miles
+                              from
+                              you</h6>
+                          </div>
                           <hr>
                         </div>
                       </div>
@@ -260,12 +194,6 @@
           </div>
         </div>
 
-
-
-
-
-
-
         <!-- RESERVATION PAGE -->
         <div *ngIf="selected">
           <div class="list-group">
@@ -274,16 +202,12 @@
 
                 <h2 style="margin-left: 800px">{{selected.name | titlecase}}</h2>
 
-
                 <div class="row">
                   <div class="column">
                     <div style="max-width:600px; max-height:500px !important; padding: 10px; overflow: hidden;">
                       <img class="resImage" src="{{selected.imageUrl}}" alt="">
                     </div>
                   </div>
-
-
-
 
                   <!-- RIGHT SIDE - DETAILS  -->
                   <div class="column">
@@ -320,8 +244,6 @@
                 </div>
               </div>
 
-
-
               <!-- Reviews of gear if user is logged in and item has reviews -->
               <div class="container" *ngIf="selectedGearReviews && selectedGearReviews.length > 0">
                 <div class="row">
@@ -356,27 +278,7 @@
 
                   <hr>
                 </div>
-                <!--
-                      <div class="map">
-                        <iframe src="https://maps.google.com/maps?q={lat},{long}&hl=es;z=5&amp;output=embed"
-                          height="300" style="border:0;" allowfullscreen=""></iframe>
-                      </div> -->
 
-
-
-
-
-
-                <!-- CHAT
-          <button class="open-button" (click)="openForm()">Chat</button>
-          <div class="chat-popup" id="myForm">
-            <form style="background-color: white; opacity: 1;" action="/action_page.php" class="form-container">
-              <label for="msg"><b>Message</b></label>
-              <textarea placeholder="Type message.." name="msg" required></textarea>
-              <button type="submit" class="btn">Send</button>
-              <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
-            </form>
-          </div> -->
               </div>
             </div>
           </div>
