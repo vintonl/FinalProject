@@ -44,7 +44,7 @@ export class ReservationComponent implements OnInit {
       created => {
         console.log('ReservationComponent.createReservation() new reservation created');
         console.log(created);
-        // this.router.navigateByUrl('/users');
+        this.router.navigateByUrl('/users');
       },
       err => {
         console.log('ReservationComponent.createReservation() ERROR ' + err);
