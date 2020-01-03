@@ -130,8 +130,7 @@
 
         <!-- CARDS -->
         <div *ngIf="!selected && hideSearchResult">
-          <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType "
-            (click)="selected = gearList">
+          <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType " (click)="selected = item">
             <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
               <div style="background-color: whitesmoke;" class="col-xs-8">
                 <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
@@ -156,11 +155,11 @@
                         <img style="max-width:100px; height: auto;" class="img-responsive" src="{{item.imageUrl}}">
                       </div>
                       <div class="col-xs-4">
-                        <h4 style="margin-top:  -5px;" class="product-name">
+                        <h4 style="margin-top:  -5px; text-decoration-line: none;" class="product-name">
                           <strong>{{item.name | titlecase }}</strong>
                         </h4>
-                        <h4><small>{{item.description | titlecase }}</small></h4>
-                        <h4 style="margin-top:  -10px;"><small>{{item.price | currency }}/ day</small></h4>
+                        <h4 style="text-decoration-line: none;"><small>{{item.description | titlecase }}</small></h4>
+                        <h4 style="margin-top:  -10px; text-decoration-line: none;"><small>{{item.price | currency }}/ day</small></h4>
                       </div>
                       <div class="col-xs-6">
                         <img class="pic" src="{{item.user.imageUrl}}">

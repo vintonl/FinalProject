@@ -157,17 +157,17 @@ export class ProfileComponent implements OnInit {
     this.newGear = null;
   }
 
-  onClick(item: any, lgModal: any) {
+  onClick(item: any) {
 
     this.selecteditem = item;
     this.updatedGear = item;
-    lgModal.show();
+    // lgModal.show();
 
   }
 
-  onClickGearPopUp(item: any, lgModal: any) {
+  onClickGearPopUp(item: any) {
     this.selecteditem = item;
-    lgModal.show();
+    // lgModal.show();
   }
 
   // UPDATE THE GEAR
@@ -403,17 +403,17 @@ export class ProfileComponent implements OnInit {
       err => console.log('Update Res got an error: ' + err));
   }
 
-  onClickReservation(res: any, lgModal: any) {
+  onClickReservation(res: any) {
     this.selectedRes = res;
     this.updateResApproval(res);
   }
-  onClickCompletedReservation(res: any, lgModal: any) {
+  onClickCompletedReservation(res: any) {
     this.selectedRes = res;
     this.updateResCompleted(res);
 
   }
 
-  onClickReviewGear(res: any, lgModal: any) {
+  onClickReviewGear(res: any) {
     this.selectedRes = res;
 
   }
