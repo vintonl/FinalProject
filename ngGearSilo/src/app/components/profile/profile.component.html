@@ -258,10 +258,15 @@
                     <input type="text" placeholder="What item are you wishing to rent?" class="form-control"
                       [(ngModel)]="newGear.name">
                   </div>
+
+                  <!-- DESCRIPTION OF GEAR -->
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
                     </div>
+                    <input type="text" placeholder="Description" class="form-control"
+                      [(ngModel)]="newGear.description">
+                  </div>
 
                     <!-- <div class="form-group mb-3">
                       <div class="input-group-prepend">
@@ -291,17 +296,7 @@
                       </select>
                     </div> -->
 
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" style="width: 117px"
-                          id="inputGroup-sizing-default">Condition</span>
-                      </div>
-                      <input type="text" placeholder="Gear Condition" class="form-control"
-                        [(ngModel)]="newGear.gearCondition">
 
-                      <input type="text" placeholder="Description" class="form-control"
-                        [(ngModel)]="newGear.description">
-                    </div>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text" style="width: 117px"
