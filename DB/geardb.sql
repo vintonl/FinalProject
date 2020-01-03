@@ -303,7 +303,7 @@ START TRANSACTION;
 USE `geardb`;
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (1, 'Mountain Bike', 'New', 50.00, 'Black,10 gear', 'https://i.imgur.com/vPbnSXC.jpg', 1, 1, 1, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (2, 'Hover Board', 'New', 9000.00, 'Pink, red, and green board. One foot strap.', 'https://i.imgur.com/CMqrSSq.jpg', 1, 1, 2, NULL, NULL);
-INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (3, 'Surf Board', 'Solid', 100.00, 'Medium size board', 'https://i.imgur.com/43Dmmgz.jpg', 1, 1, 3, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (3, 'Surf Board', 'Solid', 50.00, 'Medium size board', 'https://i.imgur.com/43Dmmgz.jpg', 1, 1, 3, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (4, 'Snow Shoes', 'New', 30.00, 'Mens, Mountain terrain, Aluminum-frame', 'https://i.imgur.com/3wwDK0L.jpg', 1, 1, 6, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (5, 'Kayak', 'Slightly Used', 40.00, 'Orange', 'https://i.imgur.com/fn77owl.jpg', 1, 1, 4, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (6, 'Wake Surf Board', 'New', 30.00, 'Medium, grey, black, and lime green', 'https://i.imgur.com/fvTD0Os.jpg', 1, 1, 5, NULL, NULL);
@@ -312,8 +312,8 @@ INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `ima
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (9, 'Snowboard', 'Almost New', 40.00, 'Freestyle, traditional camber.', 'https://i.imgur.com/7YFS4E1.jpg', 1, 1, 5, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (10, 'Wingsuit', 'Great condition', 80.00, 'Blue', 'https://i.imgur.com/NzKIe7G.jpg', 1, 1, 1, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (11, 'Electric Scooter', 'New', 15.00, 'Black', 'https://i.imgur.com/fyWAxNh.jpg', 1, 1, 10, NULL, NULL);
-INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (12, 'Snowboard', 'Seasoned', 75.00, 'Red, Burton, and artsy', 'https://i.imgur.com/UrNiVgn.jpg', 1, 1, 12, 'https://i.imgur.com/qA87gYW.jpg', 'https://i.imgur.com/EDpzhWA.jpg');
-INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (13, 'Snowbaord', 'Slightly Used', 30.00, 'Freestyle, traditional camber, and floral design', 'https://i.imgur.com/jzs2voP.jpg', 1, 1, 13, NULL, NULL);
+INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (12, 'Snowboard', 'Seasoned', 45.00, 'Red, Burton, and artsy', 'https://i.imgur.com/UrNiVgn.jpg', 1, 1, 12, 'https://i.imgur.com/qA87gYW.jpg', 'https://i.imgur.com/EDpzhWA.jpg');
+INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (13, 'Snowboard', 'Slightly Used', 30.00, 'Freestyle, traditional camber, and floral design', 'https://i.imgur.com/jzs2voP.jpg', 1, 1, 13, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (14, 'Tennis Ball Machine', 'Great', 20.00, 'Remote control, lobster, red and white', 'https://i.imgur.com/f5gqZRv.jpg', 1, 1, 14, 'https://i.imgur.com/KE9Jbzv.jpg', NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (15, 'Electric Unicycle', 'New', 25.00, 'White, blue, and black', 'https://i.imgur.com/btOaQpU.jpg', 1, 1, 7, NULL, NULL);
 INSERT INTO `gear` (`id`, `name`, `gear_condition`, `price`, `description`, `image_url`, `available`, `active`, `user_id`, `image_url2`, `image_url3`) VALUES (16, 'Snowboard', 'Excellent', 30.00, 'Beautiful design, fresstlye, traditional', 'https://i.imgur.com/K7YuD8E.jpg', 1, 1, 13, '', '');
@@ -334,6 +334,12 @@ INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `complete
 INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (2, '2019-12-19', '2019-12-19', 2, 1, 4, '2019-12-19', '2019-12-19', 1);
 INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (3, '2019-12-19', '2019-12-19', 3, 1, 5, '2019-12-19', '2019-12-19', 1);
 INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (4, '2019-12-19', '2019-12-19', 4, 0, 7, '2019-12-19', '2019-12-19', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (5, '2019-12-30', '2019-12-31', 2, 1, 11, '2019-12-30', '2019-12-30', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (6, '2019-12-30', '2019-12-31', 10, 1, 8, '2019-12-30', '2019-12-30', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (7, '2019-12-30', '2019-12-31', 15, 1, 10, '2019-12-30', '2019-12-30', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (8, '2020-1-1', '2020-1-2', 10, 1, 10, '2020-1-1', '2020-1-1', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (9, '2020-1-1', '2020-1-2', 11, 1, 9, '2020-1-1', '2020-1-1', 1);
+INSERT INTO `reservation` (`id`, `open_date`, `close_date`, `gear_id`, `completed`, `shopper_user_id`, `created_at`, `updated_at`, `approved`) VALUES (10, '2020-1-1', '2020-1-2', 18, 1, 7, '2020-1-1', '2020-1-1', 1);
 
 COMMIT;
 
@@ -346,6 +352,12 @@ USE `geardb`;
 INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (1, 5, 'Lender was timely and had great tips!', 1, 1);
 INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (2, 3, 'Marty was late to our reservation appointment.', 2, 1);
 INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (3, 5, 'Wooah! I got to meet Kelly Slater! Radical!', 3, 1);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (5, 2, 'Lender was late...', 5, 1);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (6, 5, 'Lender communicated well!', 6, 1);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (7, 3, 'Lender was on time and knoweledgable.', 7, 1);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (8, 5, 'Lender was punctual and had a lot of great tips!', 8, 1);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (9, 4, 'Adam was a great lender and showed up on time to our appointment', 9, 1);
+INSERT INTO `review_of_lender` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (10, 5, 'Lender was super!', 10, 1);
 
 COMMIT;
 
@@ -358,6 +370,12 @@ USE `geardb`;
 INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (1, 5, 'Larry showed up on time and took great care of the bike!', 1, 1);
 INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (2, 5, 'Shaun was rad!', 2, 1);
 INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (3, 5, 'Peyton kept the Surf board in great condition and surfed like a pro! ', 3, 1);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (5, 4, 'Borrower was nice and punctual.', 5, 1);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (6, 5, 'Jerry took great care of the wingsuit!', 6, 1);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (7, 4, 'Adam was a natural at the electric unicycle.', 7, 1);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (8, 5, 'Adam was on time and really enjoyed the wingsuit', 8, 1);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (9, 4, 'Colt kept the scooter in great shape.', 9, 1);
+INSERT INTO `review_of_shopper` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (10, 5, 'Vinton returned the skis in perfect condition.', 10, 1);
 
 COMMIT;
 
@@ -370,6 +388,12 @@ USE `geardb`;
 INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (1, 4, 'Mountain Bike road well!', 1, 1);
 INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (2, 1, 'Hoverboard didn\'t live up to the hype...', 2, 1);
 INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (3, 5, 'Surf Board was awesome! Held up on some gnarly swells! ', 3, 1);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (5, 1, 'Looked cool, but was way too overpriced!', 5, 1);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (6, 5, 'Wingsuit was amazing and in awesome condition! ', 6, 1);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (7, 3, 'Unicycle was soo fun to ride!', 7, 1);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (8, 5, 'Wingsuit turned me into a big blue bird!', 8, 1);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (9, 4, 'The scooter road smooth and had great battery life.', 9, 1);
+INSERT INTO `review_of_gear` (`id`, `rating`, `review`, `reservation_id`, `active`) VALUES (10, 4, 'Skis were allright!', 10, 1);
 
 COMMIT;
 
@@ -396,6 +420,7 @@ INSERT INTO `category` (`id`, `name`) VALUES (14, 'Mountain');
 INSERT INTO `category` (`id`, `name`) VALUES (15, 'Sky');
 INSERT INTO `category` (`id`, `name`) VALUES (16, 'Biking');
 INSERT INTO `category` (`id`, `name`) VALUES (17, 'Winter');
+INSERT INTO `category` (`id`, `name`) VALUES (18, 'Sports');
 
 COMMIT;
 
@@ -445,6 +470,20 @@ INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (6, 5);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (17, 4);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (17, 9);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (16, 1);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (11, 2);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (9, 12);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (12, 12);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (14, 12);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (9, 13);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (12, 13);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (14, 13);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (8, 18);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (12, 18);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (14, 18);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (12, 19);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (4, 19);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (17, 19);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (16, 20);
 
 COMMIT;
 
