@@ -164,9 +164,9 @@ body {
   font-family: Nunito;
   letter-spacing: 0.0625em;
 }
-a {
+/* a {
   color: #64a19d;
-}
+} */
 a:focus,
 a:hover {
   text-decoration: none;
