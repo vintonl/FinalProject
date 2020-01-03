@@ -130,8 +130,7 @@
 
         <!-- CARDS -->
         <div *ngIf="!selected && hideSearchResult">
-          <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType "
-            (click)="selected = gearList">
+          <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType " (click)="selected = item">
             <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
               <div style="background-color: whitesmoke;" class="col-xs-8">
                 <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
