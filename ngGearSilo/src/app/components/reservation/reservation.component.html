@@ -26,7 +26,8 @@
     <li class="list-group-item ">Price per day: {{selected.price | currency }}</li>
     <li class="list-group-item ">Condition: {{selected.gearCondition | lowercase }}</li>
     <li class="list-group-item " *ngIf="selected.available == true">Available: Yes!</li>
-    <li class="list-group-item " *ngIf="selected.available == false">Available: Sorry, it is not available to rent
+    <li class="list-group-item red-text" *ngIf="selected.available == false">Available: Sorry, it is not available to
+      rent
       at this time.</li>
 
     <li class="list-group-item ">Rent From: {{selected.user.firstName | titlecase }}
@@ -44,12 +45,12 @@
 
   </ul>
   <br>
-  <div class='container'>
+  <div class='container' *ngIf="selected.available">
     <br>
     <div class="text-center">
       <h2>Reservation Dates</h2>
     </div>
-    <div class="text-center" *ngIf="badRes">
+    <div class="text-center red-text" *ngIf="badRes">
       <h4>Sorry, please try again.</h4>
     </div>
     <div class="row">
