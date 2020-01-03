@@ -102,7 +102,7 @@ export class GearService {
     // } else {
     //   todo.completeDate = '';
     // }
-    console.log('in update service ' + updatedgear.active + ' ' + updatedgear.id);
+    console.log('in update service ' + updatedgear.available + ' ' + updatedgear.id);
 
     const httpOptions = {
       headers: new HttpHeaders({
