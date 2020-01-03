@@ -43,18 +43,14 @@
               <button style="margin-left: 530px; margin-top: -45px" class="btn btn-outline-secondary"
                 (click)="ngOnInit(); selectedType = 'All'"><span style="margin: 2px"
                   class="glyphicon glyphicon-th-list"></span> See all
-                Items</button>
+                Items </button>
             </div>
           </div>
         </form>
 
-        <div class="nav-container" *ngIf="!selected">
+        <div style="margin-left: 215px;" class="nav-container" *ngIf="!selected">
           <ul class="nav nav-tabs">
             <li class="active">
-              <!-- <span class="showHand hover border border-warning rounded" *ngFor="let category of categories"
-                (click)="selectedType = category">
-                &nbsp;{{category}}&nbsp;
-              </span> -->
               <button class="showHand hover btn-primary btn-warning" *ngFor="let category of categories"
                 (click)="selectedType = category">&nbsp;{{category}}&nbsp;</button>
               <h4 *ngIf="selectedType !== 'All'">{{selectedType}}</h4>
