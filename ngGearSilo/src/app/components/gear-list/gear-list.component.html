@@ -46,27 +46,7 @@
           </div>
         </form>
 
-<<<<<<< HEAD
-        <!-- NAV TABS -->
-        <!-- <div class="nav-container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="nav-card">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li style="padding: 0px" *ngFor="let category of categories" (click)="selectedType = category" role="presentation"
-                    class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i
-                        class="fa fa-home"></i> <span>{{category}}</span></a></li>
-                </ul>
-                <h4 *ngIf="selectedType !== 'All'">{{selectedType}}</h4>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <div class="nav-container" *ngIf="!selected">
-=======
-        <div class="nav-container">
->>>>>>> 2711d2e38a9ee73a2a5bb0711a2c19049ac222fc
           <ul class="nav nav-tabs">
             <li class="active">
               <button class="showHand hover btn-primary btn-warning" *ngFor="let category of categories"
