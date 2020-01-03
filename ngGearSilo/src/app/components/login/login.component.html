@@ -9,6 +9,12 @@
             <h4 class="card-title text-center mb-0">
               <strong>Sign In</strong>
             </h4>
+            <div *ngIf="accessDenied">
+              <br>
+              <h4 class="card-title text-center mb-0 red-text">
+                <strong>Please try again or <a [routerLink]="['/register']">join</a> our
+                  community.</strong></h4>
+            </div>
             <hr />
             <form #loginForm="ngForm" ngNativeValidate id="login-form" class="text-center">
               <div class="login-form-main-message"></div>
