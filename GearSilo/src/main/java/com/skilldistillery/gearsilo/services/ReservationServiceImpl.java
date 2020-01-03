@@ -1,5 +1,6 @@
 package com.skilldistillery.gearsilo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
-import com.skilldistillery.gearsilo.entities.ReviewOfShopper;
 import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.repositories.ReservationRepository;
 import com.skilldistillery.gearsilo.repositories.UserRepository;
@@ -68,7 +68,21 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Reservation createReservation(String username, Reservation reservation) {
 		User user = uRepo.findUserByUsername(username);
+		
+		if (reservation.getOpenDate() == null || reservation.getCloseDate() == null) {
+			return null;
+		}
+		
+		if (reservation.getOpenDate().after(reservation.getCloseDate())) {
+			return null;
+		}
+		
+		Date today = new Date();
 
+		if (today.after(reservation.getOpenDate())) {
+			return null;
+		}
+		
 		if (user != null) {
 			reservation.setUserShopper(user);
 			return resRepo.saveAndFlush(reservation);
