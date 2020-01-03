@@ -6,202 +6,90 @@
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card rounded shadow">
           <div class="card-body">
-            <h4 class="card-title text-left mb-0">
+            <h4 class="card-title text-center mb-0">
               <strong>Register</strong>
             </h4>
             <hr />
-            <form
-              #registerForm="ngForm"
-              ngNativeValidate
-              id="registerForm"
-              class="text-left"
-            >
+            <form #registerForm="ngForm" ngNativeValidate id="registerForm" class="text-left">
               <div class="login-form-main-message"></div>
               <div class="main-login-form">
                 <div class="login-group">
                   <div class="form-group">
-                    <label for="firstName"
-                      >First Name:
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="firstName"
-                        name="firstName"
-                        placeholder="first name"
-                        ngModel
-                        required
-                        minlength="1"
-                    /></label>
+                    <label for="firstName">First Name:
+                      <input type="text" class="form-control" id="firstName" name="firstName" placeholder="first name"
+                        ngModel required minlength="1" /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="lastName"
-                      >Last Name:
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="lastName"
-                        name="lastName"
-                        placeholder="last name"
-                        ngModel
-                        required
-                        minlength="1"
-                    /></label>
+                    <label for="lastName">Last Name:
+                      <input type="text" class="form-control" id="lastName" name="lastName" placeholder="last name"
+                        ngModel required minlength="1" /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="email"
-                      >Email:
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        placeholder="email"
-                        ngModel
-                        required
-                    /></label>
+                    <label for="email">Email:
+                      <input type="email" class="form-control" id="email" name="email" placeholder="email" ngModel
+                        required /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="password"
-                      >Password:
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="password"
-                        name="password"
-                        placeholder="password"
-                        ngModel
-                        required
-                        minlength="4"
-                      />
+                    <label for="password">Password:
+                      <input type="password" class="form-control" id="password" name="password" placeholder="password"
+                        ngModel required minlength="4" />
                     </label>
                   </div>
 
                   <div class="form-group">
-                    <label for="imageUrl"
-                      >Image URL:
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="imageUrl"
-                        name="imageUrl"
-                        placeholder="image URL"
-                        ngModel
-                    /></label>
+                    <label for="imageUrl">Image URL:
+                      <input type="text" class="form-control" id="imageUrl" name="imageUrl" placeholder="image URL"
+                        ngModel /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="phone"
-                      >Phone:
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="phone"
-                        name="phone"
-                        placeholder="phone"
-                        ngModel
-                        required
-                        minlength="10"
-                    /></label>
+                    <label for="phone">Phone:
+                      <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" ngModel
+                        required minlength="10" /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="about"
-                      >About:
-                      <textarea
-                        cols="40"
-                        rows="5"
-                        class="form-control"
-                        id="about"
-                        name="about"
-                        placeholder="about"
-                        ngModel
-                      ></textarea
-                    ></label>
+                    <label for="about">About:
+                      <textarea cols="40" rows="5" class="form-control" id="about" name="about" placeholder="about"
+                        ngModel></textarea></label>
                   </div>
 
                   <!-- Add Address -->
                   <div class="form-group">
-                    <label for="address"
-                      >Address:
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="address"
-                        name="address"
-                        placeholder="address"
-                        ngModel
-                        required
-                        minlength="3"
-                    /></label>
+                    <label for="address">Address:
+                      <input type="text" class="form-control" id="address" name="address" placeholder="address" ngModel
+                        required minlength="3" /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="address2"
-                      >Address 2:
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="address2"
-                        name="address2"
-                        placeholder="address (second line)"
-                        ngModel
-                    /></label>
+                    <label for="address2">Address 2:
+                      <input type="text" class="form-control" id="address2" name="address2"
+                        placeholder="address (second line)" ngModel /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="city"
-                      >City:
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="city"
-                        name="city"
-                        placeholder="city"
-                        ngModel
-                        required
-                        minlength="1"
-                    /></label>
+                    <label for="city">City:
+                      <input type="text" class="form-control" id="city" name="city" placeholder="city" ngModel required
+                        minlength="1" /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="state"
-                      >State:
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="state"
-                        name="state"
-                        placeholder="state"
-                        ngModel
-                        required
-                        minlength="2"
-                    /></label>
+                    <label for="state">State:
+                      <input type="text" class="form-control" id="state" name="state" placeholder="state" ngModel
+                        required minlength="2" /></label>
                   </div>
 
                   <div class="form-group">
-                    <label for="postalCode"
-                      >Zip Code:
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="postalCode"
-                        name="postalCode"
-                        placeholder="postal code"
-                        ngModel
-                        required
-                        min="501"
-                    /></label>
+                    <label for="postalCode">Zip Code:
+                      <input type="number" class="form-control" id="postalCode" name="postalCode"
+                        placeholder="postal code" ngModel required min="501" /></label>
                   </div>
                 </div>
                 <hr />
-                <button
-                  type="submit"
-                  class="btn btn-dark my-2 my-sm-0"
-                  (click)="register(registerForm)"
-                >
+                <button type="submit" class="btn btn-dark my-2 my-sm-0" (click)="register(registerForm)">
                   Register
                 </button>
               </div>
