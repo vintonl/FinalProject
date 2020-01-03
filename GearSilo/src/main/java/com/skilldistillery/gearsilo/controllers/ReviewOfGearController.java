@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.gearsilo.entities.Gear;
 import com.skilldistillery.gearsilo.entities.ReviewOfGear;
 import com.skilldistillery.gearsilo.services.ReviewOfGearService;
 
@@ -29,10 +27,10 @@ public class ReviewOfGearController {
 	@Autowired
 	private ReviewOfGearService reviewGearSvc;
 	
-	@GetMapping("users/{uid}/reviews/gearreviews")
-	public List<ReviewOfGear> index (@PathVariable int uid, HttpServletRequest req,
+	@GetMapping("users/{gearId}/reviews/gearreviews")
+	public List<ReviewOfGear> index (@PathVariable int gearId, HttpServletRequest req,
 			HttpServletResponse resp, Principal principal) {
-		List<ReviewOfGear> gearReview = reviewGearSvc.findAll(principal.getName(), uid);
+		List<ReviewOfGear> gearReview = reviewGearSvc.findAll(principal.getName(), gearId);
 
 		if (gearReview != null && gearReview.size() == 0) {
 			resp.setStatus(204);
