@@ -80,8 +80,8 @@
             <h4>{{searchedGear.length}} Search Results Found</h4>
           </div>
           <div class="container" *ngFor="let item of searchedGear">
-            <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
-              <div style="background-color: whitesmoke;" class="col-xs-8">
+            <div (click)="displayGearItem(item)" style="background-color: lightgrey;" class="row">
+              <div style="background-color: lightgrey;" class="col-xs-8">
                 <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
                   <div class="panel-heading">
                     <div class="panel-title">
@@ -137,8 +137,8 @@
         <!-- CARDS -->
         <div *ngIf="!selected && hideSearchResult">
           <div class="container" *ngFor="let item of gearList |  gearCategory: selectedType " (click)="selected = item">
-            <div (click)="displayGearItem(item)" style="background-color: whitesmoke;" class="row">
-              <div style="background-color: whitesmoke;" class="col-xs-8">
+            <div (click)="displayGearItem(item)" style="background-color: lightgrey;" class="row">
+              <div style="background-color: lightgrey;" class="col-xs-8">
                 <div style="background-color:white; margin: 3px" id="panels" class="panel panel">
                   <div class="panel-heading">
                     <div class="panel-title">

@@ -395,11 +395,11 @@ input:checked + .slider:before {
 }
 
 .switch input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px red;
 }
 
 .switch input:checked + .slider {
-  background-color: #2196f3;
+  background-color: orange;
   padding: 0 40px 0 20px;
 }
 

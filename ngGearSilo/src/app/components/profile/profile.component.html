@@ -83,11 +83,7 @@
 
 
           <!-- USER LIST OF ITEMS  - CARDS-->
-
           <h3 style="color: dimgrey;">Listed Items for Rent </h3>
-
-
-
           <!-- TOAST LENDER RES-->
           <div>
             <div *ngIf='needsApprovedRes.length > 0'>
@@ -390,13 +386,13 @@
 
                   <!-- AVAILABLE -->
 
-                      <div class="input-group mb-3">
+                      <div style="margin-top: 9px" class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text" style="width: 117px; height: 35px"
                             id="inputGroup-sizing-default">Available</span>
                         </div>
-                        <label class="switch">
-                          <input type="checkbox" data-toggle="toggle" checked data-on="true" data-off="false"
+                        <label  class="switch">
+                          <input  style="background-color: orange" type="checkbox" data-toggle="toggle" checked data-on="true" data-off="false"
                              class="form-control" [checked]="updatedGear.available" (change)="updatedGear.available=!updatedGear.available">
                           <!-- <input type="checkbox" data-toggle="toggle" checked data-on="true" data-off="false"
                             placeholder="{{selecteditem.available}}" class="form-control" [(ngModel)]="updatedGear.available"> -->
@@ -644,7 +640,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-save" (click)="createGearReview(gearReview)">Save changes</button>
+            <button type="button" class="btn btn-save" (click)="createGearReview(gearReview)" data-dismiss="modal">Save changes</button>
           </div>
         </div>
       </div>
