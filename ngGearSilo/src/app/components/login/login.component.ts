@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  accessDenied = false;
 
   constructor(private router: Router, private auth: AuthService, private navbar: NavBarComponent) { }
 
@@ -24,17 +25,10 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(user.username, user.password).subscribe(
       next => {
-        console.log('LoginComponent.login(): user logged in, routing to /user.');
-        console.log(next);
-        // this.navbar.loadUser();
-
-        this.router.navigateByUrl('/navbar', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/users']);
-        });
+        this.router.navigate(['/users']);
       },
       error => {
-        console.error('LoginComponent.login(): error logging in.');
-        console.error(error);
+        this.accessDenied = true;
         this.router.navigateByUrl('/login');
       }
     );

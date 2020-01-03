@@ -1,8 +1,10 @@
 .log-bg {
-  background: url(src/assets/img/mapAndGear.jpg)
-    no-repeat center center fixed;
+  background: url(src/assets/img/mapAndGear.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+.red-text {
+  color: rgb(255, 0, 0);
 }
