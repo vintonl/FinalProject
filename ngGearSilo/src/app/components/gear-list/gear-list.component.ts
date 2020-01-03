@@ -57,18 +57,13 @@ export class GearListComponent implements OnInit {
     'Surf',
     'Hiking',
     'Biking',
-    'Kayaking',
     'Water Sports',
     'Rock Climbing',
     'Skiing',
     'Snowboarding',
     'Freefalling',
-    'Wakeboarding',
     'Snow',
-    'Water',
-    'Mountain',
-    'Sky',
-    'Winter'
+    'Sports'
   ];
   selectedType = 'All';
 

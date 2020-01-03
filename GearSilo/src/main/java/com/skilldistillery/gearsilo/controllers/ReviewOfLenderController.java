@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.gearsilo.entities.ReviewOfGear;
 import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 import com.skilldistillery.gearsilo.services.ReviewOfLenderService;
 
@@ -58,10 +59,11 @@ public class ReviewOfLenderController {
 		}
 		return lenderReview;
 	}
-	
+
 	@PutMapping("users/{uid}/reservation/{rid}/reviews/lenderreviews/{lrid}")
 	public ReviewOfLender updateReviewOfLender(@RequestBody ReviewOfLender lenderReview, @PathVariable int uid,
-			@PathVariable int rid, @PathVariable int lrid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+			@PathVariable int rid, @PathVariable int lrid, HttpServletRequest req, HttpServletResponse res,
+			Principal principal) {
 		try {
 			lenderReview = lenderReviewSvc.updateReviewOfLender(principal.getName(), lenderReview, uid, rid, lrid);
 			if (lenderReview == null) {
