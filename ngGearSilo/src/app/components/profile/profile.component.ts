@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Gear } from 'src/app/models/gear';
 import { AuthService } from 'src/app/services/auth.service';
-import { ProfileService } from 'src/app/services/profile.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
@@ -54,8 +53,7 @@ export class ProfileComponent implements OnInit {
 
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
-    private router: Router,
-    private authService: AuthService,
+    private router: Router, private authService: AuthService,
     private userService: UserService,
     private resService: ReservationService,
     private reviewOfShopperSvc: ReviewOfShopperService) { }
@@ -67,12 +65,18 @@ export class ProfileComponent implements OnInit {
 
     if (cred === null) {
       this.router.navigateByUrl('/login');
+    }
 
+    // reload page once to check if admin is logged in
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload');
+      location.reload();
+    } else {
+      localStorage.removeItem('foo');
     }
 
     this.loadGear();
     this.loadReseravtions();
-
   }
 
 
@@ -96,7 +100,6 @@ export class ProfileComponent implements OnInit {
               if (gear.user.id === this.loggedInUser.id) {
                 this.gearList.push(gear);
                 this.checkImageURl();
-
               }
             });
           },
@@ -116,7 +119,7 @@ export class ProfileComponent implements OnInit {
   // DELETE GEAR
   deleteGear() {
 
-    console.log("in delete gear ")
+    console.log('in delete gear ');
     console.log(this.deleteId);
 
     this.gearSrv.destroy(this.deleteId).subscribe(
@@ -126,14 +129,14 @@ export class ProfileComponent implements OnInit {
         this.deleteId = null;
       },
       (bad) => {
-        console.log("error " + bad);
+        console.log('error ' + bad);
         this.deleteId = null;
       }
     );
   }
 
   onClickDelete(itemId: number) {
-    console.log("in delete click")
+    console.log('in delete click');
     console.log(itemId);
 
     this.deleteId = itemId;
@@ -145,7 +148,7 @@ export class ProfileComponent implements OnInit {
     this.newGear.active = true;
     this.newGear.available = true;
     if (this.newGear.imageUrl === null || this.newGear.imageUrl === undefined) {
-      this.newGear.imageUrl = "https://i.imgur.com/gkIBm2x.png";
+      this.newGear.imageUrl = 'https://i.imgur.com/gkIBm2x.png';
     }
     this.gearSrv.create(this.newGear).subscribe(
       newGear => {
@@ -158,16 +161,12 @@ export class ProfileComponent implements OnInit {
   }
 
   onClick(item: any) {
-
     this.selecteditem = item;
     this.updatedGear = item;
-    // lgModal.show();
-
   }
 
   onClickGearPopUp(item: any) {
     this.selecteditem = item;
-    // lgModal.show();
   }
 
   // UPDATE THE GEAR
@@ -240,7 +239,6 @@ export class ProfileComponent implements OnInit {
     this.userneedsCompletedRes = [];
     this.userneedsCompletedResNum = 0;
 
-
     // LOADING LENDER RESERVATIONS
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
@@ -265,12 +263,12 @@ export class ProfileComponent implements OnInit {
       }
     );
 
-    console.log("in load shopper res 0");
+    console.log('in load shopper res 0');
 
     // LOADING SHOPPER RESERVATIONS
     this.resService.indexShopperUser().subscribe(
       (aGoodThingHappened) => {
-        console.log("in load shopper res 1")
+        console.log('in load shopper res 1');
         console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
 
@@ -301,38 +299,38 @@ export class ProfileComponent implements OnInit {
   checkImageURl() {
 
     if (this.loggedInUser.imageUrl.length < 10 || this.loggedInUser.imageUrl === null || this.loggedInUser.imageUrl === undefined) {
-      this.loggedInUser.imageUrl = "https://i.imgur.com/zVdNnTx.png";
+      this.loggedInUser.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
     }
 
   }
 
   toggleVisibility() {
-    console.log("in toggle");
+    console.log('in toggle');
     console.log(this.myRes.approved);
 
   }
   // UPDATE THE RESERVATION
   updateResCompleted(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
-      this.updatedRes.createdAt = this.selectedRes.createdAt
+      this.updatedRes.createdAt = this.selectedRes.createdAt;
     }
     if (this.updatedRes.openDate === null || this.updatedRes.openDate === undefined) {
-      this.updatedRes.openDate = this.selectedRes.openDate
+      this.updatedRes.openDate = this.selectedRes.openDate;
     }
     if (this.updatedRes.closeDate === null || this.updatedRes.closeDate === undefined) {
-      this.updatedRes.closeDate = this.selectedRes.closeDate
+      this.updatedRes.closeDate = this.selectedRes.closeDate;
     }
     if (this.updatedRes.updatedAt === null || this.updatedRes.updatedAt === undefined) {
-      this.updatedRes.updatedAt = this.selectedRes.updatedAt
+      this.updatedRes.updatedAt = this.selectedRes.updatedAt;
     }
     if (this.updatedRes.approved === null || this.updatedRes.approved === undefined) {
-      this.updatedRes.approved = this.selectedRes.approved
+      this.updatedRes.approved = this.selectedRes.approved;
     }
     if (this.updatedRes.gearId === null || this.updatedRes.gearId === undefined) {
-      this.updatedRes.gearId = this.selectedRes.gearId
+      this.updatedRes.gearId = this.selectedRes.gearId;
     }
     if (this.updatedRes.userShopper === null || this.updatedRes.userShopper === undefined) {
-      this.updatedRes.userShopper = this.selectedRes.userShopper
+      this.updatedRes.userShopper = this.selectedRes.userShopper;
     }
     this.updatedRes.id = this.selectedRes.id;
     this.updatedRes.completed = this.selectedRes.completed;
@@ -344,6 +342,7 @@ export class ProfileComponent implements OnInit {
       data => {
         this.updatedRes = data;
         this.needCompletedRes = 0;
+        // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < this.myReservations.length; i++) {
           if (this.myReservations[i].id === this.updatedRes.id) {
             this.myReservations[i].completed = this.updatedRes.completed;
@@ -359,25 +358,25 @@ export class ProfileComponent implements OnInit {
   }
   updateResApproval(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
-      this.updatedRes.createdAt = this.selectedRes.createdAt
+      this.updatedRes.createdAt = this.selectedRes.createdAt;
     }
     if (this.updatedRes.openDate === null || this.updatedRes.openDate === undefined) {
-      this.updatedRes.openDate = this.selectedRes.openDate
+      this.updatedRes.openDate = this.selectedRes.openDate;
     }
     if (this.updatedRes.closeDate === null || this.updatedRes.closeDate === undefined) {
-      this.updatedRes.closeDate = this.selectedRes.closeDate
+      this.updatedRes.closeDate = this.selectedRes.closeDate;
     }
     if (this.updatedRes.updatedAt === null || this.updatedRes.updatedAt === undefined) {
-      this.updatedRes.updatedAt = this.selectedRes.updatedAt
+      this.updatedRes.updatedAt = this.selectedRes.updatedAt;
     }
     if (this.updatedRes.completed === null || this.updatedRes.completed === undefined) {
-      this.updatedRes.completed = this.selectedRes.completed
+      this.updatedRes.completed = this.selectedRes.completed;
     }
     if (this.updatedRes.gearId === null || this.updatedRes.gearId === undefined) {
-      this.updatedRes.gearId = this.selectedRes.gearId
+      this.updatedRes.gearId = this.selectedRes.gearId;
     }
     if (this.updatedRes.userShopper === null || this.updatedRes.userShopper === undefined) {
-      this.updatedRes.userShopper = this.selectedRes.userShopper
+      this.updatedRes.userShopper = this.selectedRes.userShopper;
     }
     this.updatedRes.id = this.selectedRes.id;
     this.updatedRes.approved = this.selectedRes.approved;
@@ -389,6 +388,7 @@ export class ProfileComponent implements OnInit {
       data => {
         this.updatedRes = data;
         this.needApprovedRes = 0;
+        // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < this.myReservations.length; i++) {
           if (this.myReservations[i].id === this.updatedRes.id) {
             this.myReservations[i].approved = this.updatedRes.approved;
