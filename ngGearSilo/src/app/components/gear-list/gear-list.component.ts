@@ -63,7 +63,6 @@ export class GearListComponent implements OnInit {
     'Snowboarding',
     'Freefalling',
     'Snow',
-    'Winter',
     'Sports'
   ];
   selectedType = 'All';
