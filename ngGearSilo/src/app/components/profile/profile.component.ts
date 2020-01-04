@@ -1,3 +1,5 @@
+import { ReservationMessageService } from './../../services/reservation-message.service';
+import { ReservationMessage } from './../../models/reservation-message';
 import { ReviewOfLender } from './../../models/review-of-lender';
 import { ReviewOfShopperService } from './../../services/review-of-shopper.service';
 import { ReservationService } from './../../services/reservation.service';
@@ -50,10 +52,14 @@ export class ProfileComponent implements OnInit {
   userneedsCompletedResNum = 0;
   marked = false;
   theCheckbox = false;
+  resMessage: ReservationMessage = new ReservationMessage();
+  resMessages: ReservationMessage[] = [];
+  message: string;
 
 
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
+    private resMessageSrv: ReservationMessageService,
     private router: Router, private authService: AuthService,
     private userService: UserService,
     private resService: ReservationService,
@@ -80,6 +86,11 @@ export class ProfileComponent implements OnInit {
     this.loadReseravtions();
   }
 
+  reservationMessages() {
+    this.myReservations.forEach(res => {
+      this.message = res.reservationMessage.message;
+    });
+  }
 
   // LOAD THE GEAR
   loadGear() {

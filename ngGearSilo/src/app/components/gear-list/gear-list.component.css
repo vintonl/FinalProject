@@ -243,10 +243,9 @@ input[type="text"]:focus {
   padding-right: 3px;
   cursor: pointer;
   /* width: 40px !important; */
-
 }
 
-.nav-container{
+.nav-container {
   width: 110%;
 }
 
@@ -273,7 +272,8 @@ h4 {
 .slider {
   -webkit-appearance: none;
   width: 25%;
-  height: 25px;
+  height: 15px;
+  border-radius: 5px;
   margin-top: 105px;
   margin-left: 180px;
   background: #d3d3d3;
@@ -290,17 +290,26 @@ h4 {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
-  background: orange;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  /* background: orange; */
   cursor: pointer;
 }
 
+.slider::-webkit-slider-thumb:hover {
+  color: orange;
+}
+
 .slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: #4caf50;
+  width: 30px;
+  height: 30px;
+  /* background: orange; */
   cursor: pointer;
+}
+
+.slider::-moz-range-thumb:hover {
+  color: orange;
 }
 
 .sliderLabel {
@@ -309,3 +318,26 @@ h4 {
   color: orange;
 }
 
+input[type="range"] {
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 32px;
+  width: 32px;
+  background: goldenrod;
+  background: url("https://i.imgur.com/R6Losmb.png") no-repeat;
+  margin-top: -2px;
+  border-radius: 0 !important;
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 75%;
+}
+input[type="range"] + .thumb {
+  background-color: #ff8a80 !important;
+}
+input[type="range"] + .thumb.active {
+  /* bottom: -20px !important; */
+}

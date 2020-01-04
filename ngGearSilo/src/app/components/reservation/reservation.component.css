@@ -1,8 +1,39 @@
-.container {
-  font-family: Arial, Helvetica, sans-serif;
-
+.red-text {
+  color: rgb(255, 0, 0);
 }
 
-.btn {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 0px;
+  /* height: 300px; Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.resImage {
+  position: absolute;
+  clip: rect(0px, 400px, 300px, 0px);
+  align-content: center;
+  margin-top: -50px;
+  background-position: center center !important;
+  height: auto;
+  max-height: 300px !important;
+  overflow: hidden;
+  border-radius: 2%;
+  border-left: orange;
+  border-bottom: orange;
+  border-style: solid;
+  mask-border-width: 5px;
+}
+
+.btn:hover {
+  color: orange;
+  background-color: white;
 }
