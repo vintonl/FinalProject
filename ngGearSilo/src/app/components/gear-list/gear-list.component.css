@@ -290,18 +290,26 @@ h4 {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: orange;
+  /* background: orange; */
   cursor: pointer;
 }
 
+.slider::-webkit-slider-thumb:hover {
+  color: orange;
+}
+
 .slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: orange;
+  width: 30px;
+  height: 30px;
+  /* background: orange; */
   cursor: pointer;
+}
+
+.slider::-moz-range-thumb:hover {
+  color: orange;
 }
 
 .sliderLabel {
@@ -310,20 +318,26 @@ h4 {
   color: orange;
 }
 
+input[type="range"] {
+  -webkit-appearance: none;
+}
 
-/* input[type=range]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: none;
   height: 32px;
   width: 32px;
   background: goldenrod;
-  background: url('http://iconizer.net/files/Duesseldorf/orig/star.png') no-repeat;
-  margin-top: -15px;
+  background: url("https://i.imgur.com/R6Losmb.png") no-repeat;
+  margin-top: -2px;
   border-radius: 0 !important;
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 75%;
 }
-input[type=range]+.thumb {
-  background-color: #FF8A80 !important;
+input[type="range"] + .thumb {
+  background-color: #ff8a80 !important;
 }
-input[type=range]+.thumb.active{
-top: -35px !important;
-} */
+input[type="range"] + .thumb.active {
+  /* bottom: -20px !important; */
+}
