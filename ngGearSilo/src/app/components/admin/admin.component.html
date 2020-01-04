@@ -4,11 +4,7 @@
       <h1>Admin Dashboard</h1>
     </div>
     <div class="col" align="right">
-      <button
-        type="button"
-        class="btn btn-light"
-        onClick="history.go(0);"
-      >
+      <button type="button" class="btn btn-light" onClick="history.go(0);">
         Refresh Dashboard
       </button>
     </div>
@@ -96,7 +92,7 @@
 
 <div class="container-fluid bg-light">
   <ngb-tabset>
-    <ngb-tab >
+    <ngb-tab>
       <ng-template ngbTabTitle>
         <div (click)="selectedUser = null">Users</div>
       </ng-template>
@@ -138,11 +134,22 @@
             {{ selectedUser.firstName | uppercase }}
             {{ selectedUser.lastName | uppercase }}
           </h1>
-          <img class="img-fluid img-thumbnail" src="{{ selectedUser.imageUrl}}" alt="Profile Photo" width="200" height="200">
+          <img
+            class="img-fluid img-thumbnail"
+            src="{{ selectedUser.imageUrl }}"
+            alt="Profile Photo"
+            width="200"
+            height="200"
+          />
           <br />
           <ul class="list-group">
             <li class="list-group-item">User Id: {{ selectedUser.id }}</li>
-            <li class="list-group-item">Email: <a href="mailto:{{ selectedUser.email }}"><u>{{ selectedUser.email }}</u></a></li>
+            <li class="list-group-item">
+              Email:
+              <a href="mailto:{{ selectedUser.email }}"
+                ><u>{{ selectedUser.email }}</u></a
+              >
+            </li>
             <li class="list-group-item">
               Username: {{ selectedUser.username }}
             </li>
@@ -183,10 +190,18 @@
             >
               Back
             </button>
-            <button class="btn btn-outline-warning" *ngIf="!selectedUser.enabled" (click)="updatedUserEnabled(selectedUser)">
+            <button
+              class="btn btn-outline-warning"
+              *ngIf="!selectedUser.enabled"
+              (click)="updatedUserEnabled(selectedUser)"
+            >
               Enable
             </button>
-            <button class="btn btn-outline-danger" *ngIf="selectedUser.enabled" (click)="updatedUserEnabled(selectedUser)">
+            <button
+              class="btn btn-outline-danger"
+              *ngIf="selectedUser.enabled"
+              (click)="updatedUserEnabled(selectedUser)"
+            >
               Disable
             </button>
           </div>
@@ -256,9 +271,27 @@
               Description: {{ selectedGear.description }}
             </li>
             <li class="list-group-item">Price: $ {{ selectedGear.price }}</li>
-            <li class="list-group-item">IMG-1:<img class="img-thumbnail" src="{{ selectedGear.imageUrl }}" alt="" ></li>
-            <li class="list-group-item">IMG-2:<img class="img-thumbnail" src="{{ selectedGear.imageUrl2 }}" alt=""></li>
-            <li class="list-group-item">IMG-3:<img class="img-thumbnail" src="{{ selectedGear.imageUrl3 }}" alt=""></li>
+            <li class="list-group-item">
+              IMG-1:<img
+                class="img-thumbnail"
+                src="{{ selectedGear.imageUrl }}"
+                alt=""
+              />
+            </li>
+            <li class="list-group-item">
+              IMG-2:<img
+                class="img-thumbnail"
+                src="{{ selectedGear.imageUrl2 }}"
+                alt=""
+              />
+            </li>
+            <li class="list-group-item">
+              IMG-3:<img
+                class="img-thumbnail"
+                src="{{ selectedGear.imageUrl3 }}"
+                alt=""
+              />
+            </li>
           </ul>
           <br />
           <div class="btn-group" role="group" aria-label="selected task">
@@ -268,12 +301,6 @@
             >
               Back
             </button>
-            <!-- <button class="btn btn-outline-warning" *ngIf="!selectedGear.active">
-              Enable
-            </button>
-            <button class="btn btn-outline-danger" *ngIf="selectedGear.active">
-              Disable
-            </button> -->
           </div>
         </div>
       </ng-template>
@@ -331,21 +358,21 @@
               Reservation Created:
               {{ selectedResv.createdAt | date: "shortDate" }}
             </li>
-            <br>
+            <br />
             <li class="list-group-item">
               Approved: {{ selectedResv.approved }}
             </li>
             <li class="list-group-item">
               Completed: {{ selectedResv.completed }}
             </li>
-            <br>
+            <br />
             <li class="list-group-item">
               Lender Id: {{ selectedResv.gearId.user.id }}
             </li>
             <li class="list-group-item">
               Lender Email: {{ selectedResv.gearId.user.email }}
             </li>
-            <br>
+            <br />
             <li class="list-group-item">
               Shopper Id: {{ selectedResv.userShopper.id }}
             </li>
@@ -361,12 +388,6 @@
             >
               Back
             </button>
-            <!-- <button class="btn btn-outline-warning" *ngIf="!selectedResv.approved">
-              Enable
-            </button>
-            <button class="btn btn-outline-danger" *ngIf="selectedResv.approved">
-              Disable
-            </button> -->
           </div>
         </div>
       </ng-template>

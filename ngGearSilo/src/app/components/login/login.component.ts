@@ -13,10 +13,13 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
   accessDenied = false;
 
-  constructor(private router: Router, private auth: AuthService, private navbar: NavBarComponent) { }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private navbar: NavBarComponent
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   login(loginForm: NgForm) {
     const user: User = new User();
@@ -33,5 +36,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
 }
