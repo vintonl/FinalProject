@@ -28,7 +28,6 @@ public class UserController {
 
 	@GetMapping("users")
 	public List<User> findAll(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
-		;
 
 		List<User> users = userSvc.findAll(principal.getName());
 
@@ -74,7 +73,6 @@ public class UserController {
 				resp.setStatus(404);
 				return null;
 			}
-			System.out.println(user);
 			resp.setStatus(202);
 		} catch (Exception e) {
 			e.printStackTrace();

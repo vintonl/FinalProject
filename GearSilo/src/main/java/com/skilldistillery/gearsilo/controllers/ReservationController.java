@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +29,6 @@ public class ReservationController {
 	@GetMapping("reservations")
 	public List<Reservation> index(Principal p, HttpServletRequest req, HttpServletResponse resp) {
 		List<Reservation> res = resSvc.findAll(p.getName());
-		System.out.println("IN RES CONTROLLER");
 
 		if (res != null && res.size() == 0) {
 			resp.setStatus(204);
@@ -39,15 +37,13 @@ public class ReservationController {
 		if (res == null) {
 			resp.setStatus(404);
 		}
-		System.out.println("IN RES CONTROLLER RETURN");
-		System.out.println(res);
+
 		return res;
 	}
 
 	@GetMapping("reservations/users")
 	public List<Reservation> indexByUser(Principal p, HttpServletRequest req, HttpServletResponse resp) {
 		List<Reservation> res = resSvc.findAllReservationsByUserUsername(p.getName());
-		System.out.println("IN RES CONTROLLER");
 
 		if (res != null && res.size() == 0) {
 			resp.setStatus(204);
@@ -56,8 +52,7 @@ public class ReservationController {
 		if (res == null) {
 			resp.setStatus(404);
 		}
-		System.out.println("IN RES CONTROLLER RETURN");
-		System.out.println(res);
+
 		return res;
 	}
 
@@ -65,7 +60,6 @@ public class ReservationController {
 	public List<Reservation> indexByUserShopper(Principal p, HttpServletRequest req, HttpServletResponse resp) {
 		
 		List<Reservation> res = resSvc.findAllReservationsByUserShopper(p.getName());
-		System.out.println("IN RES CONTROLLER");
 
 		if (res != null && res.size() == 0) {
 			resp.setStatus(204);
@@ -74,20 +68,9 @@ public class ReservationController {
 		if (res == null) {
 			resp.setStatus(404);
 		}
-		System.out.println("IN RES CONTROLLER RETURN");
-		System.out.println(res);
+		
 		return res;
 	}
-
-//	@GetMapping("user{id}reservations/{id}")
-//	public Reservation findReservationById(@PathVariable int id, HttpServletResponse resp, Principal p) {
-//
-//		Reservation res = resSvc.findReservationById(p.getName(), id);
-//		if (res == null) {
-//			resp.setStatus(404);
-//		}
-//		return res;
-//	}
 
 	@PostMapping("reservations")
 	public Reservation createReservation(@RequestBody Reservation reservation, HttpServletRequest req,
@@ -110,8 +93,6 @@ public class ReservationController {
 	@PutMapping("reservations/users")
 	public Reservation updateReservation(HttpServletRequest req, HttpServletResponse resp, Principal principal,
 			@RequestBody Reservation reservation) {
-		System.out.println("inside res controller update - " + reservation.getApproved());
-		System.out.println("inside res controller update - " + reservation.getCompleted());
 
 		try {
 			reservation = resSvc.updateHostReservation(principal.getName(), reservation, reservation.getId());
@@ -123,7 +104,7 @@ public class ReservationController {
 			resp.setStatus(400);
 			reservation = null;
 		}
-		System.out.println("inside pu update gear - printing return of gear" + reservation);
+		
 		return reservation;
 	}
 
