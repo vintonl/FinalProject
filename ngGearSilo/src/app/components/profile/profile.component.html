@@ -509,14 +509,14 @@
                           {{res.completed}}</button>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal" (click)="reservationMessages(res)">Message</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal"
+                          (click)="reservationMessages()">Message</button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
                 <div style="float: left" class="modal-footer">
-                  <button type="button" class="btn btn-secondary"
-                    data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
@@ -525,29 +525,30 @@
       </div>
 
       <!-- Messaging Modal -->
-<div class="modal fade" id="MessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="MessageModal">Message Length: -** {{resMessages.length}} **-</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal fade" id="MessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="MessageModal">Message Length: -** {{resMessages.length}} **-</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table>
+                <tr *ngFor="let msg of resMessages; let i = index">
+                  <td> {{msg.message | titlecase}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <table>
-        <tr *ngFor="let msg of resMessages; let i = index">
-          <td> {{msg.message | titlecase}}</td>
-        </tr>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
       <!-- MY GEAR I AM RENTING RESERVTION MODAL -->
@@ -617,14 +618,14 @@
                         data-target="#reviewLenderModal" (click)="onClickReviewGear(res)">
                         Review
                       </button></td>
-                      <td>
-                        <button class="btn btn-primary">Messages</button>
-                      </td>
+                    <td>
+                      <button class="btn btn-primary">Messages</button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
               <div style="float: left" class="modal-footer">
-                <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -671,8 +672,8 @@
 
               <div class="form-group">
                 <label for="rating">{{selectedRes.gearId.user.firstName | titlecase}}'s Rating
-                  <input type="number" class="form-control" id="lenderRating" name="lenderRating" ngModel required min="1"
-                    max="5"></label>
+                  <input type="number" class="form-control" id="lenderRating" name="lenderRating" ngModel required
+                    min="1" max="5"></label>
               </div>
             </div>
             <div class="modal-footer">
