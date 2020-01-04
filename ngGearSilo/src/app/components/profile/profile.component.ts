@@ -147,8 +147,9 @@ export class ProfileComponent implements OnInit {
       newGear => {
         this.newGear = new Gear();
       },
-      err => console.log('Observer got an error: ' + err)
-    );
+      err => {
+
+      });
     this.ngOnInit();
     this.newGear = null;
   }
@@ -190,7 +191,9 @@ export class ProfileComponent implements OnInit {
       data => {
         location.reload();
       },
-      err => console.log('Update got an error: ' + err));
+      err => {
+
+      });
   }
 
   // UPDATE USER
@@ -218,8 +221,9 @@ export class ProfileComponent implements OnInit {
         this.editedUser = null;
         this.selecteditem = null;
       },
-      err => console.log('Update got an error: ' + err)
-    );
+      err => {
+
+      });
     this.editedUser = null;
     this.ngOnInit();
   }
@@ -331,10 +335,12 @@ export class ProfileComponent implements OnInit {
             this.needCompletedRes++;
           }
         }
-        this.updatedRes = new Reservation();;
+        this.updatedRes = new Reservation();
         this.selectedRes = null;
       },
-      err => console.log('Update Res got an error: ' + err));
+      err => {
+
+      });
   }
 
   updateResApproval(res) {
@@ -381,7 +387,9 @@ export class ProfileComponent implements OnInit {
         this.updatedRes = new Reservation();
         this.selectedRes = null;
       },
-      err => console.log('Update Res got an error: ' + err));
+      err => {
+
+      });
   }
 
   onClickReservation(res: any) {
@@ -423,7 +431,7 @@ export class ProfileComponent implements OnInit {
         );
       },
       error => {
-        // console.log('ReviewOfShopperService.create() Error getting logged in user while creating gear review');
+
       }
     );
   }
@@ -432,12 +440,12 @@ export class ProfileComponent implements OnInit {
 
     const newLenderReview = {
       rating: gearReview.value.lenderRating,
-      review: "default review",
+      review: 'default review',
       active: 'true',
       reservation: {
         id: this.selectedRes.id
       }
-    }
+    };
 
     this.reviewOfShopperSvc.createLenderReview(newLenderReview, user).subscribe(
       next => {
