@@ -101,7 +101,7 @@ export class UserService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put(this.url + "/admin", user, httpOptions).pipe(
+    return this.http.put(this.url + '/admin', user, httpOptions).pipe(
       catchError((err: any) => {
         // console.log(err);
         // console.log('update method User Service');
