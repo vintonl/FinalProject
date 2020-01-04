@@ -31,8 +31,8 @@ export class ProfileComponent implements OnInit {
   updatedGear: Gear = new Gear();
   updatedRes: Reservation = new Reservation();
 
-  public selecteditem: Gear = new Gear;
-  public selectedRes: Reservation = new Reservation;
+  public selecteditem: Gear = new Gear();
+  public selectedRes: Reservation = new Reservation();
 
   editedUser: User = new User();
   reservations: Reservation = new Reservation();
@@ -74,13 +74,13 @@ export class ProfileComponent implements OnInit {
       this.router.navigateByUrl('/login');
     }
 
-    // reload page once to check if admin is logged in
-    if (!localStorage.getItem('foo')) {
-      localStorage.setItem('foo', 'no reload');
-      location.reload();
-    } else {
-      localStorage.removeItem('foo');
-    }
+    // // reload page once to check if admin is logged in
+    // if (!localStorage.getItem('foo')) {
+    //   localStorage.setItem('foo', 'no reload');
+    //   location.reload();
+    // } else {
+    //   localStorage.removeItem('foo');
+    // }
 
     this.loadGear();
     this.loadReseravtions();
@@ -99,16 +99,9 @@ export class ProfileComponent implements OnInit {
     this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
       yes => {
         this.loggedInUser = yes;
-        console.log('Got logged in user:');
-        console.log(this.loggedInUser);
-
-
         this.gearSrv.index().subscribe(
           (aGoodThingHappened) => {
-            console.log(aGoodThingHappened);
-
             aGoodThingHappened.forEach(gear => {
-
               if (gear.user.id === this.loggedInUser.id) {
                 this.gearList.push(gear);
                 this.checkImageURl();
@@ -116,13 +109,10 @@ export class ProfileComponent implements OnInit {
             });
           },
           (didntWork) => {
-            console.log(didntWork);
           }
         );
       },
       no => {
-        console.error('Error getting logged in user');
-        console.error(no);
       }
     );
   }
@@ -130,27 +120,18 @@ export class ProfileComponent implements OnInit {
 
   // DELETE GEAR
   deleteGear() {
-
-    console.log('in delete gear ');
-    console.log(this.deleteId);
-
     this.gearSrv.destroy(this.deleteId).subscribe(
       (good) => {
         this.ngOnInit();
-        console.log(good);
         this.deleteId = null;
       },
       (bad) => {
-        console.log('error ' + bad);
         this.deleteId = null;
       }
     );
   }
 
   onClickDelete(itemId: number) {
-    console.log('in delete click');
-    console.log(itemId);
-
     this.deleteId = itemId;
 
   }
@@ -254,7 +235,6 @@ export class ProfileComponent implements OnInit {
     // LOADING LENDER RESERVATIONS
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
-        console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
           this.myReservations.push(res);
 
@@ -262,33 +242,24 @@ export class ProfileComponent implements OnInit {
             this.needCompletedRes++;
             this.needsCompletedRes.push(res);
           }
+
           if (res.approved !== true) {
             this.needApprovedRes++;
             this.needsApprovedRes.push(res);
           }
-          console.log(res);
         });
       },
       (didntWork) => {
-        console.log('in load res from profile ts didnt work');
-        console.log(didntWork);
+
       }
     );
 
-    console.log('in load shopper res 0');
 
     // LOADING SHOPPER RESERVATIONS
     this.resService.indexShopperUser().subscribe(
       (aGoodThingHappened) => {
-        console.log('in load shopper res 1');
-        console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
-
-
-
           if (res.completed === true && res.gearReview === null) {
-
-            console.log(res);
             this.userneedsCompletedResNum++;
             this.userneedsCompletedRes.push(res);
             this.shopperReservations.push(res);
@@ -296,8 +267,6 @@ export class ProfileComponent implements OnInit {
         });
       },
       (didntWork) => {
-        console.log('load shopper reservations didnt work');
-        console.log(didntWork);
       }
     );
   }
@@ -317,10 +286,9 @@ export class ProfileComponent implements OnInit {
   }
 
   toggleVisibility() {
-    console.log('in toggle');
-    console.log(this.myRes.approved);
 
   }
+
   // UPDATE THE RESERVATION
   updateResCompleted(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
@@ -368,6 +336,7 @@ export class ProfileComponent implements OnInit {
       },
       err => console.log('Update Res got an error: ' + err));
   }
+
   updateResApproval(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
       this.updatedRes.createdAt = this.selectedRes.createdAt;
@@ -431,7 +400,6 @@ export class ProfileComponent implements OnInit {
   }
 
   createGearReview(gearReview: NgForm) {
-    console.log(this.selectedRes.id);
     const newGearReview = {
       rating: gearReview.value.rating,
       review: gearReview.value.review,
@@ -446,23 +414,16 @@ export class ProfileComponent implements OnInit {
     this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
       good => {
         user = good;
-        console.log(user);
         this.reviewOfShopperSvc.createGearReview(newGearReview, user).subscribe(
           next => {
-
             this.createLenderReview(gearReview, user);
-
-            console.log('ReviewComponent.createGearReview(): review of gear created.');
-            console.log(next);
           },
           error => {
-            console.error('ReviewComponent.createGearReview(): error createGearReview.');
-            console.log(error);
           }
         );
       },
       error => {
-        console.log('ReviewOfShopperService.create() Error getting logged in user while creating gear review');
+        // console.log('ReviewOfShopperService.create() Error getting logged in user while creating gear review');
       }
     );
   }
@@ -480,17 +441,15 @@ export class ProfileComponent implements OnInit {
 
     this.reviewOfShopperSvc.createLenderReview(newLenderReview, user).subscribe(
       next => {
-
-        console.log('ReviewComponent.createLenderReview(): review of lender created.');
-        console.log(next);
+        // console.log('ReviewComponent.createLenderReview(): review of lender created.');
+        // console.log(next);
       },
       error => {
-        console.error('ReviewComponent.createLenderReview(): error createLenderReview.');
-        console.log(error);
+        // console.error('ReviewComponent.createLenderReview(): error createLenderReview.');
+        // console.log(error);
       }
     );
-
-  };
+  }
 }
 
 
