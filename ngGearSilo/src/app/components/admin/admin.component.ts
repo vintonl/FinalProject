@@ -96,7 +96,6 @@ export class AdminComponent implements OnInit {
 
   public updatedUserEnabled(user: User) {
     if (user.role !== 'admin') {
-
       if (user.enabled) {
         user.enabled = false;
       } else {
@@ -115,10 +114,9 @@ export class AdminComponent implements OnInit {
           console.error('updatedUser: Error');
           console.error(uErr);
           console.log(user);
-
         }
-        );
-      }
+      );
+    }
   }
 
   // Gear
