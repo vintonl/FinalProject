@@ -56,6 +56,23 @@ export class ProfileComponent implements OnInit {
   resMessages: ReservationMessage[] = [];
   message: string;
 
+  // Categories
+
+  categories = [
+    'Mountain Biking',
+    'Skating',
+    'Surf',
+    'Hiking',
+    'Biking',
+    'Water Sports',
+    'Rock Climbing',
+    'Skiing',
+    'Snowboarding',
+    'Freefalling',
+    'Snow',
+    'Sports'
+  ];
+
 
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,

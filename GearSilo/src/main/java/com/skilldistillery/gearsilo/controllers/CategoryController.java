@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -72,11 +74,8 @@ public class CategoryController {
 //		return gear;
 //	}
 //	
-//	@PostMapping("users/{uid}/gears")
-//	public Gear create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Gear gear, @PathVariable("uid") int uid) {
-//		System.out.println("id: " + uid);
-//		System.out.println("***********************************try");
-//		System.out.println(gear);
+//	@PostMapping("users/{uid}/gears/{gid}/categories")
+//	public Gear create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Category category, @RequestBody Gear gear, @PathVariable("uid") int uid) {
 //		try {
 //			gear = gearSvc.addGear(principal.getName(), gear);
 //			if (gear == null) {
@@ -86,15 +85,12 @@ public class CategoryController {
 //				StringBuffer url = req.getRequestURL();
 //				url.append("/").append(gear.getId());
 //				res.addHeader("Location", url.toString());
-//				System.out.println("***********************************" + gear);
 //			}
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //			res.setStatus(500);
 //			gear = null;
 //		}
-//		System.out.println("**********************************" + gear);
-//
 //		return gear;
 //	}
 //
