@@ -2,7 +2,7 @@
 
 ## Angular and RESTful API Software Application
 
-### Week 16 Midterm Project at Skill Distillery - January 7, 2020
+### Week 16 Final Project at Skill Distillery - January 7, 2020
 
 Built by:
 * [Vinton Lee](https://github.com/vintonl)
