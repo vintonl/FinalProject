@@ -464,7 +464,7 @@
                   <col width="80px">
                   <col width="80px">
                   <col width="100px">
-                  <!-- <col width="100px"> -->
+                  <col width="120px">
                   <!-- <col width="10px"> -->
 
                   <thead>
@@ -474,6 +474,7 @@
                       <th scope="col">To:</th>
                       <th scope="col">Approved</th>
                       <th scope="col">Completed</th>
+                      <th scope="col">Messages</th>
 
 
                     </tr>
@@ -507,6 +508,9 @@
                         <button class="btn btn-secondary" type="submit" (click)="onClickCompletedReservation(res)">
                           {{res.completed}}</button>
                       </td>
+                      <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal" (click)="reservationMessages(res)">Message</button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -519,6 +523,31 @@
           </div>
         </div>
       </div>
+
+      <!-- Messaging Modal -->
+<div class="modal fade" id="MessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="MessageModal">Message Length: -** {{resMessages.length}} **-</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+        <tr *ngFor="let msg of resMessages; let i = index">
+          <td> {{msg.message | titlecase}}</td>
+        </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
       <!-- MY GEAR I AM RENTING RESERVTION MODAL -->
@@ -541,6 +570,7 @@
                 <col width="80px">
                 <col width="80px">
                 <col width="150px">
+                <col width="120px">
 
                 <thead>
                   <tr>
@@ -549,6 +579,7 @@
                     <th scope="col">To:</th>
                     <th scope="col">Completed</th>
                     <th scope="col">Review</th>
+                    <th scope="col">Messages</th>
 
                   </tr>
                 </thead>
@@ -586,6 +617,9 @@
                         data-target="#reviewLenderModal" (click)="onClickReviewGear(res)">
                         Review
                       </button></td>
+                      <td>
+                        <button class="btn btn-primary">Messages</button>
+                      </td>
                   </tr>
                 </tbody>
               </table>
