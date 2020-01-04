@@ -30,8 +30,8 @@ public class ReviewOfShopperController {
 	private ReviewOfShopperService shopperReviewSvc;
 
 	@GetMapping("users/{uid}/reviews/shopperreviews")
-	public List<ReviewOfShopper> index(@PathVariable int uid, HttpServletRequest req,
-			HttpServletResponse resp, Principal principal) {
+	public List<ReviewOfShopper> index(@PathVariable int uid, HttpServletRequest req, HttpServletResponse resp,
+			Principal principal) {
 		List<ReviewOfShopper> shopperReview = shopperReviewSvc.findById(principal.getName(), uid);
 
 		if (shopperReview != null && shopperReview.size() == 0) {
@@ -43,7 +43,7 @@ public class ReviewOfShopperController {
 		}
 		return shopperReview;
 	}
-	
+
 	@PostMapping("users/{uid}/reservation/{rid}/reviews/shopperreviews")
 	public ReviewOfShopper createShopperReview(@RequestBody ReviewOfShopper shopperReview, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
@@ -58,10 +58,11 @@ public class ReviewOfShopperController {
 		}
 		return shopperReview;
 	}
-	
+
 	@PutMapping("users/{uid}/reservation/{rid}/reviews/shopperreviews/{sid}")
-	public ReviewOfShopper updateShopperReview(@RequestBody ReviewOfShopper shopperReview, @PathVariable int uid, 
-			@PathVariable int rid, @PathVariable int sid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+	public ReviewOfShopper updateShopperReview(@RequestBody ReviewOfShopper shopperReview, @PathVariable int uid,
+			@PathVariable int rid, @PathVariable int sid, HttpServletRequest req, HttpServletResponse res,
+			Principal principal) {
 		try {
 			shopperReview = shopperReviewSvc.updateReviewOfShopper(principal.getName(), shopperReview, uid, rid, sid);
 			if (shopperReview == null) {

@@ -378,7 +378,7 @@ export class ProfileComponent implements OnInit {
             this.needApprovedRes++;
           }
         }
-        this.updatedRes = new Reservation();;
+        this.updatedRes = new Reservation();
         this.selectedRes = null;
       },
       err => console.log('Update Res got an error: ' + err));

@@ -23,13 +23,13 @@ import com.skilldistillery.gearsilo.services.ReviewOfGearService;
 @RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost:4207" })
 public class ReviewOfGearController {
-	
+
 	@Autowired
 	private ReviewOfGearService reviewGearSvc;
-	
+
 	@GetMapping("users/{gearId}/reviews/gearreviews")
-	public List<ReviewOfGear> index (@PathVariable int gearId, HttpServletRequest req,
-			HttpServletResponse resp, Principal principal) {
+	public List<ReviewOfGear> index(@PathVariable int gearId, HttpServletRequest req, HttpServletResponse resp,
+			Principal principal) {
 		List<ReviewOfGear> gearReview = reviewGearSvc.findAll(principal.getName(), gearId);
 
 		if (gearReview != null && gearReview.size() == 0) {
@@ -40,12 +40,12 @@ public class ReviewOfGearController {
 			resp.setStatus(404);
 		}
 		return gearReview;
-	}	
-	
+	}
+
 	@PostMapping("users/{uid}/reservation/{rid}/reviews/gearreviews")
 	public ReviewOfGear createGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
-	
+
 		try {
 			reviewGearSvc.createReviewOfGear(principal.getName(), gearReview, uid, rid);
 			res.setStatus(201);
@@ -57,10 +57,11 @@ public class ReviewOfGearController {
 		}
 		return gearReview;
 	}
-	
+
 	@PutMapping("users/{uid}/reservation/{rid}/reviews/gearreviews/{grid}")
-	public ReviewOfGear updateGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid, 
-			@PathVariable int rid, @PathVariable int grid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+	public ReviewOfGear updateGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid,
+			@PathVariable int rid, @PathVariable int grid, HttpServletRequest req, HttpServletResponse res,
+			Principal principal) {
 		try {
 			gearReview = reviewGearSvc.updateReviewOfGear(principal.getName(), gearReview, uid, rid, grid);
 			if (gearReview == null) {
