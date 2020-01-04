@@ -30,9 +30,13 @@ public class ReviewOfGearServiceImpl implements ReviewOfGearService {
 		User user = userRepo.findUserByUsername(username);
 		List<ReviewOfGear> results = new ArrayList<>();
 		List<ReviewOfGear> gearReviews = new ArrayList<>();
-		
+
 		if (user != null) {
-			gearReviews = reviewOfGearRepo.findAll();
+			
+//			gearReviews = reviewOfGearRepo.findAll();
+
+			gearReviews = reviewOfGearRepo.findByActiveTrue();
+
 			for (ReviewOfGear reviewOfGear : gearReviews) {
 				if (reviewOfGear.getReservation().getGearId().getId() == gearId) {
 					results.add(reviewOfGear);
