@@ -1,3 +1,4 @@
+import { ReservationMessage } from './reservation-message';
 import { User } from 'src/app/models/user';
 import { Gear } from 'src/app/models/gear';
 import { ReviewOfLender } from './review-of-lender';
@@ -31,6 +32,7 @@ export class Reservation {
   createdAt: Date;
   updatedAt: Date;
   approved: boolean;
+  reservationMessage: ReservationMessage;
 
   constructor(
     id?: number,
@@ -44,7 +46,8 @@ export class Reservation {
     userShopper?: User,
     createdAt?: Date,
     updatedAt?: Date,
-    approved?: boolean
+    approved?: boolean,
+    reservationMessage?: ReservationMessage
   ) {
     this.id = id;
     this.openDate = openDate;
@@ -58,5 +61,6 @@ export class Reservation {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.approved = approved;
+    this.reservationMessage = reservationMessage;
   }
 }
