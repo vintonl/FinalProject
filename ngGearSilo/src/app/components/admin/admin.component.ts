@@ -36,7 +36,7 @@ export class AdminComponent implements OnInit {
     private resvSvc: ReservationService,
     private authSvc: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.authSvc
@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
             this.router.navigateByUrl('/login');
           }
         },
-        error => {}
+        error => { }
       );
 
     this.loadUsers();
@@ -58,7 +58,7 @@ export class AdminComponent implements OnInit {
   }
 
   // Admin Check here not good
-  adminLoggedInCheck() {}
+  adminLoggedInCheck() { }
 
   // Users
 
@@ -101,7 +101,7 @@ export class AdminComponent implements OnInit {
       } else {
         user.enabled = true;
       }
-      this.userSvc.update(user).subscribe(
+      this.userSvc.updateUserAsAdmin(user).subscribe(
         uData => {
           console.log(user);
 
