@@ -63,7 +63,7 @@ public class UserController {
 	}
 
 	@GetMapping("users/{username}")
-	public User replaceExistingUser(@PathVariable String username, HttpServletRequest req, Principal principal,
+	public User getExistingUserByUsername(@PathVariable String username, HttpServletRequest req, Principal principal,
 			HttpServletResponse resp) {
 		User user = null;
 

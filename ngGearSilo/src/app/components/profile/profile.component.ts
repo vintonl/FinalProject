@@ -59,10 +59,13 @@ export class ProfileComponent implements OnInit {
 
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
-    private resMessageSrv: ReservationMessageService,
+    // tslint:disable-next-line: align
     private router: Router, private authService: AuthService,
+    // tslint:disable-next-line: align
     private userService: UserService,
+    // tslint:disable-next-line: align
     private resService: ReservationService,
+    // tslint:disable-next-line: align
     private reviewOfShopperSvc: ReviewOfShopperService) { }
 
 
@@ -216,7 +219,7 @@ export class ProfileComponent implements OnInit {
       this.editedUser.phone = this.loggedInUser.phone;
     }
 
-    this.userService.update(this.editedUser).subscribe(
+    this.userService.updateUserAsUser(this.editedUser).subscribe(
       data => {
         this.editedUser = null;
         this.selecteditem = null;

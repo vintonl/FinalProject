@@ -66,11 +66,12 @@ public class UserServiceImpl implements UserService {
 				managedUser.setPhone(user.getPhone());
 				managedUser.setImageUrl(user.getImageUrl());
 
-
 				userRepo.saveAndFlush(managedUser);
+				
 				return managedUser;
 			}
 		}
+		
 		return null;
 	}
 }

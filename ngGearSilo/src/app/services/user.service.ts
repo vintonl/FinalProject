@@ -90,7 +90,7 @@ export class UserService {
 
   // UPDATE USER **********
 
-  update(user: User) {
+  updateUserAsAdmin(user: User) {
     if (localStorage.length === 0) {
       this.router.navigateByUrl('/login');
     }
@@ -102,6 +102,26 @@ export class UserService {
       })
     };
     return this.http.put(this.url + '/admin', user, httpOptions).pipe(
+      catchError((err: any) => {
+        // console.log(err);
+        // console.log('update method User Service');
+        return throwError('user.service.ts Error: Update Method');
+      })
+    );
+  }
+
+  updateUserAsUser(user: User) {
+    if (localStorage.length === 0) {
+      this.router.navigateByUrl('/login');
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.put(this.url, user, httpOptions).pipe(
       catchError((err: any) => {
         // console.log(err);
         // console.log('update method User Service');
