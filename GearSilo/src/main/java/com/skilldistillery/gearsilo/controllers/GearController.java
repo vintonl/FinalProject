@@ -30,7 +30,6 @@ public class GearController {
 
 	@GetMapping("gears")
 	public List<Gear> index(HttpServletRequest req, HttpServletResponse res) {
-		System.err.println("checking on controller routes");
 		return gearSvc.listAllGears();
 	}
 
@@ -57,9 +56,7 @@ public class GearController {
 
 	@PostMapping("gears/users")
 	public Gear create(HttpServletRequest req, HttpServletResponse res, Principal principal, @RequestBody Gear gear) {
-		
-		System.out.println("inside of add gears in gear controller");
-		System.out.println(gear);
+
 		try {
 			gear = gearSvc.addGear(principal.getName(), gear);
 			if (gear == null) {
@@ -83,7 +80,6 @@ public class GearController {
 	public Gear updateGear(HttpServletRequest req, HttpServletResponse res, Principal principal, @PathVariable int gid,
 			@RequestBody Gear gear) {
 		
-		System.out.println("inside pu update gear - printing gear " + gear);
 		try {
 			gear = gearSvc.updateGear(principal.getName(), gid, gear);
 			if (gear == null) {
@@ -120,11 +116,9 @@ public class GearController {
 	public List<Gear> getUsersGear(@PathVariable("username") String username, HttpServletResponse resp,
 			Principal principal) {
 
-		System.out.println("inside gear controller get gear by user");
 		List<Gear> gear = gearSvc.findByUserUsername(username);
 		resp.setStatus(200);
 
-		System.out.println(gear);
 		return gear;
 	}
 
