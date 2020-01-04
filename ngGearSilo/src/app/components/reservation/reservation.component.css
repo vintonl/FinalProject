@@ -32,3 +32,8 @@
   border-style: solid;
   mask-border-width: 5px;
 }
+
+.btn:hover {
+  color: orange;
+  background-color: white;
+}
