@@ -74,13 +74,13 @@ export class ProfileComponent implements OnInit {
       this.router.navigateByUrl('/login');
     }
 
-    // // reload page once to check if admin is logged in
-    // if (!localStorage.getItem('foo')) {
-    //   localStorage.setItem('foo', 'no reload');
-    //   location.reload();
-    // } else {
-    //   localStorage.removeItem('foo');
-    // }
+    // reload page once to check if admin is logged in
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload');
+      location.reload();
+    } else {
+      localStorage.removeItem('foo');
+    }
 
     this.loadGear();
     this.loadReseravtions();
