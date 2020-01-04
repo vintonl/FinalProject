@@ -21,7 +21,7 @@ export class UserService {
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 
   // LIST of USERS **********
 
@@ -37,7 +37,7 @@ export class UserService {
     };
     return this.http.get<User[]>(this.url, httpOptions).pipe(
       catchError((err: any) => {
-        console.log(err);
+        // console.log(err);
         return throwError('user.service.ts Error: Index Method');
       })
     );
@@ -59,7 +59,7 @@ export class UserService {
 
     return this.http.get<User>(this.url + '/' + id, httpOptions).pipe(
       catchError((err: any) => {
-        console.log(err);
+        // console.log(err);
         return throwError('user.service.ts Error: FindById Method');
       })
     );
@@ -82,7 +82,7 @@ export class UserService {
       .post(environment.baseUrl + '/register', user, httpOptions)
       .pipe(
         catchError((err: any) => {
-          console.log(err);
+          // console.log(err);
           return throwError('user.service.ts Error: Create Method');
         })
       );
@@ -103,8 +103,8 @@ export class UserService {
     };
     return this.http.put(this.url + "/admin", user, httpOptions).pipe(
       catchError((err: any) => {
-        console.log(err);
-        console.log('update method User Service');
+        // console.log(err);
+        // console.log('update method User Service');
         return throwError('user.service.ts Error: Update Method');
       })
     );
