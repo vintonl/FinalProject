@@ -10,11 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  constructor(private router: Router, private auth: AuthService) {}
 
-  constructor(private router: Router, private auth: AuthService) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   register(userForm: NgForm) {
     const user = {
@@ -35,6 +33,14 @@ export class RegisterComponent implements OnInit {
         country: 'USA'
       }
     };
+
+    if (
+      user.imageUrl.length < 10 ||
+      user.imageUrl === null ||
+      user.imageUrl === undefined
+    ) {
+      user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
+    }
 
     // console.log('User in the registration comp');
     // console.log(userForm);
@@ -62,5 +68,4 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
-
 }

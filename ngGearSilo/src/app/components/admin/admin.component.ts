@@ -39,16 +39,26 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authSvc
+      .getUserByUsername(this.authSvc.getLoggedInUsername())
+      .subscribe(
+        good => {
+          this.user = good;
+          console.log(this.user);
+          if (this.user.role !== 'admin') {
+            this.router.navigateByUrl('/login');
+          }
+        },
+        error => {}
+      );
+
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
-
   }
 
   // Admin Check here not good
-  adminLoggedInCheck() {
-
-  }
+  adminLoggedInCheck() {}
 
   // Users
 
@@ -84,23 +94,29 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  public setUpdateUser() {
-    this.updateUser = Object.assign({}, this.selectedUser);
-  }
-
-  public updatedUser(user: User) {
-    this.userSvc.update(user).subscribe(
-      uData => {
-        this.loadUsers();
-        this.selectedUser = null;
-        this.updatedUser = null;
-      },
-      uErr => {
-        this.loadUsers();
-        console.error('updatedUser: Error');
-        console.error(uErr);
+  public updatedUserEnabled(user: User) {
+    if (user.role !== 'admin') {
+      if (user.enabled) {
+        user.enabled = false;
+      } else {
+        user.enabled = true;
       }
-    );
+      this.userSvc.update(user).subscribe(
+        uData => {
+          console.log(user);
+
+          // this.loadUsers();
+          // this.selectedUser = null;
+          // this.updatedUserEnabled = null;
+        },
+        uErr => {
+          this.loadUsers();
+          console.error('updatedUser: Error');
+          console.error(uErr);
+          console.log(user);
+        }
+      );
+    }
   }
 
   // Gear
@@ -209,6 +225,4 @@ export class AdminComponent implements OnInit {
     }
     return count;
   }
-
-
 }

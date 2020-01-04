@@ -7,10 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.gearsilo.entities.Gear;
 import com.skilldistillery.gearsilo.entities.Reservation;
 import com.skilldistillery.gearsilo.entities.ReviewOfGear;
-import com.skilldistillery.gearsilo.entities.ReviewOfLender;
 import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.repositories.ReservationRepository;
 import com.skilldistillery.gearsilo.repositories.ReviewOfGearRepository;
@@ -28,7 +26,7 @@ public class ReviewOfGearServiceImpl implements ReviewOfGearService {
 	@Autowired
 	private ReservationRepository reservationRepo;
 
-	public List<ReviewOfGear> findAll(String username, int id) {
+	public List<ReviewOfGear> findAll(String username, int gearId) {
 		User user = userRepo.findUserByUsername(username);
 		List<ReviewOfGear> results = new ArrayList<>();
 		List<ReviewOfGear> gearReviews = new ArrayList<>();
@@ -36,7 +34,7 @@ public class ReviewOfGearServiceImpl implements ReviewOfGearService {
 		if (user != null) {
 			gearReviews = reviewOfGearRepo.findAll();
 			for (ReviewOfGear reviewOfGear : gearReviews) {
-				if (reviewOfGear.getReservation().getGearId().getId() == id) {
+				if (reviewOfGear.getReservation().getGearId().getId() == gearId) {
 					results.add(reviewOfGear);
 				}
 			}

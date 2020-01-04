@@ -1,4 +1,3 @@
-import { UserService } from './../../services/user.service';
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,48 +9,52 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  userLoggedIn: User = null;
+  isAdmin = false;
+  // count = 0;
 
-  constructor(private router: Router, private authService: AuthService, private userSvc: UserService) { }
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    // if (this.authService.checkLogin()) {
-    //   this.loadUser();
-    // }
+    this.loadAdmin();
   }
-  userLogInCheck(){
+
+  userLogInCheck() {
     return this.authService.getCredentials();
   }
 
   logout() {
-    // this.userLoggedIn = null;
     this.authService.logout();
-    this.loadUser();
+    this.ngOnInit();
     this.router.navigateByUrl('/login');
   }
 
-  loadUser() {
-    this.userLoggedIn = new User();
-
-    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-      yes => {
-        this.userLoggedIn = yes;
-        console.log('Got logged in user:');
-        console.log(this.userLoggedIn);
-      },
-      no => {
-        this.userLoggedIn = null;
-        console.error('Error getting logged in user');
-        console.error(no);
-      }
-    );
-  }
   loadAdmin() {
+    let userLoggedIn: User = null;
 
+    if (this.authService.getCredentials() !== null) {
+      this.authService
+        .getUserByUsername(this.authService.getLoggedInUsername())
+        .subscribe(
+          yes => {
+            userLoggedIn = yes;
+            console.log(userLoggedIn);
+            if (userLoggedIn.role === 'admin') {
+              console.log('admin is logged in');
+              this.isAdmin = true;
 
+              // if (this.count === 0) {
+              //   this.count++;
+              //   window.location.reload();
+              // }
+            }
+          },
+          no => {
+            userLoggedIn = null;
+            console.error('Error getting logged admin');
+            console.error(no);
+          }
+        );
+    }
+    return (this.isAdmin = false);
   }
-
-
-
 }
-

@@ -25,6 +25,16 @@ public class ReviewOfShopper {
 	@OneToOne
 	@JoinColumn(name = "reservation_id")
 	private Reservation reservation;
+	
+	private boolean active;
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 	// C T O R
 	public ReviewOfShopper(int id, Integer rating, String review) {
@@ -83,6 +93,7 @@ public class ReviewOfShopper {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + id;
 		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
 		result = prime * result + ((reservation == null) ? 0 : reservation.hashCode());
@@ -99,6 +110,8 @@ public class ReviewOfShopper {
 		if (getClass() != obj.getClass())
 			return false;
 		ReviewOfShopper other = (ReviewOfShopper) obj;
+		if (active != other.active)
+			return false;
 		if (id != other.id)
 			return false;
 		if (rating == null) {
@@ -121,7 +134,8 @@ public class ReviewOfShopper {
 
 	@Override
 	public String toString() {
-		return "ReviewOfShopper [id=" + id + ", rating=" + rating + ", review=" + review ;
+		return "ReviewOfShopper [id=" + id + ", rating=" + rating + ", review=" + review + 
+				 ", active=" + active + "]";
 	}
 
 }

@@ -1,0 +1,23 @@
+.log-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(22, 22, 22, 0.3) 0,
+      rgba(22, 22, 22, 0.7) 75%,
+      #161616 100%
+    ),
+    url(src/assets/img/mapAndGear.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  min-height: 35rem;
+  padding: 5rem 0;
+}
+
+.red-text {
+  color: rgb(255, 0, 0);
+}

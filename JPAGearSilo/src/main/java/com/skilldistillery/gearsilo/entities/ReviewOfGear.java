@@ -24,6 +24,16 @@ public class ReviewOfGear {
 	@OneToOne
 	@JoinColumn(name = "reservation_id")
 	private Reservation reservation;
+	
+	private boolean active;
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 	public int getId() {
 		return id;
@@ -61,6 +71,7 @@ public class ReviewOfGear {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + id;
 		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
 		result = prime * result + ((reservation == null) ? 0 : reservation.hashCode());
@@ -77,6 +88,8 @@ public class ReviewOfGear {
 		if (getClass() != obj.getClass())
 			return false;
 		ReviewOfGear other = (ReviewOfGear) obj;
+		if (active != other.active)
+			return false;
 		if (id != other.id)
 			return false;
 		if (rating == null) {
@@ -110,15 +123,8 @@ public class ReviewOfGear {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ReviewOfGear [id=");
-		builder.append(id);
-		builder.append(", rating=");
-		builder.append(rating);
-		builder.append(", review=");
-		builder.append(review);
-		builder.append("]");
-		return builder.toString();
+		return "ReviewOfGear [id=" + id + ", rating=" + rating + ", review=" + review 
+				+ ", active=" + active + "]";
 	}
 
 }

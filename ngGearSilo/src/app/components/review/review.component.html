@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="login-form-1">
+    <div class="mx-auto" style="width: 20%;">
+      <h1>Review</h1>
+    </div>
+    <form #gearReview="ngForm" ngNativeValidate id="registerForm" class="text-left">
+      <div class="login-form-main-message"></div>
+      <div class="main-login-form">
+        <div class="login-group">
+
+          <div class="form-group">
+            <label for="rating">Rating (1 being the worst and 5 being the best):
+              <input type="number" class="form-control" id="rating" name="rating" ngModel required min="1"
+                max="5"></label>
+          </div>
+
+          <div class="form-group">
+            <label for="review">Comment:
+              <textarea cols="40" rows="5" class="form-control" id="review" name="review" placeholder="review of gear"
+                ngModel required></textarea></label>
+          </div>
+
+        </div>
+        <button type="submit" class="btn btn-dark my-2 my-sm-0" (click)="createGearReview(gearReview)">submit
+          review</button>
+      </div>
+
+    </form>
+  </div>
+</div>

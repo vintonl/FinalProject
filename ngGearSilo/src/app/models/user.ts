@@ -30,7 +30,7 @@ export class User {
   about: string;
   address: Address;
   phone: string;
-  enabled: string;
+  enabled: boolean;
   userLenderRating; number;
 
   constructor(
@@ -46,7 +46,7 @@ export class User {
     imageUrl?: string,
     about?: string,
     phone?: string,
-    enabled?: string,
+    enabled?: boolean,
     address?: Address,
     userLenderRating?: number
   ) {

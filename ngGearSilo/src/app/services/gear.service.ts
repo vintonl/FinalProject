@@ -102,7 +102,7 @@ export class GearService {
     // } else {
     //   todo.completeDate = '';
     // }
-    console.log('in update service ' + updatedgear.active + ' ' + updatedgear.id);
+    console.log('in update service ' + updatedgear.available + ' ' + updatedgear.id);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -127,7 +127,7 @@ export class GearService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.get<ReviewOfGear[]>(this.baseUrl + 'api/users/' + this.selected.user.id + '/reviews/gearreviews', httpOptions).pipe(
+    return this.http.get<ReviewOfGear[]>(this.baseUrl + 'api/users/' + this.selected.id + '/reviews/gearreviews', httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('GearService.loadGearReviews(): Error');

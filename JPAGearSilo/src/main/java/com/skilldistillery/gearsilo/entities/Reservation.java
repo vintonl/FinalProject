@@ -41,7 +41,7 @@ public class Reservation {
 	@OneToOne(mappedBy = "reservation")
 	private ReviewOfLender lenderReview;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToOne(mappedBy = "reservation")
 	private ReviewOfGear gearReview;
 	

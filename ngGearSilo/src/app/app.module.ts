@@ -39,10 +39,8 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { AboutComponent } from './components/about/about.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
-import { UserCrudComponent } from './components/admin/user-crud/user-crud.component';
-import { GearCrudComponent } from './components/admin/gear-crud/gear-crud.component';
-import { ResvCrudComponent } from './components/admin/resv-crud/resv-crud.component';
 import { GearCategoryPipe } from './pipes/gear-category.pipe';
+import { ReviewComponent } from './components/review/review.component';
 
 
 @NgModule({
@@ -63,10 +61,8 @@ import { GearCategoryPipe } from './pipes/gear-category.pipe';
     CategoryListComponent,
     AboutComponent,
     MessagingComponent,
-    UserCrudComponent,
-    GearCrudComponent,
-    ResvCrudComponent,
     GearCategoryPipe,
+    ReviewComponent,
 
   ],
   imports: [

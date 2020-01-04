@@ -41,7 +41,24 @@ export class ReservationService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.get<Reservation[]>(this.url + "/users", httpOptions)
+    return this.http.get<Reservation[]>(this.url + '/users', httpOptions)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('ResService.index() Error');
+        })
+      );
+  }
+
+  indexShopperUser() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Basic ` + this.authService.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<Reservation[]>(this.url + '/users/shoppers', httpOptions)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -51,12 +68,6 @@ export class ReservationService {
   }
 
   update(updatedRes: Reservation) {
-
-
-    console.log("in update res service " + updatedRes.approved + " " + updatedRes.id);
-    // console.log(updatedRes.gearId.user.id);
-
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -64,7 +75,7 @@ export class ReservationService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put<Reservation>(this.url + '/users/' + 1, updatedRes, httpOptions).pipe(
+    return this.http.put<Reservation>(this.url + '/users', updatedRes, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('ResService.update(): Error');
