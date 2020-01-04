@@ -462,6 +462,7 @@ INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (4, 19);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (16, 20);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (2, 11);
 INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (18, 14);
+INSERT INTO `gear_category` (`category_id`, `gear_id`) VALUES (16, 1);
 
 COMMIT;
 
