@@ -1,3 +1,6 @@
+import { ReservationMessageService } from './../../services/reservation-message.service';
+import { ReservationMessage } from './../../models/reservation-message';
+import { ReviewOfLender } from './../../models/review-of-lender';
 import { ReviewOfShopperService } from './../../services/review-of-shopper.service';
 import { ReservationService } from './../../services/reservation.service';
 import { GearService } from './../../services/gear.service';
@@ -28,8 +31,8 @@ export class ProfileComponent implements OnInit {
   updatedGear: Gear = new Gear();
   updatedRes: Reservation = new Reservation();
 
-  public selecteditem: Gear = new Gear;
-  public selectedRes: Reservation = new Reservation;
+  public selecteditem: Gear = new Gear();
+  public selectedRes: Reservation = new Reservation();
 
   editedUser: User = new User();
   reservations: Reservation = new Reservation();
@@ -49,14 +52,22 @@ export class ProfileComponent implements OnInit {
   userneedsCompletedResNum = 0;
   marked = false;
   theCheckbox = false;
+  resMessage: ReservationMessage = new ReservationMessage();
+  resMessages: ReservationMessage[] = [];
+  message: string;
 
 
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
+    // tslint:disable-next-line: align
     private router: Router, private authService: AuthService,
+    // tslint:disable-next-line: align
     private userService: UserService,
+    // tslint:disable-next-line: align
     private resService: ReservationService,
-    private reviewOfShopperSvc: ReviewOfShopperService) { }
+    // tslint:disable-next-line: align
+    private reviewOfShopperSvc: ReviewOfShopperService,
+    private reservationMsgSvc: ReservationMessageService) { }
 
 
 
@@ -79,6 +90,44 @@ export class ProfileComponent implements OnInit {
     this.loadReseravtions();
   }
 
+  reservationMessages() {
+    this.myReservations.forEach(res => {
+      console.log(res);
+      console.log(this.message + ' and ' + res.reservationMessage.message);
+      this.message = res.reservationMessage.message;
+    });
+  }
+
+  createMessage(userMsg: NgForm) {
+    console.log(userMsg + this.message)
+    const newMessage = {
+      message: userMsg.value.message,
+      reservation: {
+        id: this.selectedRes.id,
+      }
+    };
+
+    let user = new User();
+
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      good => {
+        user = good;
+        this.reservationMsgSvc.create(newMessage, user).subscribe(
+          next => {
+           this.resMessage = next;
+           console.log(this.resMessage)
+           this.resMessages.push(this.resMessage);
+          },
+          error => {
+          }
+        );
+      },
+      error => {
+
+      }
+    );
+  }
+
 
   // LOAD THE GEAR
   loadGear() {
@@ -87,16 +136,9 @@ export class ProfileComponent implements OnInit {
     this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
       yes => {
         this.loggedInUser = yes;
-        console.log('Got logged in user:');
-        console.log(this.loggedInUser);
-
-
         this.gearSrv.index().subscribe(
           (aGoodThingHappened) => {
-            console.log(aGoodThingHappened);
-
             aGoodThingHappened.forEach(gear => {
-
               if (gear.user.id === this.loggedInUser.id) {
                 this.gearList.push(gear);
                 this.checkImageURl();
@@ -104,13 +146,10 @@ export class ProfileComponent implements OnInit {
             });
           },
           (didntWork) => {
-            console.log(didntWork);
           }
         );
       },
       no => {
-        console.error('Error getting logged in user');
-        console.error(no);
       }
     );
   }
@@ -118,27 +157,18 @@ export class ProfileComponent implements OnInit {
 
   // DELETE GEAR
   deleteGear() {
-
-    console.log('in delete gear ');
-    console.log(this.deleteId);
-
     this.gearSrv.destroy(this.deleteId).subscribe(
       (good) => {
         this.ngOnInit();
-        console.log(good);
         this.deleteId = null;
       },
       (bad) => {
-        console.log('error ' + bad);
         this.deleteId = null;
       }
     );
   }
 
   onClickDelete(itemId: number) {
-    console.log('in delete click');
-    console.log(itemId);
-
     this.deleteId = itemId;
 
   }
@@ -154,8 +184,9 @@ export class ProfileComponent implements OnInit {
       newGear => {
         this.newGear = new Gear();
       },
-      err => console.log('Observer got an error: ' + err)
-    );
+      err => {
+
+      });
     this.ngOnInit();
     this.newGear = null;
   }
@@ -197,7 +228,9 @@ export class ProfileComponent implements OnInit {
       data => {
         location.reload();
       },
-      err => console.log('Update got an error: ' + err));
+      err => {
+
+      });
   }
 
   // UPDATE USER
@@ -220,13 +253,14 @@ export class ProfileComponent implements OnInit {
       this.editedUser.phone = this.loggedInUser.phone;
     }
 
-    this.userService.update(this.editedUser).subscribe(
+    this.userService.updateUserAsUser(this.editedUser).subscribe(
       data => {
         this.editedUser = null;
         this.selecteditem = null;
       },
-      err => console.log('Update got an error: ' + err)
-    );
+      err => {
+
+      });
     this.editedUser = null;
     this.ngOnInit();
   }
@@ -242,7 +276,6 @@ export class ProfileComponent implements OnInit {
     // LOADING LENDER RESERVATIONS
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
-        console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
           this.myReservations.push(res);
 
@@ -250,33 +283,24 @@ export class ProfileComponent implements OnInit {
             this.needCompletedRes++;
             this.needsCompletedRes.push(res);
           }
+
           if (res.approved !== true) {
             this.needApprovedRes++;
             this.needsApprovedRes.push(res);
           }
-          console.log(res);
         });
       },
       (didntWork) => {
-        console.log('in load res from profile ts didnt work');
-        console.log(didntWork);
+
       }
     );
 
-    console.log('in load shopper res 0');
 
     // LOADING SHOPPER RESERVATIONS
     this.resService.indexShopperUser().subscribe(
       (aGoodThingHappened) => {
-        console.log('in load shopper res 1');
-        console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
-
-
-
           if (res.completed === true && res.gearReview === null) {
-
-            console.log(res);
             this.userneedsCompletedResNum++;
             this.userneedsCompletedRes.push(res);
             this.shopperReservations.push(res);
@@ -284,8 +308,6 @@ export class ProfileComponent implements OnInit {
         });
       },
       (didntWork) => {
-        console.log('load shopper reservations didnt work');
-        console.log(didntWork);
       }
     );
   }
@@ -305,10 +327,9 @@ export class ProfileComponent implements OnInit {
   }
 
   toggleVisibility() {
-    console.log('in toggle');
-    console.log(this.myRes.approved);
 
   }
+
   // UPDATE THE RESERVATION
   updateResCompleted(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
@@ -351,11 +372,14 @@ export class ProfileComponent implements OnInit {
             this.needCompletedRes++;
           }
         }
-        this.updatedRes = new Reservation();;
+        this.updatedRes = new Reservation();
         this.selectedRes = null;
       },
-      err => console.log('Update Res got an error: ' + err));
+      err => {
+
+      });
   }
+
   updateResApproval(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
       this.updatedRes.createdAt = this.selectedRes.createdAt;
@@ -397,10 +421,12 @@ export class ProfileComponent implements OnInit {
             this.needApprovedRes++;
           }
         }
-        this.updatedRes = new Reservation();;
+        this.updatedRes = new Reservation();
         this.selectedRes = null;
       },
-      err => console.log('Update Res got an error: ' + err));
+      err => {
+
+      });
   }
 
   onClickReservation(res: any) {
@@ -417,15 +443,18 @@ export class ProfileComponent implements OnInit {
     this.selectedRes = res;
 
   }
+  onClickMessage(res: any) {
+    this.selectedRes = res;
+
+  }
 
   createGearReview(gearReview: NgForm) {
-    console.log(this.selectedRes.id);
     const newGearReview = {
       rating: gearReview.value.rating,
       review: gearReview.value.review,
       active: 'true',
       reservation: {
-        id: this.selectedRes.id
+        id: this.selectedRes.id,
       }
     };
 
@@ -434,23 +463,42 @@ export class ProfileComponent implements OnInit {
     this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
       good => {
         user = good;
-        console.log(user);
         this.reviewOfShopperSvc.createGearReview(newGearReview, user).subscribe(
           next => {
-
-            console.log('ReviewComponent.createGearReview(): review of gear created.');
-            console.log(next);
+            this.createLenderReview(gearReview, user);
           },
           error => {
-            console.error('ReviewComponent.createGearReview(): error createGearReview.');
-            console.log(error);
           }
         );
       },
       error => {
-        console.log('ReviewOfShopperService.create() Error getting logged in user while creating gear review');
+
       }
     );
   }
 
+  createLenderReview(gearReview: NgForm, user: User) {
+
+    const newLenderReview = {
+      rating: gearReview.value.lenderRating,
+      review: 'default review',
+      active: 'true',
+      reservation: {
+        id: this.selectedRes.id
+      }
+    };
+
+    this.reviewOfShopperSvc.createLenderReview(newLenderReview, user).subscribe(
+      next => {
+        // console.log('ReviewComponent.createLenderReview(): review of lender created.');
+        // console.log(next);
+      },
+      error => {
+        // console.error('ReviewComponent.createLenderReview(): error createLenderReview.');
+        // console.log(error);
+      }
+    );
+  }
 }
+
+

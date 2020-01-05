@@ -2,13 +2,16 @@
   <div class="container d-flex h-100 align-items-center">
     <div class="mx-auto text-center">
       <h1 class="mx-auto my-0 text-uppercase">Gear Silo</h1>
-      <h2 class="mx-auto my-0 text-uppercase">peer-to-peer outdoor gear rentals</h2>
-      <br>
-      <a [routerLink]="['/gears']" class="btn btn-outline-light js-scroll-trigger">See avalible gear to rent</a>
-      <br><br>
+      <h2 class="mx-auto my-0 text-uppercase">
+        peer-to-peer outdoor gear rentals
+      </h2>
+      <br />
+      <a [routerLink]="['/gears']" class="btn btn-outline-light js-scroll-trigger">See the available gear to rent</a>
+      <br /><br />
       <a [routerLink]="['/login']" class="btn btn-outline-light js-scroll-trigger" *ngIf="!userLogInCheck()">Login</a>
-      <br><br>
-      <a [routerLink]="['/register']" class="btn btn-outline-light js-scroll-trigger" *ngIf="!userLogInCheck()">Join our community</a>
+      <br /><br />
+      <a [routerLink]="['/register']" class="btn btn-outline-light js-scroll-trigger" *ngIf="!userLogInCheck()">Join our
+        community</a>
     </div>
   </div>
 </header>

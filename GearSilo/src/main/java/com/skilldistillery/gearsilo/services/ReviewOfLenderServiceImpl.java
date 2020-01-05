@@ -34,7 +34,11 @@ public class ReviewOfLenderServiceImpl implements ReviewOfLenderService {
 		List<ReviewOfLender> lenderReviews = new ArrayList<>();
 
 		if (user != null) {
-			lenderReviews = reviewLenderRepo.findAll();
+			
+//			lenderReviews = reviewLenderRepo.findAll();
+			
+			lenderReviews = reviewLenderRepo.findByActiveTrue();
+			
 			for (ReviewOfLender reviewOfLender : lenderReviews) {
 				if (reviewOfLender.getReservation().getGearId().getId() == id) {
 					results.add(reviewOfLender);

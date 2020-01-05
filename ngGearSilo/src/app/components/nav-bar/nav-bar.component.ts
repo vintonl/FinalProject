@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavBarComponent implements OnInit {
   isAdmin = false;
-  // count = 0;
+  loggedInUser: User;
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -32,29 +32,26 @@ export class NavBarComponent implements OnInit {
     let userLoggedIn: User = null;
 
     if (this.authService.getCredentials() !== null) {
-      this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-        yes => {
-          userLoggedIn = yes;
-          console.log(userLoggedIn);
-          if (userLoggedIn.role === 'admin') {
-            console.log('admin is logged in');
-            this.isAdmin = true;
-
-            // if (this.count === 0) {
-            //   this.count++;
-            //   window.location.reload();
-            // }
+      this.authService
+        .getUserByUsername(this.authService.getLoggedInUsername())
+        .subscribe(
+          yes => {
+            userLoggedIn = yes;
+            this.loggedInUser = userLoggedIn;
+            // console.log(userLoggedIn);
+            if (userLoggedIn.role === 'admin') {
+              // console.log('admin is logged in');
+              return this.isAdmin = true;
+            }
+          },
+          no => {
+            userLoggedIn = null;
+            // console.error('Error getting logged admin');
+            // console.error(no);
+            this.isAdmin = false;
           }
-        },
-        no => {
-          userLoggedIn = null;
-          console.error('Error getting logged admin');
-          console.error(no);
-        }
-      );
+        );
     }
     return this.isAdmin = false;
   }
-
 }
-

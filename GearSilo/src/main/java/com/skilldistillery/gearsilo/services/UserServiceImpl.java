@@ -3,9 +3,6 @@ package com.skilldistillery.gearsilo.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +21,6 @@ public class UserServiceImpl implements UserService {
 		User user = userRepo.findUserByUsername(username);
 		if (user.getRole().equals("admin")) {
 			return userRepo.findAll();
-
 		}
 
 		return null;
@@ -70,11 +66,12 @@ public class UserServiceImpl implements UserService {
 				managedUser.setPhone(user.getPhone());
 				managedUser.setImageUrl(user.getImageUrl());
 
-
 				userRepo.saveAndFlush(managedUser);
+				
 				return managedUser;
 			}
 		}
+		
 		return null;
 	}
 }

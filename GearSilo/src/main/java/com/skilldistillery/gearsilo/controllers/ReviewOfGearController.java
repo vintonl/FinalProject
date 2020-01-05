@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.gearsilo.entities.Gear;
 import com.skilldistillery.gearsilo.entities.ReviewOfGear;
 import com.skilldistillery.gearsilo.services.ReviewOfGearService;
 
@@ -25,14 +23,14 @@ import com.skilldistillery.gearsilo.services.ReviewOfGearService;
 @RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost:4207" })
 public class ReviewOfGearController {
-	
+
 	@Autowired
 	private ReviewOfGearService reviewGearSvc;
-	
-	@GetMapping("users/{uid}/reviews/gearreviews")
-	public List<ReviewOfGear> index (@PathVariable int uid, HttpServletRequest req,
-			HttpServletResponse resp, Principal principal) {
-		List<ReviewOfGear> gearReview = reviewGearSvc.findAll(principal.getName(), uid);
+
+	@GetMapping("users/{gearId}/reviews/gearreviews")
+	public List<ReviewOfGear> index(@PathVariable int gearId, HttpServletRequest req, HttpServletResponse resp,
+			Principal principal) {
+		List<ReviewOfGear> gearReview = reviewGearSvc.findAll(principal.getName(), gearId);
 
 		if (gearReview != null && gearReview.size() == 0) {
 			resp.setStatus(204);
@@ -42,12 +40,12 @@ public class ReviewOfGearController {
 			resp.setStatus(404);
 		}
 		return gearReview;
-	}	
-	
+	}
+
 	@PostMapping("users/{uid}/reservation/{rid}/reviews/gearreviews")
 	public ReviewOfGear createGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
-	
+
 		try {
 			reviewGearSvc.createReviewOfGear(principal.getName(), gearReview, uid, rid);
 			res.setStatus(201);
@@ -59,10 +57,11 @@ public class ReviewOfGearController {
 		}
 		return gearReview;
 	}
-	
+
 	@PutMapping("users/{uid}/reservation/{rid}/reviews/gearreviews/{grid}")
-	public ReviewOfGear updateGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid, 
-			@PathVariable int rid, @PathVariable int grid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+	public ReviewOfGear updateGearReview(@RequestBody ReviewOfGear gearReview, @PathVariable int uid,
+			@PathVariable int rid, @PathVariable int grid, HttpServletRequest req, HttpServletResponse res,
+			Principal principal) {
 		try {
 			gearReview = reviewGearSvc.updateReviewOfGear(principal.getName(), gearReview, uid, rid, grid);
 			if (gearReview == null) {

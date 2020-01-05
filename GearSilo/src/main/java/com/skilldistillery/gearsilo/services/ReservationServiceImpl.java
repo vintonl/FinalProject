@@ -1,5 +1,6 @@
 package com.skilldistillery.gearsilo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.gearsilo.entities.Reservation;
-import com.skilldistillery.gearsilo.entities.ReviewOfShopper;
 import com.skilldistillery.gearsilo.entities.User;
 import com.skilldistillery.gearsilo.repositories.ReservationRepository;
 import com.skilldistillery.gearsilo.repositories.UserRepository;
@@ -69,6 +69,20 @@ public class ReservationServiceImpl implements ReservationService {
 	public Reservation createReservation(String username, Reservation reservation) {
 		User user = uRepo.findUserByUsername(username);
 
+		if (reservation.getOpenDate() == null || reservation.getCloseDate() == null) {
+			return null;
+		}
+
+		if (reservation.getOpenDate().after(reservation.getCloseDate())) {
+			return null;
+		}
+
+		Date today = new Date();
+
+		if (today.after(reservation.getOpenDate())) {
+			return null;
+		}
+
 		if (user != null) {
 			reservation.setUserShopper(user);
 			return resRepo.saveAndFlush(reservation);
@@ -80,14 +94,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Reservation updateShopperReservation(String username, Reservation reservation, int id) {
 
-		System.out.println(username);
-		System.out.println(reservation);
-		System.out.println(id);
-
 		Reservation oldRes = resRepo.findByUserShopper_UsernameAndId(username, id);
-
-		System.out.println("old res");
-		System.out.println(oldRes);
 
 		if (oldRes != null) {
 
@@ -118,33 +125,6 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		return updateReservation;
 	}
-
-//	@Override
-//	public Reservation updateHostReservation(String username, Reservation reservation, int id) {
-//		Reservation oldRes = resRepo.findByGearId_User_Username(username, id);
-//
-//		System.out.println("old res");
-//		System.out.println(oldRes);
-//
-//		if (oldRes != null) {
-//
-//			oldRes.setApproved(reservation.getApproved());
-//			oldRes.setCloseDate(reservation.getCloseDate());
-//			oldRes.setCompleted(reservation.getCompleted());
-//			oldRes.setCreatedAt(reservation.getCreatedAt());
-//			oldRes.setGearId(reservation.getGearId());
-//			oldRes.setGearReview(reservation.getGearReview());
-//			oldRes.setLenderReview(reservation.getLenderReview());
-//			oldRes.setMessages(reservation.getMessages());
-//			oldRes.setOpenDate(reservation.getOpenDate());
-//			oldRes.setShopperReview(reservation.getShopperReview());
-//			return resRepo.saveAndFlush(oldRes);
-//
-//		} else {
-//			return null;
-//		}
-//
-//	}
 
 	// disable vs delete ...
 	@Override

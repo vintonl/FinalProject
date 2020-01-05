@@ -8,14 +8,11 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  constructor(private authService: AuthService, private userSvc: UserService) {}
 
-  constructor(private authService: AuthService, private userSvc: UserService) { }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  userLogInCheck(){
+  userLogInCheck() {
     return this.authService.getCredentials();
   }
-
 }

@@ -28,7 +28,6 @@ public class UserController {
 
 	@GetMapping("users")
 	public List<User> findAll(HttpServletRequest req, HttpServletResponse resp, Principal principal) {
-		;
 
 		List<User> users = userSvc.findAll(principal.getName());
 
@@ -64,9 +63,8 @@ public class UserController {
 	}
 
 	@GetMapping("users/{username}")
-	public User replaceExistingUser(@PathVariable String username, HttpServletRequest req, Principal principal,
+	public User getExistingUserByUsername(@PathVariable String username, HttpServletRequest req, Principal principal,
 			HttpServletResponse resp) {
-		System.out.println(username);
 		User user = null;
 
 		try {
@@ -75,11 +73,7 @@ public class UserController {
 				resp.setStatus(404);
 				return null;
 			}
-			System.out.println(user);
 			resp.setStatus(202);
-//			StringBuffer url = req.getRequestURL();
-//			url.append("/").append(user.getId());
-//			resp.addHeader("Location", url.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setStatus(400);
@@ -109,8 +103,7 @@ public class UserController {
 			resp.setStatus(400);
 			return null;
 		}
-		System.out.println("in return of user");
-		System.out.println(user);
+		
 		return user;
 	}
 }

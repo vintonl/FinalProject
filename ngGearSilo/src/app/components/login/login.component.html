@@ -9,6 +9,16 @@
             <h4 class="card-title text-center mb-0">
               <strong>Sign In</strong>
             </h4>
+            <div *ngIf="accessDenied">
+              <br />
+              <h4 class="card-title text-center mb-0 red-text">
+                <strong
+                  >Please try again or
+                  <a [routerLink]="['/register']">join</a> our
+                  community.</strong
+                >
+              </h4>
+            </div>
             <hr />
             <form
               #loginForm="ngForm"
@@ -58,7 +68,7 @@
               <br />
               <div class="etc-login-form">
                 <p>
-                  Not a user yet?
+                  Not a member yet?
                   <a [routerLink]="['/register']">Join our community.</a>
                 </p>
               </div>
@@ -68,6 +78,21 @@
       </div>
     </div>
   </div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
   <br />
   <br />
 </div>

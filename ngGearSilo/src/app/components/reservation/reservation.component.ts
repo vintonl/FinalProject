@@ -11,9 +11,9 @@ import { GearService } from 'src/app/services/gear.service';
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
-
   selected = null;
   newRes: Reservation = new Reservation();
+  badRes = false;
 
   constructor(private gearSrv: GearService, private resSrv: ReservationService,
     // tslint:disable-next-line: align
@@ -28,26 +28,19 @@ export class ReservationComponent implements OnInit {
 
   loadSelected() {
     this.selected = this.gearSrv.selected;
-    console.log(this.selected);
   }
 
   createReservation() {
-    console.log(this.selected);
-
     this.newRes.gearId = this.selected;
     this.newRes.approved = false;
     this.newRes.completed = false;
 
-    console.log(this.newRes);
-
     this.resSrv.create(this.newRes).subscribe(
       created => {
-        console.log('ReservationComponent.createReservation() new reservation created');
-        console.log(created);
-        // this.router.navigateByUrl('/users');
+        this.router.navigateByUrl('/users');
       },
       err => {
-        console.log('ReservationComponent.createReservation() ERROR ' + err);
+        this.badRes = true;
       }
     );
   }
