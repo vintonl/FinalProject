@@ -32,14 +32,14 @@
                 <label class="sliderLabel" placeholder="Distance">{{ searchDistance }} miles</label>
                 <!-- <input class="slider" style="margin-left: 200px; margin-top: 75px" [(ngModel)]="searchDistance" placeholder="Distance"
                 min={{min}} max={{max}} name="searchDistance" (change)="searchByDistance(); selected=null" type="range"> -->
-                <input type="range" min="0" max="2000" step="5" name="searchDistance" [(ngModel)]="searchDistance"
+                <input type="range" min="0" max="200" step="5" name="searchDistance" [(ngModel)]="searchDistance"
                   (change)="searchByDistance(); selected = null" class="slider" id="myRange" />
               </div>
             </div>
 
             <!-- RESET BUTTON -->
             <div>
-              <button style="margin-left: 520px; margin-top: -45px" class="btn btn-outline-secondary"
+              <button style="margin-left: 820px; margin-top: -45px" class="btn btn-outline-secondary"
                 (click)="ngOnInit(); selectedType = 'All'">
                 <span style="margin: 2px" class="glyphicon glyphicon-th-list"></span>
                 See all Items
@@ -48,7 +48,7 @@
           </div>
         </form>
 
-        <div style="margin-left: 215px;" class="nav-container" *ngIf="!selected">
+        <div style="margin-left: 245px;" class="nav-container" *ngIf="!selected">
           <ul class="nav nav-tabs">
             <li class="active">
               <button class="showHand hover btn-primary btn-warning" *ngFor="let category of categories"
@@ -145,6 +145,20 @@
           </div>
         </div>
 
+        <div *ngIf="!selected && hideSearchResult">
+          <div class="topOfPage">
+            <button class="btn btn-outline-secondary" (click)="topOfPage()">Top of Page</button>
+          </div>
+        </div>
+
+
+        <div class="userDisplayName" *ngIf="!selected && hideSearchResult">
+        <div [routerLink]="['/users']" class="alert alert-dark" role="alert">
+          {{loggedInUser.firstName}} {{loggedInUser.lastName}}
+        </div>
+        </div>
+
+
         <!-- CARDS -->
         <div *ngIf="!selected && hideSearchResult">
           <div class="container" *ngFor="let item of gearList | gearCategory: selectedType" (click)="selected = item">
@@ -216,6 +230,7 @@
           </div>
         </div>
 
+
         <!-- RESERVATION PAGE -->
         <div *ngIf="selected">
           <div class="list-group">
@@ -286,7 +301,9 @@
                   <div class="col-md-8">
                     <div class="page-header">
                       <h1>
-                        <small class="pull-right">{{ selectedGearReviews.length }} Review(s)</small>
+                        <small *ngIf="selectedGearReviews && selectedGearReviews.length === 1" class="pull-right">{{ selectedGearReviews.length }} Review</small>
+                        Comments
+                        <small *ngIf="selectedGearReviews && selectedGearReviews.length > 1" class="pull-right">{{ selectedGearReviews.length }} Reviews</small>
                         Comments
                       </h1>
                     </div>
@@ -322,8 +339,6 @@
             </div>
           </div>
         </div>
-        <div class="col-1"></div>
       </div>
     </div>
   </div>
-</div>

@@ -22,3 +22,8 @@ a:hover {
 a:active {
   color: rgb(245, 6, 6);
 }
+
+.img-thumbnail {
+  min-height: 50px !important;
+  max-height: 450px !important;
+}

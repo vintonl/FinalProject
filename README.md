@@ -2,7 +2,7 @@
 
 ## Angular and RESTful API Software Application
 
-### Week 16 Midterm Project at Skill Distillery - January 7, 2020
+### Week 16 Final Project at Skill Distillery - January 7, 2020
 
 Built by:
 * [Vinton Lee](https://github.com/vintonl)
@@ -12,11 +12,11 @@ Built by:
 * [Brian Streetmen](https://github.com/Briman-Jag)
 
 
-This was a two-week-long sprint use Agile Methodologies to exceed the minimum viable product for our midterm  [assignment](https://github.com/calooper/FinalProject/blob/master/Assignment.md).
+This was a two-week-long sprint use Agile Methodologies to exceed the minimum viable product for our final [assignment](https://github.com/calooper/FinalProject/blob/master/Assignment.md).
 
 ### Overview:
 
-This program is designed to be a full stack RESTful software application that creates, reads, updates and deletes user and recipe data from a database we built using MySQL Workbench and connecting with using Java Database Connectivity.
+This program is designed to be a full stack RESTful software application that creates, reads, updates and deletes user, gear, reservation data from a database we built using MySQL Workbench and connecting with using Java Database Connectivity.
 
 ### How to run:
 
@@ -38,8 +38,8 @@ A logged in user can:
 * Mark reservations complete
 
 The admin user can:
-* Remove a review even if they did not create the review
-* Remove any recipe even if they did not create the recipe
+* Remove a review
+* Deactivate or reactivate a user
 
 Admin Account:
 * Email: gearsilo@gmail.com
@@ -47,7 +47,7 @@ Admin Account:
 
 ### Technologies used:
 
-Java, Java Persistence API, Spring Boot, Spring Security Spring STS, Gradle, SQL, MySQL Workbench, HTML, CSS, Bootstrap, Material,  Apache, Tomcat, AWS, Atom, Git, GitHub, Slack, and Trello.
+Java, Java Persistence API, Spring Boot, Spring Security, Spring STS, Gradle, SQL, MySQL Workbench, TypeScript, Angular, Visual Studio Code, HTML, CSS, Bootstrap, Material, Apache Tomcat, AWS, Postman Atom, Git, GitHub, Slack, and Trello.
 
 ### Topics implemented:
 

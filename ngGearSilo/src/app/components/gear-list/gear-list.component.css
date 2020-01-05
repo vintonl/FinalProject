@@ -49,8 +49,8 @@
 
 #panels:hover {
   background-color: white;
-  transition: transform 0.4s;
-  transition-delay: 0.1s;
+  /* transition: transform 0.1s; */
+  /* transition-delay: 0.1s; */
   transform: scale(1.01);
   transform-style: preserve-3d;
 }
@@ -271,11 +271,11 @@ h4 {
 
 .slider {
   -webkit-appearance: none;
-  width: 25%;
+  width: 35%;
   height: 15px;
   border-radius: 5px;
   margin-top: 105px;
-  margin-left: 180px;
+  margin-left: 210px;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
@@ -294,7 +294,7 @@ h4 {
   height: 30px;
   border-radius: 50%;
   /* background: orange; */
-  cursor: pointer;
+  cursor: -webkit-grab;
 }
 
 .slider::-webkit-slider-thumb:hover {
@@ -305,7 +305,7 @@ h4 {
   width: 30px;
   height: 30px;
   /* background: orange; */
-  cursor: pointer;
+  cursor: ew-resize;
 }
 
 .slider::-moz-range-thumb:hover {
@@ -341,3 +341,29 @@ input[type="range"] + .thumb {
 input[type="range"] + .thumb.active {
   /* bottom: -20px !important; */
 }
+
+
+.topOfPage {
+  position: fixed;
+  margin-top: 700px;
+}
+
+.userDisplayName {
+  position: fixed;
+  margin-top: 680px;
+  margin-left: 1500px;
+
+}
+
+.alert {
+  border-color: orange;
+  border-width: 1px;
+  border-style: solid;
+  color: #555;
+  text-shadow: orange;
+  background-color: whitesmoke;
+  cursor: pointer;
+
+}
+
+
