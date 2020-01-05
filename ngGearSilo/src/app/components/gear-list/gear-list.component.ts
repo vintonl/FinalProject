@@ -43,9 +43,9 @@ export class GearListComponent implements OnInit {
   distanceFromGear;
   lat2;
   long2;
-  searchDistance = 4000;
+  searchDistance = 200;
   min = 0;
-  max = 2000;
+  max = 200;
 
   // Categories
 
@@ -83,7 +83,7 @@ export class GearListComponent implements OnInit {
     this.hideSearchResult = true;
     this.selected = null;
     this.searchedGear = [];
-    this.searchDistance = 2000;
+    this.searchDistance = 50;
     this.loadUser();
     this.loadGear();
     this.loadReseravtions();
@@ -103,6 +103,11 @@ export class GearListComponent implements OnInit {
           ) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
           }
+          // if (this.loggedInUser.username === gear.user.username) {
+
+          //   this.gearList.splice();
+
+          // }
           this.revOfLenderService.loadGearOwnerReviews(gear.user).subscribe(
             good => {
               let ratingAvg = 0;
@@ -137,13 +142,13 @@ export class GearListComponent implements OnInit {
 
   displayGearItem(gear: Gear) {
     this.selected = gear;
-    this.getLocation(this.selected);
+    // this.getLocation(this.selected);
     this.gearSrv.selected = gear;
     this.searchedGear.length = 0;
     this.gearSrv.loadGearReviews().subscribe(
       goodRequest => {
         this.selectedGearReviews = goodRequest;
-        this.getLocation(this.selected);
+        // this.getLocation(this.selected);
       },
       bad => {
         // console.log(
@@ -334,6 +339,11 @@ export class GearListComponent implements OnInit {
       );
   }
 
+  topOfPage() {
+    window.scroll(0, 0);
+  }
+
+
   // HAVERSINE FORMULA TO GET STRAIGHT_LINE DISTANCE
   getDistance(lat, long, item) {
     const R = 6378137; // Earth’s mean radius in meter
@@ -360,3 +370,4 @@ export class GearListComponent implements OnInit {
 const rad = function (x: number) {
   return (x * Math.PI) / 180;
 };
+

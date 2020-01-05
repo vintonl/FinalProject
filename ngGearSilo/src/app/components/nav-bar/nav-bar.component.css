@@ -17,13 +17,35 @@
 
 .navbar {
   font-family: Arial, Helvetica, sans-serif !important;
-   margin: 0px !important;
-   font-size: 17px !important;
-   /* font-stretch: 3px !important; */
-   border-radius: 0 !important;
-
+  margin: 0px !important;
+  font-size: 17px !important;
+  /* font-stretch: 3px !important; */
+  border-radius: 0 !important;
 }
 
 .nb-txt {
   font-size: 25px !important;
+}
+
+.glyphicon-cog {
+  color: orange;
+}
+
+.userName {
+  font-size: 25px !important;
+
+}
+
+.gearImage{
+  height: 25px;
+  margin: 2px;
+}
+.gearSilo {
+  color: white;
+  font-size: 20px;
+}
+
+.gearSilo:hover {
+  color: whitesmoke;
+  font-size: 20px;
 }

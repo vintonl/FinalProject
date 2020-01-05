@@ -66,7 +66,8 @@ export class ProfileComponent implements OnInit {
     // tslint:disable-next-line: align
     private resService: ReservationService,
     // tslint:disable-next-line: align
-    private reviewOfShopperSvc: ReviewOfShopperService) { }
+    private reviewOfShopperSvc: ReviewOfShopperService,
+    private reservationMsgSvc: ReservationMessageService) { }
 
 
 
@@ -91,9 +92,42 @@ export class ProfileComponent implements OnInit {
 
   reservationMessages() {
     this.myReservations.forEach(res => {
+      console.log(res);
+      console.log(this.message + ' and ' + res.reservationMessage.message);
       this.message = res.reservationMessage.message;
     });
   }
+
+  createMessage(userMsg: NgForm) {
+    console.log(userMsg + this.message)
+    const newMessage = {
+      message: userMsg.value.message,
+      reservation: {
+        id: this.selectedRes.id,
+      }
+    };
+
+    let user = new User();
+
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      good => {
+        user = good;
+        this.reservationMsgSvc.create(newMessage, user).subscribe(
+          next => {
+           this.resMessage = next;
+           console.log(this.resMessage)
+           this.resMessages.push(this.resMessage);
+          },
+          error => {
+          }
+        );
+      },
+      error => {
+
+      }
+    );
+  }
+
 
   // LOAD THE GEAR
   loadGear() {
@@ -423,6 +457,10 @@ export class ProfileComponent implements OnInit {
   }
 
   onClickReviewGear(res: any) {
+    this.selectedRes = res;
+
+  }
+  onClickMessage(res: any) {
     this.selectedRes = res;
 
   }
