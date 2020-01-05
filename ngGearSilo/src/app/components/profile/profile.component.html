@@ -529,7 +529,7 @@
 
       <!-- Messaging Modal -->
      <form #userMsg="ngForm" ngNativeValidate id="registerForm" class="text-left">
-        <div class="modal fade" id="MessageModal" tabindex="-1" role="dialog"
+        <div class="modal fade" id="MessageModal" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -541,8 +541,8 @@
               </div>
               <div class="modal-body">
                 <table>
-                  <tr *ngFor="let msg of resMessages; let i = index">
-                    <td> {{msg.reservation.userShopper.firstName}}{{msg.message | titlecase}}</td>
+                  <tr *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
+                    <td> {{msg.reservation.gearId.user.firstName}} {{msg.reservation.gearId.user.lastName}}: {{msg.message | titlecase}}</td>
                   </tr>
                 </table>
                 <div class="form-group">
