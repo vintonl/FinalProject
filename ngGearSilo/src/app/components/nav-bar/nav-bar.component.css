@@ -35,3 +35,12 @@
   font-size: 25px !important;
 
 }
+
+.gearImage{
+  height: 25px;
+  margin: 2px;
+}
+.gearSilo {
+  color: white;
+  font-size: 20px;
+}
