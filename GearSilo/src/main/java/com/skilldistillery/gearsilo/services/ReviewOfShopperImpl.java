@@ -33,7 +33,11 @@ public class ReviewOfShopperImpl implements ReviewOfShopperService {
 		List<ReviewOfShopper> results = new ArrayList<>();
 		List<ReviewOfShopper> shopperReviews = new ArrayList<>();
 		if (user.getId() == id || user.getRole().equals("admin")) {
-			shopperReviews = reviewOfShopperRepo.findAll();
+			
+//			shopperReviews = reviewOfShopperRepo.findAll();
+			
+			shopperReviews = reviewOfShopperRepo.findByActiveTrue();
+			
 			for (ReviewOfShopper reviewOfShopper : shopperReviews) {
 				if (reviewOfShopper.getReservation().getUserShopper().getId() == id) {
 					results.add(reviewOfShopper);

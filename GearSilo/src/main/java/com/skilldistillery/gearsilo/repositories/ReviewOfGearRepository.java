@@ -8,4 +8,6 @@ import com.skilldistillery.gearsilo.entities.ReviewOfGear;
 
 public interface ReviewOfGearRepository extends JpaRepository<ReviewOfGear, Integer> {
 
+	List<ReviewOfGear> findByActiveTrue();
+	
 }

@@ -73,11 +73,11 @@ export class GearListComponent implements OnInit {
     // tslint:disable-next-line: align
     private router: Router,
     private authService: // tslint:disable-next-line: align
-    AuthService,
+      AuthService,
     private revOfLenderService: ReviewOfLenderService,
     private mapService: MapService,
     private userSVC: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.hideSearchResult = true;
@@ -92,8 +92,8 @@ export class GearListComponent implements OnInit {
   loadGear() {
     this.gearSrv.index().subscribe(
       aGoodThingHappened => {
-        console.log('in a aGoodThingHappened Gear');
-        console.log(aGoodThingHappened);
+        // console.log('in a aGoodThingHappened Gear');
+        // console.log(aGoodThingHappened);
         this.gearList = aGoodThingHappened;
         this.gearList.forEach(gear => {
           if (
@@ -122,17 +122,15 @@ export class GearListComponent implements OnInit {
               this.getLocation(gear);
             },
             bad => {
-              console.log(
-                'Error in GearListComponent.loadGear() loading reviews of lender'
-              );
-              console.log(bad);
+              // console.log('Error in GearListComponent.loadGear() loading reviews of lender');
+              // console.log(bad);
             }
           );
           gear.user.userLenderRating = 0;
         });
       },
       didntWork => {
-        console.log(didntWork);
+        // console.log(didntWork);
       }
     );
   }
@@ -148,10 +146,10 @@ export class GearListComponent implements OnInit {
         this.getLocation(this.selected);
       },
       bad => {
-        console.log(
-          'Error in GearListComponent.displayGearItem() loading gear reviews'
-        );
-        console.log(bad);
+        // console.log(
+        //   'Error in GearListComponent.displayGearItem() loading gear reviews'
+        // );
+        // console.log(bad);
       }
     );
   }
@@ -162,7 +160,7 @@ export class GearListComponent implements OnInit {
 
   search() {
     this.searchedGear = [];
-    console.log(this.keyword);
+    // console.log(this.keyword);
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
@@ -222,8 +220,8 @@ export class GearListComponent implements OnInit {
       }
     }
 
-    console.log('printing search results');
-    console.log(this.searchedGear.length);
+    // console.log('printing search results');
+    // console.log(this.searchedGear.length);
 
     this.hideSearchResult = false;
 
@@ -235,7 +233,7 @@ export class GearListComponent implements OnInit {
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
-      console.log(this.gearList[i].distance);
+      // console.log(this.gearList[i].distance);
       const distanceNumber = +this.gearList[i].distance;
 
       if (distanceNumber <= this.searchDistance) {
@@ -270,15 +268,15 @@ export class GearListComponent implements OnInit {
         });
       },
       didntWork => {
-        console.log('in load res from profile ts didnt work');
-        console.log(didntWork);
+        // console.log('in load res from profile ts didnt work');
+        // console.log(didntWork);
       }
     );
   }
 
   // GETS LOCATION OF EACH ITEM AND CALLS THE CALCULATE DISTANCE METHOD
   getLocation(item: Gear) {
-    console.log('inside get location');
+    // console.log('inside get location');
     // this.lat = null;
     // this.long = null;
 
@@ -293,16 +291,16 @@ export class GearListComponent implements OnInit {
         this.long = item.long;
       },
       bad => {
-        console.log(
-          'Error in Gear Comp - fetching map geocode from Map Service '
-        );
-        console.log(bad);
+        // console.log(
+        //   'Error in Gear Comp - fetching map geocode from Map Service '
+        // );
+        // console.log(bad);
       }
     );
   }
 
   getUserLocation(add: Address) {
-    console.log('inside get location');
+    // console.log('inside get location');
 
     this.mapService.getUserAddress(add).subscribe(
       goodRequest => {
@@ -312,10 +310,10 @@ export class GearListComponent implements OnInit {
         this.long2 = this.location.results[0].geometry.location.lng;
       },
       bad => {
-        console.log(
-          'Error in Gear Comp - fetching map geocode from Map Service '
-        );
-        console.log(bad);
+        // console.log(
+        //   'Error in Gear Comp - fetching map geocode from Map Service '
+        // );
+        // console.log(bad);
       }
     );
   }
@@ -330,8 +328,8 @@ export class GearListComponent implements OnInit {
           this.getUserLocation(this.loggedInUser.address);
         },
         no => {
-          console.error('Error getting logged in user');
-          console.error(no);
+          // console.error('Error getting logged in user');
+          // console.error(no);
         }
       );
   }
@@ -346,9 +344,9 @@ export class GearListComponent implements OnInit {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(rad(item.lat)) *
-        Math.cos(rad(this.lat2)) *
-        Math.sin(dLong / 2) *
-        Math.sin(dLong / 2);
+      Math.cos(rad(this.lat2)) *
+      Math.sin(dLong / 2) *
+      Math.sin(dLong / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
@@ -359,6 +357,6 @@ export class GearListComponent implements OnInit {
 }
 
 // tslint:disable-next-line: only-arrow-functions
-const rad = function(x: number) {
+const rad = function (x: number) {
   return (x * Math.PI) / 180;
 };

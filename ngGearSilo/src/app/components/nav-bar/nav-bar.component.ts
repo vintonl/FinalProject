@@ -10,9 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavBarComponent implements OnInit {
   isAdmin = false;
-  // count = 0;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.loadAdmin();
@@ -37,24 +36,20 @@ export class NavBarComponent implements OnInit {
         .subscribe(
           yes => {
             userLoggedIn = yes;
-            console.log(userLoggedIn);
+            // console.log(userLoggedIn);
             if (userLoggedIn.role === 'admin') {
-              console.log('admin is logged in');
-              this.isAdmin = true;
-
-              // if (this.count === 0) {
-              //   this.count++;
-              //   window.location.reload();
-              // }
+              // console.log('admin is logged in');
+              return this.isAdmin = true;
             }
           },
           no => {
             userLoggedIn = null;
-            console.error('Error getting logged admin');
-            console.error(no);
+            // console.error('Error getting logged admin');
+            // console.error(no);
+            this.isAdmin = false;
           }
         );
     }
-    return (this.isAdmin = false);
+    return this.isAdmin = false;
   }
 }
