@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavBarComponent implements OnInit {
   isAdmin = false;
+  loggedInUser: User;
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -36,6 +37,7 @@ export class NavBarComponent implements OnInit {
         .subscribe(
           yes => {
             userLoggedIn = yes;
+            this.loggedInUser = userLoggedIn;
             // console.log(userLoggedIn);
             if (userLoggedIn.role === 'admin') {
               // console.log('admin is logged in');

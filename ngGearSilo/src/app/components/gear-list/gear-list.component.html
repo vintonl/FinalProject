@@ -152,6 +152,13 @@
         </div>
 
 
+        <div class="userDisplayName" *ngIf="!selected && hideSearchResult">
+        <div class="alert alert-dark" role="alert">
+          {{loggedInUser.firstName}} {{loggedInUser.lastName}}
+        </div>
+        </div>
+
+
         <!-- CARDS -->
         <div *ngIf="!selected && hideSearchResult">
           <div class="container" *ngFor="let item of gearList | gearCategory: selectedType" (click)="selected = item">
