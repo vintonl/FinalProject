@@ -542,7 +542,7 @@
               <div class="modal-body">
                 <table>
                   <tr *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
-                    <td> {{msg.reservation.userShopper.firstName}} {{msg.message | titlecase}}</td>
+                    <td> {{msg.reservation.gearId.user.firstName}} {{msg.reservation.gearId.user.lastName}}: {{msg.message | titlecase}}</td>
                   </tr>
                 </table>
                 <div class="form-group">

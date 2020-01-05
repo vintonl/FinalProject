@@ -107,7 +107,6 @@ export class ProfileComponent implements OnInit {
   }
 
   createMessage(userMsg: NgForm) {
-    console.log(userMsg + this.message)
     const newMessage = {
       message: userMsg.value.message,
       reservation: {
@@ -123,7 +122,6 @@ export class ProfileComponent implements OnInit {
         this.reservationMsgSvc.create(newMessage, user).subscribe(
           next => {
            this.resMessage = next;
-           console.log(this.resMessage)
            this.resMessages.push(this.resMessage);
           },
           error => {
@@ -469,11 +467,9 @@ export class ProfileComponent implements OnInit {
 
   }
   onClickMessage(res: Reservation) {
-    console.log(res);
     this.selectedRes = res;
     this.reservationMessages();
     this.msgRcver = res.userShopper;
-    console.log(this.msgRcver);
   }
 
   createGearReview(gearReview: NgForm) {
