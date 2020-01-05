@@ -32,14 +32,14 @@
                 <label class="sliderLabel" placeholder="Distance">{{ searchDistance }} miles</label>
                 <!-- <input class="slider" style="margin-left: 200px; margin-top: 75px" [(ngModel)]="searchDistance" placeholder="Distance"
                 min={{min}} max={{max}} name="searchDistance" (change)="searchByDistance(); selected=null" type="range"> -->
-                <input type="range" min="0" max="2000" step="5" name="searchDistance" [(ngModel)]="searchDistance"
+                <input type="range" min="0" max="500" step="5" name="searchDistance" [(ngModel)]="searchDistance"
                   (change)="searchByDistance(); selected = null" class="slider" id="myRange" />
               </div>
             </div>
 
             <!-- RESET BUTTON -->
             <div>
-              <button style="margin-left: 520px; margin-top: -45px" class="btn btn-outline-secondary"
+              <button style="margin-left: 1020px; margin-top: -45px" class="btn btn-outline-secondary"
                 (click)="ngOnInit(); selectedType = 'All'">
                 <span style="margin: 2px" class="glyphicon glyphicon-th-list"></span>
                 See all Items
