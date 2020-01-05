@@ -345,12 +345,12 @@ input[type="range"] + .thumb.active {
 
 .topOfPage {
   position: fixed;
-  margin-top: 730px;
+  margin-top: 700px;
 }
 
 .userDisplayName {
   position: fixed;
-  margin-top: 730px;
+  margin-top: 680px;
   margin-left: 1500px;
 
 }
@@ -362,6 +362,7 @@ input[type="range"] + .thumb.active {
   color: #555;
   text-shadow: orange;
   background-color: whitesmoke;
+  cursor: pointer;
 
 }
 
