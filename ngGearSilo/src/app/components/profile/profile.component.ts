@@ -259,6 +259,23 @@ export class ProfileComponent implements OnInit {
     if (this.editedUser.phone === null || this.editedUser.phone === undefined) {
       this.editedUser.phone = this.loggedInUser.phone;
     }
+    // Address Update Below ... Needs backend work
+
+    // if (this.editedUser.address.address === null || this.editedUser.address.address === undefined) {
+    //   this.editedUser.address.address = this.loggedInUser.address.address;
+    // }
+    // if (this.editedUser.address.address2 === null || this.editedUser.address.address2 === undefined) {
+    //   this.editedUser.address.address2 = this.loggedInUser.address.address2;
+    // }
+    // if (this.editedUser.address.city === null || this.editedUser.address.city === undefined) {
+    //   this.editedUser.address.city = this.loggedInUser.address.city;
+    // }
+    // if (this.editedUser.address.state === null || this.editedUser.address.state === undefined) {
+    //   this.editedUser.address.state = this.loggedInUser.address.state;
+    // }
+    // if (this.editedUser.address.postalCode === null || this.editedUser.address.postalCode === undefined) {
+    //   this.editedUser.address.postalCode = this.loggedInUser.address.postalCode;
+    // }
 
     this.userService.updateUserAsUser(this.editedUser).subscribe(
       data => {
