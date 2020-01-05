@@ -18,6 +18,7 @@ export class ReviewOfLenderService {
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
+
   loadGearOwnerReviews(user: User) {
     const httpOptions = {
       headers: new HttpHeaders({

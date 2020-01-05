@@ -395,7 +395,7 @@
 
     <!-- Gear Review List Tab -->
 
-    <ngb-tab>
+    <ngb-tab [disabled]="true">
       <ng-template ngbTabTitle>
         <div (click)="selectedGearReview = null">Gear Reviews</div>
       </ng-template>
@@ -415,9 +415,9 @@
                 class="showHand"
                 (click)="selectedGearReview = review"
               >
-                <td>{{ gearReview.id }}</td>
-                <td>{{ gearReview.rating }}</td>
-                <td>{{ gearReview.active }}</td>
+                <td>{{ review.id }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.active }}</td>
               </tr>
             </tbody>
           </table>
