@@ -55,6 +55,7 @@ export class ProfileComponent implements OnInit {
   resMessage: ReservationMessage = new ReservationMessage();
   resMessages: ReservationMessage[] = [];
   message: string;
+  msgRcver: User = null;
 
   // Categories
 
@@ -83,7 +84,8 @@ export class ProfileComponent implements OnInit {
     // tslint:disable-next-line: align
     private resService: ReservationService,
     // tslint:disable-next-line: align
-    private reviewOfShopperSvc: ReviewOfShopperService) { }
+    private reviewOfShopperSvc: ReviewOfShopperService,
+              private reservationMsgSvc: ReservationMessageService) { }
 
 
 
@@ -101,16 +103,54 @@ export class ProfileComponent implements OnInit {
     } else {
       localStorage.removeItem('foo');
     }
-
     this.loadGear();
     this.loadReseravtions();
   }
 
   reservationMessages() {
-    this.myReservations.forEach(res => {
-      this.message = res.reservationMessage.message;
+    this.reservationMsgSvc.getMessageByUserName(this.loggedInUser).subscribe(
+      yes => {
+        this.myReservations.forEach(res => {
+          // if (res.reservationMessage.shopperUserId.id === this.selectedRes.userShopper.id) {
+            this.resMessages = yes;
+          // || res.gearId.user.username === this.loggedInUser.username
+            this.message = res.reservationMessage.message;
+          // }
+      },
+      no => {
+      }
+    );
     });
   }
+
+  createMessage(userMsg: NgForm) {
+    const newMessage = {
+      message: userMsg.value.message,
+      reservation: {
+        id: this.selectedRes.id,
+      }
+    };
+
+    let user = new User();
+
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      good => {
+        user = good;
+        this.reservationMsgSvc.create(newMessage, user).subscribe(
+          next => {
+           this.resMessage = next;
+           this.resMessages.push(this.resMessage);
+          },
+          error => {
+          }
+        );
+      },
+      error => {
+
+      }
+    );
+  }
+
 
   // LOAD THE GEAR
   loadGear() {
@@ -238,6 +278,23 @@ export class ProfileComponent implements OnInit {
     if (this.editedUser.phone === null || this.editedUser.phone === undefined) {
       this.editedUser.phone = this.loggedInUser.phone;
     }
+    // Address Update Below ... Needs backend work
+
+    // if (this.editedUser.address.address === null || this.editedUser.address.address === undefined) {
+    //   this.editedUser.address.address = this.loggedInUser.address.address;
+    // }
+    // if (this.editedUser.address.address2 === null || this.editedUser.address.address2 === undefined) {
+    //   this.editedUser.address.address2 = this.loggedInUser.address.address2;
+    // }
+    // if (this.editedUser.address.city === null || this.editedUser.address.city === undefined) {
+    //   this.editedUser.address.city = this.loggedInUser.address.city;
+    // }
+    // if (this.editedUser.address.state === null || this.editedUser.address.state === undefined) {
+    //   this.editedUser.address.state = this.loggedInUser.address.state;
+    // }
+    // if (this.editedUser.address.postalCode === null || this.editedUser.address.postalCode === undefined) {
+    //   this.editedUser.address.postalCode = this.loggedInUser.address.postalCode;
+    // }
 
     this.userService.updateUserAsUser(this.editedUser).subscribe(
       data => {
@@ -428,6 +485,11 @@ export class ProfileComponent implements OnInit {
   onClickReviewGear(res: any) {
     this.selectedRes = res;
 
+  }
+  onClickMessage(res: Reservation) {
+    this.selectedRes = res;
+    this.reservationMessages();
+    this.msgRcver = res.userShopper;
   }
 
   createGearReview(gearReview: NgForm) {
