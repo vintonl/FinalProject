@@ -348,4 +348,21 @@ input[type="range"] + .thumb.active {
   margin-top: 730px;
 }
 
+.userDisplayName {
+  position: fixed;
+  margin-top: 730px;
+  margin-left: 1500px;
+
+}
+
+.alert {
+  border-color: orange;
+  border-width: 1px;
+  border-style: solid;
+  color: #555;
+  text-shadow: orange;
+  background-color: whitesmoke;
+
+}
+
 
