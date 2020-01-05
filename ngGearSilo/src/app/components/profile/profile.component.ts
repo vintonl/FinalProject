@@ -55,6 +55,7 @@ export class ProfileComponent implements OnInit {
   resMessage: ReservationMessage = new ReservationMessage();
   resMessages: ReservationMessage[] = [];
   message: string;
+  msgRcver: User = null;
 
 
   // C O N S T R U C T O R
@@ -96,7 +97,7 @@ export class ProfileComponent implements OnInit {
           // if (res.reservationMessage.shopperUserId.id === this.selectedRes.userShopper.id) {
             this.resMessages = yes;
           // || res.gearId.user.username === this.loggedInUser.username
-          this.message = res.reservationMessage.message;
+            this.message = res.reservationMessage.message;
           // }
       },
       no => {
@@ -467,9 +468,12 @@ export class ProfileComponent implements OnInit {
     this.selectedRes = res;
 
   }
-  onClickMessage(res: any) {
+  onClickMessage(res: Reservation) {
+    console.log(res);
     this.selectedRes = res;
     this.reservationMessages();
+    this.msgRcver = res.userShopper;
+    console.log(this.msgRcver);
   }
 
   createGearReview(gearReview: NgForm) {

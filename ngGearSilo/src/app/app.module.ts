@@ -41,6 +41,7 @@ import { AboutComponent } from './components/about/about.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
 import { GearCategoryPipe } from './pipes/gear-category.pipe';
 import { ReviewComponent } from './components/review/review.component';
+import { ResMsgPipe } from './pipes/res-msg.pipe';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { ReviewComponent } from './components/review/review.component';
     MessagingComponent,
     GearCategoryPipe,
     ReviewComponent,
+    ResMsgPipe,
 
   ],
   imports: [
