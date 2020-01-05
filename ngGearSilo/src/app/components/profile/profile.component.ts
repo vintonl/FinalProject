@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
     private resService: ReservationService,
     // tslint:disable-next-line: align
     private reviewOfShopperSvc: ReviewOfShopperService,
-    private reservationMsgSvc: ReservationMessageService) { }
+              private reservationMsgSvc: ReservationMessageService) { }
 
 
 
@@ -85,16 +85,23 @@ export class ProfileComponent implements OnInit {
     } else {
       localStorage.removeItem('foo');
     }
-
     this.loadGear();
     this.loadReseravtions();
   }
 
   reservationMessages() {
-    this.myReservations.forEach(res => {
-      console.log(res);
-      console.log(this.message + ' and ' + res.reservationMessage.message);
-      this.message = res.reservationMessage.message;
+    this.reservationMsgSvc.getMessageByUserName(this.loggedInUser).subscribe(
+      yes => {
+        this.myReservations.forEach(res => {
+          // if (res.reservationMessage.shopperUserId.id === this.selectedRes.userShopper.id) {
+            this.resMessages = yes;
+          // || res.gearId.user.username === this.loggedInUser.username
+          this.message = res.reservationMessage.message;
+          // }
+      },
+      no => {
+      }
+    );
     });
   }
 
@@ -445,7 +452,7 @@ export class ProfileComponent implements OnInit {
   }
   onClickMessage(res: any) {
     this.selectedRes = res;
-
+    this.reservationMessages();
   }
 
   createGearReview(gearReview: NgForm) {
