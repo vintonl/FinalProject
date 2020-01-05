@@ -61,6 +61,7 @@ export class Gear {
     this.active = active;
     this.lat = lat;
     this.long = long;
+    this.categories = categories;
 
   }
 }

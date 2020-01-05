@@ -66,6 +66,7 @@ public class GearServiceImpl implements GearService {
 			updateGear.setImageUrl3(gear.getImageUrl3());
 			updateGear.setAvailable(gear.getAvailable());
 			updateGear.setActive(gear.getActive());
+			updateGear.setCategories(gear.getCategories());
 			gearRepo.saveAndFlush(updateGear);
 		}
 		

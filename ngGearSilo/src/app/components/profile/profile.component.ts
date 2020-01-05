@@ -188,6 +188,9 @@ export class ProfileComponent implements OnInit {
     this.updatedGear.id = this.selecteditem.id;
     this.updatedGear.active = true;
 
+    if (this.updatedGear.categories === null || this.updatedGear.categories === undefined) {
+      this.updatedGear.categories = this.selecteditem.categories;
+    }
     if (this.updatedGear.name === null || this.updatedGear.name === undefined) {
       this.updatedGear.name = this.selecteditem.name;
     }
