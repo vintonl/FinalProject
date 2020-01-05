@@ -334,6 +334,11 @@ export class GearListComponent implements OnInit {
       );
   }
 
+  topOfPage() {
+    window.scroll(0, 0);
+  }
+
+
   // HAVERSINE FORMULA TO GET STRAIGHT_LINE DISTANCE
   getDistance(lat, long, item) {
     const R = 6378137; // Earth’s mean radius in meter
@@ -360,3 +365,4 @@ export class GearListComponent implements OnInit {
 const rad = function (x: number) {
   return (x * Math.PI) / 180;
 };
+

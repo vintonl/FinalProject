@@ -145,6 +145,13 @@
           </div>
         </div>
 
+        <div *ngIf="!selected && hideSearchResult">
+          <div class="topOfPage">
+            <button class="btn btn-outline-secondary" (click)="topOfPage()">Top of Page</button>
+          </div>
+        </div>
+
+
         <!-- CARDS -->
         <div *ngIf="!selected && hideSearchResult">
           <div class="container" *ngFor="let item of gearList | gearCategory: selectedType" (click)="selected = item">
@@ -216,6 +223,7 @@
           </div>
         </div>
 
+
         <!-- RESERVATION PAGE -->
         <div *ngIf="selected">
           <div class="list-group">
@@ -286,7 +294,9 @@
                   <div class="col-md-8">
                     <div class="page-header">
                       <h1>
-                        <small class="pull-right">{{ selectedGearReviews.length }} Review(s)</small>
+                        <small *ngIf="selectedGearReviews && selectedGearReviews.length === 1" class="pull-right">{{ selectedGearReviews.length }} Review</small>
+                        Comments
+                        <small *ngIf="selectedGearReviews && selectedGearReviews.length > 1" class="pull-right">{{ selectedGearReviews.length }} Reviews</small>
                         Comments
                       </h1>
                     </div>
@@ -322,8 +332,6 @@
             </div>
           </div>
         </div>
-        <div class="col-1"></div>
       </div>
     </div>
   </div>
-</div>
