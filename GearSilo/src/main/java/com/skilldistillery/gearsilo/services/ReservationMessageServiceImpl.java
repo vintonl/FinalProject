@@ -67,6 +67,8 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 			reservation = resOpt.get();
 			if (user.getId() == id || user.getRole().equals("admin")) {
 				resMsg.setReservation(reservation);
+				Integer shopperId = resOpt.get().getUserShopper().getId();
+				resMsg.setShopperUserId(shopperId);
 			}
 			resMsgRepo.saveAndFlush(resMsg);
 		}
@@ -85,6 +87,8 @@ public class ReservationMessageServiceImpl implements ReservationMessageService 
 			if (user.getId() == id || user.getRole().equals("admin")) {
 				Optional<ReservationMessage> optRes = resMsgRepo.findById(resMsgId);
 				resMsg.setReservation(reservation);
+				Integer shopperId = resOpt.get().getUserShopper().getId();
+				resMsg.setShopperUserId(shopperId);
 				if (optRes.isPresent()) {
 					existing = optRes.get();
 					existing.setMessage(resMsg.getMessage());
