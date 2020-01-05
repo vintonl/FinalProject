@@ -1,3 +1,5 @@
+import { ReviewOfShopperService } from './../../services/review-of-shopper.service';
+import { ReviewOfLenderService } from './../../services/review-of-lender.service';
 import { ReviewOfGear } from './../../models/review-of-gear';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,7 +17,6 @@ import { ReservationService } from 'src/app/services/reservation.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-
   // Users
   users: User[] = [];
   selectedUser: User = null;
@@ -34,7 +35,7 @@ export class AdminComponent implements OnInit {
   selectedResv: Reservation = null;
 
   // Reviews of Gear
-  gearReviewList: ReviewOfGear[] =[];
+  gearReviewList: ReviewOfGear[] = [];
   gearReview: ReviewOfGear = null;
   selectedGearReview: ReviewOfGear = null;
 
@@ -45,8 +46,9 @@ export class AdminComponent implements OnInit {
     private gearSvc: GearService,
     private resvSvc: ReservationService,
     private authSvc: AuthService,
+    private revSvc: ReviewOfLenderService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.authSvc
@@ -59,16 +61,17 @@ export class AdminComponent implements OnInit {
             this.router.navigateByUrl('/login');
           }
         },
-        error => { }
+        error => {}
       );
 
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
+    // this.loadReviews();
   }
 
   // Admin Check here not good
-  adminLoggedInCheck() { }
+  adminLoggedInCheck() {}
 
   // Users **************************
 
@@ -238,7 +241,18 @@ export class AdminComponent implements OnInit {
 
   // Gear Reviews **************************
 
-  public updatedGearReviewEnabled() {
-
+  public loadReviews() {
+    // this.revSvc.index().subscribe(
+    //   good => {
+    //     console.log(good);
+    //     this.gearReviewList = good;
+    //   },
+    //   bad => {
+    //     console.log(bad);
+    //     console.log('loadReviews Error');
+    //   }
+    // );
   }
+
+  public updatedGearReviewEnabled() {}
 }
