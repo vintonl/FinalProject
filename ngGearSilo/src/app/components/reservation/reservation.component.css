@@ -44,3 +44,9 @@
   color: orange;
   background-color: white;
 }
+
+.pic {
+  height: 50px;
+  width: 50px;
+  border-radius: 45%;
+}
