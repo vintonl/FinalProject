@@ -53,6 +53,7 @@
   /* transition-delay: 0.1s; */
   transform: scale(1.01);
   transform-style: preserve-3d;
+  transition: .1s ease-in-out;
 }
 
 .list-group {
@@ -346,6 +347,7 @@ input[type="range"] + .thumb.active {
 .topOfPage {
   position: fixed;
   margin-top: 700px;
+  transition: 1s ease-in-out;
 }
 
 .userDisplayName {
@@ -364,6 +366,31 @@ input[type="range"] + .thumb.active {
   background-color: whitesmoke;
   cursor: pointer;
 
+}
+
+
+.topOfPage:hover {
+  transition: 1s ease-in-out;
+  background: orange;
+  border-radius: 5px;
+}
+
+.topOfPage:hover svg {
+  stroke-dashoffset: -480;
+}
+
+.topOfPage span {
+  color: white;
+  font-size: 18px;
+}
+
+
+.alert:hover {
+  transition: .1s ease-in-out;
+  background-color: white;
+  color: orange;
+  border-color: grey;
+  transform: rotate3d();
 }
 
 
