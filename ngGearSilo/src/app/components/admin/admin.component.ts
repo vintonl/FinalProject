@@ -1,3 +1,4 @@
+import { ReviewOfGear } from './../../models/review-of-gear';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Reservation } from './../../models/reservation';
@@ -14,19 +15,28 @@ import { ReservationService } from 'src/app/services/reservation.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+
+  // Users
   users: User[] = [];
   selectedUser: User = null;
   user: User = null;
   updateUser: User = null;
   disableUser: User = null;
 
+  // Gear
   gearList: Gear[] = [];
   gear: Gear = null;
   selectedGear: Gear = null;
 
+  // Reservations
   resvList: Reservation[] = [];
   resv: Reservation = null;
   selectedResv: Reservation = null;
+
+  // Reviews of Gear
+  gearReviewList: ReviewOfGear[] =[];
+  gearReview: ReviewOfGear = null;
+  selectedGearReview: ReviewOfGear = null;
 
   admin: User = null;
 
@@ -60,7 +70,7 @@ export class AdminComponent implements OnInit {
   // Admin Check here not good
   adminLoggedInCheck() {}
 
-  // Users
+  // Users **************************
 
   public loadUsers() {
     const userList: [] = [];
@@ -119,7 +129,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  // Gear
+  // Gear **************************
 
   public loadGear() {
     // this.clearSearch();
@@ -169,7 +179,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  // RESERVATIONS
+  // RESERVATIONS **************************
 
   public loadReservations() {
     this.resvSvc.index().subscribe(
@@ -224,5 +234,11 @@ export class AdminComponent implements OnInit {
       }
     }
     return count;
+  }
+
+  // Gear Reviews **************************
+
+  public updatedGearReviewEnabled() {
+
   }
 }
