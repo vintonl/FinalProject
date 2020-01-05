@@ -27,3 +27,7 @@
 .nb-txt {
   font-size: 25px !important;
 }
+
+.glyphicon-cog {
+  color: orange;
+}
