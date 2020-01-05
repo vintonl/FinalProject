@@ -48,9 +48,6 @@ public class ReservationMessageController {
 	@PostMapping("users/{uid}/reservation/{rid}/reservationmessages")
 	public ReservationMessage createReservationMessage(@RequestBody ReservationMessage resMsg, @PathVariable int uid,
 			@PathVariable int rid, HttpServletRequest req, HttpServletResponse res, Principal principal) {
-
-		System.out.println("inside constroller add review");
-
 		try {
 			resMsgSvc.createReservationMessage(principal.getName(), resMsg, uid, rid);
 			res.setStatus(201);
