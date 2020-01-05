@@ -43,9 +43,9 @@ export class GearListComponent implements OnInit {
   distanceFromGear;
   lat2;
   long2;
-  searchDistance = 4000;
+  searchDistance = 500;
   min = 0;
-  max = 2000;
+  max = 200;
 
   // Categories
 
@@ -83,7 +83,7 @@ export class GearListComponent implements OnInit {
     this.hideSearchResult = true;
     this.selected = null;
     this.searchedGear = [];
-    this.searchDistance = 2000;
+    this.searchDistance = 50;
     this.loadUser();
     this.loadGear();
     this.loadReseravtions();
