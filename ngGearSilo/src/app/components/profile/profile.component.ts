@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit {
   resMessages: ReservationMessage[] = [];
   message: string;
   msgRcver: User = null;
+  isAdmin = false;
 
   // Categories
 
@@ -105,6 +106,7 @@ export class ProfileComponent implements OnInit {
     }
     this.loadGear();
     this.loadReseravtions();
+    this.loadAdmin();
   }
 
   reservationMessages() {
@@ -278,23 +280,6 @@ export class ProfileComponent implements OnInit {
     if (this.editedUser.phone === null || this.editedUser.phone === undefined) {
       this.editedUser.phone = this.loggedInUser.phone;
     }
-    // Address Update Below ... Needs backend work
-
-    // if (this.editedUser.address.address === null || this.editedUser.address.address === undefined) {
-    //   this.editedUser.address.address = this.loggedInUser.address.address;
-    // }
-    // if (this.editedUser.address.address2 === null || this.editedUser.address.address2 === undefined) {
-    //   this.editedUser.address.address2 = this.loggedInUser.address.address2;
-    // }
-    // if (this.editedUser.address.city === null || this.editedUser.address.city === undefined) {
-    //   this.editedUser.address.city = this.loggedInUser.address.city;
-    // }
-    // if (this.editedUser.address.state === null || this.editedUser.address.state === undefined) {
-    //   this.editedUser.address.state = this.loggedInUser.address.state;
-    // }
-    // if (this.editedUser.address.postalCode === null || this.editedUser.address.postalCode === undefined) {
-    //   this.editedUser.address.postalCode = this.loggedInUser.address.postalCode;
-    // }
 
     this.userService.updateUserAsUser(this.editedUser).subscribe(
       data => {
@@ -349,6 +334,7 @@ export class ProfileComponent implements OnInit {
             this.shopperReservations.push(res);
           }
         });
+        console.log('SHOPPER RES**************' + this.shopperReservations);
       },
       (didntWork) => {
       }
@@ -489,7 +475,12 @@ export class ProfileComponent implements OnInit {
   onClickMessage(res: Reservation) {
     this.selectedRes = res;
     this.reservationMessages();
-    this.msgRcver = res.userShopper;
+    if (res.userShopper.id !== this.loggedInUser.id) {
+      this.msgRcver = res.userShopper;
+    }
+    else {
+      this.msgRcver = res.gearId.user;
+    }
   }
 
   createGearReview(gearReview: NgForm) {
@@ -543,6 +534,34 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+  loadAdmin() {
+    let userLoggedIn: User = null;
+
+    if (this.authService.getCredentials() !== null) {
+      this.authService
+        .getUserByUsername(this.authService.getLoggedInUsername())
+        .subscribe(
+          yes => {
+            userLoggedIn = yes;
+            this.loggedInUser = userLoggedIn;
+            // console.log(userLoggedIn);
+            if (userLoggedIn.role === 'admin') {
+              // console.log('admin is logged in');
+              return this.isAdmin = true;
+            }
+          },
+          no => {
+            userLoggedIn = null;
+            // console.error('Error getting logged admin');
+            // console.error(no);
+            this.isAdmin = false;
+          }
+        );
+    }
+    return this.isAdmin = false;
+  }
+
 }
 
 

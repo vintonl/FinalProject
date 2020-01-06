@@ -58,13 +58,15 @@
           </div>
         </div>
 
-
         <!-- MY RESERVATIONS BUTTON -->
+        <hr>
         <button data-toggle="modal" data-target="#myGearReservations" class="btn btn-defult"><i aria-hidden="true"></i>
           Gear I am lending </button>
         <button data-toggle="modal" data-target="#userResModal" class="btn btn-defult"><i aria-hidden="true"></i>
           Gear I am renting</button>
-
+        <hr>
+        <button *ngIf="isAdmin" routerLink="/admin" class="btn btn-defult"><i aria-hidden="true"></i>
+          Admin Portal</button>
 
       </div>
       <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
@@ -575,6 +577,38 @@
           </div>
         </div>
       </form>
+     <form #userMsg="ngForm" ngNativeValidate id="registerForm" class="text-left">
+        <div class="modal fade" id="MessageModal2" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Messages {{loggedInUser.firstName}} </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table>
+                  <tr *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
+                    <td> {{msg.reservation.gearId.user.firstName}} {{msg.reservation.gearId.user.lastName}}: {{msg.message | titlecase}}</td>
+                  </tr>
+                </table>
+                <div class="form-group">
+                  <label for="message">Message:
+                    <textarea cols="40" rows="5" class="form-control" id="message" name="message"
+                      placeholder="message" ngModel required></textarea></label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-save" (click)="createMessage(userMsg)"
+                  data-dismiss="modal">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
 
 
       <!-- MY GEAR I AM RENTING RESERVTION MODAL -->
@@ -596,7 +630,7 @@
                 <col width="80px">
                 <col width="80px">
                 <col width="80px">
-                <col width="150px">
+                <col width="100px">
                 <col width="120px">
 
                 <thead>
@@ -646,7 +680,7 @@
                       </button></td>
                     <td>
                       <button type="button" class="btn btn-secondary" data-toggle="modal"
-                        data-target="#MessageModal" (click)="onClickMessage(res)">
+                        data-target="#MessageModal2" (click)="onClickMessage(res)">
                         Message
                       </button>
                     </td>

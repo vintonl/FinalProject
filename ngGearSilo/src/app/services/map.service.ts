@@ -9,7 +9,7 @@ import { Gear } from '../models/gear';
 })
 export class MapService {
 
-  private key = 'AIzaSyDn9n7EjBjBQH96FwmLXV37zuw5IN5PRII';
+  private key = 'AIzaSy';
 
 
   private gmapsUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
