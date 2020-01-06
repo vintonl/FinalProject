@@ -1,4 +1,4 @@
-## GearSilo
+## GearSilo - Peer-To-Peer Outdoor Gear Rentals
 
 ## Angular and RESTful API Software Application
 
@@ -47,40 +47,34 @@ Admin Account:
 
 ### Technologies used:
 
-Java, Java Persistence API, Spring Boot, Spring Security, Spring STS, Gradle, SQL, MySQL Workbench, TypeScript, Angular, Visual Studio Code, HTML, CSS, Bootstrap, Material, Apache Tomcat, AWS, Postman Atom, Git, GitHub, Slack, and Trello.
+Java 1.8 / EE, Java Persistence API (JPA), REST API, Spring Boot, Spring Security, JUnit, Gradle, Hibernate, JSON, TypeScript, Angular, Visual Studio Code, HTML5, CSS, Bootstrap, Material, XML, MySQL Workbench, Postman, Apache Tomcat, Amazon Web Services (AWS), Atom, Git, GitHub, Trello, and Slack.
 
 ### Topics implemented:
 
-Dynamic Web Applications using Spring Boot.
-
-Tomcat 8 on AWS EC2 Instance.
-
-JSP Standard Tag Library to generate HTML.
-
-CCS and Bootstrap to make it web and mobile-friendly.
-
-Object-Relational Mapping (ORM).
-
-Relational Database: SQL Database creation using MySQL Workbench.
-
-Java Libraries: SQL, List, and handling exceptions.
-
-Object-Oriented Programming in Java: Abstraction, Polymorphism, Inheritance, and Encapsulation.
-
-Test Driven Development using JUNIT Juniper.
+-   Build a front-end with TypeScript, Angular, and VS Code.
+-   Send asynchronous requests to Java controllers with HTTP to perform CRUD RESTfully.
+-   Consume and parse JSON responses with Angular.
+-   Dynamic Web Applications using Spring Boot.
+-   Tomcat 8 on AWS EC2 Instance.
+-   CCS, Material, and Bootstrap to make it web and mobile-friendly.
+-   Object-Relational Mapping (ORM).
+-   Relational Database: large multi-table SQL Database creation using MySQL Workbench.
+-   Java Libraries: SQL, List, and handling exceptions.
+-   Object-Oriented Programming in Java: Abstraction, Polymorphism, Inheritance, and Encapsulation.
+-   Test Driven Development using JUNIT Juniper.
 
 ### Lessons learned:
 
 This project helped us better grasp the capabilities of Dynamic Web Applications by allowing us to better learn how to:
 * Build a multi-table database using MySQL Workbench.
-* Be an Agile development team
+* Be an Agile and Scrum development team
 * Use branching on Git/GitHub
-* Understand Spring Application Contexts.
-* Use the Java Persistence API to generate HTML.
-* Build a Dynamic Web Applications using Spring MVC.
-* CCS and Bootstrap to make it web and mobile-friendly.
+* Understand Spring Security.
+* Use the Angular to generate HTML.
+* Build a Dynamic Web Applications using Spring Boot RESTful API endpoints.
+* CCS, Material, and Bootstrap to make it web and mobile-friendly.
 
-### Routes
+### REST API Routes
 
 | Return Type         | Route                                                       | Functionality                                                    |
 | ------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------- |
