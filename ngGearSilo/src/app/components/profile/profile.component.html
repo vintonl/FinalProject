@@ -517,12 +517,12 @@
                         <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}"
                           name="updatedAt" [(ngModel)]="res.updatedAt">
                         <button class="btn btn-secondary" type="submit" (click)="onClickReservation(res)">
-                          {{res.approved}}</button>
+                          {{res.approved?'Yes':'No'}}</button>
 
                       </td>
                       <td>
                         <button class="btn btn-secondary" type="submit" (click)="onClickCompletedReservation(res)">
-                          {{res.completed}}</button>
+                          {{res.completed?'Yes':'No'}}</button>
                       </td>
                       <td>
                         <button type="button" class="btn btn-secondary" data-toggle="modal"
@@ -636,7 +636,7 @@
                         <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}"
                           name="updatedAt" [(ngModel)]="res.updatedAt">
 
-                        <h4><span class="badge badge-light">{{res.completed}}</span></h4>
+                        <h4><span class="badge badge-light">{{res.completed?'Yes':'No'}}</span></h4>
 
                       </div>
                     </td>
