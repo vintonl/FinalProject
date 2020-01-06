@@ -9,18 +9,20 @@ export class ResMsgPipe implements PipeTransform {
 
   transform(resMsg: ReservationMessage[], thisUser: User, otherUser: User): ReservationMessage[] {
     const result: ReservationMessage[] = [];
-    console.log('My ID ' + thisUser.id);
-    console.log('Their ID ' + otherUser.id);
 
     resMsg.forEach((msg) => {
-      console.log('Shopper ID ' + msg.shopperUserId.id);
-      console.log('Shopper ' + msg.shopperUserId);
-      console.log('Owner ID ' + msg.reservation.gearId.user.id);
       if((msg.reservation.gearId.user.id === thisUser.id) && (msg.reservation.userShopper.id === otherUser.id)) {
         result.push(msg);
-        console.log('Adding msg');
+      }
+      console.log('user shopper id inside**********' + msg.reservation.userShopper.id);
+      console.log('user gearId inside**********' + msg.reservation.gearId.user.id);
+      if((msg.reservation.gearId.user.id === otherUser.id) && (msg.reservation.userShopper.id === thisUser.id)) {
+        result.push(msg);
       }
     });
+    console.log('this user ***' + thisUser.id);
+    console.log('other user *****' + otherUser.id);
+
     return result;
   }
 
