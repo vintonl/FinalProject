@@ -92,9 +92,14 @@ export class GearListComponent implements OnInit {
   loadGear() {
     this.gearSrv.index().subscribe(
       aGoodThingHappened => {
-        // console.log('in a aGoodThingHappened Gear');
-        // console.log(aGoodThingHappened);
-        this.gearList = aGoodThingHappened;
+
+        aGoodThingHappened.forEach(gear => {
+          if (gear.active) {
+            this.gearList.push(gear);
+          }
+        }
+        );
+
         this.gearList.forEach(gear => {
           if (
             gear.user.imageUrl === null ||
