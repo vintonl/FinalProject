@@ -301,6 +301,7 @@
                   <div class="col-md-8">
                     <div class="page-header">
                       <h1>
+                        <small *ngIf="selectedGearReviews && selectedGearReviews.length === 1" class="pull-right">{{ selectedGearReviews.length }} Review</small>
                         <small *ngIf="selectedGearReviews && selectedGearReviews.length > 1" class="pull-right">{{ selectedGearReviews.length }} Reviews</small>
                         Comments
                       </h1>
