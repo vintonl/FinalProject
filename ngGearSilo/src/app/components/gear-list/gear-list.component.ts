@@ -17,7 +17,6 @@ import { MapService } from 'src/app/services/map.service';
 import { fadeInContent } from '@angular/material';
 import { UserService } from 'src/app/services/user.service';
 
-
 @Component({
   selector: 'app-gear-list',
   templateUrl: './gear-list.component.html',
@@ -44,9 +43,9 @@ export class GearListComponent implements OnInit {
   distanceFromGear;
   lat2;
   long2;
-  searchDistance = 4000;
+  searchDistance = 200;
   min = 0;
-  max = 2000;
+  max = 200;
 
   // Categories
 
@@ -67,19 +66,24 @@ export class GearListComponent implements OnInit {
   ];
   selectedType = 'All';
 
-
   // Constructor
-  constructor(private gearSrv: GearService, private resService: ReservationService,
+  constructor(
+    private gearSrv: GearService,
+    private resService: ReservationService,
     // tslint:disable-next-line: align
-    private router: Router, private authService:
-      // tslint:disable-next-line: align
-      AuthService, private revOfLenderService: ReviewOfLenderService, private mapService: MapService, private userSVC: UserService) { }
+    private router: Router,
+    private authService: // tslint:disable-next-line: align
+      AuthService,
+    private revOfLenderService: ReviewOfLenderService,
+    private mapService: MapService,
+    private userSVC: UserService
+  ) { }
 
   ngOnInit() {
     this.hideSearchResult = true;
     this.selected = null;
     this.searchedGear = [];
-    this.searchDistance = 2000;
+    this.searchDistance = 50;
     this.loadUser();
     this.loadGear();
     this.loadReseravtions();
@@ -87,17 +91,25 @@ export class GearListComponent implements OnInit {
 
   loadGear() {
     this.gearSrv.index().subscribe(
-      (aGoodThingHappened) => {
-        console.log('in a aGoodThingHappened Gear');
-        console.log(aGoodThingHappened);
+      aGoodThingHappened => {
+        // console.log('in a aGoodThingHappened Gear');
+        // console.log(aGoodThingHappened);
         this.gearList = aGoodThingHappened;
         this.gearList.forEach(gear => {
-
-          if (gear.user.imageUrl === null || gear.user.imageUrl === undefined || gear.user.imageUrl.length < 10) {
+          if (
+            gear.user.imageUrl === null ||
+            gear.user.imageUrl === undefined ||
+            gear.user.imageUrl.length < 10
+          ) {
             gear.user.imageUrl = 'https://i.imgur.com/zVdNnTx.png';
           }
+          // if (this.loggedInUser.username === gear.user.username) {
+
+          //   this.gearList.splice();
+
+          // }
           this.revOfLenderService.loadGearOwnerReviews(gear.user).subscribe(
-            (good) => {
+            good => {
               let ratingAvg = 0;
               // tslint:disable-next-line: no-shadowed-variable
               let count = 0;
@@ -111,36 +123,40 @@ export class GearListComponent implements OnInit {
                 }
               }
               gear.user.userLenderRating = ratingAvg / count;
-
-              this.getLocation(gear);
+              // ***********************************
+              // DO NOT DELETE
+              // this.getLocation(gear);
+              // *************************************
             },
-            (bad) => {
-              console.log('Error in GearListComponent.loadGear() loading reviews of lender');
-              console.log(bad);
+            bad => {
+              // console.log('Error in GearListComponent.loadGear() loading reviews of lender');
+              // console.log(bad);
             }
           );
           gear.user.userLenderRating = 0;
         });
       },
-      (didntWork) => {
-        console.log(didntWork);
+      didntWork => {
+        // console.log(didntWork);
       }
     );
   }
 
   displayGearItem(gear: Gear) {
     this.selected = gear;
-    this.getLocation(this.selected);
+    // this.getLocation(this.selected);
     this.gearSrv.selected = gear;
     this.searchedGear.length = 0;
     this.gearSrv.loadGearReviews().subscribe(
-      (goodRequest) => {
+      goodRequest => {
         this.selectedGearReviews = goodRequest;
-        this.getLocation(this.selected);
+        // this.getLocation(this.selected);
       },
-      (bad) => {
-        console.log('Error in GearListComponent.displayGearItem() loading gear reviews');
-        console.log(bad);
+      bad => {
+        // console.log(
+        //   'Error in GearListComponent.displayGearItem() loading gear reviews'
+        // );
+        // console.log(bad);
       }
     );
   }
@@ -151,17 +167,22 @@ export class GearListComponent implements OnInit {
 
   search() {
     this.searchedGear = [];
-    console.log(this.keyword);
-
+    // console.log(this.keyword);
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
       this.getLocation(this.gearList[i]);
-      if (this.gearList[i].name.toLowerCase().includes(this.keyword.toLowerCase())) {
+      if (
+        this.gearList[i].name.toLowerCase().includes(this.keyword.toLowerCase())
+      ) {
         this.searchedGear.push(this.gearList[i]);
         continue;
       }
-      if (this.gearList[i].description.toLowerCase().includes(this.keyword.toLowerCase())) {
+      if (
+        this.gearList[i].description
+          .toLowerCase()
+          .includes(this.keyword.toLowerCase())
+      ) {
         this.searchedGear.push(this.gearList[i]);
         continue;
       }
@@ -169,19 +190,35 @@ export class GearListComponent implements OnInit {
       //   this.searchedGear.push(this.gearList[i]);
       //   continue;
       // }
-      if (this.gearList[i].user.firstName.toLowerCase().includes(this.keyword.toLowerCase())) {
+      if (
+        this.gearList[i].user.firstName
+          .toLowerCase()
+          .includes(this.keyword.toLowerCase())
+      ) {
         this.searchedGear.push(this.gearList[i]);
         continue;
       }
-      if (this.gearList[i].user.lastName.toLowerCase().includes(this.keyword.toLowerCase())) {
+      if (
+        this.gearList[i].user.lastName
+          .toLowerCase()
+          .includes(this.keyword.toLowerCase())
+      ) {
         this.searchedGear.push(this.gearList[i]);
         continue;
       }
-      if (this.gearList[i].user.address.city.toLowerCase().includes(this.keyword.toLowerCase())) {
+      if (
+        this.gearList[i].user.address.city
+          .toLowerCase()
+          .includes(this.keyword.toLowerCase())
+      ) {
         this.searchedGear.push(this.gearList[i]);
         continue;
       }
-      if (this.gearList[i].user.address.state.toLowerCase().includes(this.keyword.toLowerCase())) {
+      if (
+        this.gearList[i].user.address.state
+          .toLowerCase()
+          .includes(this.keyword.toLowerCase())
+      ) {
         this.searchedGear.push(this.gearList[i]);
         continue;
       }
@@ -190,8 +227,8 @@ export class GearListComponent implements OnInit {
       }
     }
 
-    console.log("printing search results");
-    console.log(this.searchedGear.length);
+    // console.log('printing search results');
+    // console.log(this.searchedGear.length);
 
     this.hideSearchResult = false;
 
@@ -203,7 +240,7 @@ export class GearListComponent implements OnInit {
 
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.gearList.length; i++) {
-      console.log(this.gearList[i].distance);
+      // console.log(this.gearList[i].distance);
       const distanceNumber = +this.gearList[i].distance;
 
       if (distanceNumber <= this.searchDistance) {
@@ -212,7 +249,6 @@ export class GearListComponent implements OnInit {
     }
 
     this.hideSearchResult = false;
-
   }
 
   openForm() {
@@ -227,35 +263,32 @@ export class GearListComponent implements OnInit {
   loadReseravtions() {
     this.resList = [];
     this.resService.index().subscribe(
-      (aGoodThingHappened) => {
+      aGoodThingHappened => {
         console.log(aGoodThingHappened);
 
         this.resList = aGoodThingHappened;
         this.resList.forEach(res => {
-
-          if (res.lenderReview.rating > 0 ) {
-
+          if (res.lenderReview.rating > 0) {
             this.rating = res.lenderReview.rating;
             this.averageRating = this.rating;
           }
         });
       },
-      (didntWork) => {
-        console.log('in load res from profile ts didnt work');
-        console.log(didntWork);
+      didntWork => {
+        // console.log('in load res from profile ts didnt work');
+        // console.log(didntWork);
       }
     );
-
   }
 
   // GETS LOCATION OF EACH ITEM AND CALLS THE CALCULATE DISTANCE METHOD
   getLocation(item: Gear) {
-    console.log('inside get location');
+    // console.log('inside get location');
     // this.lat = null;
     // this.long = null;
 
     this.mapService.getAll(item).subscribe(
-      (goodRequest) => {
+      goodRequest => {
         this.location = goodRequest;
 
         item.lat = this.location.results[0].geometry.location.lat;
@@ -263,77 +296,83 @@ export class GearListComponent implements OnInit {
         this.getDistance(this.lat, this.long, item);
         this.lat = item.lat;
         this.long = item.long;
-
       },
-      (bad) => {
-        console.log('Error in Gear Comp - fetching map geocode from Map Service ');
-        console.log(bad);
+      bad => {
+        // console.log(
+        //   'Error in Gear Comp - fetching map geocode from Map Service '
+        // );
+        // console.log(bad);
       }
     );
   }
 
   getUserLocation(add: Address) {
-    console.log('inside get location');
+    // console.log('inside get location');
 
     this.mapService.getUserAddress(add).subscribe(
-      (goodRequest) => {
+      goodRequest => {
         this.location = goodRequest;
 
         this.lat2 = this.location.results[0].geometry.location.lat;
         this.long2 = this.location.results[0].geometry.location.lng;
       },
-      (bad) => {
-        console.log('Error in Gear Comp - fetching map geocode from Map Service ');
-        console.log(bad);
+      bad => {
+        // console.log(
+        //   'Error in Gear Comp - fetching map geocode from Map Service '
+        // );
+        // console.log(bad);
       }
     );
   }
 
   // LOADS THR LOGGED IN USER AND GETS THEIR LOCATION
   loadUser() {
-    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
-      yes => {
-        this.loggedInUser = yes;
-        this.getUserLocation(this.loggedInUser.address);
-
-      },
-      no => {
-        console.error('Error getting logged in user');
-        console.error(no);
-      }
-    );
+    this.authService
+      .getUserByUsername(this.authService.getLoggedInUsername())
+      .subscribe(
+        yes => {
+          this.loggedInUser = yes;
+          // ***************************
+          // DO NOT DELETE BELOW
+          // this.getUserLocation(this.loggedInUser.address);
+          // **********************************
+        },
+        no => {
+          // console.error('Error getting logged in user');
+          // console.error(no);
+        }
+      );
   }
 
+  topOfPage() {
+    window.scroll(0, 0);
+  }
 
 
   // HAVERSINE FORMULA TO GET STRAIGHT_LINE DISTANCE
   getDistance(lat, long, item) {
-
     const R = 6378137; // Earth’s mean radius in meter
     const dLat = rad(this.lat2 - item.lat);
 
     const dLong = rad(this.long2 - item.long);
 
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(rad(item.lat)) * Math.cos(rad(this.lat2)) *
-      Math.sin(dLong / 2) * Math.sin(dLong / 2);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(rad(item.lat)) *
+      Math.cos(rad(this.lat2)) *
+      Math.sin(dLong / 2) *
+      Math.sin(dLong / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
 
-
-    this.distanceFromGear = (d * 0.00062137);
+    this.distanceFromGear = d * 0.00062137;
     item.distance = this.distanceFromGear;
-
-
   }
 }
 
 // tslint:disable-next-line: only-arrow-functions
 const rad = function (x: number) {
-  return x * Math.PI / 180;
-
+  return (x * Math.PI) / 180;
 };
-
-
 

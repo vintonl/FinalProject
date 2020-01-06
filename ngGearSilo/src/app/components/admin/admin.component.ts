@@ -1,32 +1,43 @@
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Reservation } from './../../models/reservation';
-import { GearService } from 'src/app/services/gear.service';
-import { UserService } from './../../services/user.service';
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { Gear } from 'src/app/models/gear';
-import { ReservationService } from 'src/app/services/reservation.service';
+import { ReviewOfShopperService } from "./../../services/review-of-shopper.service";
+import { ReviewOfLenderService } from "./../../services/review-of-lender.service";
+import { ReviewOfGear } from "./../../models/review-of-gear";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
+import { Reservation } from "./../../models/reservation";
+import { GearService } from "src/app/services/gear.service";
+import { UserService } from "./../../services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { User } from "src/app/models/user";
+import { Gear } from "src/app/models/gear";
+import { ReservationService } from "src/app/services/reservation.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: "app-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.css"]
 })
 export class AdminComponent implements OnInit {
+  // Users
   users: User[] = [];
   selectedUser: User = null;
   user: User = null;
   updateUser: User = null;
   disableUser: User = null;
 
+  // Gear
   gearList: Gear[] = [];
   gear: Gear = null;
   selectedGear: Gear = null;
 
+  // Reservations
   resvList: Reservation[] = [];
   resv: Reservation = null;
   selectedResv: Reservation = null;
+
+  // Reviews of Gear
+  gearReviewList: ReviewOfGear[] = [];
+  gearReview: ReviewOfGear = null;
+  selectedGearReview: ReviewOfGear = null;
 
   admin: User = null;
 
@@ -35,6 +46,7 @@ export class AdminComponent implements OnInit {
     private gearSvc: GearService,
     private resvSvc: ReservationService,
     private authSvc: AuthService,
+    private revSvc: ReviewOfLenderService,
     private router: Router
   ) {}
 
@@ -45,8 +57,8 @@ export class AdminComponent implements OnInit {
         good => {
           this.user = good;
           console.log(this.user);
-          if (this.user.role !== 'admin') {
-            this.router.navigateByUrl('/login');
+          if (this.user.role !== "admin") {
+            this.router.navigateByUrl("/login");
           }
         },
         error => {}
@@ -55,12 +67,13 @@ export class AdminComponent implements OnInit {
     this.loadUsers();
     this.loadGear();
     this.loadReservations();
+    // this.loadReviews();
   }
 
   // Admin Check here not good
   adminLoggedInCheck() {}
 
-  // Users
+  // Users **************************
 
   public loadUsers() {
     const userList: [] = [];
@@ -95,14 +108,13 @@ export class AdminComponent implements OnInit {
   }
 
   public updatedUserEnabled(user: User) {
-    if (user.role !== 'admin') {
-
+    if (user.role !== "admin") {
       if (user.enabled) {
         user.enabled = false;
       } else {
         user.enabled = true;
       }
-      this.userSvc.update(user).subscribe(
+      this.userSvc.updateUserAsAdmin(user).subscribe(
         uData => {
           console.log(user);
 
@@ -112,16 +124,15 @@ export class AdminComponent implements OnInit {
         },
         uErr => {
           this.loadUsers();
-          console.error('updatedUser: Error');
+          console.error("updatedUser: Error");
           console.error(uErr);
           console.log(user);
-
         }
-        );
-      }
+      );
+    }
   }
 
-  // Gear
+  // Gear **************************
 
   public loadGear() {
     // this.clearSearch();
@@ -171,7 +182,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  // RESERVATIONS
+  // RESERVATIONS **************************
 
   public loadReservations() {
     this.resvSvc.index().subscribe(
@@ -192,12 +203,12 @@ export class AdminComponent implements OnInit {
   public countActiveR() {
     let count = 0;
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.resvList.length; i++) {
-      for (this.resv of this.resvList) {
-        if (!this.resv.completed) {
-          count++;
-        }
+    // for (let i = 0; i < this.resvList.length; i++) {
+    for (let resv of this.resvList) {
+      if (resv.approved && !resv.completed) {
+        count++;
       }
+      // }
     }
     return count;
   }
@@ -205,12 +216,12 @@ export class AdminComponent implements OnInit {
   public countCompletedR() {
     let count = 0;
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.resvList.length; i++) {
-      for (this.resv of this.resvList) {
-        if (this.resv.completed) {
-          count++;
-        }
+    // for (let i = 0; i < this.resvList.length; i++) {
+    for (let resv of this.resvList) {
+      if (resv.completed) {
+        count++;
       }
+      // }
     }
     return count;
   }
@@ -218,13 +229,31 @@ export class AdminComponent implements OnInit {
   public countNeedsApproval() {
     let count = 0;
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.resvList.length; i++) {
-      for (this.resv of this.resvList) {
-        if (!this.resv.approved) {
-          count++;
-        }
+    // for (let i = 0; i < this.resvList.length; i++) {
+    for (let resv of this.resvList) {
+      if (!resv.approved) {
+        count++;
       }
+      // }
     }
     return count;
   }
+
+  // Gear Reviews **************************
+
+  public loadReviews() {
+    // this.revSvc.index().subscribe(
+    //   good => {
+    //     console.log(good);
+    //     this.gearReviewList = good;
+    //   },
+    //   bad => {
+    //     console.log(bad);
+    //     console.log('loadReviews Error');
+    //   }
+    // );
+  }
+
+  public updatedGearReviewEnabled() {}
+
 }

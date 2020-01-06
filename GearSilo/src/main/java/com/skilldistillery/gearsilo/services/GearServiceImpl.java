@@ -53,12 +53,8 @@ public class GearServiceImpl implements GearService {
 
 	@Override
 	public Gear updateGear(String username, int gid, Gear gear) {
-		System.out.println("inide of update gear service impl- printing gear " + gear);
 		
 		Gear updateGear = gearRepo.findByUser_UsernameAndId(username, gid);
-		
-		System.out.println("printing updated gear " + updateGear);
-		System.out.println("printing username " + username + " + gear id " + gid);
 		
 		if (updateGear != null) {
 			updateGear.setName(gear.getName());
@@ -70,17 +66,16 @@ public class GearServiceImpl implements GearService {
 			updateGear.setImageUrl3(gear.getImageUrl3());
 			updateGear.setAvailable(gear.getAvailable());
 			updateGear.setActive(gear.getActive());
+			updateGear.setCategories(gear.getCategories());
 			gearRepo.saveAndFlush(updateGear);
 		}
-		System.out.println("inide of update gear service impl - printing return updatedgear  " + updateGear);
+		
 		return updateGear;
 	}
 
 	@Override
 	public List<Gear> findByUserUsername(String username) {
-
 		return gearRepo.findByUserUsername(username);
-
 	}
 
 	@Override

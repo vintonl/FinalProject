@@ -1,14 +1,14 @@
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
 <!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container main-secction">
@@ -28,7 +28,8 @@
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
             <button data-toggle="modal" data-target="#editProfile" class="btn btn-defult follow "><i
-                aria-hidden="true"></i><span style="margin: 2px" class="glyphicon glyphicon-pencil"></span>
+                aria-hidden="true"></i><span class="
+                glyphicon glyphicon-paperclip"></span>
               Edit</button>
             <button class="btn btn-defult follow" data-toggle="modal" data-target="#addGear"><strong
                 style="font-size: 10px;">+</strong>Gear</button>
@@ -57,13 +58,15 @@
           </div>
         </div>
 
-
         <!-- MY RESERVATIONS BUTTON -->
+        <hr>
         <button data-toggle="modal" data-target="#myGearReservations" class="btn btn-defult"><i aria-hidden="true"></i>
           Gear I am lending </button>
         <button data-toggle="modal" data-target="#userResModal" class="btn btn-defult"><i aria-hidden="true"></i>
           Gear I am renting</button>
-
+        <hr>
+        <button *ngIf="isAdmin" routerLink="/admin" class="btn btn-defult"><i aria-hidden="true"></i>
+          Admin Portal</button>
 
       </div>
       <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
@@ -71,7 +74,6 @@
           <div class="col-md-12 profile-header">
             <div class="row">
               <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
-                <!-- <p>Senior Architect</p> -->
               </div>
               <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
                 <!-- <button class="btn btn-info req-btn"> REQUEST</button> -->
@@ -169,48 +171,92 @@
                 <div class="modal-body">
                   <img class="img-responsive" />
 
-                  <!-- FIRST LAST NAMES -->
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="">First and last name</span>
+                  <form #userUpdateForm="ngForm" ngNativeValidate id="registerForm" class="text-left">
+
+                    <!-- FIRST LAST NAMES -->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">First and last name</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="firstName" name="firstName"
+                        placeholder="{{loggedInUser.firstName | titlecase}}">
+                      <input ngModel type="text" class="form-control" id="lastName" name="lastName"
+                        placeholder="{{loggedInUser.lastName | titlecase}}">
                     </div>
-                    <input type="text" class="form-control" placeholder="{{loggedInUser.firstName | titlecase}}"
-                      [(ngModel)]="editedUser.firstName">
-                    <input type="text" class="form-control" placeholder="{{loggedInUser.lastName | titlecase}}"
-                      [(ngModel)]="editedUser.lastName">
-                  </div>
-                  <br>
+                    <br>
 
 
-                  <!-- IMAGE URL -->
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Image URL</span>
+                    <!-- IMAGE URL -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Image URL</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="imageUrl" name="imageUrl"
+                        placeholder="{{loggedInUser.imageUrl}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <input type="text" class="form-control" placeholder="{{loggedInUser.imageUrl}}" aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default" [(ngModel)]="editedUser.imageUrl">
-                  </div>
 
 
-                  <!-- PHONE -->
-                  <div class="input-group mb-3">
-                    <div class="input-group-prependd">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
+                    <!-- PHONE -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
+                      </div>
+                      <input ngModel type="tel" class="form-control" id="phone" name="phone"
+                        placeholder="{{loggedInUser.phone}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <input type="tel" class="form-control" [(ngModel)]="editedUser.phone"
-                      placeholder="{{loggedInUser.phone}}" aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default">
-                  </div>
 
-                  <!-- HIDDEN FIELD _ USER ID -->
-                  <input type="hidden" class="form-control" value="{{loggedInUser.id}}" name="{{editedUser.id}}"
-                    [(ngModel)]="editedUser.phone" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    <!-- Address Street -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="address" name="address"
+                        placeholder="{{loggedInUser.address.address}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
 
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" (click)="updateUser()" class="btn btn-save"
-                      data-dismiss="modal">Update</button>
-                  </div>
+                    <!-- Address City -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">City</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="city" name="city"
+                        placeholder="{{loggedInUser.address.city}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- Address State -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">State</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="state" name="state"
+                        placeholder="{{loggedInUser.address.state}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- Address Postal Code -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Zip Code</span>
+                      </div>
+                      <input ngModel type="number" class="form-control" id="postalCode" name="postalCode"
+                        placeholder="{{loggedInUser.address.postalCode}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+
+                    <!-- HIDDEN FIELD _ USER ID -->
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" (click)="updateUser(userUpdateForm)" class="btn btn-save"
+                        data-dismiss="modal">Update</button>
+                    </div>
+
+                  </form>
                 </div>
               </div>
             </div>
@@ -268,26 +314,19 @@
                         <span class="input-group-text" style="width: 117px"
                           id="inputGroup-sizing-default">Category</span>
                       </div>
-                      <select placeholder="Category" class="form-control" [(ngModel)]="newGear.categories" multiple
-                        searchable>
-                        <option>All</option>
-                        <option>Mountain Biking</option>
-                        <option>Skating</option>
-                        <option>Surf</option>
-                        <option>Hiking</option>
-                        <option>Biking</option>
-                        <option>Kayaking</option>
-                        <option>Water Sports</option>
-                        <option>Rock Climbing</option>
-                        <option>Skiing</option>
-                        <option>Snowboarding</option>
-                        <option>Freefalling</option>
-                        <option>Wakeboarding</option>
-                        <option>Snow</option>
-                        <option>Water</option>
-                        <option>Mountain</option>
-                        <option>Sky</option>
-                        <option>Winter</option>
+                      <select class="form-control" [(ngModel)]="newGear.categories" multiple>
+                        <option [ngValue]='null' disable>(Choose a Category - ctrl+select for multiple)</option>
+                        <option value='Skating'>Skating</option>
+                        <option value='Surf'>Surf</option>
+                        <option value='Hiking'>Hiking</option>
+                        <option value='Biking'>Biking</option>
+                        <option value='Water Sports'>Water Sports</option>
+                        <option value='Rock Climbing'>Rock Climbing</option>
+                        <option value='Skiing'>Skiing</option>
+                        <option value='Snowboarding'>Snowboarding</option>
+                        <option value='Freefalling'>Freefalling</option>
+                        <option value='Snow'>Snow</option>
+                        <option value='Sports'>Sports</option>
                       </select>
                     </div> -->
 
@@ -374,6 +413,28 @@
                   <input type="text" required minlength="15" placeholder="{{selecteditem.description}}"
                     class="form-control" [(ngModel)]="updatedGear.description">
                 </div>
+
+                <!-- Categories -->
+                <!-- <div class="form-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 117px"
+                      id="inputGroup-sizing-default">Category</span>
+                  </div>
+                  <select class="form-control" [(ngModel)]="updatedGear.categories" placeholder="{{selecteditem.categories}" multiple>
+                    <option [ngValue]='null' disable>(Choose a Category - ctrl+select for multiple)</option>
+                    <option value='Skating'>Skating</option>
+                    <option value='Surf'>Surf</option>
+                    <option value='Hiking'>Hiking</option>
+                    <option value='Biking'>Biking</option>
+                    <option value='Water Sports'>Water Sports</option>
+                    <option value='Rock Climbing'>Rock Climbing</option>
+                    <option value='Skiing'>Skiing</option>
+                    <option value='Snowboarding'>Snowboarding</option>
+                    <option value='Freefalling'>Freefalling</option>
+                    <option value='Snow'>Snow</option>
+                    <option value='Sports'>Sports</option>
+                  </select>
+                </div> -->
 
                 <!-- CONDITION -->
                 <div class="input-group mb-3">
@@ -501,22 +562,24 @@
                         <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}"
                           name="updatedAt" [(ngModel)]="res.updatedAt">
                         <button class="btn btn-secondary" type="submit" (click)="onClickReservation(res)">
-                          {{res.approved}}</button>
+                          {{res.approved?'Yes':'No'}}</button>
 
                       </td>
                       <td>
                         <button class="btn btn-secondary" type="submit" (click)="onClickCompletedReservation(res)">
-                          {{res.completed}}</button>
+                          {{res.completed?'Yes':'No'}}</button>
                       </td>
                       <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal"
-                          (click)="reservationMessages()">Message</button>
+                          (click)="onClickMessage(res)">
+                          Message
+                        </button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
                 <div style="float: left" class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
@@ -525,30 +588,75 @@
       </div>
 
       <!-- Messaging Modal -->
-      <div class="modal fade" id="MessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="MessageModal">Message Length: -** {{resMessages.length}} **-</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <table>
-                <tr *ngFor="let msg of resMessages; let i = index">
-                  <td> {{msg.message | titlecase}}</td>
-                </tr>
-              </table>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+      <form #userMsg="ngForm" ngNativeValidate id="registerForm" class="text-left">
+        <div class="modal fade" id="MessageModal"
+          style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Messages</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table>
+
+                  <tr class="" *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
+                    <td> {{msg.message}}</td>
+                  </tr>
+
+                </table>
+                <div class="form-group">
+                  <label for="message">Message:
+                    <textarea cols="40" rows="5" class="form-control" id="message" name="message" placeholder="message"
+                      ngModel required></textarea></label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-save" (click)="createMessage(userMsg)" data-dismiss="modal">Save
+                  changes</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
+
+      <form #userMsg2="ngForm" ngNativeValidate id="registerForm" class="text-left">
+        <div class="modal fade rentingModal" id="MessageModal2"
+          style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Messages {{loggedInUser.firstName}} </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table>
+                  <tr *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
+
+                    <td> {{msg.message}}</td>
+                  </tr>
+                </table>
+                <div class="form-group">
+                  <label for="message">Message:
+                    <textarea cols="40" rows="5" class="form-control" id="message" name="message" placeholder="message"
+                      ngModel required></textarea></label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-save" (click)="createMessage(userMsg2)" data-dismiss="modal">Save
+                  changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
 
 
       <!-- MY GEAR I AM RENTING RESERVTION MODAL -->
@@ -570,7 +678,7 @@
                 <col width="80px">
                 <col width="80px">
                 <col width="80px">
-                <col width="150px">
+                <col width="100px">
                 <col width="120px">
 
                 <thead>
@@ -610,7 +718,7 @@
                         <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}"
                           name="updatedAt" [(ngModel)]="res.updatedAt">
 
-                        <h4><span class="badge badge-light">{{res.completed}}</span></h4>
+                        <h4><span class="badge badge-light">{{res.completed?'Yes':'No'}}</span></h4>
 
                       </div>
                     </td>
@@ -619,13 +727,16 @@
                         Review
                       </button></td>
                     <td>
-                      <button class="btn btn-primary">Messages</button>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal2"
+                        (click)="onClickMessage(res)">
+                        Message
+                      </button>
                     </td>
                   </tr>
                 </tbody>
               </table>
               <div style="float: left" class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>

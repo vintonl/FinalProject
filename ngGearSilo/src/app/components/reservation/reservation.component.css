@@ -2,6 +2,13 @@
   color: rgb(255, 0, 0);
 }
 
+.contaner {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn {
+  font-family: Arial, Helvetica, sans-serif;
+}
 /* Create two equal columns that floats next to each other */
 .column {
   float: left;
@@ -36,4 +43,10 @@
 .btn:hover {
   color: orange;
   background-color: white;
+}
+
+.pic {
+  height: 50px;
+  width: 50px;
+  border-radius: 45%;
 }

@@ -31,10 +31,10 @@ export class ProfileComponent implements OnInit {
   updatedGear: Gear = new Gear();
   updatedRes: Reservation = new Reservation();
 
-  public selecteditem: Gear = new Gear;
-  public selectedRes: Reservation = new Reservation;
+  public selecteditem: Gear = new Gear();
+  public selectedRes: Reservation = new Reservation();
 
-  editedUser: User = new User();
+  // editedUser: User = new User();
   reservations: Reservation = new Reservation();
   loggedInUser: User = new User();
   myGear: Gear[] = [];
@@ -55,15 +55,38 @@ export class ProfileComponent implements OnInit {
   resMessage: ReservationMessage = new ReservationMessage();
   resMessages: ReservationMessage[] = [];
   message: string;
+  msgRcver: User = null;
+  isAdmin = false;
+
+  // Categories
+
+  categories = [
+    'Mountain Biking',
+    'Skating',
+    'Surf',
+    'Hiking',
+    'Biking',
+    'Water Sports',
+    'Rock Climbing',
+    'Skiing',
+    'Snowboarding',
+    'Freefalling',
+    'Snow',
+    'Sports'
+  ];
 
 
   // C O N S T R U C T O R
   constructor(private gearSrv: GearService,
-    private resMessageSrv: ReservationMessageService,
+    // tslint:disable-next-line: align
     private router: Router, private authService: AuthService,
+    // tslint:disable-next-line: align
     private userService: UserService,
+    // tslint:disable-next-line: align
     private resService: ReservationService,
-    private reviewOfShopperSvc: ReviewOfShopperService) { }
+    // tslint:disable-next-line: align
+    private reviewOfShopperSvc: ReviewOfShopperService,
+    private reservationMsgSvc: ReservationMessageService) { }
 
 
 
@@ -81,16 +104,55 @@ export class ProfileComponent implements OnInit {
     } else {
       localStorage.removeItem('foo');
     }
-
     this.loadGear();
     this.loadReseravtions();
+    this.loadAdmin();
   }
 
   reservationMessages() {
-    this.myReservations.forEach(res => {
-      this.message = res.reservationMessage.message;
-    });
+    this.reservationMsgSvc.getMessageByUserName(this.loggedInUser).subscribe(
+      yes => {
+        this.myReservations.forEach(res => {
+          // if (res.reservationMessage.shopperUserId.id === this.selectedRes.userShopper.id) {
+          this.resMessages = yes;
+          // || res.gearId.user.username === this.loggedInUser.username
+          this.message = res.reservationMessage.message;
+          // }
+        },
+          no => {
+          }
+        );
+      });
   }
+
+  createMessage(userMsg: NgForm) {
+    const newMessage = {
+      message: userMsg.value.message,
+      reservation: {
+        id: this.selectedRes.id,
+      }
+    };
+
+    let user = new User();
+
+    this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
+      good => {
+        user = good;
+        this.reservationMsgSvc.create(newMessage, user).subscribe(
+          next => {
+            this.resMessage = next;
+            this.resMessages.push(this.resMessage);
+          },
+          error => {
+          }
+        );
+      },
+      error => {
+
+      }
+    );
+  }
+
 
   // LOAD THE GEAR
   loadGear() {
@@ -99,16 +161,9 @@ export class ProfileComponent implements OnInit {
     this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
       yes => {
         this.loggedInUser = yes;
-        console.log('Got logged in user:');
-        console.log(this.loggedInUser);
-
-
         this.gearSrv.index().subscribe(
           (aGoodThingHappened) => {
-            console.log(aGoodThingHappened);
-
             aGoodThingHappened.forEach(gear => {
-
               if (gear.user.id === this.loggedInUser.id) {
                 this.gearList.push(gear);
                 this.checkImageURl();
@@ -116,13 +171,10 @@ export class ProfileComponent implements OnInit {
             });
           },
           (didntWork) => {
-            console.log(didntWork);
           }
         );
       },
       no => {
-        console.error('Error getting logged in user');
-        console.error(no);
       }
     );
   }
@@ -130,27 +182,18 @@ export class ProfileComponent implements OnInit {
 
   // DELETE GEAR
   deleteGear() {
-
-    console.log('in delete gear ');
-    console.log(this.deleteId);
-
     this.gearSrv.destroy(this.deleteId).subscribe(
       (good) => {
         this.ngOnInit();
-        console.log(good);
         this.deleteId = null;
       },
       (bad) => {
-        console.log('error ' + bad);
         this.deleteId = null;
       }
     );
   }
 
   onClickDelete(itemId: number) {
-    console.log('in delete click');
-    console.log(itemId);
-
     this.deleteId = itemId;
 
   }
@@ -166,8 +209,9 @@ export class ProfileComponent implements OnInit {
       newGear => {
         this.newGear = new Gear();
       },
-      err => console.log('Observer got an error: ' + err)
-    );
+      err => {
+
+      });
     this.ngOnInit();
     this.newGear = null;
   }
@@ -186,6 +230,9 @@ export class ProfileComponent implements OnInit {
     this.updatedGear.id = this.selecteditem.id;
     this.updatedGear.active = true;
 
+    if (this.updatedGear.categories === null || this.updatedGear.categories === undefined) {
+      this.updatedGear.categories = this.selecteditem.categories;
+    }
     if (this.updatedGear.name === null || this.updatedGear.name === undefined) {
       this.updatedGear.name = this.selecteditem.name;
     }
@@ -209,37 +256,76 @@ export class ProfileComponent implements OnInit {
       data => {
         location.reload();
       },
-      err => console.log('Update got an error: ' + err));
+      err => {
+
+      });
   }
 
   // UPDATE USER
-  updateUser() {
-    this.editedUser.id = this.loggedInUser.id;
-    this.editedUser.password = this.loggedInUser.password;
-    this.editedUser.email = this.loggedInUser.email;
-    this.editedUser.role = this.loggedInUser.role;
+  updateUser(userUpdateForm: NgForm) {
+    const editedUser = {
+      id: this.loggedInUser.id,
+      createdAt: this.loggedInUser.createdAt,
+      updatedAt: this.loggedInUser.updatedAt,
+      firstName: userUpdateForm.value.firstName,
+      lastName: userUpdateForm.value.lastName,
+      email: userUpdateForm.value.email,
+      username: userUpdateForm.value.email,
+      password: userUpdateForm.value.password,
+      imageUrl: this.loggedInUser.imageUrl,
+      about: userUpdateForm.value.about,
+      phone: userUpdateForm.value.phone,
+      role: this.loggedInUser.role,
+      address: {
+        id: this.loggedInUser.address.id,
+        user: this.loggedInUser,
+        address: userUpdateForm.value.address,
+        address2: userUpdateForm.value.address2,
+        city: userUpdateForm.value.city,
+        state: userUpdateForm.value.state,
+        postalCode: userUpdateForm.value.postalCode,
+        country: 'USA'
+      }
+    };
 
-    if (this.editedUser.firstName === null || this.editedUser.firstName === undefined) {
-      this.editedUser.firstName = this.loggedInUser.firstName;
+    editedUser.id = this.loggedInUser.id;
+    editedUser.password = this.loggedInUser.password;
+    editedUser.email = this.loggedInUser.email;
+    editedUser.role = this.loggedInUser.role;
+
+    if (editedUser.address.address === null || editedUser.address.address === undefined || editedUser.address.address === '') {
+      editedUser.address.address = this.loggedInUser.address.address;
     }
-    if (this.editedUser.lastName === null || this.editedUser.lastName === undefined) {
-      this.editedUser.lastName = this.loggedInUser.lastName;
+    if (editedUser.address.city === null || editedUser.address.city === undefined || editedUser.address.city === '') {
+      editedUser.address.city = this.loggedInUser.address.city;
     }
-    if (this.editedUser.imageUrl === null || this.editedUser.imageUrl === undefined) {
-      this.editedUser.imageUrl = this.loggedInUser.imageUrl;
+    if (editedUser.address.state === null || editedUser.address.state === undefined || editedUser.address.state === '') {
+      editedUser.address.state = this.loggedInUser.address.state;
     }
-    if (this.editedUser.phone === null || this.editedUser.phone === undefined) {
-      this.editedUser.phone = this.loggedInUser.phone;
+    if (editedUser.address.postalCode === null || editedUser.address.postalCode === undefined || editedUser.address.postalCode === '') {
+      editedUser.address.postalCode = this.loggedInUser.address.postalCode;
+    }
+    if (editedUser.firstName === null || editedUser.firstName === undefined || editedUser.firstName === '') {
+      editedUser.firstName = this.loggedInUser.firstName;
+    }
+    if (editedUser.lastName === null || editedUser.lastName === undefined || editedUser.lastName === '') {
+      editedUser.lastName = this.loggedInUser.lastName;
+    }
+    if (editedUser.imageUrl === null || editedUser.imageUrl === undefined || editedUser.imageUrl === '') {
+      editedUser.imageUrl = this.loggedInUser.imageUrl;
+    }
+    if (editedUser.phone === null || editedUser.phone === undefined || editedUser.phone === '') {
+      editedUser.phone = this.loggedInUser.phone;
     }
 
-    this.userService.update(this.editedUser).subscribe(
+    this.userService.updateUserAsUser(editedUser).subscribe(
       data => {
-        this.editedUser = null;
         this.selecteditem = null;
       },
-      err => console.log('Update got an error: ' + err)
-    );
-    this.editedUser = null;
+      err => {
+
+      });
+
     this.ngOnInit();
   }
 
@@ -254,7 +340,6 @@ export class ProfileComponent implements OnInit {
     // LOADING LENDER RESERVATIONS
     this.resService.index().subscribe(
       (aGoodThingHappened) => {
-        console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
           this.myReservations.push(res);
 
@@ -262,42 +347,31 @@ export class ProfileComponent implements OnInit {
             this.needCompletedRes++;
             this.needsCompletedRes.push(res);
           }
+
           if (res.approved !== true) {
             this.needApprovedRes++;
             this.needsApprovedRes.push(res);
           }
-          console.log(res);
         });
       },
       (didntWork) => {
-        console.log('in load res from profile ts didnt work');
-        console.log(didntWork);
+
       }
     );
 
-    console.log('in load shopper res 0');
 
     // LOADING SHOPPER RESERVATIONS
     this.resService.indexShopperUser().subscribe(
       (aGoodThingHappened) => {
-        console.log('in load shopper res 1');
-        console.log(aGoodThingHappened);
         aGoodThingHappened.forEach(res => {
-
-
-
-          if (res.completed === true && res.gearReview === null) {
-
-            console.log(res);
-            this.userneedsCompletedResNum++;
-            this.userneedsCompletedRes.push(res);
+          if (res.approved === true && res.gearReview === null) {
+            this.needApprovedRes++;
+            this.needsApprovedRes.push(res);
             this.shopperReservations.push(res);
           }
         });
       },
       (didntWork) => {
-        console.log('load shopper reservations didnt work');
-        console.log(didntWork);
       }
     );
   }
@@ -317,10 +391,9 @@ export class ProfileComponent implements OnInit {
   }
 
   toggleVisibility() {
-    console.log('in toggle');
-    console.log(this.myRes.approved);
 
   }
+
   // UPDATE THE RESERVATION
   updateResCompleted(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
@@ -363,11 +436,14 @@ export class ProfileComponent implements OnInit {
             this.needCompletedRes++;
           }
         }
-        this.updatedRes = new Reservation();;
+        this.updatedRes = new Reservation();
         this.selectedRes = null;
       },
-      err => console.log('Update Res got an error: ' + err));
+      err => {
+
+      });
   }
+
   updateResApproval(res) {
     if (this.updatedRes.createdAt === null || this.updatedRes.createdAt === undefined) {
       this.updatedRes.createdAt = this.selectedRes.createdAt;
@@ -409,10 +485,12 @@ export class ProfileComponent implements OnInit {
             this.needApprovedRes++;
           }
         }
-        this.updatedRes = new Reservation();;
+        this.updatedRes = new Reservation();
         this.selectedRes = null;
       },
-      err => console.log('Update Res got an error: ' + err));
+      err => {
+
+      });
   }
 
   onClickReservation(res: any) {
@@ -429,9 +507,18 @@ export class ProfileComponent implements OnInit {
     this.selectedRes = res;
 
   }
+  onClickMessage(res: Reservation) {
+    this.selectedRes = res;
+    this.reservationMessages();
+    if (res.userShopper.id !== this.loggedInUser.id) {
+      this.msgRcver = res.userShopper;
+    }
+    else {
+      this.msgRcver = res.gearId.user;
+    }
+  }
 
   createGearReview(gearReview: NgForm) {
-    console.log(this.selectedRes.id);
     const newGearReview = {
       rating: gearReview.value.rating,
       review: gearReview.value.review,
@@ -446,23 +533,16 @@ export class ProfileComponent implements OnInit {
     this.authService.getUserByUsername(this.authService.getLoggedInUsername()).subscribe(
       good => {
         user = good;
-        console.log(user);
         this.reviewOfShopperSvc.createGearReview(newGearReview, user).subscribe(
           next => {
-
             this.createLenderReview(gearReview, user);
-
-            console.log('ReviewComponent.createGearReview(): review of gear created.');
-            console.log(next);
           },
           error => {
-            console.error('ReviewComponent.createGearReview(): error createGearReview.');
-            console.log(error);
           }
         );
       },
       error => {
-        console.log('ReviewOfShopperService.create() Error getting logged in user while creating gear review');
+
       }
     );
   }
@@ -471,26 +551,52 @@ export class ProfileComponent implements OnInit {
 
     const newLenderReview = {
       rating: gearReview.value.lenderRating,
-      review: "default review",
+      review: 'default review',
       active: 'true',
       reservation: {
         id: this.selectedRes.id
       }
-    }
+    };
 
     this.reviewOfShopperSvc.createLenderReview(newLenderReview, user).subscribe(
       next => {
-
-        console.log('ReviewComponent.createLenderReview(): review of lender created.');
-        console.log(next);
+        // console.log('ReviewComponent.createLenderReview(): review of lender created.');
+        // console.log(next);
       },
       error => {
-        console.error('ReviewComponent.createLenderReview(): error createLenderReview.');
-        console.log(error);
+        // console.error('ReviewComponent.createLenderReview(): error createLenderReview.');
+        // console.log(error);
       }
     );
+  }
 
-  };
+  loadAdmin() {
+    let userLoggedIn: User = null;
+
+    if (this.authService.getCredentials() !== null) {
+      this.authService
+        .getUserByUsername(this.authService.getLoggedInUsername())
+        .subscribe(
+          yes => {
+            userLoggedIn = yes;
+            this.loggedInUser = userLoggedIn;
+            // console.log(userLoggedIn);
+            if (userLoggedIn.role === 'admin') {
+              // console.log('admin is logged in');
+              return this.isAdmin = true;
+            }
+          },
+          no => {
+            userLoggedIn = null;
+            // console.error('Error getting logged admin');
+            // console.error(no);
+            this.isAdmin = false;
+          }
+        );
+    }
+    return this.isAdmin = false;
+  }
+
 }
 
 
