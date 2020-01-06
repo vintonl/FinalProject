@@ -334,7 +334,6 @@ export class ProfileComponent implements OnInit {
             this.shopperReservations.push(res);
           }
         });
-        console.log('SHOPPER RES**************' + this.shopperReservations);
       },
       (didntWork) => {
       }

@@ -123,8 +123,10 @@ export class GearListComponent implements OnInit {
                 }
               }
               gear.user.userLenderRating = ratingAvg / count;
-
-              this.getLocation(gear);
+              // ***********************************
+              // DO NOT DELETE
+              // this.getLocation(gear);
+              // *************************************
             },
             bad => {
               // console.log('Error in GearListComponent.loadGear() loading reviews of lender');
@@ -330,7 +332,10 @@ export class GearListComponent implements OnInit {
       .subscribe(
         yes => {
           this.loggedInUser = yes;
-          this.getUserLocation(this.loggedInUser.address);
+          // ***************************
+          // DO NOT DELETE BELOW
+          // this.getUserLocation(this.loggedInUser.address);
+          // **********************************
         },
         no => {
           // console.error('Error getting logged in user');
