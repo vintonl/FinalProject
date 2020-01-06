@@ -74,7 +74,6 @@
           <div class="col-md-12 profile-header">
             <div class="row">
               <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
-                <!-- <p>Senior Architect</p> -->
               </div>
               <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
                 <!-- <button class="btn btn-info req-btn"> REQUEST</button> -->
@@ -172,48 +171,86 @@
                 <div class="modal-body">
                   <img class="img-responsive" />
 
-                  <!-- FIRST LAST NAMES -->
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="">First and last name</span>
+                  <form #userUpdateForm="ngForm" ngNativeValidate id="registerForm" class="text-left">
+
+                    <!-- FIRST LAST NAMES -->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">First and last name</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="firstName" name="firstName"
+                        placeholder="{{loggedInUser.firstName | titlecase}}">
+                      <input ngModel type="text" class="form-control" id="lastName" name="lastName"
+                        placeholder="{{loggedInUser.lastName | titlecase}}">
                     </div>
-                    <input type="text" class="form-control" placeholder="{{loggedInUser.firstName | titlecase}}"
-                      [(ngModel)]="editedUser.firstName">
-                    <input type="text" class="form-control" placeholder="{{loggedInUser.lastName | titlecase}}"
-                      [(ngModel)]="editedUser.lastName">
-                  </div>
-                  <br>
+                    <br>
 
 
-                  <!-- IMAGE URL -->
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Image URL</span>
+                    <!-- IMAGE URL -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Image URL</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="imageUrl" name="imageUrl"
+                        placeholder="{{loggedInUser.imageUrl}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <input type="text" class="form-control" placeholder="{{loggedInUser.imageUrl}}" aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default" [(ngModel)]="editedUser.imageUrl">
-                  </div>
 
 
-                  <!-- PHONE -->
-                  <div class="input-group mb-3">
-                    <div class="input-group-prependd">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
+                    <!-- PHONE -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
+                      </div>
+                      <input ngModel type="tel" class="form-control" id="phone" name="phone"
+                        placeholder="{{loggedInUser.phone}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <input type="tel" class="form-control" [(ngModel)]="editedUser.phone"
-                      placeholder="{{loggedInUser.phone}}" aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default">
-                  </div>
 
-                  <!-- HIDDEN FIELD _ USER ID -->
-                  <input type="hidden" class="form-control" value="{{loggedInUser.id}}" name="{{editedUser.id}}"
-                    [(ngModel)]="editedUser.phone" aria-label="Default" aria-describedby="inputGroup-sizing-default">
 
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" (click)="updateUser()" class="btn btn-save"
-                      data-dismiss="modal">Update</button>
-                  </div>
+                    <!-- <div *ngIf="editedUser.address != undefined && editedUser.address != null"> -->
+
+                    <!-- Address Street -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="address" name="address"
+                        placeholder="{{loggedInUser.address.address}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- Address City -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">City</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="city" name="city"
+                        placeholder="{{loggedInUser.address.city}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- Address State -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">State</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="state" name="state"
+                        placeholder="{{loggedInUser.address.state}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <!-- </div> -->
+
+
+                    <!-- HIDDEN FIELD _ USER ID -->
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" (click)="updateUser(userUpdateForm)" class="btn btn-save"
+                        data-dismiss="modal">Update</button>
+                    </div>
+
+                  </form>
                 </div>
               </div>
             </div>
@@ -527,10 +564,10 @@
                           {{res.completed?'Yes':'No'}}</button>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#MessageModal" (click)="onClickMessage(res)">
-                        Message
-                      </button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal"
+                          (click)="onClickMessage(res)">
+                          Message
+                        </button>
                       </td>
                     </tr>
                   </tbody>
@@ -545,8 +582,9 @@
       </div>
 
       <!-- Messaging Modal -->
-     <form #userMsg="ngForm" ngNativeValidate id="registerForm" class="text-left">
-        <div class="modal fade" id="MessageModal" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
+      <form #userMsg="ngForm" ngNativeValidate id="registerForm" class="text-left">
+        <div class="modal fade" id="MessageModal"
+          style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -558,6 +596,7 @@
               </div>
               <div class="modal-body">
                 <table>
+
                   <tr class="" *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
                     <td> {{msg.message}}</td>
                   </tr>
@@ -565,21 +604,23 @@
                 </table>
                 <div class="form-group">
                   <label for="message">Message:
-                    <textarea cols="40" rows="5" class="form-control" id="message" name="message"
-                      placeholder="message" ngModel required></textarea></label>
+                    <textarea cols="40" rows="5" class="form-control" id="message" name="message" placeholder="message"
+                      ngModel required></textarea></label>
                 </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-save" (click)="createMessage(userMsg)"
-                  data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-save" (click)="createMessage(userMsg)" data-dismiss="modal">Save
+                  changes</button>
               </div>
             </div>
           </div>
         </div>
       </form>
-     <form #userMsg2="ngForm" ngNativeValidate id="registerForm" class="text-left">
-        <div class="modal fade rentingModal" id="MessageModal2" style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
+
+      <form #userMsg2="ngForm" ngNativeValidate id="registerForm" class="text-left">
+        <div class="modal fade rentingModal" id="MessageModal2"
+          style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -592,19 +633,19 @@
               <div class="modal-body">
                 <table>
                   <tr *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
+
                     <td> {{msg.message}}</td>
                   </tr>
                 </table>
                 <div class="form-group">
                   <label for="message">Message:
-                    <textarea cols="40" rows="5" class="form-control" id="message" name="message"
-                      placeholder="message" ngModel required></textarea></label>
+                    <textarea cols="40" rows="5" class="form-control" id="message" name="message" placeholder="message"
+                      ngModel required></textarea></label>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-save" (click)="createMessage(userMsg2)"
-                  data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-save" (click)="createMessage(userMsg2)" data-dismiss="modal">Save
+                  changes</button>
               </div>
             </div>
           </div>
@@ -676,15 +717,15 @@
                       </div>
                     </td>
                     <td> <button type="button" class="btn btn-secondary" data-toggle="modal"
-                      data-target="#reviewLenderModal" (click)="onClickReviewGear(res)">
-                      Review
-                    </button></td>
-                            <td>
-                              <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#MessageModal2" (click)="onClickMessage(res)">
-                                Message
-                              </button>
-                            </td>
+                        data-target="#reviewLenderModal" (click)="onClickReviewGear(res)">
+                        Review
+                      </button></td>
+                    <td>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal2"
+                        (click)="onClickMessage(res)">
+                        Message
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
