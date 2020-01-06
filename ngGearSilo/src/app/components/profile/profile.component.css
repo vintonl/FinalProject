@@ -163,6 +163,10 @@ body{
   border-style: solid; */
  }
 
+ .rentingModal {
+   z-index: 10041 !important;
+ }
+
 
  .thumbnail {
   height: 100px;
