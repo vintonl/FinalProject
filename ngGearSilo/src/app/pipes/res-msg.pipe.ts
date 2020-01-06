@@ -14,7 +14,15 @@ export class ResMsgPipe implements PipeTransform {
       if((msg.reservation.gearId.user.id === thisUser.id) && (msg.reservation.userShopper.id === otherUser.id)) {
         result.push(msg);
       }
+      console.log('user shopper id inside**********' + msg.reservation.userShopper.id);
+      console.log('user gearId inside**********' + msg.reservation.gearId.user.id);
+      if((msg.reservation.gearId.user.id === otherUser.id) && (msg.reservation.userShopper.id === thisUser.id)) {
+        result.push(msg);
+      }
     });
+    console.log('this user ***' + thisUser.id);
+    console.log('other user *****' + otherUser.id);
+
     return result;
   }
 

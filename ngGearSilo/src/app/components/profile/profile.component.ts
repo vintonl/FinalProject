@@ -349,6 +349,7 @@ export class ProfileComponent implements OnInit {
             this.shopperReservations.push(res);
           }
         });
+        console.log('SHOPPER RES**************' + this.shopperReservations);
       },
       (didntWork) => {
       }
@@ -489,7 +490,12 @@ export class ProfileComponent implements OnInit {
   onClickMessage(res: Reservation) {
     this.selectedRes = res;
     this.reservationMessages();
-    this.msgRcver = res.userShopper;
+    if (res.userShopper.id !== this.loggedInUser.id) {
+      this.msgRcver = res.userShopper;
+    }
+    else {
+      this.msgRcver = res.gearId.user;
+    }
   }
 
   createGearReview(gearReview: NgForm) {
