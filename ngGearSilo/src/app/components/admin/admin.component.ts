@@ -1,20 +1,20 @@
-import { ReviewOfShopperService } from './../../services/review-of-shopper.service';
-import { ReviewOfLenderService } from './../../services/review-of-lender.service';
-import { ReviewOfGear } from './../../models/review-of-gear';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Reservation } from './../../models/reservation';
-import { GearService } from 'src/app/services/gear.service';
-import { UserService } from './../../services/user.service';
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { Gear } from 'src/app/models/gear';
-import { ReservationService } from 'src/app/services/reservation.service';
+import { ReviewOfShopperService } from "./../../services/review-of-shopper.service";
+import { ReviewOfLenderService } from "./../../services/review-of-lender.service";
+import { ReviewOfGear } from "./../../models/review-of-gear";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
+import { Reservation } from "./../../models/reservation";
+import { GearService } from "src/app/services/gear.service";
+import { UserService } from "./../../services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { User } from "src/app/models/user";
+import { Gear } from "src/app/models/gear";
+import { ReservationService } from "src/app/services/reservation.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: "app-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.css"]
 })
 export class AdminComponent implements OnInit {
   // Users
@@ -57,8 +57,8 @@ export class AdminComponent implements OnInit {
         good => {
           this.user = good;
           console.log(this.user);
-          if (this.user.role !== 'admin') {
-            this.router.navigateByUrl('/login');
+          if (this.user.role !== "admin") {
+            this.router.navigateByUrl("/login");
           }
         },
         error => {}
@@ -108,7 +108,7 @@ export class AdminComponent implements OnInit {
   }
 
   public updatedUserEnabled(user: User) {
-    if (user.role !== 'admin') {
+    if (user.role !== "admin") {
       if (user.enabled) {
         user.enabled = false;
       } else {
@@ -124,7 +124,7 @@ export class AdminComponent implements OnInit {
         },
         uErr => {
           this.loadUsers();
-          console.error('updatedUser: Error');
+          console.error("updatedUser: Error");
           console.error(uErr);
           console.log(user);
         }
@@ -203,12 +203,12 @@ export class AdminComponent implements OnInit {
   public countActiveR() {
     let count = 0;
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.resvList.length; i++) {
-      for (this.resv of this.resvList) {
-        if (!this.resv.completed) {
-          count++;
-        }
+    // for (let i = 0; i < this.resvList.length; i++) {
+    for (let resv of this.resvList) {
+      if (resv.approved && !resv.completed) {
+        count++;
       }
+      // }
     }
     return count;
   }
@@ -216,12 +216,12 @@ export class AdminComponent implements OnInit {
   public countCompletedR() {
     let count = 0;
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.resvList.length; i++) {
-      for (this.resv of this.resvList) {
-        if (this.resv.completed) {
-          count++;
-        }
+    // for (let i = 0; i < this.resvList.length; i++) {
+    for (let resv of this.resvList) {
+      if (resv.completed) {
+        count++;
       }
+      // }
     }
     return count;
   }
@@ -229,12 +229,12 @@ export class AdminComponent implements OnInit {
   public countNeedsApproval() {
     let count = 0;
     // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.resvList.length; i++) {
-      for (this.resv of this.resvList) {
-        if (!this.resv.approved) {
-          count++;
-        }
+    // for (let i = 0; i < this.resvList.length; i++) {
+    for (let resv of this.resvList) {
+      if (!resv.approved) {
+        count++;
       }
+      // }
     }
     return count;
   }
