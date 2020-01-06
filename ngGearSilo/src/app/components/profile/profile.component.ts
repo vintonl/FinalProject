@@ -328,12 +328,13 @@ export class ProfileComponent implements OnInit {
     this.resService.indexShopperUser().subscribe(
       (aGoodThingHappened) => {
         aGoodThingHappened.forEach(res => {
-          if (res.completed === true && res.gearReview === null) {
-            this.userneedsCompletedResNum++;
-            this.userneedsCompletedRes.push(res);
+          if (res.approved === true && res.gearReview === null) {
+            this.needApprovedRes++;
+            this.needsApprovedRes.push(res);
             this.shopperReservations.push(res);
           }
         });
+        console.log('SHOPPER RES**************' + this.shopperReservations);
       },
       (didntWork) => {
       }
@@ -474,7 +475,12 @@ export class ProfileComponent implements OnInit {
   onClickMessage(res: Reservation) {
     this.selectedRes = res;
     this.reservationMessages();
-    this.msgRcver = res.userShopper;
+    if (res.userShopper.id !== this.loggedInUser.id) {
+      this.msgRcver = res.userShopper;
+    }
+    else {
+      this.msgRcver = res.gearId.user;
+    }
   }
 
   createGearReview(gearReview: NgForm) {
