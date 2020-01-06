@@ -323,9 +323,9 @@ export class ProfileComponent implements OnInit {
     this.resService.indexShopperUser().subscribe(
       (aGoodThingHappened) => {
         aGoodThingHappened.forEach(res => {
-          if (res.completed === true && res.gearReview === null) {
-            this.userneedsCompletedResNum++;
-            this.userneedsCompletedRes.push(res);
+          if (res.approved === true && res.gearReview === null) {
+            this.needApprovedRes++;
+            this.needsApprovedRes.push(res);
             this.shopperReservations.push(res);
           }
         });
