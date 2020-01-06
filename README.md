@@ -1,4 +1,4 @@
-## GearSilo - Peer-To-Peer Outdoor Gear Rentals
+## Gear Silo - Peer-To-Peer Outdoor Gear Rentals
 
 ## Angular and RESTful API Software Application
 
@@ -16,7 +16,7 @@ This was a two-week-long sprint use Agile Methodologies to exceed the minimum vi
 
 ### Overview:
 
-This program is designed to be a full stack RESTful software application that creates, reads, updates and deletes user, gear, reservation data from a database we built using MySQL Workbench and connecting with using Java Database Connectivity.
+This program is designed to be a full-stack RESTful software application that creates, reads, updates and deletes user, gear, reservation data from a database we built using MySQL Workbench and connecting with using Java Database Connectivity.
 
 ### How to run:
 
@@ -29,7 +29,7 @@ Demo Account:
 * Email: martymcfly@gmail.com
 * Password: gear
 
-A logged in user can:
+A logged-in user can:
 * Update their profile
 * Make reservations
 * Rate and make a review comment after the reservation
@@ -61,7 +61,7 @@ Java 1.8 / EE, Java Persistence API (JPA), REST API, Spring Boot, Spring Securit
 -   Relational Database: large multi-table SQL Database creation using MySQL Workbench.
 -   Java Libraries: SQL, List, and handling exceptions.
 -   Object-Oriented Programming in Java: Abstraction, Polymorphism, Inheritance, and Encapsulation.
--   Test Driven Development using JUNIT Juniper.
+-   Test-Driven Development using JUNIT Juniper.
 
 ### Lessons learned:
 
