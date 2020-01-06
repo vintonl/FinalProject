@@ -207,9 +207,6 @@
                         aria-describedby="inputGroup-sizing-default">
                     </div>
 
-
-                    <!-- <div *ngIf="editedUser.address != undefined && editedUser.address != null"> -->
-
                     <!-- Address Street -->
                     <div class="input-group mb-3">
                       <div class="input-group-prependd">
@@ -239,7 +236,16 @@
                         placeholder="{{loggedInUser.address.state}}" aria-label="Default"
                         aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <!-- </div> -->
+
+                    <!-- Address Postal Code -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Zip Code</span>
+                      </div>
+                      <input ngModel type="number" class="form-control" id="postalCode" name="postalCode"
+                        placeholder="{{loggedInUser.address.postalCode}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
 
 
                     <!-- HIDDEN FIELD _ USER ID -->

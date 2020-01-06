@@ -263,12 +263,6 @@ export class ProfileComponent implements OnInit {
 
   // UPDATE USER
   updateUser(userUpdateForm: NgForm) {
-
-
-    console.log("inside update user")
-
-    // let editedUser = new User();
-
     const editedUser = {
       id: this.loggedInUser.id,
       createdAt: this.loggedInUser.createdAt,
@@ -282,7 +276,6 @@ export class ProfileComponent implements OnInit {
       about: userUpdateForm.value.about,
       phone: userUpdateForm.value.phone,
       role: this.loggedInUser.role,
-
       address: {
         id: this.loggedInUser.address.id,
         user: this.loggedInUser,
@@ -290,52 +283,50 @@ export class ProfileComponent implements OnInit {
         address2: userUpdateForm.value.address2,
         city: userUpdateForm.value.city,
         state: userUpdateForm.value.state,
-        postalCode: 80124,
+        postalCode: userUpdateForm.value.postalCode,
         country: 'USA'
       }
     };
-
-    console.log(editedUser.address);
 
     editedUser.id = this.loggedInUser.id;
     editedUser.password = this.loggedInUser.password;
     editedUser.email = this.loggedInUser.email;
     editedUser.role = this.loggedInUser.role;
-    // this.editedUser.address.postalCode = 80124;
-    // this.editedUser.address.country = 'USA';
 
-    if (editedUser.address.address === null || editedUser.address.address === undefined) {
+    if (editedUser.address.address === null || editedUser.address.address === undefined || editedUser.address.address === '') {
       editedUser.address.address = this.loggedInUser.address.address;
     }
-    if (editedUser.address.city === null || editedUser.address.city === undefined) {
+    if (editedUser.address.city === null || editedUser.address.city === undefined || editedUser.address.city === '') {
       editedUser.address.city = this.loggedInUser.address.city;
     }
-    if (editedUser.address.state === null || editedUser.address.state === undefined) {
+    if (editedUser.address.state === null || editedUser.address.state === undefined || editedUser.address.state === '') {
       editedUser.address.state = this.loggedInUser.address.state;
     }
-    if (editedUser.firstName === null || editedUser.firstName === undefined) {
+    if (editedUser.address.postalCode === null || editedUser.address.postalCode === undefined || editedUser.address.postalCode === '') {
+      editedUser.address.postalCode = this.loggedInUser.address.postalCode;
+    }
+    if (editedUser.firstName === null || editedUser.firstName === undefined || editedUser.firstName === '') {
       editedUser.firstName = this.loggedInUser.firstName;
     }
-    if (editedUser.lastName === null || editedUser.lastName === undefined) {
+    if (editedUser.lastName === null || editedUser.lastName === undefined || editedUser.lastName === '') {
       editedUser.lastName = this.loggedInUser.lastName;
     }
-    if (editedUser.imageUrl === null || editedUser.imageUrl === undefined) {
+    if (editedUser.imageUrl === null || editedUser.imageUrl === undefined || editedUser.imageUrl === '') {
       editedUser.imageUrl = this.loggedInUser.imageUrl;
     }
-    if (editedUser.phone === null || editedUser.phone === undefined) {
+    if (editedUser.phone === null || editedUser.phone === undefined || editedUser.phone === '') {
       editedUser.phone = this.loggedInUser.phone;
     }
 
     this.userService.updateUserAsUser(editedUser).subscribe(
       data => {
-        // editedUser = null;
         this.selecteditem = null;
       },
       err => {
 
       });
-    // editedUser = null;
-    // this.ngOnInit();
+
+    this.ngOnInit();
   }
 
   // LOAD ALL RESERVATIONS FOR USER
