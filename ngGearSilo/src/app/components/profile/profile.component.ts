@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit {
   resMessages: ReservationMessage[] = [];
   message: string;
   msgRcver: User = null;
+  isAdmin = false;
 
   // Categories
 
@@ -105,6 +106,7 @@ export class ProfileComponent implements OnInit {
     }
     this.loadGear();
     this.loadReseravtions();
+    this.loadAdmin();
   }
 
   reservationMessages() {
@@ -543,6 +545,34 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+  loadAdmin() {
+    let userLoggedIn: User = null;
+
+    if (this.authService.getCredentials() !== null) {
+      this.authService
+        .getUserByUsername(this.authService.getLoggedInUsername())
+        .subscribe(
+          yes => {
+            userLoggedIn = yes;
+            this.loggedInUser = userLoggedIn;
+            // console.log(userLoggedIn);
+            if (userLoggedIn.role === 'admin') {
+              // console.log('admin is logged in');
+              return this.isAdmin = true;
+            }
+          },
+          no => {
+            userLoggedIn = null;
+            // console.error('Error getting logged admin');
+            // console.error(no);
+            this.isAdmin = false;
+          }
+        );
+    }
+    return this.isAdmin = false;
+  }
+
 }
 
 
