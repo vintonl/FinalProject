@@ -10,9 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(private router: Router, private auth: AuthService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   register(userForm: NgForm) {
     const user = {
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
       username: userForm.value.email,
       password: userForm.value.password,
       imageUrl: userForm.value.imageUrl,
-      about: userForm.value.about,
+      about: '',
       phone: userForm.value.phone,
       address: {
         address: userForm.value.address,
