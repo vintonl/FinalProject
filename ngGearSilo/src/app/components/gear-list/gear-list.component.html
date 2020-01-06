@@ -152,7 +152,7 @@
         </div>
 
 
-        <div class="userDisplayName" *ngIf="!selected && hideSearchResult">
+        <div class="userDisplayName" *ngIf="!selected && hideSearchResult && loggedInUser.firstName !== undefined">
         <div [routerLink]="['/users']" class="alert alert-dark" role="alert">
           {{loggedInUser.firstName| titlecase}} {{loggedInUser.lastName | titlecase}}
         </div>
