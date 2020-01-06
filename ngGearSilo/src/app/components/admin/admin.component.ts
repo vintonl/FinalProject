@@ -255,4 +255,5 @@ export class AdminComponent implements OnInit {
   }
 
   public updatedGearReviewEnabled() {}
+
 }
