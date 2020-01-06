@@ -42,11 +42,11 @@
           >Total Gear: {{ countGear() }}</span
         >
       </h4>
-      <!-- <h4>
+      <h4>
         <span class="badge badge-success border shadow"
           >Active Gear: {{ countActiveG() }}</span
         >
-      </h4> -->
+      </h4>
       <h4>
         <span class="badge badge-success border shadow"
           >Available Gear: {{ countAvailableG() }}</span
@@ -225,7 +225,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Available</th>
-                <!-- <th>Active</th> -->
+                <th>Active</th>
               </tr>
             </thead>
             <tbody>
@@ -240,7 +240,7 @@
                 <td>{{ gear.user.firstName }}</td>
                 <td>{{ gear.user.lastName }}</td>
                 <td>{{ gear.available }}</td>
-                <!-- <td>{{ gear.active }}</td> -->
+                <td>{{ gear.active }}</td>
               </tr>
             </tbody>
           </table>
