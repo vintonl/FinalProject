@@ -269,26 +269,19 @@
                         <span class="input-group-text" style="width: 117px"
                           id="inputGroup-sizing-default">Category</span>
                       </div>
-                      <select placeholder="Category" class="form-control" [(ngModel)]="newGear.categories" multiple
-                        searchable>
-                        <option>All</option>
-                        <option>Mountain Biking</option>
-                        <option>Skating</option>
-                        <option>Surf</option>
-                        <option>Hiking</option>
-                        <option>Biking</option>
-                        <option>Kayaking</option>
-                        <option>Water Sports</option>
-                        <option>Rock Climbing</option>
-                        <option>Skiing</option>
-                        <option>Snowboarding</option>
-                        <option>Freefalling</option>
-                        <option>Wakeboarding</option>
-                        <option>Snow</option>
-                        <option>Water</option>
-                        <option>Mountain</option>
-                        <option>Sky</option>
-                        <option>Winter</option>
+                      <select class="form-control" [(ngModel)]="newGear.categories" multiple>
+                        <option [ngValue]='null' disable>(Choose a Category - ctrl+select for multiple)</option>
+                        <option value='Skating'>Skating</option>
+                        <option value='Surf'>Surf</option>
+                        <option value='Hiking'>Hiking</option>
+                        <option value='Biking'>Biking</option>
+                        <option value='Water Sports'>Water Sports</option>
+                        <option value='Rock Climbing'>Rock Climbing</option>
+                        <option value='Skiing'>Skiing</option>
+                        <option value='Snowboarding'>Snowboarding</option>
+                        <option value='Freefalling'>Freefalling</option>
+                        <option value='Snow'>Snow</option>
+                        <option value='Sports'>Sports</option>
                       </select>
                     </div> -->
 
@@ -375,6 +368,28 @@
                   <input type="text" required minlength="15" placeholder="{{selecteditem.description}}"
                     class="form-control" [(ngModel)]="updatedGear.description">
                 </div>
+
+                <!-- Categories -->
+                <!-- <div class="form-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 117px"
+                      id="inputGroup-sizing-default">Category</span>
+                  </div>
+                  <select class="form-control" [(ngModel)]="updatedGear.categories" placeholder="{{selecteditem.categories}" multiple>
+                    <option [ngValue]='null' disable>(Choose a Category - ctrl+select for multiple)</option>
+                    <option value='Skating'>Skating</option>
+                    <option value='Surf'>Surf</option>
+                    <option value='Hiking'>Hiking</option>
+                    <option value='Biking'>Biking</option>
+                    <option value='Water Sports'>Water Sports</option>
+                    <option value='Rock Climbing'>Rock Climbing</option>
+                    <option value='Skiing'>Skiing</option>
+                    <option value='Snowboarding'>Snowboarding</option>
+                    <option value='Freefalling'>Freefalling</option>
+                    <option value='Snow'>Snow</option>
+                    <option value='Sports'>Sports</option>
+                  </select>
+                </div> -->
 
                 <!-- CONDITION -->
                 <div class="input-group mb-3">
@@ -502,12 +517,12 @@
                         <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}"
                           name="updatedAt" [(ngModel)]="res.updatedAt">
                         <button class="btn btn-secondary" type="submit" (click)="onClickReservation(res)">
-                          {{res.approved}}</button>
+                          {{res.approved?'Yes':'No'}}</button>
 
                       </td>
                       <td>
                         <button class="btn btn-secondary" type="submit" (click)="onClickCompletedReservation(res)">
-                          {{res.completed}}</button>
+                          {{res.completed?'Yes':'No'}}</button>
                       </td>
                       <td>
                         <button type="button" class="btn btn-secondary" data-toggle="modal"
@@ -653,7 +668,7 @@
                         <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}"
                           name="updatedAt" [(ngModel)]="res.updatedAt">
 
-                        <h4><span class="badge badge-light">{{res.completed}}</span></h4>
+                        <h4><span class="badge badge-light">{{res.completed?'Yes':'No'}}</span></h4>
 
                       </div>
                     </td>

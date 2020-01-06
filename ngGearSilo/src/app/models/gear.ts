@@ -43,7 +43,7 @@ export class Gear {
     imageUrl3?: string,
     available?: boolean,
     active?: boolean,
-    categories?: Category,
+    categories?: Category[],
     lat?: string,
     long?: string
 
@@ -61,6 +61,7 @@ export class Gear {
     this.active = active;
     this.lat = lat;
     this.long = long;
+    this.categories = categories;
 
   }
 }

@@ -28,5 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<Category> listAllCategories() {
 		return catRepo.findAll();
 	}
+	
+	
 
 }
