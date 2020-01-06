@@ -278,7 +278,7 @@ export class ProfileComponent implements OnInit {
       email: userUpdateForm.value.email,
       username: userUpdateForm.value.email,
       password: userUpdateForm.value.password,
-      imageUrl: userUpdateForm.value.imageUrl,
+      imageUrl: this.loggedInUser.imageUrl,
       about: userUpdateForm.value.about,
       phone: userUpdateForm.value.phone,
       role: this.loggedInUser.role,
