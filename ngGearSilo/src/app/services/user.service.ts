@@ -110,7 +110,7 @@ export class UserService {
     );
   }
 
-  updateUserAsUser(user: User) {
+  updateUserAsUser(user) {
     if (localStorage.length === 0) {
       this.router.navigateByUrl('/login');
     }
