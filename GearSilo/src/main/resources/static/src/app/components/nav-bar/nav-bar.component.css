@@ -1,0 +1,51 @@
+.showHand:hover {
+  /* color: rgb(0, 4, 255); */
+  cursor: pointer;
+}
+
+.sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  -ms-flex: 1 1 auto !important;
+  flex: 1 1 auto !important;
+}
+
+#nav {
+  z-index: 9999;
+}
+
+.navbar {
+  font-family: Arial, Helvetica, sans-serif !important;
+  margin: 0px !important;
+  font-size: 17px !important;
+  /* font-stretch: 3px !important; */
+  border-radius: 0 !important;
+}
+
+.nb-txt {
+  font-size: 25px !important;
+}
+
+.glyphicon-cog {
+  color: orange;
+}
+
+.userName {
+  font-size: 25px !important;
+
+}
+
+.gearImage{
+  height: 25px;
+  margin: 2px;
+}
+.gearSilo {
+  color: white;
+  font-size: 20px;
+}
+
+.gearSilo:hover {
+  color: whitesmoke;
+  font-size: 20px;
+}

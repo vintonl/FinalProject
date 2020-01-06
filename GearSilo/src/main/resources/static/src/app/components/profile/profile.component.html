@@ -1,0 +1,835 @@
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+
+<!-- jQuery library -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+<!-- Popper JS -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+
+<!-- Latest compiled JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container main-secction">
+
+  <div class="row">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 image-section">
+      <img src="https://i.imgur.com/K2Jw9w4.jpg">
+    </div>
+    <div class="row user-left-part">
+      <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+        <div class="row ">
+          <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+
+            <!-- USER PROFILE IMAGE -->
+            <img src="{{loggedInUser.imageUrl}}">
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+            <button data-toggle="modal" data-target="#editProfile" class="btn btn-defult follow "><i
+                aria-hidden="true"></i><span class="
+                glyphicon glyphicon-paperclip"></span>
+              Edit</button>
+            <button class="btn btn-defult follow" data-toggle="modal" data-target="#addGear"><strong
+                style="font-size: 10px;">+</strong>Gear</button>
+          </div>
+
+          <div class="row user-detail-row">
+            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+              <div class="border"></div>
+              <p>Phone</p>
+              <span>{{loggedInUser.phone}} <small></small></span>
+            </div>
+          </div>
+
+          <div class="row user-detail-row">
+            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+              <div class="border"></div>
+              <p>Email</p>
+              <span>{{loggedInUser.email}}</span>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-sm-12 user-detail-section2 pull-right">
+            <div class="border"></div>
+            <p>Location</p>
+            <span>{{loggedInUser.address.city}}, {{loggedInUser.address.state | titlecase}}</span>
+          </div>
+        </div>
+
+        <!-- MY RESERVATIONS BUTTON -->
+        <hr>
+        <button data-toggle="modal" data-target="#myGearReservations" class="btn btn-defult"><i aria-hidden="true"></i>
+          Gear I am lending </button>
+        <button data-toggle="modal" data-target="#userResModal" class="btn btn-defult"><i aria-hidden="true"></i>
+          Gear I am renting</button>
+        <hr>
+        <button *ngIf="isAdmin" routerLink="/admin" class="btn btn-defult"><i aria-hidden="true"></i>
+          Admin Portal</button>
+
+      </div>
+      <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+        <div class="row profile-right-section-row">
+          <div class="col-md-12 profile-header">
+            <div class="row">
+              <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
+                <!-- <button class="btn btn-info req-btn"> REQUEST</button> -->
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <!-- USER LIST OF ITEMS  - CARDS-->
+          <h3 style="color: dimgrey;">Listed Items for Rent </h3>
+          <!-- TOAST LENDER RES-->
+          <div>
+            <div *ngIf='needsApprovedRes.length > 0'>
+
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div data-toggle="modal" data-target="#myGearReservations">
+                  <strong>Hi, {{loggedInUser.firstName}}!</strong> You have {{needApprovedRes}} new reservations that
+                  need
+                  your
+                  approval!
+                </div>
+              </div>
+            </div>
+
+            <!-- TOAST SHOPPER RES-->
+            <div *ngIf='userneedsCompletedRes.length > 0'>
+
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div data-toggle="modal" data-target="#userResModal">
+                  <strong>Hi, {{loggedInUser.firstName}}!</strong> You have {{userneedsCompletedResNum}} completed gear
+                  rentals that need your review!
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="gearList.length < 1">
+          <br>
+          <hr>
+          <h3 style="color: lightslategrey; z-index: 1000; margin-left: 150px">You do not have any gear items listed
+          </h3>
+
+        </div>
+        <div style="width: 100%;" class="card" *ngFor="let item of gearList; let i = index">
+          <div *ngIf="item.active == true">
+            <div class="card-header">
+              <h5>{{item.name | titlecase }}</h5>
+            </div>
+            <div class="card-body">
+              <ul class="products" data-target="#popupGear" data-toggle="modal" (click)="onClickGearPopUp(item)">
+                <li class="thumbnail">
+                  <img src="{{item.imageUrl}}" />
+                </li>
+              </ul>
+              <h5>{{item.price | currency}}</h5>
+              <p class="card-text">{{item.description | titlecase}} </p>
+              <input *ngIf="item.active == true" (click)="onClick(item)" data-target="#updateGear" data-toggle="modal"
+                data-toggle="modal" type="submit" value="update" type="image" id="myimage"
+                src="https://i.imgur.com/Y8Uh7wI.png" />
+
+              <button style="float: left; margin-top: 5px; padding: 5px; font-size: 40px;" type="button"
+                class="close btn-lg" aria-label="Close" *ngIf="item.active == true" data-toggle="modal"
+                (click)="onClickDelete(item.id)" data-target="#popupDelete" ntype="submit"> <span
+                  aria-hidden="true">&times;</span></button>
+            </div>
+          </div>
+        </div>
+        <div>
+
+
+
+
+          <!-- ********************** MODALS *************************** -->
+
+
+
+          <!-- EDIT USER PROFILE MODAL-->
+          <div id="editProfile" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">{{loggedInUser.firstName | titlecase}} {{loggedInUser.lastName | titlecase}}
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  <img class="img-responsive" />
+
+                  <form #userUpdateForm="ngForm" ngNativeValidate id="registerForm" class="text-left">
+
+                    <!-- FIRST LAST NAMES -->
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">First and last name</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="firstName" name="firstName"
+                        placeholder="{{loggedInUser.firstName | titlecase}}">
+                      <input ngModel type="text" class="form-control" id="lastName" name="lastName"
+                        placeholder="{{loggedInUser.lastName | titlecase}}">
+                    </div>
+                    <br>
+
+
+                    <!-- IMAGE URL -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Image URL</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="imageUrl" name="imageUrl"
+                        placeholder="{{loggedInUser.imageUrl}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
+                      </div>
+                      <input ngModel type="tel" class="form-control" id="phone" name="phone"
+                        placeholder="{{loggedInUser.phone}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- Address Street -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="address" name="address"
+                        placeholder="{{loggedInUser.address.address}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- Address City -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">City</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="city" name="city"
+                        placeholder="{{loggedInUser.address.city}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- Address State -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">State</span>
+                      </div>
+                      <input ngModel type="text" class="form-control" id="state" name="state"
+                        placeholder="{{loggedInUser.address.state}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- Address Postal Code -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prependd">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Zip Code</span>
+                      </div>
+                      <input ngModel type="number" class="form-control" id="postalCode" name="postalCode"
+                        placeholder="{{loggedInUser.address.postalCode}}" aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+
+                    <!-- HIDDEN FIELD _ USER ID -->
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" (click)="updateUser(userUpdateForm)" class="btn btn-save"
+                        data-dismiss="modal">Update</button>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <!-- ADD GEAR MODAL -->
+          <div class="modal fade" id="addGear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Add New Item</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+
+                  <!-- PRICE OF GEAR -->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                    </div>
+                    <input type="text" placeholder="Price per day" class="form-control"
+                      aria-label="Amount (to the nearest dollar)" [(ngModel)]="newGear.price">
+                    <div class="input-group-append">
+                      <span class="input-group-text">.00</span>
+                    </div>
+                  </div>
+
+
+                  <!-- NAME OF GEAR -->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Gear Name</span>
+                    </div>
+                    <input type="text" placeholder="What item are you wishing to rent?" class="form-control"
+                      [(ngModel)]="newGear.name">
+                  </div>
+
+                  <!-- DESCRIPTION OF GEAR -->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                    </div>
+                    <input type="text" placeholder="Description" class="form-control" [(ngModel)]="newGear.description">
+                  </div>
+
+                  <!-- <div class="form-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 117px"
+                          id="inputGroup-sizing-default">Category</span>
+                      </div>
+                      <select class="form-control" [(ngModel)]="newGear.categories" multiple>
+                        <option [ngValue]='null' disable>(Choose a Category - ctrl+select for multiple)</option>
+                        <option value='Skating'>Skating</option>
+                        <option value='Surf'>Surf</option>
+                        <option value='Hiking'>Hiking</option>
+                        <option value='Biking'>Biking</option>
+                        <option value='Water Sports'>Water Sports</option>
+                        <option value='Rock Climbing'>Rock Climbing</option>
+                        <option value='Skiing'>Skiing</option>
+                        <option value='Snowboarding'>Snowboarding</option>
+                        <option value='Freefalling'>Freefalling</option>
+                        <option value='Snow'>Snow</option>
+                        <option value='Sports'>Sports</option>
+                      </select>
+                    </div> -->
+
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" style="width: 117px"
+                        id="inputGroup-sizing-default">Condition</span>
+
+                    </div>
+                    <input type="text" placeholder="Gear Condition" class="form-control"
+                      [(ngModel)]="newGear.gearCondition">
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">ImageUrl</span>
+                    </div>
+                    <input type="url" placeholder="Image Url" class="form-control" [(ngModel)]="newGear.imageUrl">
+                  </div>
+
+                  <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="newGear.user">
+        <input type="hidden" valueclass="form-control" value=1 name=1 [(ngModel)]="newGear.active">
+        <input type="hidden" valueclass="form-control" value=1 name=1 [(ngModel)]="newGear.available">
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click)="addGear()"  class="btn btn-save" data-dismiss="modal">Save changes</button>
+      </div>
+      <!-- (click)="onAddClick(lgModal)" -->
+    </div>
+  </div>
+</div>
+
+
+<!-- UPDATE GEAR MODAL -->
+<div class="modal fade" id="updateGear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Update Gear Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                    <!-- NAME -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Name</span>
+                      </div>
+                   <input type="text" placeholder="{{selecteditem.name}}" class="form-control"
+                    [(ngModel)]="updatedGear.name">
+                </div>
+
+                <!-- PRICE OF GEAR -->
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input type="text" placeholder="{{selecteditem.price}}" class="form-control"
+                    aria-label="Amount (to the nearest dollar)" [(ngModel)]="updatedGear.price">
+                  <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                  </div>
+                </div>
+
+                <!-- IMAGE URL -->
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Image
+                      URL</span>
+                  </div>
+                  <input type="url" placeholder="{{selecteditem.imageUrl}}" class="form-control"
+                    [(ngModel)]="updatedGear.imageUrl">
+                </div>
+                <!-- DESCRIPTION -->
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                  </div>
+                  <input type="text" required minlength="15" placeholder="{{selecteditem.description}}"
+                    class="form-control" [(ngModel)]="updatedGear.description">
+                </div>
+
+                <!-- Categories -->
+                <!-- <div class="form-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 117px"
+                      id="inputGroup-sizing-default">Category</span>
+                  </div>
+                  <select class="form-control" [(ngModel)]="updatedGear.categories" placeholder="{{selecteditem.categories}" multiple>
+                    <option [ngValue]='null' disable>(Choose a Category - ctrl+select for multiple)</option>
+                    <option value='Skating'>Skating</option>
+                    <option value='Surf'>Surf</option>
+                    <option value='Hiking'>Hiking</option>
+                    <option value='Biking'>Biking</option>
+                    <option value='Water Sports'>Water Sports</option>
+                    <option value='Rock Climbing'>Rock Climbing</option>
+                    <option value='Skiing'>Skiing</option>
+                    <option value='Snowboarding'>Snowboarding</option>
+                    <option value='Freefalling'>Freefalling</option>
+                    <option value='Snow'>Snow</option>
+                    <option value='Sports'>Sports</option>
+                  </select>
+                </div> -->
+
+                <!-- CONDITION -->
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 117px" id="inputGroup-sizing-default">Condition</span>
+                  </div>
+                  <input type="text" placeholder="{{updatedGear.gearCondition}}" class="form-control"
+                    [(ngModel)]="updatedGear.gearCondition">
+
+                  <!-- AVAILABLE -->
+
+                  <div style="margin-top: 9px" class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" style="width: 117px; height: 35px"
+                        id="inputGroup-sizing-default">Available</span>
+                    </div>
+                    <label class="switch">
+                      <input style="background-color: orange" type="checkbox" data-toggle="toggle" checked
+                        data-on="true" data-off="false" class="form-control" [checked]="updatedGear.available"
+                        (change)="updatedGear.available=!updatedGear.available">
+                      <!-- <input type="checkbox" data-toggle="toggle" checked data-on="true" data-off="false"
+                            placeholder="{{selecteditem.available}}" class="form-control" [(ngModel)]="updatedGear.available"> -->
+                      <span class="slider"></span>
+                    </label><br><br>
+                  </div>
+
+                  <!-- HIDDEN FIELDS -->
+                  <input type="hidden" valueclass="form-control" value="{{loggedInUser.id}}" name="{{loggedInUser}" [(ngModel)]="updatedGear.user">
+                    <input type="hidden" placeholder="{{selecteditem.gearCondition}}" value="{{selecteditem.id}}"
+                    name="{{selecteditem.id}}" [(ngModel)]="updatedGear.id">
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" (click)="updateGear()" class="btn btn-save" data-dismiss="modal">Save
+                    changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- POP UP GEAR INFO MODAL -->
+          <div class="modal fade" id="popupGear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div style="opacity: .5;" class="modal-header">
+                  <h5 style="align-self: center;" class="modal-title" id="exampleModalLongTitle">
+                    {{selecteditem.price | currency}} Per Day</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id="popupGear">
+                  <ul class="products">
+                    <li class="crop">
+                      <img style="height: 90%; width: 80%; margin-left: 25px; background-color: white;"
+                        src="{{selecteditem.imageUrl}}" />
+                    </li>
+                  </ul>
+                  <p style="text-align-last: center;">{{selecteditem.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- MY GEAR I AM LENDING RESERVTION MODAL -->
+        <div class="modal fade modal-lg" id="resModal" id="myGearReservations" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+
+          <div class="modal-dialog" role="document">
+            <div style="width: 800px" class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><strong style="color: lightcoral;">Number of
+                    Reservations:
+                    {{myReservations.length}}</strong> </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body1">
+                <table class="table table-hover">
+                  <col width="80px">
+                  <col width="80px">
+                  <col width="80px">
+                  <col width="100px">
+                  <col width="120px">
+                  <!-- <col width="10px"> -->
+
+                  <thead>
+                    <tr>
+                      <th scope="col">Renter</th>
+                      <th scope="col">From:</th>
+                      <th scope="col">To:</th>
+                      <th scope="col">Approved</th>
+                      <th scope="col">Completed</th>
+                      <th scope="col">Messages</th>
+
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let res of myReservations; let i = index">
+                      <td> {{res.userShopper.firstName | titlecase}} {{res.userShopper.lastName | titlecase}}</td>
+                      <td>{{res.openDate | date}}</td>
+                      <td>{{res.closeDate | date}}</td>
+                      <td>
+
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.createdAt}}"
+                          name="createdAt" [(ngModel)]="res.createdAt">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.openDate}}"
+                          name="openDate" [(ngModel)]="res.openDate">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.closeDate}}"
+                          name="closeDate" [(ngModel)]="res.closeDate">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.gearId}}"
+                          name="gearId" [(ngModel)]="res.gearId">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.completed}}"
+                          name="completed" [(ngModel)]="res.completed">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.userShopper}}"
+                          name="userShopper" [(ngModel)]="res.userShopper">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}"
+                          name="updatedAt" [(ngModel)]="res.updatedAt">
+                        <button class="btn btn-secondary" type="submit" (click)="onClickReservation(res)">
+                          {{res.approved?'Yes':'No'}}</button>
+
+                      </td>
+                      <td>
+                        <button class="btn btn-secondary" type="submit" (click)="onClickCompletedReservation(res)">
+                          {{res.completed?'Yes':'No'}}</button>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal"
+                          (click)="onClickMessage(res)">
+                          Message
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="float: left" class="modal-footer">
+                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messaging Modal -->
+      <form #userMsg="ngForm" ngNativeValidate id="registerForm" class="text-left">
+        <div class="modal fade" id="MessageModal"
+          style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Messages</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table>
+
+                  <tr class="" *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
+                    <td> {{msg.message}}</td>
+                  </tr>
+
+                </table>
+                <div class="form-group">
+                  <label for="message">Message:
+                    <textarea cols="40" rows="5" class="form-control" id="message" name="message" placeholder="message"
+                      ngModel required></textarea></label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-save" (click)="createMessage(userMsg)" data-dismiss="modal">Save
+                  changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form #userMsg2="ngForm" ngNativeValidate id="registerForm" class="text-left">
+        <div class="modal fade rentingModal" id="MessageModal2"
+          style="overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Messages {{loggedInUser.firstName}} </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table>
+                  <tr *ngFor="let msg of resMessages | resMsg: loggedInUser: msgRcver">
+
+                    <td> {{msg.message}}</td>
+                  </tr>
+                </table>
+                <div class="form-group">
+                  <label for="message">Message:
+                    <textarea cols="40" rows="5" class="form-control" id="message" name="message" placeholder="message"
+                      ngModel required></textarea></label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-save" (click)="createMessage(userMsg2)" data-dismiss="modal">Save
+                  changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+      <!-- MY GEAR I AM RENTING RESERVTION MODAL -->
+      <div class="modal fade modal-lg" id="userResModal" id="userResModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+          <div style="width: 800px" class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle"><strong style="color: lightcoral;">Number of
+                  Reservations:
+                  {{shopperReservations.length}}</strong> </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body1">
+              <table class="table table-hover">
+                <col width="80px">
+                <col width="80px">
+                <col width="80px">
+                <col width="100px">
+                <col width="120px">
+
+                <thead>
+                  <tr>
+                    <th scope="col">Lender</th>
+                    <th scope="col">From:</th>
+                    <th scope="col">To:</th>
+                    <th scope="col">Completed</th>
+                    <th scope="col">Review</th>
+                    <th scope="col">Messages</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let res of shopperReservations; let i = index">
+                    <td> {{res.gearId.user.firstName | titlecase}} {{res.gearId.user.lastName | titlecase}}</td>
+                    <td>{{res.openDate | date}}</td>
+                    <td>{{res.closeDate | date}}</td>
+                    <td>
+                      <div class="input-group mb-3">
+
+                        <!-- <form> -->
+                        <!-- <input class="form-control" type="text" aria-label="Search" name="approved"
+                            [(ngModel)]="selectedRes.approved"> -->
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.createdAt}}"
+                          name="createdAt" [(ngModel)]="res.createdAt">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.openDate}}"
+                          name="openDate" [(ngModel)]="res.openDate">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.closeDate}}"
+                          name="closeDate" [(ngModel)]="res.closeDate">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.gearId}}"
+                          name="gearId" [(ngModel)]="res.gearId">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.completed}}"
+                          name="completed" [(ngModel)]="res.completed">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.userShopper}}"
+                          name="userShopper" [(ngModel)]="res.userShopper">
+                        <input class="form-control" type="hidden" aria-label="Search" value="{{res.updatedAt}}"
+                          name="updatedAt" [(ngModel)]="res.updatedAt">
+
+                        <h4><span class="badge badge-light">{{res.completed?'Yes':'No'}}</span></h4>
+
+                      </div>
+                    </td>
+                    <td> <button type="button" class="btn btn-secondary" data-toggle="modal"
+                        data-target="#reviewLenderModal" (click)="onClickReviewGear(res)">
+                        Review
+                      </button></td>
+                    <td>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MessageModal2"
+                        (click)="onClickMessage(res)">
+                        Message
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="float: left" class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Review the lender Modal -->
+    <form #gearReview="ngForm" ngNativeValidate id="registerForm" class="text-left">
+      <div class="modal fade" id="reviewLenderModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Review the Lender</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <!-- <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="review" name="review" ngModel required style="width: 117px"
+                    id="inputGroup-sizing-default">Gear Review</span>
+                </div>
+                <input type="text" id="rating" name="rating" ngModel required min="1" max="5" class="form-control"
+                  [(ngModel)]="updatedGear.name">
+              </div> -->
+
+
+              <div class="form-group">
+                <label for="rating">Gear Rating (1 being the worst and 5 being the best):
+                  <input type="number" class="form-control" id="rating" name="rating" ngModel required min="1"
+                    max="5"></label>
+              </div>
+
+              <div class="form-group">
+                <label for="review">Gear Comment:
+                  <textarea cols="40" rows="5" class="form-control" id="review" name="review"
+                    placeholder="review of gear" ngModel required></textarea></label>
+              </div>
+
+              <div class="form-group">
+                <label for="rating">{{selectedRes.gearId.user.firstName | titlecase}}'s Rating
+                  <input type="number" class="form-control" id="lenderRating" name="lenderRating" ngModel required
+                    min="1" max="5"></label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-save" (click)="createGearReview(gearReview)"
+                data-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ARE YOU SURE YOU WANT TO DELETE THIS MODAL -->
+    <div class="modal fade" id="popupDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+
+          </div>
+          <div class="modal-body" id="popupGear">
+            <h5>Are you sure you want to delete this item?</h5>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" (click)="deleteGear()" class="btn btn-save" data-dismiss="modal">Delete
+                Item</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
