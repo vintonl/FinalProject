@@ -10,7 +10,7 @@ Built by:
 -   [Colt Looper](https://github.com/calooper)
 -   [Adam Onwan](https://github.com/AdamOnwan)
 -   [Jerry Rogers, Jr](https://github.com/jerryrogersjr)
--   [Brian Streetmen](https://github.com/Briman-Jag)
+-   [Brian Streetman](https://github.com/Briman-Jag)
 
 This was a two-week-long sprint use Agile Methodologies to exceed the minimum viable product for our final [assignment](https://github.com/calooper/FinalProject/blob/master/Assignment.md).
 
@@ -52,7 +52,7 @@ Admin Account:
 
 ### Technologies used:
 
-Java 1.8 / EE, Java Persistence API (JPA), REST API, Spring Boot, Spring Security, JUnit, Gradle, Hibernate, JSON, TypeScript, Angular, Visual Studio Code, HTML5, CSS, Bootstrap, Material, XML, MySQL Workbench, Postman, Apache Tomcat, Amazon Web Services (AWS), Atom, Git, GitHub, Trello, and Slack.
+Java 1.8 / EE, Java Persistence API (JPA), REST API, Spring Boot, Spring Security, JUnit, Gradle, Hibernate, JSON, TypeScript, Angular, Visual Studio Code, HTML5, CSS, Bootstrap, XML, MySQL Workbench, Postman, Apache Tomcat, Amazon Web Services (AWS), Atom, Git, GitHub, Trello, and Slack.
 
 ### Topics implemented:
 
