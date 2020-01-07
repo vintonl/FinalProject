@@ -288,10 +288,6 @@ export class GearListComponent implements OnInit {
 
   // GETS LOCATION OF EACH ITEM AND CALLS THE CALCULATE DISTANCE METHOD
   getLocation(item: Gear) {
-    // console.log('inside get location');
-    // this.lat = null;
-    // this.long = null;
-
     this.mapService.getAll(item).subscribe(
       goodRequest => {
         this.location = goodRequest;
@@ -302,13 +298,7 @@ export class GearListComponent implements OnInit {
         this.lat = item.lat;
         this.long = item.long;
       },
-      bad => {
-        // console.log(
-        //   'Error in Gear Comp - fetching map geocode from Map Service '
-        // );
-        // console.log(bad);
-      }
-    );
+      bad => { });
   }
 
   getUserLocation(add: Address) {
