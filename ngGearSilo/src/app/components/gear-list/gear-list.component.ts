@@ -92,9 +92,14 @@ export class GearListComponent implements OnInit {
   loadGear() {
     this.gearSrv.index().subscribe(
       aGoodThingHappened => {
-        // console.log('in a aGoodThingHappened Gear');
-        // console.log(aGoodThingHappened);
-        this.gearList = aGoodThingHappened;
+
+        aGoodThingHappened.forEach(gear => {
+          if (gear.active) {
+            this.gearList.push(gear);
+          }
+        }
+        );
+
         this.gearList.forEach(gear => {
           if (
             gear.user.imageUrl === null ||
@@ -283,10 +288,6 @@ export class GearListComponent implements OnInit {
 
   // GETS LOCATION OF EACH ITEM AND CALLS THE CALCULATE DISTANCE METHOD
   getLocation(item: Gear) {
-    // console.log('inside get location');
-    // this.lat = null;
-    // this.long = null;
-
     this.mapService.getAll(item).subscribe(
       goodRequest => {
         this.location = goodRequest;
@@ -297,13 +298,7 @@ export class GearListComponent implements OnInit {
         this.lat = item.lat;
         this.long = item.long;
       },
-      bad => {
-        // console.log(
-        //   'Error in Gear Comp - fetching map geocode from Map Service '
-        // );
-        // console.log(bad);
-      }
-    );
+      bad => { });
   }
 
   getUserLocation(add: Address) {
