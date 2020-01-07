@@ -90,6 +90,7 @@ export class GearListComponent implements OnInit {
   }
 
   loadGear() {
+    this.gearList = [];
     this.gearSrv.index().subscribe(
       aGoodThingHappened => {
 
@@ -130,7 +131,7 @@ export class GearListComponent implements OnInit {
               gear.user.userLenderRating = ratingAvg / count;
               // ***********************************
               // DO NOT DELETE
-              // this.getLocation(gear);
+              this.getLocation(gear);
               // *************************************
             },
             bad => {
@@ -155,7 +156,7 @@ export class GearListComponent implements OnInit {
     this.gearSrv.loadGearReviews().subscribe(
       goodRequest => {
         this.selectedGearReviews = goodRequest;
-        // this.getLocation(this.selected);
+        this.getLocation(this.selected);
       },
       bad => {
         // console.log(
@@ -329,7 +330,7 @@ export class GearListComponent implements OnInit {
           this.loggedInUser = yes;
           // ***************************
           // DO NOT DELETE BELOW
-          // this.getUserLocation(this.loggedInUser.address);
+          this.getUserLocation(this.loggedInUser.address);
           // **********************************
         },
         no => {
