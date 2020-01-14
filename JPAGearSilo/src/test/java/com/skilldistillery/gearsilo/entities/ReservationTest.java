@@ -58,7 +58,6 @@ class ReservationTest {
 
 	@Test
 	void test3() {
-		System.out.println(resv);
 		assertEquals(1, resv.getId());
 		assertEquals(true, resv.getCompleted());
 		assertEquals(true, resv.getApproved());

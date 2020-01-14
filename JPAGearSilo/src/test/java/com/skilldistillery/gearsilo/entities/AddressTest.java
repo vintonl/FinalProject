@@ -46,6 +46,7 @@ class AddressTest {
 	void test() {
 		assertEquals(1, address.getId());
 	}
+
 	@Test
 	@DisplayName("Address entity mapping to address")
 	void test1() {
@@ -81,7 +82,7 @@ class AddressTest {
 	void test6() {
 		assertEquals("USA", address.getCountry());
 	}
-	
+
 	@Test
 	@DisplayName("testing address entity mappings")
 	void test7() {
@@ -89,4 +90,10 @@ class AddressTest {
 		assertEquals("gear", address.getUser().getFirstName());
 	}
 
+	@Test
+	@DisplayName("test lat and long")
+	void test8() {
+		assertEquals(39.6087, address.getLatitude());
+		assertEquals(-104.90271, address.getLongitude());
+	}
 }

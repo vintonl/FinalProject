@@ -26,6 +26,8 @@ public class Address {
 	@Column(name = "postal_code")
 	private Integer postalCode;
 	private String country;
+	private Double latitude;
+	private Double longitude;
 
 	// C O N S T R U C T O R S
 	public Address(int id, String address, String address2, String city, String state, Integer postalCode,
@@ -109,6 +111,22 @@ public class Address {
 		this.country = country;
 	}
 
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -175,23 +193,9 @@ public class Address {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Address [id=");
-		builder.append(id);
-		builder.append(", address=");
-		builder.append(address);
-		builder.append(", address2=");
-		builder.append(address2);
-		builder.append(", city=");
-		builder.append(city);
-		builder.append(", state=");
-		builder.append(state);
-		builder.append(", postalCode=");
-		builder.append(postalCode);
-		builder.append(", country=");
-		builder.append(country);
-		builder.append("]");
-		return builder.toString();
+		return "Address [id=" + id + ", user=" + user + ", address=" + address + ", address2=" + address2 + ", city="
+				+ city + ", state=" + state + ", postalCode=" + postalCode + ", country=" + country + ", latitude="
+				+ latitude + ", longitude=" + longitude + "]";
 	}
 
 }
