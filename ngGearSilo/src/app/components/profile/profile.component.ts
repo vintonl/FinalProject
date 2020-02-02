@@ -86,6 +86,7 @@ export class ProfileComponent implements OnInit {
     private resService: ReservationService,
     // tslint:disable-next-line: align
     private reviewOfShopperSvc: ReviewOfShopperService,
+    // tslint:disable-next-line: align
     private reservationMsgSvc: ReservationMessageService) { }
 
 
@@ -321,6 +322,15 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUserAsUser(editedUser).subscribe(
       data => {
         this.selecteditem = null;
+
+        // // reload page once
+        if (!localStorage.getItem('foo')) {
+          localStorage.setItem('foo', 'no reload');
+          location.reload();
+        } else {
+          localStorage.removeItem('foo');
+        }
+
       },
       err => {
 

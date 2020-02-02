@@ -7,7 +7,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <br />
-<div class="contaner-fluid">
+<div class="container-fluid">
   <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
@@ -27,15 +27,15 @@
 
           <!-- SLIDER -->
           <div>
-            <div *ngIf="loggedInUser.enabled == true">
+            <!-- <div *ngIf="loggedInUser.enabled == true">
               <div class="distanceBar">
                 <label class="sliderLabel" placeholder="Distance">{{ searchDistance }} miles</label>
-                <!-- <input class="slider" style="margin-left: 200px; margin-top: 75px" [(ngModel)]="searchDistance" placeholder="Distance"
-                min={{min}} max={{max}} name="searchDistance" (change)="searchByDistance(); selected=null" type="range"> -->
+                <input class="slider" style="margin-left: 200px; margin-top: 75px" [(ngModel)]="searchDistance" placeholder="Distance"
+                min={{min}} max={{max}} name="searchDistance" (change)="searchByDistance(); selected=null" type="range">
                 <input type="range" min="0" max="200" step="5" name="searchDistance" [(ngModel)]="searchDistance"
                   (change)="searchByDistance(); selected = null" class="slider" id="myRange" />
               </div>
-            </div>
+            </div> -->
 
             <!-- RESET BUTTON -->
             <div>
@@ -48,7 +48,7 @@
           </div>
         </form>
 
-        <div style="margin-left: 245px;" class="nav-container" *ngIf="!selected">
+        <div style="margin-left: 5px;" class="nav-container" *ngIf="!selected">
           <ul class="nav nav-tabs">
             <li class="active">
               <button class="showHand hover btn-primary btn-warning" *ngFor="let category of categories"
@@ -153,9 +153,9 @@
 
 
         <div class="userDisplayName" *ngIf="!selected && hideSearchResult && loggedInUser.firstName !== undefined">
-        <div [routerLink]="['/users']" class="alert alert-dark" role="alert">
-          {{loggedInUser.firstName| titlecase}} {{loggedInUser.lastName | titlecase}}
-        </div>
+          <div [routerLink]="['/users']" class="alert alert-dark" role="alert">
+            {{loggedInUser.firstName| titlecase}} {{loggedInUser.lastName | titlecase}}
+          </div>
         </div>
 
 
@@ -174,12 +174,12 @@
                             {{ item.user.address.city }},
                             {{ item.user.address.state }}
                           </h5>
-                          <div *ngIf="loggedInUser.enabled == true">
-                            <h6 style="color: orange; margin-right: -5px">
-                              {{ item.distance | number: "1.1-1" }} Miles from
-                              you
-                            </h6>
-                          </div>
+                          <!-- <div *ngIf="loggedInUser.enabled == true">
+                                                      <h6 style="color: orange; margin-right: -5px">
+                                                        {{ item.distance | number: "1.1-1" }} Miles from
+                                                        you
+                                                      </h6>
+                                                    </div> -->
                           <hr />
                         </div>
                       </div>
@@ -301,8 +301,10 @@
                   <div class="col-md-8">
                     <div class="page-header">
                       <h1>
-                        <small *ngIf="selectedGearReviews && selectedGearReviews.length === 1" class="pull-right">{{ selectedGearReviews.length }} Review</small>
-                        <small *ngIf="selectedGearReviews && selectedGearReviews.length > 1" class="pull-right">{{ selectedGearReviews.length }} Reviews</small>
+                        <small *ngIf="selectedGearReviews && selectedGearReviews.length === 1"
+                          class="pull-right">{{ selectedGearReviews.length }} Review</small>
+                        <small *ngIf="selectedGearReviews && selectedGearReviews.length > 1"
+                          class="pull-right">{{ selectedGearReviews.length }} Reviews</small>
                         Comments
                       </h1>
                     </div>
